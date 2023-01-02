@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { SignAPI } from "../../api/axios";
 
-export const kakaoAuth = createAsyncThunk(
+export const __kakaoAuth = createAsyncThunk(
   "authSlice/kakaoAuth",
   async (key, thunkAPI) => {
     const response = await SignAPI.kakaoSign(key);
@@ -13,7 +13,7 @@ const authSlice = createSlice({
   initialState: { isLoggedIn: false },
   reducers: {},
   extraReducers: {
-    [kakaoAuth.fulfiled]: (state, { payload }) => {},
+    [__kakaoAuth.fulfiled]: (state, { payload }) => {},
   },
 });
 
