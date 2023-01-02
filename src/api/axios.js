@@ -3,10 +3,12 @@ import axios from "axios";
 const cookie = new Cookies();
 
 // API Layer
-
+export const SignAPI = {
+  kakaoSign: (key) => client.get(`/kakao?key=${key}`),
+};
 // INSTANCE
 export const client = axios.create({
-  baseURL: process.envv.REACT_APP_SERVER,
+  baseURL: process.env.REACT_APP_SERVER,
 });
 
 // INTERCEPTORS
