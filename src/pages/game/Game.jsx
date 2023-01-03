@@ -1,8 +1,9 @@
 import React from 'react'
+import Chat from './ele/Chat'
 
 const Game = () => {
   return (
-    <div>Game</div>
+    <div><Chat/></div>
   )
 }
 
