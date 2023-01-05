@@ -16,17 +16,27 @@ const Chat = () => { // {room}
   const addMyMessage=(msg)=>{
     const myMsg = {msg, mine:true, createdAt}
     setMsgList((prev) => [...prev, myMsg]);
+    setMsg('')
   }
 
   const sendMessage = (e) => {
     if(e.keyCode===13){
-      socket.emit("send_message", { msg, room }, addMyMessage);
+      nickName?
+      socket.emit("whisper", nickName, msg, addMyMessage):
+      socket.emit("send_message", { msg, room },addMyMessage);
     }
   };
+
   const sendMessageBtn = (e) => {
+    nickName?
+      socket.emit("whisper", nickName, msg, addMyMessage):
       socket.emit("send_message", { msg, room },addMyMessage);
   };
 
+  const setNickNameHandler = ()=>{
+    socket.emit("nickName", nickName)
+    setNickName('')
+  }
   useEffect(()=>{
     //  socket.emit("nickname", nickName) // 카카오 닉네임으로 소켓 설정하기
     socket.emit('join_room', room)
@@ -42,7 +52,7 @@ const Chat = () => { // {room}
   return (
     <StWrapper>
       <input value={nickName} onChange={(e)=>setNickName(e.target.value)}/>
-      <button onClick={()=>{ socket.emit("nickName", nickName)}}>닉네임 변경</button>
+      <button onClick={setNickNameHandler}>닉네임 설정</button>
       <StMsgContainer>
       {msgList?.map((el,i)=>{
         return <Message key={`comment${i}`}msg={el}/>
