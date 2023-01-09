@@ -3,11 +3,8 @@ import io from "socket.io-client";
 import Peer from "simple-peer";
 import styled from "styled-components";
 import Video from "./Video";
+import Candidate from "./Candidate";
 
-const videoConstraints = {
-  height: window.innerHeight / 2,
-  width: window.innerWidth / 2,
-};
 
 const VideoChat = (props) => {
   const [peers, setPeers] = useState([]);
@@ -15,14 +12,15 @@ const VideoChat = (props) => {
   const userVideo = useRef();
   const peersRef = useRef([]);
   const roomID = 3
+  const userID = 1
   
   useEffect(() => {
-    socketRef.current = io.connect("http://localhost:3001");
+    socketRef.current = io.connect(process.env.REACT_APP_SERVER);
     navigator.mediaDevices
-      .getUserMedia({ video: videoConstraints, audio: true })
+      .getUserMedia({ video: {  width:' 354.82px',height: '231.89px'}, audio: true })
       .then((stream) => {
         userVideo.current.srcObject = stream;
-        socketRef.current.emit("joinRtcRoom", roomID);
+        socketRef.current.emit("joinRtcRoom", roomID, userID);
         socketRef.current.on("all users", (users) => {
           const peers = [];
           users.forEach((userID) => {
@@ -88,27 +86,61 @@ const VideoChat = (props) => {
   }
 
   return (
-    <Container>
+    <StWrapper>
+      <StTop><StP>게임 대기방</StP></StTop>
+      <StContainer>
       <StyledVideo muted ref={userVideo} autoPlay playsInline />
       {peers.map((peer, index) => {
         return <Video key={index} peer={peer} />;
       })}
-    </Container>
+      </StContainer>
+      <Candidate/>
+    </StWrapper>
   );
 };
 
 export default VideoChat;
 
-const Container = styled.div`
-  padding: 20px;
+const StWrapper = styled.div`
+position: relative;
   display: flex;
-  height: 100vh;
-  width: 90%;
-  margin: auto;
+  width: 763px; 
+  height: 766px;
+  border: 1px solid #E0E0E0;
+  border-radius: 12px;
+  flex-direction: column;
   flex-wrap: wrap;
+  align-items: center;
+  gap : 20px;
 `;
 
+const StTop = styled.div`
+  display: flex;
+  width: 762px;
+  height: 40px;
+  background: #333333;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px 12px 0px 0px;
+`
+const StP = styled.div`
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+  color: #FFFFFF;
+`
+const StContainer =styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px;
+`
 const StyledVideo = styled.video`
-  height: 40%;
-  width: 50%;
+  object-fit: cover;
+  width: 354.82px;
+  height: 231.89px;
+  border-radius: 6px;
 `;

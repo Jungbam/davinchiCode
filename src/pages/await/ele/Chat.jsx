@@ -1,15 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react'
-import Peer from 'simple-peer';
 import io from 'socket.io-client'
 import styled from 'styled-components';
 import Message from './Message';
-import Video from './Video';
 
 const Chat = () => { // const {room} = useParams()
   const room =3
+  const userID = 1
   const [msg, setMsg] = useState('')
   const [msgList, setMsgList] = useState([])
-  const [nickName, setNickName] = useState('')
   const socket = useRef();
 
   const createdAt = new Date().toLocaleString()
@@ -22,26 +20,17 @@ const Chat = () => { // const {room} = useParams()
 
   const sendMessage = (e) => {
     if(e.keyCode===13){
-      nickName?
-      socket.current.emit("whisper", nickName, msg, addMyMessage):
       socket.current.emit("send_message", { msg, room },addMyMessage);
     }
   };
 
   const sendMessageBtn = (e) => {
-    nickName?
-      socket.current.emit("whisper", nickName, msg, addMyMessage):
       socket.current.emit("send_message", { msg, room },addMyMessage);
   };
 
-  const setNickNameHandler = ()=>{
-    socket.current.emit("nickName", nickName)
-    setNickName('')
-  }
   useEffect(()=>{
-    // 채팅
-    socket.current = io.connect("http://localhost:3001");
-    socket.current.emit('join_room', room)
+    socket.current = io.connect(process.env.REACT_APP_SERVER);
+    socket.current.emit('join_room', room, userID)
     //  socket.emit("nickname", nickName) // 카카오 닉네임으로 소켓 설정하기
 
     return () => {
@@ -58,16 +47,15 @@ const Chat = () => { // const {room} = useParams()
   return (
   
     <StWrapper>
-      <input value={nickName} onChange={(e)=>setNickName(e.target.value)}/>
-      <button onClick={setNickNameHandler}>닉네임 설정</button>
+      <StTop></StTop>
       <StMsgContainer>
       {msgList?.map((el,i)=>{
         return <Message key={`comment${i}`}msg={el}/>
       })}
       </StMsgContainer>
       <StBtnContainer>
-      <input type='text' value={msg} onChange={(e)=>setMsg(e.target.value)} placeholder='메시지를 입력하세요.' onKeyUp={sendMessage}/>
-      <button onClick={sendMessageBtn}>Enter</button>
+        <StInput type='text' value={msg} onChange={(e)=>setMsg(e.target.value)} placeholder='메시지를 입력하세요.' onKeyUp={sendMessage}/>
+        <StBtn onClick={sendMessageBtn}>Enter</StBtn>
       </StBtnContainer>
     </StWrapper>
   )
@@ -75,42 +63,55 @@ const Chat = () => { // const {room} = useParams()
 
 export default Chat
 
-const StRtcWrapper = styled.div`
-  padding: 20px;
-  display: flex;
-  height: 100vh;
-  width: 90%;
-  margin: auto;
-  flex-wrap: wrap;
-`;
-const StMyVideo = styled.video`
-  height: 40%;
-  width: 50%;
-`;
 const StWrapper = styled.div`
-display: flex;
-width: 40%   ;
-height: 600px;
-border-radius: 12px;
-box-shadow: 2px 2px 6px #333;
-padding: 5px;
-flex-direction: column;
-gap: 10px;
+  display: flex;
+  width: 320px;
+  height: 766px;
+  background: #F8F8F8;
+  border: 1px solid #E0E0E0;
+  border-radius: 10px;
+  flex-direction: column;
+`
+const StTop = styled.div`
+  width: 320px;
+  height: 40px;
+  background: #333333;
+  border-radius: 12px 12px 0px 0px;
 `
 const StMsgContainer = styled.div`
   display: flex;
   width: 100%;
-  height: 90%;
+  height: 85%;
   overflow: auto;
   background-color: white;
   border-radius: 6px;
   border: 1px solid #ccc;
   flex-direction: column;
   justify-content: flex-end;
-  padding:10px;
-  gap:10px
-`
+  gap:10px;
+  `
+
 const StBtnContainer = styled.div`
+  position: absolute;
   display: flex;
-  justify-content: flex-end;
+  width: 320px;
+  height: 69px;
+  bottom: 0;
+  background: #E1E1E1;
+  border-radius: 0px 0px 10px 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+`
+const StInput = styled.input`
+  width: 229px;
+  height: 32px;
+  background: #FBFBFB;
+  border-radius: 3px;
+`
+const StBtn = styled.button`
+  width: 56px;
+  height: 32px;
+  background: #B5B5B5;
+  border-radius: 3px;
 `

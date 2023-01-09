@@ -17,6 +17,8 @@ export default Video
 
 
 const StyledVideo = styled.video`
-  height: 40%;
-  width: 50%;
+  object-fit: cover;
+  width: 354.82px;
+  height: 231.89px;
+  border-radius: 6px;
 `;

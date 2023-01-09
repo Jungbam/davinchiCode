@@ -1,17 +1,20 @@
 import React from 'react'
 import Chat from './ele/Chat'
 import VideoChat from './ele/VideoChat'
-import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
 const AwaitPage = () => {
-  const navigate = useNavigate()
   return (
-    <div>
-      <li><button onClick={()=>navigate('/')}>홈</button></li>
+    <StWrapper>
       <VideoChat/>
       <Chat/>
-      </div>
+    </StWrapper>
   )
 }
 
 export default AwaitPage
+
+const StWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`
