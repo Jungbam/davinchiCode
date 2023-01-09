@@ -15,14 +15,14 @@ const VideoChat = (props) => {
   const userVideo = useRef();
   const peersRef = useRef([]);
   const roomID = 3
-
+  
   useEffect(() => {
-    socketRef.current = io.connect("/");
+    socketRef.current = io.connect("http://localhost:3001");
     navigator.mediaDevices
       .getUserMedia({ video: videoConstraints, audio: true })
       .then((stream) => {
         userVideo.current.srcObject = stream;
-        socketRef.current.emit("join room", roomID);
+        socketRef.current.emit("joinRtcRoom", roomID);
         socketRef.current.on("all users", (users) => {
           const peers = [];
           users.forEach((userID) => {

@@ -8,8 +8,9 @@ const AwaitPage = () => {
   return (
     <div>
       <li><button onClick={()=>navigate('/')}>홈</button></li>
-      {/* <VideoChat/> */}
-      <Chat/></div>
+      <VideoChat/>
+      <Chat/>
+      </div>
   )
 }
 
