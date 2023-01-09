@@ -1,18 +1,19 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import Peer from 'simple-peer';
 import io from 'socket.io-client'
 import styled from 'styled-components';
 import Message from './Message';
+import Video from './Video';
 
-const socket = io.connect("http://localhost:3001");
-
-const Chat = () => { // {room}
-  // room을 props로 받도록 설정
+const Chat = () => { // const {room} = useParams()
   const room =3
   const [msg, setMsg] = useState('')
   const [msgList, setMsgList] = useState([])
   const [nickName, setNickName] = useState('')
+  const socket = useRef();
+
   const createdAt = new Date().toLocaleString()
-  
+
   const addMyMessage=(msg)=>{
     const myMsg = {msg, mine:true, createdAt}
     setMsgList((prev) => [...prev, myMsg]);
@@ -22,34 +23,40 @@ const Chat = () => { // {room}
   const sendMessage = (e) => {
     if(e.keyCode===13){
       nickName?
-      socket.emit("whisper", nickName, msg, addMyMessage):
-      socket.emit("send_message", { msg, room },addMyMessage);
+      socket.current.emit("whisper", nickName, msg, addMyMessage):
+      socket.current.emit("send_message", { msg, room },addMyMessage);
     }
   };
 
   const sendMessageBtn = (e) => {
     nickName?
-      socket.emit("whisper", nickName, msg, addMyMessage):
-      socket.emit("send_message", { msg, room },addMyMessage);
+      socket.current.emit("whisper", nickName, msg, addMyMessage):
+      socket.current.emit("send_message", { msg, room },addMyMessage);
   };
 
   const setNickNameHandler = ()=>{
-    socket.emit("nickName", nickName)
+    socket.current.emit("nickName", nickName)
     setNickName('')
   }
   useEffect(()=>{
+    // 채팅
+    socket.current = io.connect("http://localhost:3001");
+    socket.current.emit('join_room', room)
     //  socket.emit("nickname", nickName) // 카카오 닉네임으로 소켓 설정하기
-    socket.emit('join_room', room)
-    return ()=>{socket.disconnect()}
+
+    return () => {
+      socket.current.disconnect();
+    };
   }, [])
 
   useEffect(()=>{
-    socket.on('receive_message', (msg)=> {
+    socket.current.on('receive_message', (msg)=> {
       const myMsg = {msg, mine:false, createdAt}
       setMsgList(prev=>[...prev, myMsg])})
   },[socket])
 
   return (
+  
     <StWrapper>
       <input value={nickName} onChange={(e)=>setNickName(e.target.value)}/>
       <button onClick={setNickNameHandler}>닉네임 설정</button>
@@ -68,6 +75,18 @@ const Chat = () => { // {room}
 
 export default Chat
 
+const StRtcWrapper = styled.div`
+  padding: 20px;
+  display: flex;
+  height: 100vh;
+  width: 90%;
+  margin: auto;
+  flex-wrap: wrap;
+`;
+const StMyVideo = styled.video`
+  height: 40%;
+  width: 50%;
+`;
 const StWrapper = styled.div`
 display: flex;
 width: 40%   ;
