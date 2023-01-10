@@ -10,7 +10,8 @@ const Intro = () => {
     setModal(prev=>!prev)
   }
 
-  return (<StWrapper>
+  return (
+  <StWrapper>
     <Modal modal={modal} closeModal={setModalHandler}><GameInfo/></Modal>
     <StContainer>
       <StBox>
