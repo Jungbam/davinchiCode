@@ -26,8 +26,8 @@ const Candidate = () => {
       <StCandidateContainer>
         <div>
         <StCandidateBox>
-          {users?.map(user=>{
-            return (<StCandidate>
+          {users?.map((user,i)=>{
+            return (<StCandidate key={`candidatte${i}`}>
               <StNick>{user.nickname}</StNick>
               <div>
                 <StReady>{user.ready?'준비완료':''}</StReady>
