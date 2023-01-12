@@ -1,8 +1,9 @@
 import React from 'react'
+import GameStart from './logic/GameStart'
 
 const Game = () => {
   return (
-    <div>Game</div>
+    <div><GameStart></GameStart></div>
   )
 }
 
