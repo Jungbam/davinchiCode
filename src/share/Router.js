@@ -1,8 +1,21 @@
 import React from "react";
-// prettier-ignore
-import {BrowserRouter, Navigate, Outlet, Route, Routes,} from "react-router-dom";
-// prettier-ignore
-import {AwaitPage, ErrorPage, Game, Intro, KakaoSign, Loading, Lobby,} from "../pages/IndexPage";
+import {
+  BrowserRouter,
+  Navigate,
+  Outlet,
+  Route,
+  Routes,
+} from "react-router-dom";
+import {
+  AwaitPage,
+  ErrorPage,
+  Game,
+  Intro,
+  KakaoSign,
+  Loading,
+  Lobby,
+} from "../pages/IndexPage";
+import SetUserInfo from "../pages/intro/kakao/SetUserInfo";
 
 // Protected Route 구현
 // const ProtectedRoute = ({ user, redirectPath = "/" }) => {
@@ -20,6 +33,7 @@ const Router = () => {
         <Route path="/" element={<Intro />} />
         {/* <Route element={<ProtectedRoute user={user} />}> */}
         <Route path="/kakao" element={<KakaoSign />} />
+        <Route path="/profile" element={<SetUserInfo />} />
         <Route path="/lobby" element={<Lobby />} />
         <Route path="/await" element={<AwaitPage />} />
         <Route path="/game" element={<Game />} />
