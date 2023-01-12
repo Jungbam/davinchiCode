@@ -23,7 +23,6 @@ const KakaoSign = () => {
       const code = location.search.split("=")[1];
       dispatch(__kakaoAuth(code));
     }
-
   };
 
   useEffect(() => {
