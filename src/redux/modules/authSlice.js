@@ -4,30 +4,51 @@ import { SignAPI } from "../../api/axios";
 export const __kakaoAuth = createAsyncThunk(
   "authSlice/kakaoAuth",
   async (code, thunkAPI) => {
-    const res = await SignAPI.kakaoSign(code);
-    if (res.status === 200) thunkAPI.fulfillWithValue(res.data);
+    try {
+      const res = await SignAPI.kakaoSign(code);
+      const status = res.status;
+      return thunkAPI.fulfillWithValue(status);
+    } catch (error) {
+      thunkAPI.rejectWithValue(error);
+    }
   }
 );
 export const __myInfo = createAsyncThunk(
   "authSlice/__myInfo",
   async (payload, thunkAPI) => {
-    const res = await SignAPI.myinfo();
-    if (res.status === 200) thunkAPI.fulfillWithValue(res.data);
+    try {
+      const res = await SignAPI.myinfo();
+      thunkAPI.fulfillWithValue({ ...res });
+    } catch (error) {
+      thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+export const __updateInfo = createAsyncThunk(
+  "authSlice/__updateInfo",
+  async (formData, thunkAPI) => {
+    try {
+      await SignAPI.updateinfo(formData);
+      return thunkAPI.dispatch(__myInfo());
+    } catch (error) {
+      thunkAPI.rejectWithValue(error);
+    }
   }
 );
 const initialState = {
   myInfo: {},
   isLoggedIn: false,
+  status: 0,
 };
 const authSlice = createSlice({
   name: "authSlice",
   initialState,
   reducers: {},
   extraReducers: {
-    [__kakaoAuth.fulfilled]: (state, { payload }) => {},
-    [__myInfo.fulfilled]: (state, { payload }) => {
-      state.myInfo = payload;
+    [__kakaoAuth.fulfilled]: (state, { payload }) => {
+      state.status = payload;
     },
+    [__myInfo.fulfilled]: (state, { payload }) => {},
   },
 });
 

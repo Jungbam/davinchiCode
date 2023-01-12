@@ -1,48 +1,63 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import profile from '../../../assets/images/profile.png'
+import { __myInfo, __updateInfo } from '../../../redux/modules/authSlice';
 
 const SetUserInfo = () => { 
-  const [profileImg, setProfileImg] = useState({});
+  const [profileImg, setProfileImg] = useState('')
   const [nickName, setNickName] = useState('');
+  const [newNick, setNewNick] = useState('');
   const dispatch = useDispatch()
   const {myInfo} = useSelector(state=>state)
-  console.log(myInfo)
 
-  const changeImgHandler = (e) => {
+  const onUpdateHandler = (e) => {
+    const formData = new FormData()
     const imgSrc = e.target.files[0];
-    setProfileImg(imgSrc);
+    if(imgSrc) setProfileImg(imgSrc)
+    formData.append('username',nickName);
+    formData.append('image',profileImg);
+
+    dispatch(__updateInfo(formData))
   };
-  const setInit = async()=>{
-    const res = new Promise(dispatch())
-  }
+
   useEffect(()=>{
-    setInit()
+    dispatch(__myInfo())
   }, [])
+
+  useEffect(()=>{
+    setNickName(myInfo?.userName)
+    setProfileImg(myInfo?.profileImageUrl)
+  },[myInfo])
+
   return (
     <StWrapper>
       <StContainer>
         <StTitle>프로필 설정</StTitle>
         <StExplain>이름과 사진을 변경해 보세요.</StExplain>
       </StContainer>
-      <StContainerForm>
+      <StContainerForm onSubmit={onUpdateHandler}>
         <StProileBox>
          <StProfile>
           </StProfile>
           <StImgLabel htmlFor="profileImg">프로필 이미지 추가</StImgLabel>
+          <img src={profileImg||profile} alt='profile'/>
           <StImgInput
             id="profileImg"
             accept="image/*"
             name="profileImg"
             type="file"
-            onChange={changeImgHandler}
+            value={profileImg}
+            onChange={onUpdateHandler}
             /> 
         </StProileBox>
-      <StUserInfoBox>
-        <label>설정 이름</label>
-        <input type='text' value ={''} readOnly/>
-      </StUserInfoBox>
+        <StUserInfoBox>
+          <label>설정 이름</label>
+          <input type='text' value = {nickName} disabled readOnly/>
+          <input type='text' value = {newNick} onChange={(e)=>setNewNick(e.target.value)}/>
+          <button type='submit'>완료</button>
+          <button type='submit'>다음에 변경하기</button>
+        </StUserInfoBox>
       </StContainerForm>
     </StWrapper>
   )

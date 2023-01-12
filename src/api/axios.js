@@ -10,6 +10,7 @@ export const client = axios.create({
 export const SignAPI = {
   kakaoSign: (code) => client.get(`/main/auth/kakao?code=${code}`),
   myinfo: () => client.get(`/main/users/me`),
+  updateinfo: (formData) => client.put(`/main/users`, formData),
 };
 
 client.interceptors.request.use(
@@ -27,7 +28,7 @@ client.interceptors.request.use(
 client.interceptors.response.use(
   function (response) {
     if (response.data.accessToken) {
-      cookie.set("accessToken", response.data.token, { path: "/" });
+      cookie.set("accessToken", response.data.accessToken, { path: "/" });
     }
     return response;
   },

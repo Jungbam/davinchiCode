@@ -20,6 +20,7 @@ function App() {
   useEffect(() => {
     if (cookie.get("token")) dispatch();
   }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
