@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components';
 import Modal from '../../components/form/modal/Modal';
 import GameInfo from './kakao/ele/GameInfo';
-export const KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_ID}&redirect_uri=http://localhost:3000/kakao&response_type=code`;
+export const KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_ID}&redirect_uri=${process.env.REACT_APP_REDIRECT}&response_type=code`;
 const Intro = () => {
   const [modal, setModal] = useState(false)
 
