@@ -11,7 +11,7 @@ export const SignAPI = {
       `/main/auth/kakao?code=${code}&redirect-uri=${process.env.REACT_APP_REDIRECT}`
     ),
   myinfo: () => client.get(`/main/users/me`),
-  updateinfo: (formData) => client.put(`/main/users`, formData),
+  updateinfo: (formData) => client.put(`/main/users/me`, formData),
 };
 
 client.interceptors.response.use(

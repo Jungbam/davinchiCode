@@ -25,10 +25,17 @@ const SetUserInfo = () => {
       navigate('/')
     }
   })
-  const updateInfoHandler = useMutation((formData)=>SignAPI.updateinfo(formData),{
-    onSuccess : ()=>{
+  const {mutate} = useMutation((formData)=>SignAPI.updateinfo(formData),
+  {
+    onSuccess : (res)=>{
       queryClient.invalidateQueries(queryKeys.MYINFO)
-    }
+      alert('프로필 수정 완료')
+      navigate('/lobby')
+    },
+    onError : (error)=>{
+      alert('프로필 수정이 정상적으로 되지 않았습니다. 우측 상단 배너에서 프로필을 다시한번 설정해주세요.')
+      navigate('/lobby')
+    },
   })
   
 
@@ -44,9 +51,11 @@ const SetUserInfo = () => {
   };
 
   const onSubmitHandler = (e)=>{
-    e.preventDefatult()
+    e.preventDefault()
     const formData = new FormData()
-    updateInfoHandler(formData)
+    formData.append('username', newNick)
+    formData.append('image', newProfileImg)
+    mutate(formData)
   }
 
   if(isLoading)<p>...loading</p>
@@ -57,10 +66,9 @@ const SetUserInfo = () => {
         <StTitle>프로필 설정</StTitle>
         <StExplain>이름과 사진을 변경해 보세요.</StExplain>
       </StContainer>
-      <StContainerForm>
+      <StContainerForm onSubmit={onSubmitHandler}>
         <StProfileBox>
           <StImgLabel htmlFor="profileImg">프로필 이미지 추가</StImgLabel>
-          {/* <img src={profileImg||profile} alt='profile'/> */}
           <StProfileImgDiv>
             <StProfileImg
               alt="profile"
@@ -85,7 +93,7 @@ const SetUserInfo = () => {
           <input type='text' value = {nickName||''} disabled readOnly/>
           <input type='text' value = {newNick||''} onChange={(e)=>setNewNick(e.target.value)}/>
           <button type='submit'>완료</button>
-          <button type='submit'>다음에 변경하기</button>
+          <button type='cancel' onClick={()=>navigate('/lobby')}>다음에 변경하기</button>
         </StUserInfoBox>
       </StContainerForm>
     </StWrapper>
