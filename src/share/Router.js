@@ -1,18 +1,36 @@
+import { QueryClient } from "@tanstack/react-query";
 import React from "react";
-// prettier-ignore
-import {BrowserRouter, Navigate, Outlet, Route, Routes,} from "react-router-dom";
-// prettier-ignore
-import {AwaitPage, ErrorPage, Game, Intro, KakaoSign, Loading, Lobby,} from "../pages/IndexPage";
+import {
+  BrowserRouter,
+  Navigate,
+  Outlet,
+  Route,
+  Routes,
+} from "react-router-dom";
+import { queryKeys } from "../helpers/queryKeys";
+import {
+  AwaitPage,
+  ErrorPage,
+  Game,
+  Intro,
+  KakaoSign,
+  Loading,
+  Lobby,
+} from "../pages/IndexPage";
+import SetUserInfo from "../pages/intro/kakao/SetUserInfo";
 
 // Protected Route 구현
-// const ProtectedRoute = ({ user, redirectPath = "/" }) => {
-//   if (!user) {
-//     return <Navigate to={redirectPath} replace />;
-//   }
-//   return <Outlet />;
-// };
+const ProtectedRoute = ({ user, redirectPath = "/" }) => {
+  if (!user) {
+    return <Navigate to={redirectPath} replace />;
+  }
+  return <Outlet />;
+};
 
 const Router = () => {
+  const queryClient = new QueryClient();
+  // const user = queryClient.getQueryData(queryKeys.USER);
+
   return (
     <BrowserRouter>
       <Routes>
@@ -20,6 +38,7 @@ const Router = () => {
         <Route path="/" element={<Intro />} />
         {/* <Route element={<ProtectedRoute user={user} />}> */}
         <Route path="/kakao" element={<KakaoSign />} />
+        <Route path="/profile" element={<SetUserInfo />} />
         <Route path="/lobby" element={<Lobby />} />
         <Route path="/await" element={<AwaitPage />} />
         <Route path="/game" element={<Game />} />

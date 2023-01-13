@@ -10,7 +10,6 @@ const ComplaintBug = () => {
   const [sending, setSending] = useState(null)
 
   const onChangeHandler = (e)=>{
-    console.log(e.target)
     const {name, value}= e.target;
     setInput({...input, [name]:value})
   }

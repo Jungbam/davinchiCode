@@ -31,6 +31,7 @@ const Chat = () => { // const {room} = useParams()
   useEffect(()=>{
     socket.current = io.connect(process.env.REACT_APP_SERVER);
     socket.current.emit('join_room', room, userID)
+    socket.current.emit("redisTest", 'hi', '예성님 안녕');
     //  socket.emit("nickname", nickName) // 카카오 닉네임으로 소켓 설정하기
 
     return () => {
