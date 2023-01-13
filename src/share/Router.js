@@ -1,3 +1,4 @@
+import { QueryClient } from "@tanstack/react-query";
 import React from "react";
 import {
   BrowserRouter,
@@ -6,6 +7,7 @@ import {
   Route,
   Routes,
 } from "react-router-dom";
+import { queryKeys } from "../helpers/queryKeys";
 import {
   AwaitPage,
   ErrorPage,
@@ -18,14 +20,17 @@ import {
 import SetUserInfo from "../pages/intro/kakao/SetUserInfo";
 
 // Protected Route 구현
-// const ProtectedRoute = ({ user, redirectPath = "/" }) => {
-//   if (!user) {
-//     return <Navigate to={redirectPath} replace />;
-//   }
-//   return <Outlet />;
-// };
+const ProtectedRoute = ({ user, redirectPath = "/" }) => {
+  if (!user) {
+    return <Navigate to={redirectPath} replace />;
+  }
+  return <Outlet />;
+};
 
 const Router = () => {
+  const queryClient = new QueryClient();
+  // const user = queryClient.getQueryData(queryKeys.USER);
+
   return (
     <BrowserRouter>
       <Routes>

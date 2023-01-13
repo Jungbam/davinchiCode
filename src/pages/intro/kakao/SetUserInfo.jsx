@@ -1,60 +1,89 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import React, { useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+import { SignAPI } from '../../../api/axios';
+import { queryKeys } from '../../../helpers/queryKeys';
 import styled from 'styled-components';
-import profile from '../../../assets/images/profile.png'
-import { __myInfo, __updateInfo } from '../../../redux/modules/authSlice';
 
 const SetUserInfo = () => { 
-  const [profileImg, setProfileImg] = useState('')
-  const [nickName, setNickName] = useState('');
-  const [newNick, setNewNick] = useState('');
-  const dispatch = useDispatch()
-  const {myInfo} = useSelector(state=>state)
+  const [profileImg, setProfileImg] = useState(null)
+  const [newProfileImg, setNewProfileImg] = useState(null)
+  const [nickName, setNickName] = useState(null);
+  const [newNick, setNewNick] = useState(null);
+  
+  const imgRef = useRef();
+  const navigate = useNavigate()
+  const queryClient = useQueryClient()
+  
+  const {error, isLoading} = useQuery([queryKeys.MYINFO],SignAPI.myinfo,{staleTime:6000, cacheTime:60*60*1000,
+    onSuccess:(res)=>{
+      setNickName(res?.data?.username)
+      setProfileImg(res?.data?.profileImageUrl)
+    },
+    onError:(error)=>{
+      alert(error.message)
+      navigate('/')
+    }
+  })
+  const updateInfoHandler = useMutation((formData)=>SignAPI.updateinfo(formData),{
+    onSuccess : ()=>{
+      queryClient.invalidateQueries(queryKeys.MYINFO)
+    }
+  })
+  
 
-  const onUpdateHandler = (e) => {
-    const formData = new FormData()
+  const onChangeImgHandler = (e) => {
     const imgSrc = e.target.files[0];
-    if(imgSrc) setProfileImg(imgSrc)
-    formData.append('username',nickName);
-    formData.append('image',profileImg);
-
-    dispatch(__updateInfo(formData))
+    const file = imgRef.current.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setNewProfileImg(reader.result);
+    };
+    if(imgSrc) setNewProfileImg(imgSrc)
   };
 
-  useEffect(()=>{
-    dispatch(__myInfo())
-  }, [])
+  const onSubmitHandler = (e)=>{
+    e.preventDefatult()
+    const formData = new FormData()
+    updateInfoHandler(formData)
+  }
 
-  useEffect(()=>{
-    setNickName(myInfo?.userName)
-    setProfileImg(myInfo?.profileImageUrl)
-  },[myInfo])
-
+  if(isLoading)<p>...loading</p>
+  if(error)<p>error</p>
   return (
     <StWrapper>
       <StContainer>
         <StTitle>프로필 설정</StTitle>
         <StExplain>이름과 사진을 변경해 보세요.</StExplain>
       </StContainer>
-      <StContainerForm onSubmit={onUpdateHandler}>
-        <StProileBox>
-         <StProfile>
-          </StProfile>
+      <StContainerForm>
+        <StProfileBox>
           <StImgLabel htmlFor="profileImg">프로필 이미지 추가</StImgLabel>
-          <img src={profileImg||profile} alt='profile'/>
+          {/* <img src={profileImg||profile} alt='profile'/> */}
+          <StProfileImgDiv>
+            <StProfileImg
+              alt="profile"
+              src={newProfileImg ? newProfileImg : profileImg}
+              width="32px"
+              height="32px"
+              border-radius="50%"
+              object-fit="cover"
+            />
           <StImgInput
             id="profileImg"
+            ref={imgRef}
             accept="image/*"
             name="profileImg"
             type="file"
-            value={profileImg}
-            onChange={onUpdateHandler}
+            onChange={onChangeImgHandler}
             /> 
-        </StProileBox>
+            </StProfileImgDiv>
+        </StProfileBox>
         <StUserInfoBox>
           <label>설정 이름</label>
-          <input type='text' value = {nickName} disabled readOnly/>
-          <input type='text' value = {newNick} onChange={(e)=>setNewNick(e.target.value)}/>
+          <input type='text' value = {nickName||''} disabled readOnly/>
+          <input type='text' value = {newNick||''} onChange={(e)=>setNewNick(e.target.value)}/>
           <button type='submit'>완료</button>
           <button type='submit'>다음에 변경하기</button>
         </StUserInfoBox>
@@ -80,18 +109,25 @@ const StContainerForm = styled.form`
   width: 270px;
   height: 100px;
 `
-const StProileBox = styled.div`
+const StProfileBox = styled.div`
   
+`
+const StProfileImgDiv = styled.div`
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  overflow: hidden;
+`;
+const StProfileImg = styled.img`
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  object-fit: cover;
 `
 const StTitle = styled.p`
   font-weight: 700;
   font-size: 32px;
   line-height: 38px;
-`
-const StProfile = styled.div`
-  width: 60px;
-  height: 60px;
-  border-radius: 30px;
 `
 const StImgInput = styled.input`
   display: none;

@@ -1,38 +1,38 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { __kakaoAuth } from "../../../redux/modules/authSlice";
+import { SignAPI } from "../../../api/axios";
+import { queryKeys } from "../../../helpers/queryKeys";
 
 const { Kakao } = window;
 Kakao.init(process.env.REACT_APP_KAKAO_ID);
 
 const KakaoSign = () => {
-  const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-  const {status} = useSelector(state=>state)
 
-  const sendAuth = async () => {
-    const error = location.search.includes("error")
-    if(error) {
-      alert('로그인을 하셔야 게임 이용이 가능합니다.')
-      navigate('/')
-      return
-    }else{
-      const code = location.search.split("=")[1];
-      dispatch(__kakaoAuth(code));
+  const code = location.search.split("=")[1];
+  const loginError = location.search.includes("error")
+  
+  const kakaoLoginFn = async()=>{
+    const res = await SignAPI.kakaoSign(code)
+    switch(res.status){
+      case 200 : 
+        navigate('/profile')
+        break
+      default : 
+        navigate('/')
+        break
     }
-  };
-
-  useEffect(() => {
-    sendAuth();
-  }, []);
+  }
 
   useEffect(()=>{
-    if(status===201) {navigate('/profile'); return}
-    if(status===200) {navigate('/'); return}
-  },[status])
+    kakaoLoginFn()
+  },[])
+
+  if(loginError) {
+      alert('로그인을 하셔야 게임 이용이 가능합니다.'); 
+      return navigate('/'); 
+    }
 
   return <div>로그인 중...</div>;
 };
