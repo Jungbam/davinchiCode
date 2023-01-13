@@ -25,8 +25,9 @@ const Intro = () => {
       </StBox>
       <StBtnBox>
         <button onClick={setModalHandler}>게임 설명보기</button>
-      <a href={KAKAO_URL}>
-        <button>카카오 로그인</button></a>
+        <a href={KAKAO_URL}>
+          <button>카카오 로그인</button>
+        </a>
       </StBtnBox>
       </StContainer>
   </StWrapper>
