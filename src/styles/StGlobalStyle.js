@@ -15,7 +15,7 @@ const StGlobalStyle = createGlobalStyle`
   }
 
   body {
-    background-color: whitesmoke;
+    background-image: url('/images/background.png');
   }
 
   button {

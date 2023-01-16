@@ -1,11 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
-import io from 'socket.io-client'
 import styled from 'styled-components';
+import { SocketId } from '../../../helpers/socketId';
 import Message from './Message';
 
-const Chat = () => { // const {room} = useParams()
-  const room =3
-  const userID = 1
+const Chat = ({roomid}) => { // const {room} = useParams()
   const [msg, setMsg] = useState('')
   const [msgList, setMsgList] = useState([])
   const socket = useRef();
@@ -20,19 +18,16 @@ const Chat = () => { // const {room} = useParams()
 
   const sendMessage = (e) => {
     if(e.keyCode===13){
-      socket.current.emit("send_message", { msg, room },addMyMessage);
+      socket.current.emit("send_message", { msg, roomid },addMyMessage);
     }
   };
 
   const sendMessageBtn = (e) => {
-      socket.current.emit("send_message", { msg, room },addMyMessage);
+      socket.current.emit("send_message", { msg, roomid },addMyMessage);
   };
 
   useEffect(()=>{
-    socket.current = io.connect(process.env.REACT_APP_SERVER);
-    socket.current.emit('join_room', room, userID)
-    socket.current.emit("redisTest", 'hi', '예성님 안녕');
-    //  socket.emit("nickname", nickName) // 카카오 닉네임으로 소켓 설정하기
+    socket.current = SocketId.wait
 
     return () => {
       socket.current.disconnect();
