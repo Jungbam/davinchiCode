@@ -38,14 +38,17 @@
 // };
 
 import React, { useState } from "react";
-import { useQuery } from "react-query";
 import styled from "styled-components";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import LockOrUnLock from "./RoomLock";
 import mockData from "./MockDataRoom";
 
 const RoomContents = (props) => {
   const [roomId, setRoomId, error] = useState(1);
-  const { data: rooms, status } = useQuery("rooms", async () => mockData.rooms);
+  const { data: rooms, status } = useQuery(
+    ["rooms"],
+    async () => mockData.rooms
+  );
 
   return (
     <StRoomContentWrapper>
