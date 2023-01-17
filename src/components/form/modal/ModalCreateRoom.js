@@ -2,17 +2,59 @@ import React from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
 import DropdownPlayerCount from "../../common/elements/DropDownPlayerCount";
+import axios from "axios";
+import { useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { client } from "../../../api/axios";
 
 const ModalCreateRoom = ({ children, modal, closeModal }) => {
-  // 얘는
-  /*
-  Modal 사용법
-  <Modal /> 컴포넌트를 사용할 때 props를 반드시 내려주세요
-  props :: chidren(안에 넣을 애들), modal(이게 있어야 display가 none이 아닙니다 closeModal = 닫기 함수입니다)
-  끗
-  */
-
   const styles = { modal };
+  const queryClient = useQueryClient();
+  // State to store the form data
+  const [roomName, setRoomName] = useState("");
+  const [maxMembers, setMaxMembers] = useState(0);
+  const [password, setPassword] = useState("");
+
+  // Mutation function to send the POST request
+  const { mutate: createRoom } = useMutation(
+    async () => {
+      const { data } = await client.post([""], {
+        roomName,
+        maxMembers,
+        password,
+      });
+    },
+    {
+      onSuccess: (data) => {
+        queryClient.invalidateQueries(["/main/rooms"]);
+        alert("최신화 완료");
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    }
+  );
+
+  // Handle the form input changes
+  const handleRoomNameChange = (e) => {
+    setRoomName(e.target.value);
+  };
+  const handleMaxMembersChange = (e) => {
+    setMaxMembers(e.target.value);
+  };
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  // Handle the form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // Send the POST request with the form data
+    await createRoom();
+    // Close the modal
+    closeModal();
+  };
+
   return (
     <>
       {ReactDOM.createPortal(
@@ -22,35 +64,44 @@ const ModalCreateRoom = ({ children, modal, closeModal }) => {
             <StTopHeader>
               <h3>방만들기</h3>
             </StTopHeader>
-
             <StRoomName>
               <h4>방 제목</h4>
-              <StRoomNameInput type="text"></StRoomNameInput>
+              <StRoomNameInput
+                type="text"
+                onChange={handleRoomNameChange}
+              ></StRoomNameInput>
             </StRoomName>
-
             <StChangePlayerNumb>
               <StPlayerCount>인원설정</StPlayerCount>
-              <DropdownPlayerCount />
+              <DropdownPlayerCount onChange={handleMaxMembersChange} />
             </StChangePlayerNumb>
-
             <StSetPrivacy>
               <h4>공개설정</h4>
               <StCheckBoxes>
                 <div>
-                  <input type="checkbox" id="standby" />
+                  <input
+                    type="checkbox"
+                    id="standby"
+                    onChange={handlePasswordChange}
+                  />
                   <label htmlFor="standby"> 공개</label>
                 </div>
                 <div>
-                  <input type="checkbox" id="standby" />
+                  <input
+                    type="checkbox"
+                    id="inGame"
+                    onChange={handlePasswordChange}
+                  />
                   <label htmlFor="standby"> 비공개</label>
                 </div>
               </StCheckBoxes>
               <StInputPassword type="text"></StInputPassword>
             </StSetPrivacy>
-
             <StBtnRoom>
-              <button>취소</button>
-              <button>완료</button>
+              <button {...styles} onClick={closeModal}>
+                취소
+              </button>
+              <button onClick={handleSubmit}>완료</button>
             </StBtnRoom>
           </StModal>
           <StBackDrop {...styles} onClick={closeModal}></StBackDrop>
