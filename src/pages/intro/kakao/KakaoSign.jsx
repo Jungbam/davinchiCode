@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { SignAPI } from "../../../api/axios";
-import { queryKeys } from "../../../helpers/queryKeys";
+import { login } from "../../../redux/modules/signSlice";
 
 const { Kakao } = window;
 Kakao.init(process.env.REACT_APP_KAKAO_ID);
@@ -9,6 +10,7 @@ Kakao.init(process.env.REACT_APP_KAKAO_ID);
 const KakaoSign = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const dipatch = useDispatch()
 
   const code = location.search.split("=")[1];
   const loginError = location.search.includes("error")
@@ -17,7 +19,12 @@ const KakaoSign = () => {
     const res = await SignAPI.kakaoSign(code)
     switch(res.status){
       case 200 : 
+        navigate('/lobby')
+        dipatch(login())
+        break
+      case 201 : 
         navigate('/profile')
+        dipatch(login())
         break
       default : 
         navigate('/')
