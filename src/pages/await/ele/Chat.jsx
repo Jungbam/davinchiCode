@@ -1,12 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components';
-import { SocketId } from '../../../helpers/socketId';
-import Message from './Message';
+import { socket } from '../../../helpers/socket';
+import Message from '../../await/ele/Message';
 
 const Chat = ({roomid}) => { // const {room} = useParams()
   const [msg, setMsg] = useState('')
   const [msgList, setMsgList] = useState([])
-  const socket = useRef();
 
   const createdAt = new Date().toLocaleString()
 
@@ -15,27 +14,23 @@ const Chat = ({roomid}) => { // const {room} = useParams()
     setMsgList((prev) => [...prev, myMsg]);
     setMsg('')
   }
-
   const sendMessage = (e) => {
     if(e.keyCode===13){
-      socket.current.emit("send_message", { msg, roomid },addMyMessage);
+      socket.emit("send_message", { msg, roomid },addMyMessage);
     }
   };
-
   const sendMessageBtn = (e) => {
-      socket.current.emit("send_message", { msg, roomid },addMyMessage);
+      socket.emit("send_message", { msg, roomid },addMyMessage);
   };
 
   useEffect(()=>{
-    socket.current = SocketId.wait
-
     return () => {
-      socket.current.disconnect();
+      socket.disconnect();
     };
   }, [])
 
   useEffect(()=>{
-    socket.current.on('receive_message', (msg)=> {
+    socket.on('receive_message', (msg)=> {
       const myMsg = {msg, mine:false, createdAt}
       setMsgList(prev=>[...prev, myMsg])})
   },[socket])

@@ -16,10 +16,9 @@ import iconTimer from "../../assets/icons/ico_timer.svg";
 import iconSend from "../../assets/icons/ico_send.svg";
 import backBlack from "../../assets/icons/inGame/back_black.png";
 import backWhite from "../../assets/icons/inGame/back_white.png";
-import { SocketId } from "../../helpers/socketId";
+import { socket } from "../../helpers/socket";
 
 // const socket = io.connect("http://localhost:3002/");
-const socket = SocketId.game;
 
 const Game = () => {
   const [roomId, setRoomInput] = useState("");
@@ -27,6 +26,7 @@ const Game = () => {
   const [myTurn, setMyTurn] = useState(false);
   const [mode, setMode] = useState("lobby");
   // const [centerMode, setCenterMode] = useState("");
+  
 
   const createdAt = new Date().toLocaleString();
   const users = [1, 2, 3];

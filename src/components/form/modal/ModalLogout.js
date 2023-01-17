@@ -1,17 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { logout } from "../../../redux/modules/signSlice";
 
 const ModalLogout = ({ children, modal, closeModal }) => {
-  // 얘는
-  /*
-  Modal 사용법
-  <Modal /> 컴포넌트를 사용할 때 props를 반드시 내려주세요
-  props :: chidren(안에 넣을 애들), modal(이게 있어야 display가 none이 아닙니다 closeModal = 닫기 함수입니다)
-  끗
-  */
-
+  const dispatch = useDispatch();
   const styles = { modal };
+
+  const logoutHandler = () => {
+    dispatch(logout());
+    closeModal();
+  };
   return (
     <>
       {ReactDOM.createPortal(
@@ -22,8 +22,8 @@ const ModalLogout = ({ children, modal, closeModal }) => {
               <h3>로그아웃 하시겠습니까?</h3>
             </StLogoutTop>
             <StLogoutBot>
-              <button>취소</button>
-              <button>확인</button>
+              <button onClick={closeModal}>취소</button>
+              <button onClick={logoutHandler}>확인</button>
             </StLogoutBot>
           </StModal>
           <StBackDrop {...styles} onClick={closeModal}></StBackDrop>
