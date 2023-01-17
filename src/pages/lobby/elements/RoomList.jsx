@@ -4,6 +4,7 @@ import Dropdown from "../../../components/common/elements/DropDown";
 import RoomContents from "./roomListDetail/RoomContents";
 import { useState } from "react";
 import ModalCreateRoom from "../../../components/form/modal/ModalCreateRoom";
+import QuickStart from "./roomListDetail/RoomQuickStart";
 
 const RoomList = () => {
   const [showCreateRoom, setShowCreateRoom] = useState(false);
@@ -42,7 +43,7 @@ const RoomList = () => {
             }}
           ></ModalCreateRoom>
         )}
-        <StInstantStart>바로시작</StInstantStart>
+        <QuickStart>바로시작</QuickStart>
       </StBotButtons>
     </StRoomWrapper>
   );
@@ -130,13 +131,6 @@ const StCreateRoomBtn = styled.button`
   border: 1px solid #222222;
   border-radius: 6px;
   opacity: 0.4;
-`;
-const StInstantStart = styled.button`
-  width: 130px;
-  height: 44px;
-  border-radius: 6px;
-  background: #222222;
-  color: white;
 `;
 
 export default RoomList;

@@ -1,54 +1,21 @@
-// import React, { useState } from "react";
-// import { useQuery } from "react-query";
-// import styled from "styled-components";
-// import LockOrUnLock from "./RoomLock";
-
-// const RoomContents = (props) => {
-//   const [roomId, setRoomId] = useState(1);
-//   const {
-//     data: roomData,
-//     status,
-//     error,
-//   } = useQuery(["roomData", roomId], async () => {
-//     const response = await axios.get(`https://your-api-url/rooms/${roomId}`);
-//     const data = await response.json();
-//     return data;
-//   });
-
-//   return (
-//     <StRoomContentWrapper>
-//       {status === "loading" && <div>Loading...</div>}
-//       {status === "error" && <div>Error: {error.message}</div>}
-//       {status === "success" && (
-//         <StRoomMain>
-//           <LockOrUnLock locked={roomData.isPrivate} />
-//           <StNumbParticipants>
-//             {roomData.currentMembers}/{roomData.maxMembers}
-//           </StNumbParticipants>
-//           <StWaitingOrNot>
-//             {roomData.isWaiting ? "대기" : "준비"}
-//           </StWaitingOrNot>
-//           <StRoomNumber>{roomData.roomId}</StRoomNumber>
-//           <StRoomName>{roomData.roomName}</StRoomName>
-//           <StEnterGame>입장</StEnterGame>
-//         </StRoomMain>
-//       )}
-//     </StRoomContentWrapper>
-//   );
-// };
-
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import LockOrUnLock from "./RoomLock";
 import mockData from "./MockDataRoom";
+import { useNavigate } from "react-router-dom";
 
 const RoomContents = (props) => {
+  const navigate = useNavigate();
   const [roomId, setRoomId, error] = useState(1);
   const { data: rooms, status } = useQuery(
     ["rooms"],
     async () => mockData.rooms
   );
+
+  const handleEnterRoom = (roomId) => {
+    navigate(`/rooms/${roomId}`);
+  };
 
   return (
     <StRoomContentWrapper>
@@ -68,7 +35,7 @@ const RoomContents = (props) => {
               </StParticipants>
               <StQueue>
                 <StWaitingOrNot>
-                  {room.isWaiting ? "대기" : "준비"}
+                  {room.isWaiting ? "대기" : "게임중"}
                 </StWaitingOrNot>
               </StQueue>
               <StNumber>
@@ -78,7 +45,9 @@ const RoomContents = (props) => {
                 <StRoomName>{room.roomName}</StRoomName>
               </StName>
               <StBtnEnter>
-                <StEnterGame>입장</StEnterGame>
+                <StEnterGame onClick={() => handleEnterRoom(room.roomId)}>
+                  입장
+                </StEnterGame>
               </StBtnEnter>
             </StRoomMain>
           ))}
@@ -106,12 +75,54 @@ const StRoomMain = styled.div`
   background: #ffffff;
 `;
 
-const StLock = styled.div``;
-const StParticipants = styled.div``;
-const StQueue = styled.div``;
-const StNumber = styled.div``;
-const StName = styled.div``;
-const StBtnEnter = styled.div``;
+const StLock = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  width: 50px;
+  height: 44px;
+`;
+const StParticipants = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  width: 30px;
+  height: 44px;
+`;
+const StQueue = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  width: 80px;
+  height: 44px;
+`;
+const StNumber = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  width: 50px;
+  height: 44px;
+`;
+const StName = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  width: 380px;
+  height: 44px;
+`;
+const StBtnEnter = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  width: 60px;
+  height: 44px;
+`;
 
 //그다음할것
 const StNumbParticipants = styled.span``;
