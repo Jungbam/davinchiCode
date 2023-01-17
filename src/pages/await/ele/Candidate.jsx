@@ -1,27 +1,18 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import VideoControler from '../../../components/common/elements/VideoControler'
+import { getTier } from '../../../helpers/getTiers'
 const users =[
   {nickname : '유저1', ready : true, tier : 'gold'},
   {nickname : '유저2', ready : true, tier : 'bronze'},
   {nickname : '유저3', ready : false, tier : 'silver'},
   {nickname : '유저4', ready : true, tier : 'gold'},
 ]
-const Candidate = () => {
-  const getTier = (tier)=>{
-    switch (tier) {
-      case 'diamond':  
-        return <img alt='diamond'/>
-      case 'gold':  
-        return <img alt='gold'/>
-      case 'silver':  
-        return <img alt='silver'/>
-      case 'bronze':  
-        return <img alt='bronze'/>
-      default:
-        break;
-    }
-  }
+const Candidate = ({roomid}) => {
+
+  const navigate = useNavigate()
+
   return (
       <StCandidateContainer>
         <div>
@@ -38,7 +29,7 @@ const Candidate = () => {
         </StCandidateBox>
         </div>
         <StBtnBox>
-          <StButton>준비하기</StButton>
+          <StButton onClick={()=>navigate(`/game/${roomid}`)}>준비하기</StButton>
           <StButton>방나가기</StButton>
           <VideoControler/>
         </StBtnBox>
