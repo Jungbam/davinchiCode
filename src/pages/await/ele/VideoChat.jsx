@@ -6,7 +6,6 @@ import Video from "./Video";
 import Candidate from "./Candidate";
 import useVideo from "../../../hooks/useVideo";
 
-
 const VideoChat = ({roomid}) => {
   const peers = useVideo({mode :'wait',roomID : roomid});
   const userVideo = useRef();

@@ -1,26 +1,23 @@
 import React, { useEffect, useRef, useState } from "react";
 import Peer from "simple-peer";
-import { SocketId } from "../helpers/socketId";
+import { socket } from "../helpers/socket";
 
-const useVideo = (info) => {
+const useVideo = ({ roomID }) => {
   const [peers, setPeers] = useState([]);
-  const socketRef = useRef();
   const peersRef = useRef([]);
-  const roomID = info.roomID;
 
   useEffect(() => {
-    socketRef.current = SocketId[info.mode];
     navigator.mediaDevices
       .getUserMedia({
         video: { width: " 354.82px", height: "231.89px" },
         audio: true,
       })
       .then((stream) => {
-        socketRef.current.emit("joinRtcRoom", roomID);
-        socketRef.current.on("all users", (users) => {
+        socket.emit("joinRtcRoom", roomID);
+        socket.on("all users", (users) => {
           const peers = [];
           users.forEach((userID) => {
-            const peer = createPeer(userID, socketRef.current.id, stream);
+            const peer = createPeer(userID, socket.id, stream);
             peersRef.current.push({
               peerID: userID,
               peer,
@@ -30,7 +27,7 @@ const useVideo = (info) => {
           setPeers(peers);
         });
 
-        socketRef.current.on("user joined", (payload) => {
+        socket.on("user joined", (payload) => {
           const peer = addPeer(payload.signal, payload.callerID, stream);
           peersRef.current.push({
             peerID: payload.callerID,
@@ -40,12 +37,12 @@ const useVideo = (info) => {
           setPeers((users) => [...users, peer]);
         });
 
-        socketRef.current.on("receiving returned signal", (payload) => {
+        socket.on("receiving returned signal", (payload) => {
           const item = peersRef.current.find((p) => p.peerID === payload.id);
           item.peer.signal(payload.signal);
         });
       });
-    socketRef.current.on("delete-user", (outUser) => {
+    socket.on("delete-user", (outUser) => {
       setPeers((prev) => {
         const result = prev.filter((p) => {
           const deletePeer = peersRef.current.find((p) => p.peerID === outUser);
@@ -55,7 +52,7 @@ const useVideo = (info) => {
       });
     });
     return () => {
-      socketRef.current.emit("disconnect-signal");
+      socket.emit("disconnect-signal");
     };
   }, []);
 
@@ -67,7 +64,7 @@ const useVideo = (info) => {
     });
 
     peer.on("signal", (signal) => {
-      socketRef.current.emit("sending signal", {
+      socket.emit("sending signal", {
         userToSignal,
         callerID,
         signal,
@@ -85,7 +82,7 @@ const useVideo = (info) => {
     });
 
     peer.on("signal", (signal) => {
-      socketRef.current.emit("returning signal", { signal, callerID });
+      socket.emit("returning signal", { signal, callerID });
     });
     peer.signal(incomingSignal);
     return peer;

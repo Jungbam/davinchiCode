@@ -25,7 +25,7 @@ const SetUserInfo = () => {
       navigate('/')
     }
   })
-  const {mutate} = useMutation((formData)=>SignAPI.updateinfo(formData),
+  const {mutate} = useMutation((formData)=>SignAPI.updateInfo(formData),
   {
     onSuccess : (res)=>{
       queryClient.invalidateQueries(queryKeys.MYINFO)
