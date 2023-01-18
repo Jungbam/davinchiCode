@@ -2,63 +2,57 @@ import React, { useEffect, useRef, useState } from "react";
 import Peer from "simple-peer";
 import { socket } from "../helpers/socket";
 
-const useVideo = ({ socket, roomID }) => {
+const useVideo = ({ roomID }) => {
   const [peers, setPeers] = useState([]);
   const peersRef = useRef([]);
 
   useEffect(() => {
-    if (socket?.current) {
-      navigator.mediaDevices
-        .getUserMedia({
-          video: { width: " 354.82px", height: "231.89px" },
-          audio: true,
-        })
-        .then((stream) => {
-          socket.current.emit("join", roomID);
-          socket.current.on("all users", (users) => {
-            console.log(users);
-            const peers = [];
-            users.forEach((userID) => {
-              const peer = createPeer(userID, socket.current.id, stream);
-              peersRef.current.push({
-                peerID: userID,
-                peer,
-              });
-              peers.push(peer);
-            });
-            setPeers(peers);
-          });
-
-          socket.current.on("user joined", (payload) => {
-            const peer = addPeer(payload.signal, payload.callerID, stream);
+    navigator.mediaDevices
+      .getUserMedia({
+        video: { width: " 354.82px", height: "231.89px" },
+        audio: true,
+      })
+      .then((stream) => {
+        socket.emit("joinRtcRoom", roomID);
+        socket.on("all users", (users) => {
+          const peers = [];
+          users.forEach((userID) => {
+            const peer = createPeer(userID, socket.id, stream);
             peersRef.current.push({
-              peerID: payload.callerID,
+              peerID: userID,
               peer,
             });
-
-            setPeers((users) => [...users, peer]);
+            peers.push(peer);
           });
-
-          socket.current.on("receiving returned signal", (payload) => {
-            const item = peersRef.current.find((p) => p.peerID === payload.id);
-            item.peer.signal(payload.signal);
-          });
+          setPeers(peers);
         });
-      socket.current.on("delete-user", (outUser) => {
-        setPeers((prev) => {
-          const result = prev.filter((p) => {
-            const deletePeer = peersRef.current.find(
-              (p) => p.peerID === outUser
-            );
-            return p._id !== deletePeer.peer._id;
+
+        socket.on("user joined", (payload) => {
+          const peer = addPeer(payload.signal, payload.callerID, stream);
+          peersRef.current.push({
+            peerID: payload.callerID,
+            peer,
           });
-          return result;
+          setPeers((users) => [...users, peer]);
+        });
+
+        socket.on("receiving returned signal", (payload) => {
+          const item = peersRef.current.find((p) => p.peerID === payload.id);
+          item.peer.signal(payload.signal);
         });
       });
-      return () => {
-        socket.current.emit("disconnect-signal");
-      };
-    }
+    socket.on("delete-user", (outUser) => {
+      setPeers((prev) => {
+        const result = prev.filter((p) => {
+          const deletePeer = peersRef.current.find((p) => p.peerID === outUser);
+          return p._id !== deletePeer.peer._id;
+        });
+        return result;
+      });
+    });
+    return () => {
+      socket.emit("disconnect-signal");
+    };
   }, []);
 
   function createPeer(userToSignal, callerID, stream) {
@@ -69,13 +63,12 @@ const useVideo = ({ socket, roomID }) => {
     });
 
     peer.on("signal", (signal) => {
-      socket.current.emit("sending signal", {
+      socket.emit("sending signal", {
         userToSignal,
         callerID,
         signal,
       });
     });
-
     return peer;
   }
 
@@ -85,9 +78,8 @@ const useVideo = ({ socket, roomID }) => {
       trickle: false,
       stream,
     });
-
     peer.on("signal", (signal) => {
-      socket.current.emit("returning signal", { signal, callerID });
+      socket.emit("returning signal", { signal, callerID });
     });
     peer.signal(incomingSignal);
     return peer;

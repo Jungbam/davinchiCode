@@ -2,43 +2,128 @@ import styled from "styled-components";
 import Header from "../../components/common/elements/Header";
 import UsersBox from "./ele/UsersBox";
 import CenterBox from "./ele/CenterBox";
-import background from "../../assets/images/background.png";
+import Peer from "simple-peer";
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import { ICON } from "../Icons";
-import myUserBackground from "../../assets/images/myUserBackground.png";
-import userProfile from "../../assets/images/user_profile.png";
 import Chat from "./ele/chat/Chat";
 import { io } from "socket.io-client";
 import { eventName } from "../../helpers/eventName";
+import background from "../../assets/images/background.png";
+import myUserBackground from "../../assets/images/myUserBackground.png";
+import otherUserBackground from "../../assets/images/otherUserBackground.png";
+import Video from "./ele/chat/Video";
 
 const Game = () => {
   const {roomID} = useParams()
+  const [peers, setPeers] = useState([]);
+  const peersRef = useRef([]);
   const userVideo = useRef();
-  const socket = useRef()
-  const [init, setInit] = useState(false)
-  
+  const socketRef = useRef();
 
   useEffect(() => {
-    socket.current= io.connect(process.env.REACT_APP_SERVER);
-    // socket.current.on(eventName.READY_TO_JOIN,()=>{
-    socket.current.emit(eventName.JOIN, roomID)
+    socketRef.current = io.connect(process.env.REACT_APP_SERVER);
     navigator.mediaDevices
-      .getUserMedia({ video: {  width:' 354.82px',height: '231.89px'}, audio: true }).then((stream) => {
+      .getUserMedia({ video: {  width:' 354.82px',height: '231.89px'}, audio: true })
+      .then((stream) => {
         userVideo.current.srcObject = stream;
-        setInit(true)
+        socketRef.current.emit("joined", roomID);
+        socketRef.current.on("all users", (users) => {
+          const peers = [];
+          users.forEach((userID) => {
+            const peer = createPeer(userID, socketRef.current.id, stream);
+            peersRef.current.push({
+              peerID: userID,
+              peer,
+            });
+            peers.push(peer);
+          });
+          setPeers(peers);
         });
-        
-    // })
-      }, []);
 
+        socketRef.current.on("user joined", (payload) => {
+          const peer = addPeer(payload.signal, payload.callerID, stream);
+          peersRef.current.push({
+            peerID: payload.callerID,
+            peer,
+          });
+          setPeers((users) => [...users, peer]);
+        });
+
+        socketRef.current.on("receiving returned signal", (payload) => {
+          const item = peersRef.current.find((p) => p.peerID === payload.id);
+          item.peer.signal(payload.signal);
+        });
+      });
+  }, []);
+
+  function createPeer(userToSignal, callerID, stream) {
+    const peer = new Peer({
+      initiator: true,
+      trickle: false,
+      stream,
+    });
+    peer.on("signal", (signal) => {
+      socketRef.current.emit("sending signal", {
+        userToSignal,
+        callerID,
+        signal,
+      });
+    });
+    return peer;
+  }
+
+  function addPeer(incomingSignal, callerID, stream) {
+    const peer = new Peer({
+      initiator: false,
+      trickle: false,
+      stream,
+    });
+    peer.on("signal", (signal) => {
+      socketRef.current.emit("returning signal", { signal, callerID });
+    });
+    peer.signal(incomingSignal);
+    return peer;
+  }
   return (
     <>
       <Header />
       <StWrapper>
         <StContainer>
-          <UsersBox roomID={roomID} socket={socket} />
-          <CenterBox />
+              <StPeerWrapper>
+        {peers[0]?
+          <StOtherUsers>
+            <StUserInfo>
+              <Video key={0} peer={peers[0]} />
+              <SelectBtn> 지목 </SelectBtn>
+            </StUserInfo>
+            <StCardArea>
+            </StCardArea>
+          </StOtherUsers>
+          :
+          <UsersBox></UsersBox>}
+           {peers[1]?
+          <StOtherUsers>
+            <StUserInfo>
+              <Video key={1} peer={peers[1]} />
+              <SelectBtn> 지목 </SelectBtn>
+            </StUserInfo>
+            <StCardArea>
+            </StCardArea>
+          </StOtherUsers>:
+          <UsersBox></UsersBox>}
+           {peers[2]?
+          <StOtherUsers>
+            <StUserInfo>
+              <Video key={2} peer={peers[2]} />
+              <SelectBtn> 지목 </SelectBtn>
+            </StUserInfo>
+            <StCardArea>
+            </StCardArea>
+          </StOtherUsers>:
+          <UsersBox></UsersBox>}
+              </StPeerWrapper>
+          <CenterBox  roomID={roomID} socket={socketRef} />
           <StMyBoxWrapper>
             <StMyBoxContainer>
               <StyledVideo muted ref={userVideo} autoPlay playsInline />
@@ -50,7 +135,7 @@ const Game = () => {
                 <img src={ICON.iconSetting} alt="icon" />
               </StBtnList>
             </StMyBoxContainer>
-            <Chat roomID={roomID} socket={socket} />
+            <Chat roomID={roomID} socket={socketRef} />
           </StMyBoxWrapper>
         </StContainer>
       </StWrapper >
@@ -60,20 +145,68 @@ const Game = () => {
 
 export default Game;
 
-const StyledVideo = styled.video`
-  object-fit: cover;
-  width: 200px;
-  height: 112px;
-  border-radius: 4px;
-`;
 
 const StWrapper = styled.div`
   background-image: url(${background});
   background-size: cover;
   height: 100vh;
   background-color: #2b2b2b;
+  `;
+  const StyledVideo = styled.video`
+    object-fit: cover;
+    width: 200px;
+    height: 112px;
+    border-radius: 4px;
+  `;
+const StPeerWrapper = styled.div`
+  margin-top: 20px;
+  width: 100%;
+  height: 200px;
+  display: flex;
+  justify-content: space-between;
 `;
-
+const StOtherUsers = styled.div`
+  width: 356px;
+  height: 100%;
+  background-image: url(${otherUserBackground});
+  padding: 16px;
+  border-radius: 6px;
+  border: solid 1px #111;
+  background-color: #eee;
+`;
+const StUserInfo = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`;
+const SelectBtn = styled.button`
+  width: 93px;
+  height: 32px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+  box-shadow: 0 3px 0 0 #616161;
+  border: solid 1px #616161;
+  background-color: #ddd;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: center;
+  color: #616161;
+`;
+const StCardArea = styled.div`
+  width: 100%;
+  height: 32px;
+  gap: 2px;
+  display: flex;
+  margin: 20px 7px;
+`;
 const StContainer = styled.div`
   width: 1080px;
   margin: 0 auto;
@@ -101,10 +234,6 @@ const StMyBoxContainer = styled.div`
   background-color: #eee;
 `;
 
-const StMyBoxBox = styled.div`
-  display: flex;
-`;
-
 const StBtnList = styled.div`
   width: 200px;
   height: 36px;
@@ -121,76 +250,5 @@ const StBtnList = styled.div`
   }
   & img {
     cursor: pointer;
-  }
-`;
-
-const StCardList = styled.div`
-  height: 48px;
-  gap: 3.5px;
-  display: flex;
-  margin-top: 24px;
-  margin-left: 14px;
-`;
-
-const StCamera = styled.div`
-  width: 200px;
-  height: 112px;
-  border-radius: 4px;
-
-  padding: 6px;
-  font-size: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  background-image: url(${userProfile});
-`;
-
-const StSpaceBetween = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const StCameraStatus = styled.div`
-  gap: 10px;
-  width: 40px;
-  & img {
-    height: 16px;
-    margin-right: 3px;
-  }
-`;
-
-const StGameStatus = styled.div`
-  width: 46px;
-  height: 20px;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 5px 10px;
-  border-radius: 4px;
-  background-color: #ffdf24;
-
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1;
-  letter-spacing: normal;
-  color: #000;
-`;
-
-const StUserName = styled.div`
-  width: 64px;
-  height: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  color: #fff;
-  padding: 5px 10px;
-  border-radius: 999px;
-  background-color: rgba(0, 0, 0, 0.7);
-  & div {
-    display: block;
   }
 `;

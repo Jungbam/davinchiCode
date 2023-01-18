@@ -11,4 +11,5 @@ export const eventName = {
   RTC_ANSWER: "rtc-answer",
   RTC_DELIVER_ANSWER: "rtc-deliver-answer",
   RTC_DISCONNECT: "new-disconnect",
+  GAME_START: "game-start",
 };

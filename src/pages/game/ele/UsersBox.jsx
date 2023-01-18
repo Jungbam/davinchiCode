@@ -4,11 +4,9 @@ import userProfile from "../../../assets/images/user_profile.png";
 import styled from "styled-components";
 
 const UsersBox = () => {
-  const users = [1, 2, 3];
   return (
     <StWrapper>
-      {users.map((el, i) => (
-        <StOtherUsers key={`OtherUsers${i}`}>
+        <StOtherUsers>
           <StUserInfo>
             <StCamera>
               <StSpaceBetween>
@@ -19,21 +17,14 @@ const UsersBox = () => {
                 {/* <GameStatus>진행중</GameStatus> */}
               </StSpaceBetween>
               <StUserName>
-                <div>다빈치고수</div>
+                <div>빈 자리</div>
               </StUserName>
             </StCamera>
-            <SelectBtn>지목하기</SelectBtn>
+            <SelectBtn> ... </SelectBtn>
           </StUserInfo>
           <StCardArea>
-            <StCard src={ICON.blackBack} alt="card" />
-            <StCard src={ICON.blackBack} alt="card" />
-            <StCard src={ICON.whiteBack} alt="card" />
-            <StCard src={ICON.whiteBack} alt="card" />
-            <StCard src={ICON.blackBack} alt="card" />
-            <StCard src={ICON.whiteBack} alt="card" />
           </StCardArea>
         </StOtherUsers>
-      ))}
     </StWrapper>
   );
 };
@@ -90,25 +81,6 @@ const StCameraStatus = styled.div`
     height: 16px;
     margin-right: 3px;
   }
-`;
-
-const GameStatus = styled.div`
-  width: 46px;
-  height: 20px;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 5px 10px;
-  border-radius: 4px;
-  background-color: #ffdf24;
-
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1;
-  letter-spacing: normal;
-  color: #000;
 `;
 
 const StUserName = styled.div`

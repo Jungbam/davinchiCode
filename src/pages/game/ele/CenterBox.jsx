@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import IntroTile from "../logic/IntroTile";
 import { ICON } from "../../Icons";
 
-const CenterBox = () => {
+const CenterBox = ({socket, roomID}) => {
+
+  useEffect(()=>{
+    if(socket.current){
+     }
+  },[socket.current])
+  
   return (
     <StWrapper>
       <StGameField>
