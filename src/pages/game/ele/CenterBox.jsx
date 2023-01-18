@@ -1,22 +1,30 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import IntroTile from "../logic/IntroTile";
 import { ICON } from "../../Icons";
+import Ready from "../logic/Ready";
+import { eventName } from "../../../helpers/eventName";
 
 const CenterBox = ({socket, roomID}) => {
-
-  useEffect(()=>{
-    if(socket.current){
-     }
-  },[socket.current])
+  const [gameView, setGameView] = useState(<Ready readyHandler={readyHandler}/>)
   
+  function readyHandler(){
+    socket.current.emit(eventName.READY,{roomID : roomID,userID:123})
+    socket.current.on(eventName.GAME_START, ()=>{
+    setGameView(<IntroTile selectTile={selectTile}/>)
+    })
+  };
+  function selectTile(black){
+    socket.current.emit(eventName.FIRST_DRAW,{ userId:123, black, roomId:roomID },()=>{
+    })
+  }
   return (
     <StWrapper>
       <StGameField>
         <StOnGoingStatus>
           정말정말긴이름인데너무함님이 상대 지목을 진행 중입니다.
         </StOnGoingStatus>
-        <IntroTile />
+        {gameView}
       </StGameField>
       <StTimer>
         <img src={ICON.iconTimer} alt="icon" />
