@@ -7,7 +7,15 @@ import ModalCreateRoom from "../../../components/form/modal/ModalCreateRoom";
 import QuickStart from "./roomListDetail/RoomQuickStart";
 
 const RoomList = () => {
+  const [isWaiting, setIsWaiting] = useState(false);
+  const [isPrivate, setIsPrivate] = useState(false);
   const [showCreateRoom, setShowCreateRoom] = useState(false);
+
+  const handleCheckboxChange = (isWaiting, isPrivate) => {
+    setIsWaiting(isWaiting);
+    setIsPrivate(isPrivate);
+  };
+
   return (
     <StRoomWrapper>
       <StRoomHeader>
@@ -16,11 +24,22 @@ const RoomList = () => {
       <StRoomFunc>
         <StFuncFront>
           <StOpenRoom>
-            <input type="checkbox" id="standby" />
+            <input
+              type="checkbox"
+              id="standby"
+              checked={isWaiting}
+              onChange={() => setIsWaiting(!isWaiting)}
+            />
             <label htmlFor="standby"> 대기</label>
           </StOpenRoom>
+
           <StPrivateRoom>
-            <input type="checkbox" id="privacyControl" />
+            <input
+              type="checkbox"
+              id="privacyControl"
+              checked={isPrivate}
+              onChange={() => setIsPrivate(!isPrivate)}
+            />
             <label htmlFor="privacyControl"> 비공개</label>
           </StPrivateRoom>
         </StFuncFront>
@@ -30,7 +49,11 @@ const RoomList = () => {
           <StRefreshBtn type="submit">새로고침</StRefreshBtn>
         </StFuncBack>
       </StRoomFunc>
-      <RoomContents></RoomContents>
+      <RoomContents
+        handleCheckboxChange={handleCheckboxChange}
+        isWaiting={isWaiting}
+        isPrivate={isPrivate}
+      />
       <StBotButtons>
         <StCreateRoomBtn onClick={() => setShowCreateRoom(true)}>
           방 만들기

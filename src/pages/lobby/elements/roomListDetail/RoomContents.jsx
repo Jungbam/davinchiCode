@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import LockOrUnLock from "./RoomLock";
@@ -7,6 +7,14 @@ import { useNavigate } from "react-router-dom";
 
 const RoomContents = (props) => {
   const navigate = useNavigate();
+
+  const [isWaiting, setIsWaiting] = useState(props.isWaiting);
+  const [isPrivate, setIsPrivate] = useState(props.isPrivate);
+
+  useEffect(() => {
+    props.handleCheckboxChange(isWaiting, isPrivate);
+  }, [isWaiting, isPrivate]);
+
   const [roomId, setRoomId, error] = useState(1);
   const { data: rooms, status } = useQuery(
     ["rooms"],
@@ -23,34 +31,39 @@ const RoomContents = (props) => {
       {status === "error" && <div>Error: {error.message}</div>}
       {status === "success" && (
         <>
-          {rooms.map((room) => (
-            <StRoomMain key={room.roomId}>
-              <StLock>
-                <LockOrUnLock locked={room.isPrivate} />
-              </StLock>
-              <StParticipants>
-                <StNumbParticipants>
-                  {room.currentMembers}/{room.maxMembers}
-                </StNumbParticipants>
-              </StParticipants>
-              <StQueue>
-                <StWaitingOrNot>
-                  {room.isWaiting ? "대기" : "게임중"}
-                </StWaitingOrNot>
-              </StQueue>
-              <StNumber>
-                <StRoomNumber>{room.roomId}</StRoomNumber>
-              </StNumber>
-              <StName>
-                <StRoomName>{room.roomName}</StRoomName>
-              </StName>
-              <StBtnEnter>
-                <StEnterGame onClick={() => handleEnterRoom(room.roomId)}>
-                  입장
-                </StEnterGame>
-              </StBtnEnter>
-            </StRoomMain>
-          ))}
+          {rooms
+            .filter(
+              (room) =>
+                (!isWaiting || room.isWaiting) && (!isPrivate || room.isPrivate)
+            )
+            .map((room) => (
+              <StRoomMain key={room.roomId}>
+                <StLock>
+                  <LockOrUnLock locked={room.isPrivate} />
+                </StLock>
+                <StParticipants>
+                  <StNumbParticipants>
+                    {room.currentMembers}/{room.maxMembers}
+                  </StNumbParticipants>
+                </StParticipants>
+                <StQueue>
+                  <StWaitingOrNot>
+                    {room.isWaiting ? "대기" : "게임중"}
+                  </StWaitingOrNot>
+                </StQueue>
+                <StNumber>
+                  <StRoomNumber>{room.roomId}</StRoomNumber>
+                </StNumber>
+                <StName>
+                  <StRoomName>{room.roomName}</StRoomName>
+                </StName>
+                <StBtnEnter>
+                  <StEnterGame onClick={() => handleEnterRoom(room.roomId)}>
+                    입장
+                  </StEnterGame>
+                </StBtnEnter>
+              </StRoomMain>
+            ))}
         </>
       )}
     </StRoomContentWrapper>

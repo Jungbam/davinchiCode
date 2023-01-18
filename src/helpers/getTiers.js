@@ -1,13 +1,15 @@
 export const getTier = (tier) => {
   switch (tier) {
-    case "diamond":
+    case "4":
       return <img alt="diamond" />;
-    case "gold":
+    case "3":
       return <img alt="gold" />;
-    case "silver":
+    case "2":
       return <img alt="silver" />;
-    case "bronze":
+    case "1":
       return <img alt="bronze" />;
+    case "0":
+      return <img alt="none" />;
     default:
       break;
   }
