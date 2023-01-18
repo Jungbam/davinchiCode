@@ -2,8 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import IndividualRanking from "./rankingDetail/IndividualRanking";
 import Tooltip from "../../../components/common/elements/Tooltip";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+// import { queryKeys } from "../../../../helpers/queryKeys";
+import mockDataMy from "./roomListDetail/MockDataMy";
 
 const Ranking = () => {
+  const { data, status } = useQuery(["PERSONAL_RANKING"], () => mockDataMy);
   return (
     <StRankingWrapper>
       <StRankingHeader>
@@ -13,47 +17,53 @@ const Ranking = () => {
         <IndividualRanking />
       </StIndividualWrapper>
       <StPersonalBox>
-        <StMyRankTop>
-          <StMyRankTopLeft>
-            <StMyRankingTag>내 순위</StMyRankingTag>
-            <StMyRanking>13</StMyRanking>
-          </StMyRankTopLeft>
-          <StMyRankTopRight>
-            <StMyRankingActive>1,213,223</StMyRankingActive>
-          </StMyRankTopRight>
-        </StMyRankTop>
+        {status === "loading" && <div>Loading...</div>}
+        {status === "error" && <div>Error: {data.error.message}</div>}
+        {status === "success" && mockDataMy && (
+          <>
+            <StMyRankTop>
+              <StMyRankTopLeft>
+                <StMyRankingTag>내 순위</StMyRankingTag>
+                <StMyRanking>{mockDataMy.ranking}</StMyRanking>
+              </StMyRankTopLeft>
+              <StMyRankTopRight>
+                <StMyRankingActive>{mockDataMy.change}</StMyRankingActive>
+              </StMyRankTopRight>
+            </StMyRankTop>
 
-        <StSectionDivider />
+            <StSectionDivider />
 
-        <StMyRankBottom>
-          <StMyRankBottomLeft>
-            <StMyProfile src="../../../../assets/img/profileIcon.png"></StMyProfile>
-          </StMyRankBottomLeft>
-          <StMyRankBottomMid>
-            <StMyOverallScore>6,433,122</StMyOverallScore>
-            <StMyName>UserName</StMyName>
-          </StMyRankBottomMid>
-          <StMyRankBottomRight>
-            <StMyTier>티어</StMyTier>
-            <Tooltip>
-              <div>
-                <h3>티어</h3>
-              </div>
-              <StDiaTier>
-                <p>다이아 상위 10%</p>
-              </StDiaTier>
-              <StGoldTier>
-                <p>골드 상위 50%</p>
-              </StGoldTier>
-              <StSilverTier>
-                <p>실버 상위 80%</p>
-              </StSilverTier>
-              <StBronzeTier>
-                <p>브론즈 상위 100%</p>
-              </StBronzeTier>
-            </Tooltip>
-          </StMyRankBottomRight>
-        </StMyRankBottom>
+            <StMyRankBottom>
+              <StMyRankBottomLeft>
+                <StMyProfile src={mockDataMy.profileImageUrl}></StMyProfile>
+              </StMyRankBottomLeft>
+              <StMyRankBottomMid>
+                <StMyOverallScore>{mockDataMy.score}</StMyOverallScore>
+                <StMyName>{mockDataMy.username}</StMyName>
+              </StMyRankBottomMid>
+              <StMyRankBottomRight>
+                <StMyTier>{mockDataMy.rank}</StMyTier>
+                <Tooltip>
+                  <div>
+                    <h3>티어</h3>
+                  </div>
+                  <StDiaTier>
+                    <p>다이아 상위 10%</p>
+                  </StDiaTier>
+                  <StGoldTier>
+                    <p>골드 상위 50%</p>
+                  </StGoldTier>
+                  <StSilverTier>
+                    <p>실버 상위 80%</p>
+                  </StSilverTier>
+                  <StBronzeTier>
+                    <p>브론즈 상위 100%</p>
+                  </StBronzeTier>
+                </Tooltip>
+              </StMyRankBottomRight>
+            </StMyRankBottom>
+          </>
+        )}
       </StPersonalBox>
     </StRankingWrapper>
   );
