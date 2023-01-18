@@ -110,8 +110,6 @@ const SelectBtn = styled.button`
   box-shadow: 0 3px 0 0 #616161;
   border: solid 1px #616161;
   background-color: #ddd;
-
-  //
   font-family: Pretendard;
   font-size: 14px;
   font-weight: bold;

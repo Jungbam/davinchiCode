@@ -9,7 +9,6 @@ import {
 } from "react-router-dom";
 import { queryKeys } from "../helpers/queryKeys";
 import {
-  AwaitPage,
   ErrorPage,
   Game,
   Intro,

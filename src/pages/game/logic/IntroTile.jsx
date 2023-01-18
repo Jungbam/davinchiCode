@@ -1,21 +1,14 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-// import { SocketId } from "../../../helpers/socketId";
 
 import backBlack from "../../../assets/icons/tiles/back_black.png";
 import backWhite from "../../../assets/icons/tiles/back_white.png";
-
-// const socket = SocketId.game;
 
 const IntroTile = () => {
   const [black, setBlack] = useState(0);
   const countBlackBtn = [0, 1, 2, 3];
 
-  const fn = (data) => {
-  };
-
   const sendIntroTile = () => {
-    // socket.emit("sendIntroTile", { black }, fn);
   };
 
   return (
