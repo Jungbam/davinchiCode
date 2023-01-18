@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Dropdown from "../../../components/common/elements/DropDown";
 import RoomContents from "./roomListDetail/RoomContents";
 import { useState } from "react";
-import ModalCreateRoom from "../../../components/form/modal/ModalCreateRoom";
+import ModalCreateRoom from "./ModalCreateRoom";
 import QuickStart from "./roomListDetail/RoomQuickStart";
 
 const RoomList = () => {

@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
-import DropdownPlayerCount from "../../common/elements/DropDownPlayerCount";
-import axios from "axios";
+import DropdownPlayerCount from "../../../components/common/elements/DropDownPlayerCount";
 import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { client } from "../../../api/axios";
+import { RoomAPI } from "../../../api/axios";
+import { queryKeys } from "../../../helpers/queryKeys";
 
 const ModalCreateRoom = ({ children, modal, closeModal }) => {
   const styles = { modal };
@@ -18,19 +18,15 @@ const ModalCreateRoom = ({ children, modal, closeModal }) => {
   // Mutation function to send the POST request
   const { mutate: createRoom } = useMutation(
     async () => {
-      const { data } = await client.post([""], {
-        roomName,
-        maxMembers,
-        password,
-      });
+      const roomData = { roomName, maxMembers, password };
+      const { data } = await RoomAPI.postRoom(roomData);
     },
     {
       onSuccess: (data) => {
-        queryClient.invalidateQueries(["/main/rooms"]);
+        queryClient.invalidateQueries([queryKeys.ROOM_LIST]);
         alert("최신화 완료");
       },
       onError: (error) => {
-        console.log(error);
       },
     }
   );

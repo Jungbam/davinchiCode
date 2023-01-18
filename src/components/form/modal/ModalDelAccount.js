@@ -1,17 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
+import { useDispatch } from "react-redux";
+import { useMutation } from "@tanstack/react-query";
 import styled from "styled-components";
+import { SignAPI } from "../../../api/axios";
+import { logout } from "../../../redux/modules/signSlice";
 
 const ModalDelAccount = ({ children, modal, closeModal }) => {
-  // 얘는
-  /*
-  Modal 사용법
-  <Modal /> 컴포넌트를 사용할 때 props를 반드시 내려주세요
-  props :: chidren(안에 넣을 애들), modal(이게 있어야 display가 none이 아닙니다 closeModal = 닫기 함수입니다)
-  끗
-  */
-
+  const [delInfo, setDelInfo] = useState(true);
+  const dispatch = useDispatch();
   const styles = { modal };
+
+  const { mutate } = useMutation(() => SignAPI.deleteInfo, {
+    onSuccess: () => {
+      dispatch(logout());
+    },
+  });
+  const deleteUser = () => {
+    mutate();
+  };
   return (
     <>
       {ReactDOM.createPortal(
@@ -21,11 +28,9 @@ const ModalDelAccount = ({ children, modal, closeModal }) => {
             <StDelHeader>
               <h3>회원탈퇴</h3>
             </StDelHeader>
-
             <StImgSet>
               <img alt="" />
             </StImgSet>
-
             <StMainDesc>
               <StDesc>
                 <h4>탈퇴 시 회원님의 계정에 저장된 모든 정보가</h4>
@@ -36,11 +41,14 @@ const ModalDelAccount = ({ children, modal, closeModal }) => {
                 </h6>
               </StDesc>
             </StMainDesc>
-
             <StMainApproval>
               <StApproval>
                 <div>
-                  <input type="checkbox" id="agreeToTerm" />
+                  <input
+                    type="checkbox"
+                    id="agreeToTerm"
+                    onChange={() => setDelInfo((prev) => !prev)}
+                  />
                   <label htmlFor="standby"> 동의하기</label>
                 </div>
                 <StWordingDiv>
@@ -51,8 +59,10 @@ const ModalDelAccount = ({ children, modal, closeModal }) => {
             </StMainApproval>
 
             <StButtons>
-              <button>취소</button>
-              <button>확인</button>
+              <button onClick={closeModal}>취소</button>
+              <button onClick={deleteUser} disabled={delInfo}>
+                확인
+              </button>
             </StButtons>
           </StModal>
           <StBackDrop {...styles} onClick={closeModal}></StBackDrop>

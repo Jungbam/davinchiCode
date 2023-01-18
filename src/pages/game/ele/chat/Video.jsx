@@ -5,7 +5,7 @@ const Video = (props) => {
   const ref = useRef();
 
   useEffect(() => {
-    props.peer?.on("stream", (stream) => {
+    props.peer.on("stream", (stream) => {
       ref.current.srcObject = stream;
     });
   }, []);
@@ -17,8 +17,6 @@ export default Video
 
 
 const StyledVideo = styled.video`
-  object-fit: cover;
-  width: 354.82px;
-  height: 231.89px;
-  border-radius: 6px;
+  width: 200px;
+  height: 112px;
 `;

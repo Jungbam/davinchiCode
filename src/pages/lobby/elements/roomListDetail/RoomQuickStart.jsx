@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { client } from "../../../../api/axios";
 import mockData from "./MockDataRoom";
 import styled from "styled-components";
+import { queryKeys } from "../../../../helpers/queryKeys";
+import ModalCreateRoom from "../ModalCreateRoom";
 
 const QuickStart = () => {
+  const [modal, setModal] = useState(false)
   const navigate = useNavigate();
 
-  const { data: rooms, isLoading } = useQuery(["/main/rooms"], async () => {
+  const { data: rooms, isLoading } = useQuery([queryKeys.ROOM_LIST], async () => {
     // const { data } = await axios.get("/main/rooms");
     // return data;
     return mockData.rooms;
@@ -22,11 +24,8 @@ const QuickStart = () => {
         (room) => room.isWaiting && room.currentMembers < room.maxMembers
       );
       if (availableRoom) {
-        navigate(`/main/rooms/quickstart/${availableRoom.roomId}`);
+        navigate(`/game/${availableRoom.roomId}`);
       } else {
-        // Create a new empty room and navigate to it
-        const { data } = await client.post("/main/rooms");
-        navigate(`/main/rooms/quickstart/${data.roomId}`);
       }
     }
   };
@@ -34,8 +33,11 @@ const QuickStart = () => {
   if (isLoading) {
     return <p>Loading...</p>;
   }
-
-  return <ImmediateStart onClick={handleClick}>바로시작</ImmediateStart>;
+  // 문제 : ModalCreateRoom
+  return <>
+  <ModalCreateRoom modal={modal} closeModal={()=>setModal(false)}/>
+  <ImmediateStart onClick={handleClick}>바로시작</ImmediateStart>;
+  </>
 };
 
 const ImmediateStart = styled.button`

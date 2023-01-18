@@ -1,22 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
+import SetUserInfo from "../../../pages/intro/kakao/SetUserInfo";
 
 const ModalProfile = ({ children, modal, closeModal }) => {
-  // 얘는
-  /*
-  Modal 사용법
-  <Modal /> 컴포넌트를 사용할 때 props를 반드시 내려주세요
-  props :: chidren(안에 넣을 애들), modal(이게 있어야 display가 none이 아닙니다 closeModal = 닫기 함수입니다)
-  끗
-  */
-
   const styles = { modal };
   return (
     <>
       {ReactDOM.createPortal(
         <>
-          <StModal {...styles}>{children}</StModal>
+          <StModal {...styles}>
+            <SetUserInfo />
+          </StModal>
           <StBackDrop {...styles} onClick={closeModal}></StBackDrop>
         </>,
         document.getElementById("root")

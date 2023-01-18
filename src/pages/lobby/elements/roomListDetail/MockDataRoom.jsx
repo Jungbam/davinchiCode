@@ -10,7 +10,7 @@ const mockData = {
       isPrivate: true,
     },
     {
-      currentMembers: 2,
+      currentMembers: 4,
       maxMembers: 4,
       isWaiting: true,
       roomId: 102,
@@ -18,7 +18,7 @@ const mockData = {
       isPrivate: false,
     },
     {
-      currentMembers: 1,
+      currentMembers: 4,
       maxMembers: 4,
       isWaiting: false,
       roomId: 103,
@@ -34,7 +34,7 @@ const mockData = {
       isPrivate: false,
     },
     {
-      currentMembers: 2,
+      currentMembers: 4,
       maxMembers: 4,
       isWaiting: false,
       roomId: 105,
