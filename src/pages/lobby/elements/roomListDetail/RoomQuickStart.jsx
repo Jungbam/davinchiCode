@@ -19,7 +19,6 @@ const QuickStart = () => {
 
   const handleClick = async () => {
     if (!isLoading && rooms) {
-      // Find the first room with isWaiting set to true and current members less than max members
       const availableRoom = rooms.find(
         (room) => room.isWaiting && room.currentMembers < room.maxMembers
       );
@@ -33,7 +32,7 @@ const QuickStart = () => {
   if (isLoading) {
     return <p>Loading...</p>;
   }
-
+  // 문제 : ModalCreateRoom
   return <>
   <ModalCreateRoom modal={modal} closeModal={()=>setModal(false)}/>
   <ImmediateStart onClick={handleClick}>바로시작</ImmediateStart>;

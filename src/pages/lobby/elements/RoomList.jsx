@@ -7,7 +7,15 @@ import ModalCreateRoom from "./ModalCreateRoom";
 import QuickStart from "./roomListDetail/RoomQuickStart";
 
 const RoomList = () => {
+  const [isWaiting, setIsWaiting] = useState(false);
+  const [isPrivate, setIsPrivate] = useState(false);
   const [showCreateRoom, setShowCreateRoom] = useState(false);
+
+  const handleCheckboxChange = (isWaiting, isPrivate) => {
+    setIsWaiting(isWaiting);
+    setIsPrivate(isPrivate);
+  };
+
   return (
     <StRoomWrapper>
       <StRoomHeader>
@@ -16,11 +24,22 @@ const RoomList = () => {
       <StRoomFunc>
         <StFuncFront>
           <StOpenRoom>
-            <input type="checkbox" id="standby" />
+            <input
+              type="checkbox"
+              id="standby"
+              checked={isWaiting}
+              onChange={() => setIsWaiting(!isWaiting)}
+            />
             <label htmlFor="standby"> 대기</label>
           </StOpenRoom>
+
           <StPrivateRoom>
-            <input type="checkbox" id="privacyControl" />
+            <input
+              type="checkbox"
+              id="privacyControl"
+              checked={isPrivate}
+              onChange={() => setIsPrivate(!isPrivate)}
+            />
             <label htmlFor="privacyControl"> 비공개</label>
           </StPrivateRoom>
         </StFuncFront>
@@ -30,7 +49,11 @@ const RoomList = () => {
           <StRefreshBtn type="submit">새로고침</StRefreshBtn>
         </StFuncBack>
       </StRoomFunc>
-      <RoomContents></RoomContents>
+      <RoomContents
+        handleCheckboxChange={handleCheckboxChange}
+        isWaiting={isWaiting}
+        isPrivate={isPrivate}
+      />
       <StBotButtons>
         <StCreateRoomBtn onClick={() => setShowCreateRoom(true)}>
           방 만들기
@@ -66,12 +89,10 @@ const StRoomHeader = styled.div`
   background: #333333;
   border-radius: 12px 12px 0px 0px;
 `;
-
 const StRoomLists = styled.p`
   font-size: 20px;
   color: white;
 `;
-//room func
 const StRoomFunc = styled.div`
   display: flex;
   justify-content: space-around;
@@ -115,7 +136,6 @@ const StRefreshBtn = styled.button`
   height: 32px;
   border-radius: 4px;
 `;
-// ends
 const StBotButtons = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -124,7 +144,6 @@ const StBotButtons = styled.div`
   border-top: 1px solid black;
   gap: 10px;
 `;
-
 const StCreateRoomBtn = styled.button`
   width: 130px;
   height: 44px;

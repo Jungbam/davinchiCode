@@ -10,12 +10,10 @@ import { queryKeys } from "../../../helpers/queryKeys";
 const ModalCreateRoom = ({ children, modal, closeModal }) => {
   const styles = { modal };
   const queryClient = useQueryClient();
-  // State to store the form data
   const [roomName, setRoomName] = useState("");
   const [maxMembers, setMaxMembers] = useState(0);
   const [password, setPassword] = useState("");
 
-  // Mutation function to send the POST request
   const { mutate: createRoom } = useMutation(
     async () => {
       const roomData = { roomName, maxMembers, password };
@@ -27,12 +25,10 @@ const ModalCreateRoom = ({ children, modal, closeModal }) => {
         alert("최신화 완료");
       },
       onError: (error) => {
-        console.log(error);
       },
     }
   );
 
-  // Handle the form input changes
   const handleRoomNameChange = (e) => {
     setRoomName(e.target.value);
   };
@@ -43,12 +39,8 @@ const ModalCreateRoom = ({ children, modal, closeModal }) => {
     setPassword(e.target.value);
   };
 
-  // Handle the form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Send the POST request with the form data
-    await createRoom();
-    // Close the modal
     closeModal();
   };
 

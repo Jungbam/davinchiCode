@@ -1,33 +1,56 @@
 import React from "react";
 import styled from "styled-components";
+import mockDataLead from "../roomListDetail/MockDataLeader";
+import { queryKeys } from "../../../../helpers/queryKeys";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 const IndividualRanking = () => {
-  return (
-    <StIndividualBox>
-      <StIndvFirst>
-        <StIndvFirstTop>
-          <StPlayerRanking>1</StPlayerRanking>
-        </StIndvFirstTop>
-        <StIndvFirstBottom>
-          <StPlayerRankingActive>332,341</StPlayerRankingActive>
-        </StIndvFirstBottom>
-      </StIndvFirst>
-      <StIndvSec>
-        <StPlayerProfile src="../../../../assets/img/profileIcon.png" />
-      </StIndvSec>
-      <StIndvThrd>
-        <StIndvThrdTop>
-          <StPlayerName>NamePlacement</StPlayerName>
-        </StIndvThrdTop>
-        <StIndvThrdBot>
-          <StPlayerOverallScore>12,321,032</StPlayerOverallScore>
-        </StIndvThrdBot>
-      </StIndvThrd>
-      <StIndvForth>
-        <StPlayerTier>티어</StPlayerTier>
-      </StIndvForth>
-    </StIndividualBox>
+  const { data, status, error } = useQuery(
+    [queryKeys.USER_RANKING],
+    () => mockDataLead
   );
+
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+
+  if (status === "error") {
+    return <div>An error occurred: {error.message}</div>;
+  }
+
+  if (status === "success") {
+    return (
+      <>
+        {data &&
+          data.map((item) => (
+            <StIndividualBox key={item.username}>
+              <StIndvFirst>
+                <StIndvFirstTop>
+                  <StPlayerRanking>{item.ranking}</StPlayerRanking>
+                </StIndvFirstTop>
+                <StIndvFirstBottom>
+                  <StPlayerRankingActive>{item.change}</StPlayerRankingActive>
+                </StIndvFirstBottom>
+              </StIndvFirst>
+              <StIndvSec>
+                <StPlayerProfile src={item.profileImageUrl} />
+              </StIndvSec>
+              <StIndvThrd>
+                <StIndvThrdTop>
+                  <StPlayerName>{item.username}</StPlayerName>
+                </StIndvThrdTop>
+                <StIndvThrdBot>
+                  <StPlayerOverallScore>{item.score}</StPlayerOverallScore>
+                </StIndvThrdBot>
+              </StIndvThrd>
+              <StIndvForth>
+                <StPlayerTier>{item.rank}</StPlayerTier>
+              </StIndvForth>
+            </StIndividualBox>
+          ))}
+      </>
+    );
+  }
 };
 
 const StIndividualBox = styled.div`
