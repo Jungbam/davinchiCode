@@ -1,0 +1,74 @@
+// 조커도 12로하고 서버에서 받은거 그대로 붙여서 쓰는게 어떤지?
+// ex) a = {color:'black',value:12} => const card = a.color+a.value ==> black11
+
+import blackBack from "../assets/icons/tiles/back_black.png";
+import black0 from "../assets/icons/tiles/0_black.png";
+import black1 from "../assets/icons/tiles/1_black.png";
+import black2 from "../assets/icons/tiles/2_black.png";
+import black3 from "../assets/icons/tiles/3_black.png";
+import black4 from "../assets/icons/tiles/4_black.png";
+import black5 from "../assets/icons/tiles/5_black.png";
+import black6 from "../assets/icons/tiles/6_black.png";
+import black7 from "../assets/icons/tiles/7_black.png";
+import black8 from "../assets/icons/tiles/8_black.png";
+import black9 from "../assets/icons/tiles/9_black.png";
+import black10 from "../assets/icons/tiles/10_black.png";
+import black11 from "../assets/icons/tiles/11_black.png";
+import black12 from "../assets/icons/tiles/joker_black.png";
+
+import whiteBack from "../assets/icons/tiles/back_white.png";
+import white0 from "../assets/icons/tiles/0_white.png";
+import white1 from "../assets/icons/tiles/1_white.png";
+import white2 from "../assets/icons/tiles/2_white.png";
+import white3 from "../assets/icons/tiles/3_white.png";
+import white4 from "../assets/icons/tiles/4_white.png";
+import white5 from "../assets/icons/tiles/5_white.png";
+import white6 from "../assets/icons/tiles/6_white.png";
+import white7 from "../assets/icons/tiles/7_white.png";
+import white8 from "../assets/icons/tiles/8_white.png";
+import white9 from "../assets/icons/tiles/9_white.png";
+import white10 from "../assets/icons/tiles/10_white.png";
+import white11 from "../assets/icons/tiles/11_white.png";
+import white12 from "../assets/icons/tiles/joker_white.png";
+
+import iconSetting from "../assets/icons/ico_setting.svg";
+import iconVideocam from "../assets/icons/ico_videocam.svg";
+import iconMic from "../assets/icons/ico_mic.svg";
+import iconTimer from "../assets/icons/ico_timer.svg";
+import iconSend from "../assets/icons/ico_send.svg";
+
+export {
+  blackBack,
+  black0,
+  black1,
+  black2,
+  black3,
+  black4,
+  black5,
+  black6,
+  black7,
+  black8,
+  black9,
+  black10,
+  black11,
+  black12,
+  whiteBack,
+  white0,
+  white1,
+  white2,
+  white3,
+  white4,
+  white5,
+  white6,
+  white7,
+  white8,
+  white9,
+  white10,
+  white11,
+  white12,
+  iconSetting,
+  iconVideocam,
+  iconMic,
+  iconTimer,
+  iconSend,
+};
