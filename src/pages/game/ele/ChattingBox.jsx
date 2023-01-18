@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { iconSend } from "../../Icons";
+import { ICON } from "../../Icons";
 
 const ChattingBox = () => {
   return (
@@ -18,7 +18,7 @@ const ChattingBox = () => {
       <StInputArea>
         <StInputBox>
           <StInput placeholder="채팅을 시작해보세요!" />
-          <img src={iconSend} alt="icon" />
+          <img src={ICON.iconSend} alt="icon" />
         </StInputBox>
       </StInputArea>
     </StWrapper>

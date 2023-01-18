@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import Peer from "simple-peer";
 import { socket } from "../helpers/socket";
+import Chat from "../pages/game/ele/chat/Chat";
 
-const useVideo = ({ roomID }) => {
+const useVideo = (roomID) => {
   const [peers, setPeers] = useState([]);
   const peersRef = useRef([]);
 
@@ -88,7 +89,7 @@ const useVideo = ({ roomID }) => {
     return peer;
   }
 
-  return peers;
+  return [peers, Chat];
 };
 
 export default useVideo;

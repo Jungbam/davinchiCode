@@ -7,11 +7,22 @@ import UsersBox from "./ele/UsersBox";
 import CenterBox from "./ele/CenterBox";
 import MyBox from "./ele/MyBox";
 import background from "../../assets/images/background.png";
-
-const socket = io.connect("http://localhost:3002/");
-// const socket = SocketId.game;
+import { useEffect, useRef } from "react";
+import { useParams } from "react-router";
+import useVideo from "../../hooks/useVideo";
 
 const Game = () => {
+  const {roomID} = useParams()
+  const userVideo = useRef();
+  const [peers,Chat] =useVideo(roomID)
+
+  useEffect(() => {
+    navigator.mediaDevices
+      .getUserMedia({ video: {  width:' 354.82px',height: '231.89px'}, audio: true }).then((stream) => {
+        userVideo.current.srcObject = stream;
+        });
+      }, []);
+
   return (
     <>
       <Header />
@@ -19,9 +30,10 @@ const Game = () => {
         <StContainer>
           <UsersBox />
           <CenterBox />
-          <MyBox />
+          <MyBox roomID={roomID}/>
+          <Chat roomID={roomID}/>
         </StContainer>
-      </StWrapper>
+      </StWrapper >
     </>
   );
 };

@@ -2,42 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import ChattingBox from "./ChattingBox";
 
-import {
-  black0,
-  black1,
-  black2,
-  black3,
-  black4,
-  black5,
-  black6,
-  black7,
-  black8,
-  black9,
-  black10,
-  black11,
-  black12,
-  white0,
-  white1,
-  white2,
-  white3,
-  white4,
-  white5,
-  white6,
-  white7,
-  white8,
-  white9,
-  white10,
-  white11,
-  white12,
-  iconSetting,
-  iconVideocam,
-  iconMic,
-} from "../../Icons";
+import {ICON} from "../../Icons";
 
 import myUserBackground from "../../../assets/images/myUserBackground.png";
 import userProfile from "../../../assets/images/user_profile.png";
+import Chat from "./chat/Chat";
 
-const MyBox = () => {
+const MyBox = ({roomID}) => {
   return (
     <StWrapper>
       <StContainer>
@@ -45,8 +16,8 @@ const MyBox = () => {
           <StCamera>
             <StSpaceBetween>
               <StCameraStatus>
-                <img src={iconMic} alt="icon" />
-                <img src={iconVideocam} alt="icon" />
+                <img src={ICON.iconMic} alt="icon" />
+                <img src={ICON.iconVideocam} alt="icon" />
               </StCameraStatus>
               <StGameStatus>진행중</StGameStatus>
             </StSpaceBetween>
@@ -55,30 +26,18 @@ const MyBox = () => {
             </StUserName>
           </StCamera>
           <StCardList>
-            <StCard src={black0} alt="card" />
-            <StCard src={black1} alt="card" />
-            <StCard src={white2} alt="card" />
-            <StCard src={black4} alt="card" />
-            <StCard src={white4} alt="card" />
-            <StCard src={black6} alt="card" />
-            <StCard src={black7} alt="card" />
-            <StCard src={white8} alt="card" />
-            <StCard src={black12} alt="card" />
-            <StCard src={black9} alt="card" />
-            <StCard src={white9} alt="card" />
-            <StCard src={black10} alt="card" />
-            <StCard src={white11} alt="card" />
+            {/* 카드가 들어갈 곳 */}
           </StCardList>
         </StBox>
         <StBtnList>
-          <img src={iconMic} alt="icon" />
+          <img src={ICON.iconMic} alt="icon" />
           <div>|</div>
-          <img src={iconVideocam} alt="icon" />
+          <img src={ICON.iconVideocam} alt="icon" />
           <div>|</div>
-          <img src={iconSetting} alt="icon" />
+          <img src={ICON.iconSetting} alt="icon" />
         </StBtnList>
       </StContainer>
-      <ChattingBox />
+      <Chat roomID={roomID} />
     </StWrapper>
   );
 };
@@ -110,19 +69,6 @@ const StContainer = styled.div`
 const StBox = styled.div`
   display: flex;
 `;
-
-// const MyCard = styled.div`
-//   border: 1px solid green;
-//   margin-top: 24px;
-//   margin-left: 14px;
-//   width: 100%;
-// `;
-
-// const MyCardList = styled.div`
-//   height: 32px;
-//   & img {
-//   }
-// `;
 
 const StBtnList = styled.div`
   width: 200px;
@@ -169,8 +115,6 @@ const StSpaceBetween = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-
-const StCard = styled.img``;
 
 const StCameraStatus = styled.div`
   gap: 10px;

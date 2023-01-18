@@ -37,7 +37,7 @@ import iconMic from "../assets/icons/ico_mic.svg";
 import iconTimer from "../assets/icons/ico_timer.svg";
 import iconSend from "../assets/icons/ico_send.svg";
 
-export {
+export const ICON = {
   blackBack,
   black0,
   black1,

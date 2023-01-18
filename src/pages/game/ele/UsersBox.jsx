@@ -1,4 +1,4 @@
-import { iconVideocam, iconMic, blackBack, whiteBack } from "../../Icons";
+import {ICON } from "../../Icons";
 import otherUserBackground from "../../../assets/images/otherUserBackground.png";
 import userProfile from "../../../assets/images/user_profile.png";
 import styled from "styled-components";
@@ -13,8 +13,8 @@ const UsersBox = () => {
             <StCamera>
               <StSpaceBetween>
                 <StCameraStatus>
-                  <img src={iconMic} alt="icon" />
-                  <img src={iconVideocam} alt="icon" />
+                  <img src={ICON.iconMic} alt="icon" />
+                  <img src={ICON.iconVideocam} alt="icon" />
                 </StCameraStatus>
                 {/* <GameStatus>진행중</GameStatus> */}
               </StSpaceBetween>
@@ -25,12 +25,12 @@ const UsersBox = () => {
             <SelectBtn>지목하기</SelectBtn>
           </StUserInfo>
           <StCardArea>
-            <StCard src={blackBack} alt="card" />
-            <StCard src={blackBack} alt="card" />
-            <StCard src={whiteBack} alt="card" />
-            <StCard src={whiteBack} alt="card" />
-            <StCard src={blackBack} alt="card" />
-            <StCard src={whiteBack} alt="card" />
+            <StCard src={ICON.blackBack} alt="card" />
+            <StCard src={ICON.blackBack} alt="card" />
+            <StCard src={ICON.whiteBack} alt="card" />
+            <StCard src={ICON.whiteBack} alt="card" />
+            <StCard src={ICON.blackBack} alt="card" />
+            <StCard src={ICON.whiteBack} alt="card" />
           </StCardArea>
         </StOtherUsers>
       ))}

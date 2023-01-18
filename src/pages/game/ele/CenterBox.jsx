@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import IntroTile from "../logic/IntroTile";
-import { iconTimer } from "../../Icons";
+import { ICON } from "../../Icons";
 
 const CenterBox = () => {
   return (
@@ -13,7 +13,7 @@ const CenterBox = () => {
         <IntroTile />
       </StGameField>
       <StTimer>
-        <img src={iconTimer} alt="icon" />
+        <img src={ICON.iconTimer} alt="icon" />
         <StTimerBar>
           <StTimeLimit />
         </StTimerBar>
