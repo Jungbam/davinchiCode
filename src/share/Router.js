@@ -40,7 +40,7 @@ const Router = () => {
         <Route path="/kakao" element={<KakaoSign />} />
         <Route path="/profile" element={<SetUserInfo />} />
         <Route path="/lobby" element={<Lobby />} />
-        <Route path="/game/:roomid" element={<Game />} />
+        <Route path="/game/:roomID" element={<Game />} />
         {/* </Route> */}
         <Route path="/*" element={<ErrorPage />} />
       </Routes>

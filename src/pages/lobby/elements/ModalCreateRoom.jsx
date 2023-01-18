@@ -27,7 +27,6 @@ const ModalCreateRoom = ({ children, modal, closeModal }) => {
         alert("최신화 완료");
       },
       onError: (error) => {
-        console.log(error);
       },
     }
   );

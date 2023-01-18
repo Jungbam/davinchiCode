@@ -33,7 +33,6 @@ const useVideo = ({ roomID }) => {
             peerID: payload.callerID,
             peer,
           });
-
           setPeers((users) => [...users, peer]);
         });
 
@@ -70,7 +69,6 @@ const useVideo = ({ roomID }) => {
         signal,
       });
     });
-
     return peer;
   }
 
@@ -80,7 +78,6 @@ const useVideo = ({ roomID }) => {
       trickle: false,
       stream,
     });
-
     peer.on("signal", (signal) => {
       socket.emit("returning signal", { signal, callerID });
     });

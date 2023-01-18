@@ -4,17 +4,18 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import LockOrUnLock from "./RoomLock";
 import mockData from "./MockDataRoom";
 import { useNavigate } from "react-router-dom";
+import { queryKeys } from "../../../../helpers/queryKeys";
 
 const RoomContents = (props) => {
   const navigate = useNavigate();
   const [roomId, setRoomId, error] = useState(1);
   const { data: rooms, status } = useQuery(
-    ["rooms"],
+    [queryKeys.ROOM_LIST],
     async () => mockData.rooms
   );
 
   const handleEnterRoom = (roomId) => {
-    navigate(`/rooms/${roomId}`);
+    navigate(`/game/${roomId}`);
   };
 
   return (
