@@ -12,7 +12,6 @@ const IntroTile = () => {
   const countBlackBtn = [0, 1, 2, 3];
 
   const fn = (data) => {
-    console.log(data);
   };
 
   const sendIntroTile = () => {

@@ -33,7 +33,7 @@ const QuickStart = () => {
   if (isLoading) {
     return <p>Loading...</p>;
   }
-
+  // 문제 : ModalCreateRoom
   return <>
   <ModalCreateRoom modal={modal} closeModal={()=>setModal(false)}/>
   <ImmediateStart onClick={handleClick}>바로시작</ImmediateStart>;
