@@ -89,12 +89,10 @@ const StRoomHeader = styled.div`
   background: #333333;
   border-radius: 12px 12px 0px 0px;
 `;
-
 const StRoomLists = styled.p`
   font-size: 20px;
   color: white;
 `;
-//room func
 const StRoomFunc = styled.div`
   display: flex;
   justify-content: space-around;
@@ -138,7 +136,6 @@ const StRefreshBtn = styled.button`
   height: 32px;
   border-radius: 4px;
 `;
-// ends
 const StBotButtons = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -147,7 +144,6 @@ const StBotButtons = styled.div`
   border-top: 1px solid black;
   gap: 10px;
 `;
-
 const StCreateRoomBtn = styled.button`
   width: 130px;
   height: 44px;

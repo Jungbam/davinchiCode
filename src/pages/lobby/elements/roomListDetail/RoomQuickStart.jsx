@@ -19,7 +19,6 @@ const QuickStart = () => {
 
   const handleClick = async () => {
     if (!isLoading && rooms) {
-      // Find the first room with isWaiting set to true and current members less than max members
       const availableRoom = rooms.find(
         (room) => room.isWaiting && room.currentMembers < room.maxMembers
       );

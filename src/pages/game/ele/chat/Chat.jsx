@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 import Message from './Message';
 
-const Chat = ({socket,roomID}) => { // const {room} = useParams()
+const Chat = ({socket,roomID}) => {
   const [msg, setMsg] = useState('')
   const [msgList, setMsgList] = useState([])
 

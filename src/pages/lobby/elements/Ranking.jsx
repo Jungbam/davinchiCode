@@ -3,7 +3,6 @@ import styled from "styled-components";
 import IndividualRanking from "./rankingDetail/IndividualRanking";
 import Tooltip from "../../../components/common/elements/Tooltip";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-// import { queryKeys } from "../../../../helpers/queryKeys";
 import mockDataMy from "./roomListDetail/MockDataMy";
 
 const Ranking = () => {

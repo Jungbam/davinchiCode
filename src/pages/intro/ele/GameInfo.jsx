@@ -52,7 +52,7 @@ const StyledSlider = styled(Slider)`
   }
 
   .slick-next {
-    right: 2vw; // 100vw;
+    right: 2vw; 
     cursor: pointer;
     &::before {
       color: black;

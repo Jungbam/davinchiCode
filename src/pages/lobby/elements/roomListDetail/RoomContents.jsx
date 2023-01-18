@@ -137,8 +137,6 @@ const StBtnEnter = styled.div`
   width: 60px;
   height: 44px;
 `;
-
-//그다음할것
 const StNumbParticipants = styled.span``;
 const StWaitingOrNot = styled.span``;
 const StRoomNumber = styled.span``;
