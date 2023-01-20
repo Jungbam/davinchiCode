@@ -18,14 +18,14 @@ export const RoomAPI = {
   postRoom: (roomData) => client.post("/main/rooms", roomData),
 };
 
-client.interceptors.response.use(
-  function (response) {
-    return response;
-  },
-  function (error) {
-    if (error?.response.status === 401) {
-      return error;
-    }
-    return error;
-  }
-);
+// client.interceptors.response.use(
+//   function (response) {
+//     return response;
+//   },
+//   function (error) {
+//     if (error?.response.status === 401) {
+//       return error;
+//     }
+//     return error;
+//   }
+// );

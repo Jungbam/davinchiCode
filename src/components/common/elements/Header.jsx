@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import iconLock from "../../../assets/icons/ico_lock_white.svg";
 import iconSiren from "../../../assets/icons/ico_siren_white.svg";
-
+import ComplaintBug from "./complaintbug/ComplaintBug";
 const Header = () => {
   return (
     <Navbar>
@@ -24,7 +24,7 @@ const Header = () => {
 
         <ReportButton>
           <img src={iconSiren} />
-          <div>버그신고</div>
+          <ComplaintBug/>
         </ReportButton>
       </NavbarInside>
     </Navbar>
