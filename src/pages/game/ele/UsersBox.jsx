@@ -9,18 +9,19 @@ const UsersBox = ({ user }) => {
       <StOtherUsers>
         <StUserInfo>
           <StCamera>
+             {user?<StImg src={user?.userProfileImg} alt="프로필 사진"/>:<></>}
             <StSpaceBetween>
               <StCameraStatus></StCameraStatus>
             </StSpaceBetween>
             <StUserName>
-              <div>{user?.nickName}</div>
+              <span>{user?user?.nickName:'빈자리'}</span>
             </StUserName>
           </StCamera>
           <SelectBtn> {user ? "지목하기" : "..."} </SelectBtn>
         </StUserInfo>
         <StCardArea>
-          {user?.hand?.map((card) => (
-            <DavinchiCard card={card} />
+          {user?.hand?.map((card,i) => (
+            <DavinchiCard key={`${user.nickName}${i}`} card={card} />
           ))}
         </StCardArea>
       </StOtherUsers>
@@ -46,7 +47,10 @@ const StOtherUsers = styled.div`
   border: solid 1px #111;
   background-color: #eee;
 `;
-
+const StImg = styled.img`
+width:100%;
+height:100%;
+`;
 const StUserInfo = styled.div`
   width: 100%;
   display: flex;

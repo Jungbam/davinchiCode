@@ -1,24 +1,26 @@
 import React from "react";
 import styled from "styled-components";
-import { ICON } from "../../Icons";
 import userProfile from "../../../assets/images/mask3x.jpg";
+import DavinchiCard from "./DavinchiCard";
 
-const MyBox = () => {
+const MyBox = ({user}) => {
   return (
     <StBox>
       <StCamera>
+            <StImg src={user?.userProfileImg} alt="프로필 사진"/>
         <StSpaceBetween>
           <StCameraStatus>
-            <img src={ICON.iconMic} alt="icon" />
-            <img src={ICON.iconVideocam} alt="icon" />
           </StCameraStatus>
-          <StGameStatus>진행중</StGameStatus>
         </StSpaceBetween>
         <StUserName>
-          <div>내가다이김</div>
+          <div>{user.nickName}</div>
         </StUserName>
       </StCamera>
-      <StCardList></StCardList>
+      <StCardList>
+        {user?.hand?.map((card,i) => (
+          <DavinchiCard key={`${user.nickName}${i}`} card={card} />
+        ))}
+      </StCardList>
     </StBox>
   );
 };
@@ -57,7 +59,11 @@ const StSpaceBetween = styled.div`
   justify-content: space-between;
 `;
 
-const StCard = styled.img``;
+const StImg = styled.img`
+width:100%;
+height:100%;
+`;
+
 
 const StCameraStatus = styled.div`
   gap: 10px;

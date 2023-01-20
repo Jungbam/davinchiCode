@@ -14,7 +14,7 @@ users: [
    {
       userId: 1,
       nickName: '익명1',
-      userProfileImg : '',
+      userProfileImg: "https://cdn.pixabay.com/photo/2023/01/12/15/05/flamingo-7714344_640.jpg",
       hand: [ 
         {
            color: 'black', 
@@ -36,10 +36,10 @@ users: [
    {
       userId: 2,
       nickName: '익명2',
-      userProfileImg : '',
+      userProfileImg: "https://cdn.pixabay.com/photo/2022/07/11/08/44/tower-7314495_1280.jpg",
       hand: [ 
         {
-           color: 'black', 
+           color: 'white', 
            value: 'Back', 
            isOpen: false 
           }, 
@@ -58,7 +58,7 @@ users: [
    {
       userId: 3,
       nickName: '익명3',
-      userProfileImg : '',
+      userProfileImg: "https://cdn.pixabay.com/photo/2023/01/12/07/19/rat-7713508_640.jpg",
       hand: [ 
         {
            color: 'black', 
@@ -120,7 +120,7 @@ const IntroTile = ({selectTile}) => {
       </StRoundBtns>
       <StConfirmBtn onClick={()=>{
         dispatch(setUsers(usersMok.users))
-        // selectTile(black)
+        selectTile(black)
         }}>확인</StConfirmBtn>
     </StWrapper>
   );
