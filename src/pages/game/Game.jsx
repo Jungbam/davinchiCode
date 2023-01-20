@@ -6,6 +6,7 @@ import Chat from "./ele/chat/Chat";
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import { io } from "socket.io-client";
+
 import { eventName } from "../../helpers/eventName";
 import background from "../../assets/images/background.png";
 import myUserBackground from "../../assets/images/myUserBackground.png";
@@ -48,26 +49,25 @@ const Game = () => {
             <Chat roomID={roomID} socket={socketRef} msgList={msgList} setMsgList={setMsgList}/>
           </StMyBoxWrapper>
         </StContainer>
-      </StWrapper >
+      </StWrapper>
     </>
   );
 };
 
 export default Game;
 
-
 const StWrapper = styled.div`
   background-image: url(${background});
   background-size: cover;
-  height: 100vh;
+  height: 100vh-40px;
   background-color: #2b2b2b;
-  `;
-  const StyledVideo = styled.video`
-    object-fit: cover;
-    width: 200px;
-    height: 112px;
-    border-radius: 4px;
-  `;
+`;
+const StyledVideo = styled.video`
+  object-fit: cover;
+  width: 200px;
+  height: 112px;
+  border-radius: 4px;
+`;
 const StPeerWrapper = styled.div`
   margin-top: 20px;
   width: 100%;
