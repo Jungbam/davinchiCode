@@ -11,14 +11,15 @@ const CenterBox = ({socket, roomID}) => {
   const dispatch = useDispatch()
   
   function readyHandler(){
-    socket.current.emit(eventName.READY,{roomID : roomID,userID:123})
-    socket.current.on(eventName.GAME_START, ()=>{
     setGameView(<IntroTile selectTile={selectTile}/>)
-    })
+    // socket.current.emit(eventName.READY,{roomID : roomID,userID:123})
+    // socket.current.on(eventName.GAME_START, ()=>{
+    // setGameView(<IntroTile selectTile={selectTile}/>)
+    // })
   };
   function selectTile(black){
     socket.current.emit(eventName.FIRST_DRAW, 123, black, roomID ,(myCards)=>{
-      dispatch()
+      // dispatch(setUsers(usersMok))
     })
   }
   return (

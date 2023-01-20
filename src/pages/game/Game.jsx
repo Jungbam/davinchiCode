@@ -11,17 +11,48 @@ import { eventName } from "../../helpers/eventName";
 import background from "../../assets/images/background.png";
 import myUserBackground from "../../assets/images/myUserBackground.png";
 import otherUserBackground from "../../assets/images/otherUserBackground.png";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setUsers } from "../../redux/modules/gameSlice";
+const usersMokinit = {
+blackCards: 4,
+whiteCards: 4,
+turn: 123,
+users: [
+   {
+      userId: 1,
+      nickName: '익명1',
+      userProfileImg : '',
+      hand: [ 
+       ]
+    },
+   {
+      userId: 2,
+      nickName: '익명2',
+      userProfileImg : '',
+      hand: [ 
+       ]
+    },
+   {
+      userId: 3,
+      nickName: '익명3',
+      userProfileImg : '',
+      hand: [ 
+       ]
+    },
+  ]
+}
 
 const Game = () => {
   const [msgList, setMsgList] = useState([])
   const {roomID} = useParams()
   const socketRef = useRef();
-  const {userInfo}=useSelector(state=>state)
+  const {users}=useSelector(state=>state.gameSlice)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     socketRef.current = io.connect(process.env.REACT_APP_SERVER);
     socketRef.current.emit(eventName.JOIN, roomID);
+    dispatch(setUsers(usersMokinit.users))
   }, []);
 
   const createdAt = new Date().toLocaleString()
@@ -37,14 +68,14 @@ const Game = () => {
       <StWrapper>
         <StContainer>
               <StPeerWrapper>
-                <UsersBox/>
-                <UsersBox/>
-                <UsersBox/>
+                <UsersBox user={users[1]?users[1]:null}/>
+                <UsersBox user={users[2]?users[2]:null}/>
+                <UsersBox user={users[3]?users[3]:null}/>
               </StPeerWrapper>
           <CenterBox  roomID={roomID} socket={socketRef} />
           <StMyBoxWrapper>
             <StMyBoxContainer>
-              <UsersBox/>
+              <UsersBox user={users[0]?users[0]:null}/>
             </StMyBoxContainer>
             <Chat roomID={roomID} socket={socketRef} msgList={msgList} setMsgList={setMsgList}/>
           </StMyBoxWrapper>
