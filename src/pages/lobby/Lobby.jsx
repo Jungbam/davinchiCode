@@ -22,6 +22,8 @@ const StLobbyFrame = styled.div`
   width: 1536px;
   height: 864px;
   border: 1px solid black;
+  margin: 0 auto;
+  background-color: rgba(211,211,211,0.1);
 `;
 
 const StDiv = styled.div`

@@ -8,14 +8,14 @@ export const client = axios.create({
 export const SignAPI = {
   kakaoSign: (code) =>
     client.get(
-      `/main/auth/kakao?code=${code}&redirect-uri=${process.env.REACT_APP_REDIRECT}`
+      `/auth/kakao?code=${code}&redirect-uri=${process.env.REACT_APP_REDIRECT}`
     ),
-  myinfo: () => client.get(`/main/users/me`),
-  updateInfo: (formData) => client.put(`/main/users/me`, formData),
-  deleteInfo: () => client.delete("/main/users/me"),
+  myinfo: () => client.get("/users/me"),
+  updateInfo: (formData) => client.put("/users/me", formData),
+  deleteInfo: () => client.delete("/users/me"),
 };
 export const RoomAPI = {
-  postRoom: (roomData) => client.post("/main/rooms", roomData),
+  postRoom: (roomData) => client.post("/rooms", roomData),
 };
 
 // client.interceptors.response.use(

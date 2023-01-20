@@ -2,8 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
 
-const Modal = ({ children, modal, closeModal }) => {
-  const styles = { modal };
+const Modal = ({ children, modal, closeModal, width, height }) => {
+  const styles = { modal, width, height };
   return (
     <>
       {ReactDOM.createPortal(
@@ -27,11 +27,10 @@ const StModal = styled.div`
   transform: translate(-50%, -50%);
   display: ${({ modal }) => {
     return modal ? "flex" : "none";
-    //스위치문으로 부트스랩만들기 @@ 뭐일떄 return 사이즈랑 색깔
   }};
 
-  width: 628px;
-  height: 576px;
+  width: ${({ width }) => width || "629px"};
+  height: ${({ height }) => height || "576px"};
   border-radius: 6px;
   border: solid 1px #bbb;
   background-color: #fff;
