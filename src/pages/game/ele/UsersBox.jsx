@@ -1,28 +1,29 @@
 import otherUserBackground from "../../../assets/images/otherUserBackground.png";
-import userProfile from "../../../assets/images/user_profile.png";
+import userProfile from "../../../assets/images/mask3x.jpg";
 import styled from "styled-components";
 import DavinchiCard from "./DavinchiCard";
 
-const UsersBox = ({user}) => {
+const UsersBox = ({ user }) => {
   return (
     <StWrapper>
-        <StOtherUsers>
-          <StUserInfo>
-            <StCamera>
-              <StSpaceBetween>
-                <StCameraStatus>
-                </StCameraStatus>
-              </StSpaceBetween>
-              <StUserName>
-                <div>{user?.nickName}</div>
-              </StUserName>
-            </StCamera>
-            <SelectBtn> {user? '지목하기': '...'} </SelectBtn>
-          </StUserInfo>
-          <StCardArea>
-            {user?.hand?.map((card)=><DavinchiCard card={card}/>)}
-          </StCardArea>
-        </StOtherUsers>
+      <StOtherUsers>
+        <StUserInfo>
+          <StCamera>
+            <StSpaceBetween>
+              <StCameraStatus></StCameraStatus>
+            </StSpaceBetween>
+            <StUserName>
+              <div>{user?.nickName}</div>
+            </StUserName>
+          </StCamera>
+          <SelectBtn> {user ? "지목하기" : "..."} </SelectBtn>
+        </StUserInfo>
+        <StCardArea>
+          {user?.hand?.map((card) => (
+            <DavinchiCard card={card} />
+          ))}
+        </StCardArea>
+      </StOtherUsers>
     </StWrapper>
   );
 };
@@ -30,11 +31,10 @@ const UsersBox = ({user}) => {
 export default UsersBox;
 
 const StWrapper = styled.div`
-  margin-top: 20px;
-  width: 100%;
+  width: 356px;
   height: 200px;
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
 `;
 
 const StOtherUsers = styled.div`
@@ -65,6 +65,7 @@ const StCamera = styled.div`
   justify-content: space-between;
 
   background-image: url(${userProfile});
+  background-size: cover;
 `;
 
 const StSpaceBetween = styled.div`

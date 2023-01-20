@@ -13,71 +13,76 @@ import myUserBackground from "../../assets/images/myUserBackground.png";
 import otherUserBackground from "../../assets/images/otherUserBackground.png";
 import { useDispatch, useSelector } from "react-redux";
 import { setUsers } from "../../redux/modules/gameSlice";
+import MyBox from "./ele/MyBox";
 const usersMokinit = {
-blackCards: 4,
-whiteCards: 4,
-turn: 123,
-users: [
-   {
+  blackCards: 4,
+  whiteCards: 4,
+  turn: 123,
+  users: [
+    {
       userId: 1,
-      nickName: '익명1',
-      userProfileImg : '',
-      hand: [ 
-       ]
+      nickName: "익명1",
+      userProfileImg: "",
+      hand: [],
     },
-   {
+    {
       userId: 2,
-      nickName: '익명2',
-      userProfileImg : '',
-      hand: [ 
-       ]
+      nickName: "익명2",
+      userProfileImg: "",
+      hand: [],
     },
-   {
+    {
       userId: 3,
-      nickName: '익명3',
-      userProfileImg : '',
-      hand: [ 
-       ]
+      nickName: "익명3",
+      userProfileImg: "",
+      hand: [],
     },
-  ]
-}
+  ],
+};
 
 const Game = () => {
-  const [msgList, setMsgList] = useState([])
-  const {roomID} = useParams()
+  const [msgList, setMsgList] = useState([]);
+  const { roomID } = useParams();
   const socketRef = useRef();
-  const {users}=useSelector(state=>state.gameSlice)
-  const dispatch = useDispatch()
+  const { users } = useSelector((state) => state.gameSlice);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     socketRef.current = io.connect(process.env.REACT_APP_SERVER);
     socketRef.current.emit(eventName.JOIN, roomID);
-    dispatch(setUsers(usersMokinit.users))
+    dispatch(setUsers(usersMokinit.users));
   }, []);
 
-  const createdAt = new Date().toLocaleString()
-  useEffect(()=>{
-      socketRef.current.on(eventName.RECEIVE_MESSAGE, (msg)=> {
-        const myMsg = {msg, mine:false, createdAt}
-        setMsgList(prev=>[...prev, myMsg])})
-  },[socketRef.current])
+  const createdAt = new Date().toLocaleString();
+  useEffect(() => {
+    socketRef.current.on(eventName.RECEIVE_MESSAGE, (msg) => {
+      const myMsg = { msg, mine: false, createdAt };
+      setMsgList((prev) => [...prev, myMsg]);
+    });
+  }, [socketRef.current]);
 
   return (
     <>
       <Header />
       <StWrapper>
         <StContainer>
-              <StPeerWrapper>
-                <UsersBox user={users[1]?users[1]:null}/>
-                <UsersBox user={users[2]?users[2]:null}/>
-                <UsersBox user={users[3]?users[3]:null}/>
-              </StPeerWrapper>
-          <CenterBox  roomID={roomID} socket={socketRef} />
+          <StPeerWrapper>
+            <UsersBox user={users[1] ? users[1] : null} />
+            <UsersBox user={users[2] ? users[2] : null} />
+            <UsersBox user={users[3] ? users[3] : null} />
+          </StPeerWrapper>
+          <CenterBox roomID={roomID} socket={socketRef} />
           <StMyBoxWrapper>
             <StMyBoxContainer>
-              <UsersBox user={users[0]?users[0]:null}/>
+              <MyBox />
+              {/* <UsersBox user={users[0] ? users[0] : null} /> */}
             </StMyBoxContainer>
-            <Chat roomID={roomID} socket={socketRef} msgList={msgList} setMsgList={setMsgList}/>
+            <Chat
+              roomID={roomID}
+              socket={socketRef}
+              msgList={msgList}
+              setMsgList={setMsgList}
+            />
           </StMyBoxWrapper>
         </StContainer>
       </StWrapper>
@@ -100,10 +105,10 @@ const StyledVideo = styled.video`
   border-radius: 4px;
 `;
 const StPeerWrapper = styled.div`
-  margin-top: 20px;
   width: 100%;
   height: 200px;
   display: flex;
+  margin-top: 20px;
   justify-content: space-between;
 `;
 const StOtherUsers = styled.div`
