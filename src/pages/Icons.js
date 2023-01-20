@@ -1,6 +1,3 @@
-// 조커도 12로하고 서버에서 받은거 그대로 붙여서 쓰는게 어떤지?
-// ex) a = {color:'black',value:12} => const card = a.color+a.value ==> black11
-
 import blackBack from "../assets/icons/tiles/back_black.png";
 import black0 from "../assets/icons/tiles/0_black.png";
 import black1 from "../assets/icons/tiles/1_black.png";

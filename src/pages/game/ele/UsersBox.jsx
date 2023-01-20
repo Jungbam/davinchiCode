@@ -1,7 +1,7 @@
-import {ICON } from "../../Icons";
 import otherUserBackground from "../../../assets/images/otherUserBackground.png";
 import userProfile from "../../../assets/images/user_profile.png";
 import styled from "styled-components";
+import DavinchiCard from "./DavinchiCard";
 
 const UsersBox = ({user}) => {
   return (
@@ -11,17 +11,16 @@ const UsersBox = ({user}) => {
             <StCamera>
               <StSpaceBetween>
                 <StCameraStatus>
-                  <img src={ICON.iconMic} alt="icon" />
-                  <img src={ICON.iconVideocam} alt="icon" />
                 </StCameraStatus>
               </StSpaceBetween>
               <StUserName>
-                <div>빈 자리</div>
+                <div>{user?.nickName}</div>
               </StUserName>
             </StCamera>
-            <SelectBtn> ... </SelectBtn>
+            <SelectBtn> {user? '지목하기': '...'} </SelectBtn>
           </StUserInfo>
           <StCardArea>
+            {user?.hand?.map((card)=><DavinchiCard card={card}/>)}
           </StCardArea>
         </StOtherUsers>
     </StWrapper>
