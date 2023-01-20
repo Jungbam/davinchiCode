@@ -2,140 +2,50 @@ import styled from "styled-components";
 import Header from "../../components/common/elements/Header";
 import UsersBox from "./ele/UsersBox";
 import CenterBox from "./ele/CenterBox";
-import Peer from "simple-peer";
+import Chat from "./ele/chat/Chat";
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
-import { ICON } from "../Icons";
-import Chat from "./ele/chat/Chat";
 import { io } from "socket.io-client";
 import { eventName } from "../../helpers/eventName";
 import background from "../../assets/images/background.png";
 import myUserBackground from "../../assets/images/myUserBackground.png";
 import otherUserBackground from "../../assets/images/otherUserBackground.png";
-import Video from "./ele/chat/Video";
+import { useSelector } from "react-redux";
 
 const Game = () => {
+  const [msgList, setMsgList] = useState([])
   const {roomID} = useParams()
-  const [peers, setPeers] = useState([]);
-  const peersRef = useRef([]);
-  const userVideo = useRef();
   const socketRef = useRef();
+  const {userInfo}=useSelector(state=>state)
 
   useEffect(() => {
     socketRef.current = io.connect(process.env.REACT_APP_SERVER);
-    navigator.mediaDevices
-      .getUserMedia({ video: {  width:' 354.82px',height: '231.89px'}, audio: true })
-      .then((stream) => {
-        userVideo.current.srcObject = stream;
-        socketRef.current.emit("joined", roomID);
-        socketRef.current.on("all users", (users) => {
-          const peers = [];
-          users.forEach((userID) => {
-            const peer = createPeer(userID, socketRef.current.id, stream);
-            peersRef.current.push({
-              peerID: userID,
-              peer,
-            });
-            peers.push(peer);
-          });
-          setPeers(peers);
-        });
-
-        socketRef.current.on("user joined", (payload) => {
-          const peer = addPeer(payload.signal, payload.callerID, stream);
-          peersRef.current.push({
-            peerID: payload.callerID,
-            peer,
-          });
-          setPeers((users) => [...users, peer]);
-        });
-
-        socketRef.current.on("receiving returned signal", (payload) => {
-          const item = peersRef.current.find((p) => p.peerID === payload.id);
-          item.peer.signal(payload.signal);
-        });
-      });
+    socketRef.current.emit(eventName.JOIN, roomID);
   }, []);
 
-  function createPeer(userToSignal, callerID, stream) {
-    const peer = new Peer({
-      initiator: true,
-      trickle: false,
-      stream,
-    });
-    peer.on("signal", (signal) => {
-      socketRef.current.emit("sending signal", {
-        userToSignal,
-        callerID,
-        signal,
-      });
-    });
-    return peer;
-  }
+  const createdAt = new Date().toLocaleString()
+  useEffect(()=>{
+      socketRef.current.on(eventName.RECEIVE_MESSAGE, (msg)=> {
+        const myMsg = {msg, mine:false, createdAt}
+        setMsgList(prev=>[...prev, myMsg])})
+  },[socketRef.current])
 
-  function addPeer(incomingSignal, callerID, stream) {
-    const peer = new Peer({
-      initiator: false,
-      trickle: false,
-      stream,
-    });
-    peer.on("signal", (signal) => {
-      socketRef.current.emit("returning signal", { signal, callerID });
-    });
-    peer.signal(incomingSignal);
-    return peer;
-  }
   return (
     <>
       <Header />
       <StWrapper>
         <StContainer>
               <StPeerWrapper>
-        {peers[0]?
-          <StOtherUsers>
-            <StUserInfo>
-              <Video key={0} peer={peers[0]} />
-              <SelectBtn> 지목 </SelectBtn>
-            </StUserInfo>
-            <StCardArea>
-            </StCardArea>
-          </StOtherUsers>
-          :
-          <UsersBox></UsersBox>}
-           {peers[1]?
-          <StOtherUsers>
-            <StUserInfo>
-              <Video key={1} peer={peers[1]} />
-              <SelectBtn> 지목 </SelectBtn>
-            </StUserInfo>
-            <StCardArea>
-            </StCardArea>
-          </StOtherUsers>:
-          <UsersBox></UsersBox>}
-           {peers[2]?
-          <StOtherUsers>
-            <StUserInfo>
-              <Video key={2} peer={peers[2]} />
-              <SelectBtn> 지목 </SelectBtn>
-            </StUserInfo>
-            <StCardArea>
-            </StCardArea>
-          </StOtherUsers>:
-          <UsersBox></UsersBox>}
+                <UsersBox/>
+                <UsersBox/>
+                <UsersBox/>
               </StPeerWrapper>
           <CenterBox  roomID={roomID} socket={socketRef} />
           <StMyBoxWrapper>
             <StMyBoxContainer>
-              <StyledVideo muted ref={userVideo} autoPlay playsInline />
-              <StBtnList>
-                <img src={ICON.iconMic} alt="icon" />
-                <div>|</div>
-                <img src={ICON.iconVideocam} alt="icon" />
-                <div>|</div>
-                <img src={ICON.iconSetting} alt="icon" />
-              </StBtnList>
+              <UsersBox/>
             </StMyBoxContainer>
-            <Chat roomID={roomID} socket={socketRef} />
+            <Chat roomID={roomID} socket={socketRef} msgList={msgList} setMsgList={setMsgList}/>
           </StMyBoxWrapper>
         </StContainer>
       </StWrapper >

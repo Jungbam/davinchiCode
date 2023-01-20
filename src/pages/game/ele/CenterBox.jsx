@@ -4,9 +4,11 @@ import IntroTile from "../logic/IntroTile";
 import { ICON } from "../../Icons";
 import Ready from "../logic/Ready";
 import { eventName } from "../../../helpers/eventName";
+import { useDispatch } from "react-redux";
 
 const CenterBox = ({socket, roomID}) => {
   const [gameView, setGameView] = useState(<Ready readyHandler={readyHandler}/>)
+  const dispatch = useDispatch()
   
   function readyHandler(){
     socket.current.emit(eventName.READY,{roomID : roomID,userID:123})
@@ -15,7 +17,8 @@ const CenterBox = ({socket, roomID}) => {
     })
   };
   function selectTile(black){
-    socket.current.emit(eventName.FIRST_DRAW,{ userId:123, black, roomId:roomID },()=>{
+    socket.current.emit(eventName.FIRST_DRAW, 123, black, roomID ,(myCards)=>{
+      dispatch()
     })
   }
   return (
