@@ -3,7 +3,9 @@ export const eventName = {
   CONNECT: "connect",
   DISCONNECT: "disconnect",
   READY_TO_JOIN: "ready-to-join",
-  JOIN: "join",
+  JOIN: "joined",
+  SEND_MESSAGE: "send-message",
+  RECEIVE_MESSAGE: "receive-message",
   YOU_JOINED: "you-joined",
   NEW_USER_JOINED: "new-user-joined",
   RTC_OFFER: "rtc-offer",
@@ -12,4 +14,6 @@ export const eventName = {
   RTC_DELIVER_ANSWER: "rtc-deliver-answer",
   RTC_DISCONNECT: "new-disconnect",
   GAME_START: "game-start",
+  READY: "ready",
+  FIRST_DRAW: "first-draw",
 };

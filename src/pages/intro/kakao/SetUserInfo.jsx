@@ -1,38 +1,42 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import React, { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { SignAPI } from "../../../api/axios";
-import { queryKeys } from "../../../helpers/queryKeys";
-import styled from "styled-components";
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import React, { useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+import { SignAPI } from '../../../api/axios';
+import { queryKeys } from '../../../helpers/queryKeys';
+import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUser } from '../../../redux/modules/gameSlice';
 
-const SetUserInfo = () => {
-  const [profileImg, setProfileImg] = useState(null);
+const SetUserInfo = () => { 
+  const [profileImg, setProfileImg] = useState(null)
+  const [newProfileImg, setNewProfileImg] = useState(null)
   const [nickName, setNickName] = useState(null);
   const [newNick, setNewNick] = useState(null);
   const [isActive, setIsActive] = useState(false);
-  const [newProfileImg, setNewProfileImg] = useState(null);
-
+  const dispatch = useDispatch()
+  const {userInfo} = useSelector(state=>state)
+  
   const imgRef = useRef();
-  const navigate = useNavigate();
-  const queryClient = useQueryClient();
-
-  // const { error, isLoading } = useQuery([queryKeys.MYINFO], SignAPI.myinfo, {
-  //   staleTime: 6000,
-  //   cacheTime: 60 * 60 * 1000,
-  //   onSuccess: (res) => {
-  //     setNickName(res?.data?.username);
-  //     setProfileImg(res?.data?.profileImageUrl);
-  //   },
-  //   onError: (error) => {
-  //     alert(error.message);
-  //     navigate("/");
-  //   },
-  // });
-  const { mutate } = useMutation((formData) => SignAPI.updateInfo(formData), {
-    onSuccess: (res) => {
-      queryClient.invalidateQueries(queryKeys.MYINFO);
-      alert("프로필 수정 완료");
-      navigate("/lobby");
+  const navigate = useNavigate()
+  const queryClient = useQueryClient()
+  
+  const {error, isLoading} = useQuery([queryKeys.MYINFO],SignAPI.myinfo,{staleTime:6000, cacheTime:60*60*1000,
+    onSuccess:(res)=>{
+      dispatch(setUser(res.data))
+      setNickName(res?.data?.username)
+      setProfileImg(res?.data?.profileImageUrl)
+    },
+    onError:(error)=>{
+      alert(error.message)
+      navigate('/')
+    }
+  })
+  const {mutate} = useMutation((formData)=>SignAPI.updateInfo(formData),
+  {
+    onSuccess : (res)=>{
+      queryClient.invalidateQueries(queryKeys.MYINFO)
+      alert('프로필 수정 완료')
+      navigate('/lobby')
     },
     onError: (error) => {
       alert(
