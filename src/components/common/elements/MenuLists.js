@@ -67,6 +67,8 @@ const StMenuWrapper = styled.div`
   align-items: center;
   width: 200px;
   height: 300px;
+  margin-right: 160px;
+  z-index: 1;
 `;
 
 const StButtonDesign = styled.button`
