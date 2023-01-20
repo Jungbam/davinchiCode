@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
-import backBlack from "../../../assets/icons/tiles/back_black.png";
-import backWhite from "../../../assets/icons/tiles/back_white.png";
 import { setUsers } from "../../../redux/modules/gameSlice";
+import { ICON } from "../../Icons";
 
 const usersMok = {
 blackCards: 4,
@@ -14,7 +13,7 @@ users: [
    {
       userId: 1,
       nickName: '익명1',
-      userProfileImg : '',
+      userProfileImg: "https://cdn.pixabay.com/photo/2023/01/12/15/05/flamingo-7714344_640.jpg",
       hand: [ 
         {
            color: 'black', 
@@ -36,10 +35,10 @@ users: [
    {
       userId: 2,
       nickName: '익명2',
-      userProfileImg : '',
+      userProfileImg: "https://cdn.pixabay.com/photo/2022/07/11/08/44/tower-7314495_1280.jpg",
       hand: [ 
         {
-           color: 'black', 
+           color: 'white', 
            value: 'Back', 
            isOpen: false 
           }, 
@@ -58,7 +57,7 @@ users: [
    {
       userId: 3,
       nickName: '익명3',
-      userProfileImg : '',
+      userProfileImg: "https://cdn.pixabay.com/photo/2023/01/12/07/19/rat-7713508_640.jpg",
       hand: [ 
         {
            color: 'black', 
@@ -93,10 +92,10 @@ const IntroTile = ({selectTile}) => {
       </div>
       <StCardArea>
         {new Array(black).fill("_").map((_, i) => (
-          <StCard key={`whiteCenter${i}`} src={backBlack} />
+          <StCard key={`whiteCenter${i}`} src={ICON.blackBack} />
         ))}
         {new Array(3 - black).fill("_").map((_, i) => (
-          <StCard key={`blackCenter${i}`} src={backWhite} />
+          <StCard key={`blackCenter${i}`} src={ICON.whiteBack} />
         ))}
       </StCardArea>
       <StTileNumber>
@@ -120,7 +119,7 @@ const IntroTile = ({selectTile}) => {
       </StRoundBtns>
       <StConfirmBtn onClick={()=>{
         dispatch(setUsers(usersMok.users))
-        // selectTile(black)
+        selectTile(black)
         }}>확인</StConfirmBtn>
     </StWrapper>
   );

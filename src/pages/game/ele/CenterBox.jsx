@@ -1,26 +1,31 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import IntroTile from "../logic/IntroTile";
-import { ICON } from "../../Icons";
 import Ready from "../logic/Ready";
 import { eventName } from "../../../helpers/eventName";
 import { useDispatch } from "react-redux";
+import Timer from "./Timer";
+import Turn from "../logic/Turn";
 
 const CenterBox = ({socket, roomID}) => {
   const [gameView, setGameView] = useState(<Ready readyHandler={readyHandler}/>)
+  const [timer, setTimer] =useState(false)
   const dispatch = useDispatch()
   
   function readyHandler(){
     setGameView(<IntroTile selectTile={selectTile}/>)
+    setTimer(true)
     // socket.current.emit(eventName.READY,{roomID : roomID,userID:123})
     // socket.current.on(eventName.GAME_START, ()=>{
     // setGameView(<IntroTile selectTile={selectTile}/>)
     // })
   };
   function selectTile(black){
-    socket.current.emit(eventName.FIRST_DRAW, 123, black, roomID ,(myCards)=>{
-      // dispatch(setUsers(usersMok))
-    })
+    setGameView(<Turn/>)
+        setTimer(false)
+    // socket.current.emit(eventName.FIRST_DRAW, 123, black, roomID ,(myCards)=>{
+    //   dispatch(setUsers(usersMok))
+    // })
   }
   return (
     <StWrapper>
@@ -30,13 +35,7 @@ const CenterBox = ({socket, roomID}) => {
         </StOnGoingStatus>
         {gameView}
       </StGameField>
-      <StTimer>
-        <img src={ICON.iconTimer} alt="icon" />
-        <StTimerBar>
-          <StTimeLimit />
-        </StTimerBar>
-        <div>남은시간 25초</div>
-      </StTimer>
+      {timer?<Timer/>:<StTimer/>}
     </StWrapper>
   );
 };
@@ -101,19 +100,4 @@ const StTimer = styled.div`
   line-height: normal;
   letter-spacing: normal;
   color: #222;
-`;
-
-const StTimerBar = styled.div`
-  width: 486px;
-  height: 16px;
-  border: solid 1px #000;
-  background-color: #fff;
-  border-radius: 4px;
-`;
-
-const StTimeLimit = styled.div`
-  height: 100%;
-  width: 400px;
-  background-color: #009320;
-  border-radius: 3px 0 0 3px;
 `;

@@ -13,71 +13,75 @@ import myUserBackground from "../../assets/images/myUserBackground.png";
 import otherUserBackground from "../../assets/images/otherUserBackground.png";
 import { useDispatch, useSelector } from "react-redux";
 import { setUsers } from "../../redux/modules/gameSlice";
+import MyBox from "./ele/MyBox";
 const usersMokinit = {
-blackCards: 4,
-whiteCards: 4,
-turn: 123,
-users: [
-   {
+  blackCards: 4,
+  whiteCards: 4,
+  turn: 123,
+  users: [
+    {
       userId: 1,
-      nickName: '익명1',
-      userProfileImg : '',
-      hand: [ 
-       ]
+      nickName: "익명1",
+      userProfileImg: "https://cdn.pixabay.com/photo/2023/01/12/15/05/flamingo-7714344_640.jpg",
+      hand: [],
     },
-   {
+    {
       userId: 2,
-      nickName: '익명2',
-      userProfileImg : '',
-      hand: [ 
-       ]
+      nickName: "익명2",
+      userProfileImg: "https://cdn.pixabay.com/photo/2022/07/11/08/44/tower-7314495_1280.jpg",
+      hand: [],
     },
-   {
+    {
       userId: 3,
-      nickName: '익명3',
-      userProfileImg : '',
-      hand: [ 
-       ]
+      nickName: "익명3",
+      userProfileImg: "https://cdn.pixabay.com/photo/2023/01/12/07/19/rat-7713508_640.jpg",
+      hand: [],
     },
-  ]
-}
+  ],
+};
 
 const Game = () => {
-  const [msgList, setMsgList] = useState([])
-  const {roomID} = useParams()
+  const [msgList, setMsgList] = useState([]);
+  const { roomID } = useParams();
   const socketRef = useRef();
-  const {users}=useSelector(state=>state.gameSlice)
-  const dispatch = useDispatch()
+  const { users } = useSelector((state) => state.gameSlice);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     socketRef.current = io.connect(process.env.REACT_APP_SERVER);
     socketRef.current.emit(eventName.JOIN, roomID);
-    dispatch(setUsers(usersMokinit.users))
+    dispatch(setUsers(usersMokinit.users));
   }, []);
 
-  const createdAt = new Date().toLocaleString()
-  useEffect(()=>{
-      socketRef.current.on(eventName.RECEIVE_MESSAGE, (msg)=> {
-        const myMsg = {msg, mine:false, createdAt}
-        setMsgList(prev=>[...prev, myMsg])})
-  },[socketRef.current])
+  const createdAt = new Date().toLocaleString();
+  useEffect(() => {
+    socketRef.current.on(eventName.RECEIVE_MESSAGE, (msg) => {
+      const myMsg = { msg, mine: false, createdAt };
+      setMsgList((prev) => [...prev, myMsg]);
+    });
+  }, [socketRef.current]);
 
   return (
     <>
       <Header />
       <StWrapper>
         <StContainer>
-              <StPeerWrapper>
-                <UsersBox user={users[1]?users[1]:null}/>
-                <UsersBox user={users[2]?users[2]:null}/>
-                <UsersBox user={users[3]?users[3]:null}/>
-              </StPeerWrapper>
-          <CenterBox  roomID={roomID} socket={socketRef} />
+          <StPeerWrapper>
+            <UsersBox user={users[1] ? users[1] : null} />
+            <UsersBox user={users[2] ? users[2] : null} />
+            <UsersBox user={users[3] ? users[3] : null} />
+          </StPeerWrapper>
+          <CenterBox roomID={roomID} socket={socketRef} />
           <StMyBoxWrapper>
             <StMyBoxContainer>
-              <UsersBox user={users[0]?users[0]:null}/>
+              <MyBox user={users[0] ? users[0] : null}/>
             </StMyBoxContainer>
-            <Chat roomID={roomID} socket={socketRef} msgList={msgList} setMsgList={setMsgList}/>
+            <Chat
+              roomID={roomID}
+              socket={socketRef}
+              msgList={msgList}
+              setMsgList={setMsgList}
+            />
           </StMyBoxWrapper>
         </StContainer>
       </StWrapper>
@@ -93,60 +97,12 @@ const StWrapper = styled.div`
   height: 100vh-40px;
   background-color: #2b2b2b;
 `;
-const StyledVideo = styled.video`
-  object-fit: cover;
-  width: 200px;
-  height: 112px;
-  border-radius: 4px;
-`;
 const StPeerWrapper = styled.div`
-  margin-top: 20px;
   width: 100%;
   height: 200px;
   display: flex;
+  margin-top: 20px;
   justify-content: space-between;
-`;
-const StOtherUsers = styled.div`
-  width: 356px;
-  height: 100%;
-  background-image: url(${otherUserBackground});
-  padding: 16px;
-  border-radius: 6px;
-  border: solid 1px #111;
-  background-color: #eee;
-`;
-const StUserInfo = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-`;
-const SelectBtn = styled.button`
-  width: 93px;
-  height: 32px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  border-radius: 6px;
-  box-shadow: 0 3px 0 0 #616161;
-  border: solid 1px #616161;
-  background-color: #ddd;
-  font-family: Pretendard;
-  font-size: 14px;
-  font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1;
-  letter-spacing: normal;
-  text-align: center;
-  color: #616161;
-`;
-const StCardArea = styled.div`
-  width: 100%;
-  height: 32px;
-  gap: 2px;
-  display: flex;
-  margin: 20px 7px;
 `;
 const StContainer = styled.div`
   width: 1080px;
@@ -173,23 +129,4 @@ const StMyBoxContainer = styled.div`
   border-radius: 6px;
   border: solid 1px #111;
   background-color: #eee;
-`;
-
-const StBtnList = styled.div`
-  width: 200px;
-  height: 36px;
-  background-color: #fff;
-  border-radius: 4px;
-  border: solid 1px #aaa;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0px 24px;
-  & div {
-    font-size: 16px;
-    color: #aaa;
-  }
-  & img {
-    cursor: pointer;
-  }
 `;

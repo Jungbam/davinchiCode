@@ -20,47 +20,28 @@ const Ranking = () => {
         {status === "error" && <div>Error: {data.error.message}</div>}
         {status === "success" && mockDataMy && (
           <>
-            <StMyRankTop>
-              <StMyRankTopLeft>
-                <StMyRankingTag>내 순위</StMyRankingTag>
-                <StMyRanking>{mockDataMy.ranking}</StMyRanking>
-              </StMyRankTopLeft>
-              <StMyRankTopRight>
-                <StMyRankingActive>{mockDataMy.change}</StMyRankingActive>
-              </StMyRankTopRight>
-            </StMyRankTop>
-
-            <StSectionDivider />
-
             <StMyRankBottom>
+              <StMyRankTopLeft>
+                <StRank>
+                  <StMyRanking>{mockDataMy.ranking}</StMyRanking>
+                </StRank>
+                <StRankChange>
+                  <StMyRankingActive>{mockDataMy.change}</StMyRankingActive>
+                </StRankChange>
+              </StMyRankTopLeft>
+
               <StMyRankBottomLeft>
                 <StMyProfile src={mockDataMy.profileImageUrl}></StMyProfile>
+                <StMyName>{mockDataMy.username}</StMyName>
               </StMyRankBottomLeft>
+
               <StMyRankBottomMid>
                 <StMyOverallScore>{mockDataMy.score}</StMyOverallScore>
-                <StMyName>{mockDataMy.username}</StMyName>
               </StMyRankBottomMid>
-              <StMyRankBottomRight>
-                <StMyTier>{mockDataMy.rank}</StMyTier>
-                <Tooltip>
-                  <div>
-                    <h3>티어</h3>
-                  </div>
-                  <StDiaTier>
-                    <p>다이아 상위 10%</p>
-                  </StDiaTier>
-                  <StGoldTier>
-                    <p>골드 상위 50%</p>
-                  </StGoldTier>
-                  <StSilverTier>
-                    <p>실버 상위 80%</p>
-                  </StSilverTier>
-                  <StBronzeTier>
-                    <p>브론즈 상위 100%</p>
-                  </StBronzeTier>
-                </Tooltip>
-              </StMyRankBottomRight>
             </StMyRankBottom>
+            <StUpdateNotice>
+              <p>게임 순위는 1시간마다 업데이트됩니다.</p>
+            </StUpdateNotice>
           </>
         )}
       </StPersonalBox>
@@ -81,8 +62,10 @@ const StRankingHeader = styled.div`
   align-items: center;
   width: 420px;
   height: 40px;
-  background: #333333;
   border-radius: 12px 12px 0px 0px;
+  background: #111111;
+  color: white;
+  font-weight: bold;
 `;
 
 const StRankingTitle = styled.p`
@@ -95,50 +78,27 @@ const StIndividualWrapper = styled.div`
 
 const StPersonalBox = styled.div`
   width: 420px;
-  height: 122px;
-  border-top: 1px solid black;
+  height: 88px;
   border-bottom: 2px;
-`;
-
-const StMyRankTop = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 420;
-  height: 26px;
 `;
 const StMyRankTopLeft = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  gap: 4px;
-  margin-top: 2px;
-  margin-left: 14px;
+  flex-direction: column;
 `;
-const StMyRankingTag = styled.div`
-  display: inline-block;
-  padding: 5px;
-  border: 1.5px solid black;
-  border-radius: 12px;
-  font-size: 10px;
-`;
-
-const StMyRanking = styled.div``;
-
-const StMyRankTopRight = styled.div`
+const StMyRanking = styled.div`
   display: flex;
-  flex-direction: row;
-  margin-left: 30px;
+  justify-content: flex-start;
+  align-items: center;
+  font-weight: bold;
+  font-size: 20px;
 `;
 const StMyRankingActive = styled.span`
   display: flex;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: flex-end;
   align-items: center;
+  width: 100%;
   font-size: 11px;
-`;
-
-const StSectionDivider = styled.div`
-  border-top: 1px solid black;
-  margin-top: 6px;
 `;
 
 const StMyRankBottom = styled.div`
@@ -147,19 +107,29 @@ const StMyRankBottom = styled.div`
   justify-content: space-around;
   align-items: center;
   width: 420px;
-  height: 86px;
+  height: 64px;
+  margin-top: 35px;
+  background-color: #efffec;
 `;
 
 const StMyRankBottomLeft = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 6px;
+  justify-content: flex-start;
+  align-items: center;
+  width: 180px;
+  height: 72px;
+  gap: 20px;
 `;
 const StMyProfile = styled.img``;
 
 const StMyRankBottomMid = styled.div`
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100px;
+  height: 36px;
 `;
 
 const StMyOverallScore = styled.span``;
@@ -167,51 +137,33 @@ const StMyName = styled.span`
   font-weight: bold;
 `;
 
-const StMyRankBottomRight = styled.div`
+const StRank = styled.div`
   display: flex;
   flex-direction: row;
+  width: 50px;
+  height: 36px;
+`;
+
+const StRankChange = styled.div`
+  display: Flex;
+  flex-direction: row;
+  width: 50px;
+  height: 36px;
+`;
+
+const StUpdateNotice = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 34px;
+  border-top: 1px solid black;
+  border-bottom-left-radius: 14px;
+  border-bottom-right-radius: 14px;
   gap: 10px;
-`;
-
-const StMyTier = styled.span`
-  display: inline-block;
-  border: 1px solid black;
-  padding: 4px;
-  border-radius: 12px;
-`;
-
-const StDiaTier = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: center;
-  width: 100%;
-  height: 40px;
-`;
-const StGoldTier = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: center;
-  width: 100%;
-  height: 40px;
-`;
-
-const StSilverTier = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: center;
-  width: 100%;
-  height: 40px;
-`;
-
-const StBronzeTier = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: center;
-  width: 100%;
-  height: 40px;
+  background-color: #111111;
+  color: white;
+  font-weight: bold;
+  font-size: 14px; ;
 `;
 export default Ranking;
