@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isLoggedIn: false,
+  userInfo: { nickName: "익명" },
 };
 
 const signSlice = createSlice({
@@ -14,7 +15,10 @@ const signSlice = createSlice({
     logout: (state, action) => {
       state.isLoggedIn = false;
     },
+    setUser: (state, action) => {
+      state.userInfo = action.payload;
+    },
   },
 });
-export const { login, logout } = signSlice.actions;
+export const { login, logout, setUser } = signSlice.actions;
 export default signSlice.reducer;

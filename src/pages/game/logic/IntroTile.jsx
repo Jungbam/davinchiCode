@@ -1,16 +1,89 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
 import backBlack from "../../../assets/icons/tiles/back_black.png";
 import backWhite from "../../../assets/icons/tiles/back_white.png";
+import { setUsers } from "../../../redux/modules/gameSlice";
 
-const IntroTile = () => {
+const usersMok = {
+blackCards: 4,
+whiteCards: 4,
+turn: 123,
+users: [
+   {
+      userId: 1,
+      nickName: '익명1',
+      userProfileImg : '',
+      hand: [ 
+        {
+           color: 'black', 
+           value: '1', 
+           isOpen: false 
+          }, 
+        {
+           color: 'black', 
+           value: '3', 
+           isOpen: false 
+          }, 
+        {
+           color: 'white', 
+           value: '4', 
+           isOpen: false 
+          }, 
+       ]
+    },
+   {
+      userId: 2,
+      nickName: '익명2',
+      userProfileImg : '',
+      hand: [ 
+        {
+           color: 'black', 
+           value: 'Back', 
+           isOpen: false 
+          }, 
+        {
+           color: 'black', 
+           value: 'Back', 
+           isOpen: false 
+          }, 
+        {
+           color: 'white', 
+           value: 'Back', 
+           isOpen: false 
+          }, 
+       ]
+    },
+   {
+      userId: 3,
+      nickName: '익명3',
+      userProfileImg : '',
+      hand: [ 
+        {
+           color: 'black', 
+           value: 'Back', 
+           isOpen: false 
+          }, 
+        {
+           color: 'black', 
+           value: 'Back', 
+           isOpen: false 
+          }, 
+        {
+           color: 'white', 
+           value: 'Back', 
+           isOpen: false 
+          }, 
+       ]
+    },
+  ]
+}
+
+const IntroTile = ({selectTile}) => {
   const [black, setBlack] = useState(0);
   const countBlackBtn = [0, 1, 2, 3];
-
-  const sendIntroTile = () => {
-  };
-
+  const dispatch = useDispatch()
   return (
     <StWrapper>
       <StButton>가져올 타일을 정해주세요!</StButton>
@@ -26,7 +99,6 @@ const IntroTile = () => {
           <StCard key={`blackCenter${i}`} src={backWhite} />
         ))}
       </StCardArea>
-
       <StTileNumber>
         <div>
           검은색 타일 <span>{black}개</span>
@@ -43,11 +115,13 @@ const IntroTile = () => {
               setBlack(el);
             }}
           >
-            {/* {el} */}
           </StRoundBtn>
         ))}
       </StRoundBtns>
-      <StConfirmBtn onClick={sendIntroTile}>확인</StConfirmBtn>
+      <StConfirmBtn onClick={()=>{
+        dispatch(setUsers(usersMok.users))
+        // selectTile(black)
+        }}>확인</StConfirmBtn>
     </StWrapper>
   );
 };

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components';
+import { eventName } from '../../../../helpers/eventName';
 import Message from './Message';
 
-const Chat = ({socket,roomID}) => {
+const Chat = ({socket,roomID,msgList,setMsgList}) => {
   const [msg, setMsg] = useState('')
-  const [msgList, setMsgList] = useState([])
 
   const createdAt = new Date().toLocaleString()
   const addMyMessage=(msg)=>{
@@ -14,20 +14,12 @@ const Chat = ({socket,roomID}) => {
   }
   const sendMessage = (e) => {
     if(e.keyCode===13){
-      socket?.current.emit("send_message", msg, roomID,addMyMessage);
+      socket?.current.emit(eventName.SEND_MESSAGE, msg, roomID,addMyMessage);
     }
   };
   const sendMessageBtn = (e) => {
-      socket?.current.emit("send_message",msg, roomID,addMyMessage);
+      socket?.current.emit(eventName.SEND_MESSAGE,msg, roomID,addMyMessage);
   };
-
-  useEffect(()=>{
-    if(socket.current){
-      socket?.current.on('receive_message', (msg)=> {
-        const myMsg = {msg, mine:false, createdAt}
-        setMsgList(prev=>[...prev, myMsg])})
-    }
-  },[socket.current])
 
   return (
   
