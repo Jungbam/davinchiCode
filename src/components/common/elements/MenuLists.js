@@ -12,7 +12,7 @@ function DropdownMenu() {
   return (
     <StMenuWrapper>
       <StButtonDesign onClick={() => setShowMenu(!showMenu)}>
-        메인페이지
+        마이페이지
       </StButtonDesign>
       {showMenu && (
         <StMenuListWrapper>
@@ -70,9 +70,13 @@ const StMenuWrapper = styled.div`
 `;
 
 const StButtonDesign = styled.button`
+  border: 1px solid white;
   border-radius: 4px;
-  padding: 4px;
-  color: grey;
+  padding: 10px;
+  background-color: #111111;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
 `;
 
 const StMenuListWrapper = styled.div`

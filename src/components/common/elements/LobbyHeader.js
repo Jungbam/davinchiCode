@@ -25,8 +25,9 @@ const StLobbyHead = styled.div`
   justify-content: space-between;
   width: 1534px;
   height: 48px;
-  border: 1px solid;
-  background-color: #f4f4f4;
+  border: 1px solid black;
+  background-color: #111111;
+  color: white;
 `;
 const StLogoName = styled.span`
   display: flex;
