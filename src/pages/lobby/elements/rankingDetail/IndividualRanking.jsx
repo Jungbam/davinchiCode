@@ -32,20 +32,19 @@ const IndividualRanking = () => {
                   <StPlayerRankingActive>{item.change}</StPlayerRankingActive>
                 </StIndvFirstBottom>
               </StIndvFirst>
+
               <StIndvSec>
                 <StPlayerProfile src={item.profileImageUrl} />
+                <StPlayerName>{item.username}</StPlayerName>
               </StIndvSec>
-              <StIndvThrd>
-                <StIndvThrdTop>
-                  <StPlayerName>{item.username}</StPlayerName>
-                </StIndvThrdTop>
-                <StIndvThrdBot>
-                  <StPlayerOverallScore>{item.score}</StPlayerOverallScore>
-                </StIndvThrdBot>
-              </StIndvThrd>
-              <StIndvForth>
+
+              <StIndvThrdBot>
+                <StPlayerOverallScore>{item.score}</StPlayerOverallScore>
+              </StIndvThrdBot>
+
+              {/* <StIndvForth>
                 <StPlayerTier>{item.rank}</StPlayerTier>
-              </StIndvForth>
+              </StIndvForth> */}
             </StIndividualBox>
           ))}
       </>
@@ -59,8 +58,9 @@ const StIndividualBox = styled.div`
   justify-content: space-around;
   align-items: center;
   width: 420px;
-  height: 72px;
-  border: 1px solid black;
+  height: 64px;
+  border: 1px solid #e6e6e6;
+  background-color: white;
 `;
 
 const StIndvFirst = styled.div`
@@ -71,7 +71,7 @@ const StIndvFirst = styled.div`
 const StIndvFirstTop = styled.div`
   display: flex;
   flex-direction: row;
-  width: 72px;
+  width: 50px;
   height: 36px;
 `;
 const StPlayerRanking = styled.span`
@@ -85,7 +85,7 @@ const StPlayerRanking = styled.span`
 const StIndvFirstBottom = styled.div`
   display: Flex;
   flex-direction: row;
-  width: 72px;
+  width: 50px;
   height: 36px;
 `;
 const StPlayerRankingActive = styled.span`
@@ -98,49 +98,52 @@ const StPlayerRankingActive = styled.span`
 `;
 const StIndvSec = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 60px;
-  height: 72px;
-`;
-const StPlayerProfile = styled.img``;
-
-const StIndvThrd = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 180px;
-  height: 72px;
-`;
-
-const StIndvThrdTop = styled.div`
-  display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  width: 100%;
-  height: 36px;
+  width: 180px;
+  height: 72px;
+  gap: 20px;
 `;
+const StPlayerProfile = styled.img``;
+
+// const StIndvThrd = styled.div`
+//   display: flex;
+//   flex-direction: row;
+//   align-items: center;
+//   justify-content: flex-end;
+//   width: 100px;
+//   height: 72px;
+// `;
+
+// const StIndvThrdTop = styled.div`
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: flex-start;
+//   align-items: center;
+//   width: 100%;
+//   height: 36px;
+// `;
 const StPlayerName = styled.span`
   font-weight: bold;
 `;
 const StIndvThrdBot = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: flex-end;
   align-items: center;
-  width: 100%;
+  width: 100px;
   height: 36px;
 `;
 const StPlayerOverallScore = styled.span``;
 
-const StIndvForth = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-const StPlayerTier = styled.span`
-  display: inline-block;
-  border: 1px solid black;
-`;
+// const StIndvForth = styled.div`
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+// `;
+// const StPlayerTier = styled.span`
+//   display: inline-block;
+//   border: 1px solid black;
+// `;
 export default IndividualRanking;
