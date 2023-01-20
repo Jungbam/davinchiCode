@@ -7,7 +7,14 @@ const initialState = {
 const gameSlice = createSlice({
   name: "gameSlice",
   initialState,
-  reducers: {},
+  reducers: {
+    setMine: (state, action) => {
+      state.users[0] = action.payload;
+    },
+    setUsers: (state, action) => {
+      state.users = action.payload;
+    },
+  },
 });
-export const {} = gameSlice.actions;
+export const { setMine, setUsers } = gameSlice.actions;
 export default gameSlice.reducer;

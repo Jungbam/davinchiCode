@@ -5,7 +5,7 @@ import { SignAPI } from '../../../api/axios';
 import { queryKeys } from '../../../helpers/queryKeys';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUser } from '../../../redux/modules/gameSlice';
+import { setUser } from '../../../redux/modules/signSlice';
 
 const SetUserInfo = () => { 
   const [profileImg, setProfileImg] = useState(null)
@@ -14,7 +14,7 @@ const SetUserInfo = () => {
   const [newNick, setNewNick] = useState(null);
   const [isActive, setIsActive] = useState(false);
   const dispatch = useDispatch()
-  const {userInfo} = useSelector(state=>state)
+  const {userInfo} = useSelector(state=>state.signSlice)
   
   const imgRef = useRef();
   const navigate = useNavigate()
