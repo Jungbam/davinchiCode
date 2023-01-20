@@ -4,13 +4,9 @@ import styled from "styled-components";
 import backBlack from "../../../assets/icons/tiles/back_black.png";
 import backWhite from "../../../assets/icons/tiles/back_white.png";
 
-const IntroTile = () => {
+const IntroTile = ({selectTile}) => {
   const [black, setBlack] = useState(0);
   const countBlackBtn = [0, 1, 2, 3];
-
-  const sendIntroTile = () => {
-  };
-
   return (
     <StWrapper>
       <StButton>가져올 타일을 정해주세요!</StButton>
@@ -26,7 +22,6 @@ const IntroTile = () => {
           <StCard key={`blackCenter${i}`} src={backWhite} />
         ))}
       </StCardArea>
-
       <StTileNumber>
         <div>
           검은색 타일 <span>{black}개</span>
@@ -43,11 +38,10 @@ const IntroTile = () => {
               setBlack(el);
             }}
           >
-            {/* {el} */}
           </StRoundBtn>
         ))}
       </StRoundBtns>
-      <StConfirmBtn onClick={sendIntroTile}>확인</StConfirmBtn>
+      <StConfirmBtn onClick={()=>selectTile(black)}>확인</StConfirmBtn>
     </StWrapper>
   );
 };

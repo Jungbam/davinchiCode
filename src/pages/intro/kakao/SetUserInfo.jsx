@@ -4,12 +4,16 @@ import { useNavigate } from 'react-router-dom';
 import { SignAPI } from '../../../api/axios';
 import { queryKeys } from '../../../helpers/queryKeys';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUser } from '../../../redux/modules/gameSlice';
 
 const SetUserInfo = () => { 
   const [profileImg, setProfileImg] = useState(null)
   const [newProfileImg, setNewProfileImg] = useState(null)
   const [nickName, setNickName] = useState(null);
   const [newNick, setNewNick] = useState(null);
+  const dispatch = useDispatch()
+  const {userInfo} = useSelector(state=>state)
   
   const imgRef = useRef();
   const navigate = useNavigate()
@@ -17,6 +21,7 @@ const SetUserInfo = () => {
   
   const {error, isLoading} = useQuery([queryKeys.MYINFO],SignAPI.myinfo,{staleTime:6000, cacheTime:60*60*1000,
     onSuccess:(res)=>{
+      dispatch(setUser(res.data))
       setNickName(res?.data?.username)
       setProfileImg(res?.data?.profileImageUrl)
     },

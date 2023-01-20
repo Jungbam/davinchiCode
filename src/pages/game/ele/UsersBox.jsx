@@ -3,7 +3,7 @@ import otherUserBackground from "../../../assets/images/otherUserBackground.png"
 import userProfile from "../../../assets/images/user_profile.png";
 import styled from "styled-components";
 
-const UsersBox = () => {
+const UsersBox = ({user}) => {
   return (
     <StWrapper>
         <StOtherUsers>
@@ -14,7 +14,6 @@ const UsersBox = () => {
                   <img src={ICON.iconMic} alt="icon" />
                   <img src={ICON.iconVideocam} alt="icon" />
                 </StCameraStatus>
-                {/* <GameStatus>진행중</GameStatus> */}
               </StSpaceBetween>
               <StUserName>
                 <div>빈 자리</div>
