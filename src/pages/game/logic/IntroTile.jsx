@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
-import backBlack from "../../../assets/icons/tiles/back_black.png";
-import backWhite from "../../../assets/icons/tiles/back_white.png";
 import { setUsers } from "../../../redux/modules/gameSlice";
+import { ICON } from "../../Icons";
 
 const usersMok = {
 blackCards: 4,
@@ -93,10 +92,10 @@ const IntroTile = ({selectTile}) => {
       </div>
       <StCardArea>
         {new Array(black).fill("_").map((_, i) => (
-          <StCard key={`whiteCenter${i}`} src={backBlack} />
+          <StCard key={`whiteCenter${i}`} src={ICON.blackBack} />
         ))}
         {new Array(3 - black).fill("_").map((_, i) => (
-          <StCard key={`blackCenter${i}`} src={backWhite} />
+          <StCard key={`blackCenter${i}`} src={ICON.whiteBack} />
         ))}
       </StCardArea>
       <StTileNumber>
