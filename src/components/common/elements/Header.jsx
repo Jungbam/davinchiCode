@@ -1,11 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import iconLock from "../../../assets/icons/ico_lock_white.svg";
 import iconSiren from "../../../assets/icons/ico_siren_white.svg";
+
+import Modal from "../../form/modal/Modal";
 import ComplaintBug from "./complaintbug/ComplaintBug";
+
 const Header = () => {
+  const [modal, setModal] = useState(false);
+  const setModalHandler = () => {
+    setModal((prev) => !prev);
+  };
+
   return (
     <Navbar>
+      <Modal
+        modal={modal}
+        closeModal={setModalHandler}
+        width="440px"
+        height="396px"
+      >
+        <ComplaintBug closeModal={setModalHandler} />
+      </Modal>
       <NavbarInside>
         <NavbarStatus>
           <RoomStauts>
@@ -22,9 +38,9 @@ const Header = () => {
           </RoomName>
         </NavbarStatus>
 
-        <ReportButton>
+        <ReportButton onClick={setModalHandler}>
           <img src={iconSiren} />
-          <ComplaintBug/>
+          <div>버그신고</div>
         </ReportButton>
       </NavbarInside>
     </Navbar>
