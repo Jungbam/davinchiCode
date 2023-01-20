@@ -1,85 +1,87 @@
-import React, { useState } from 'react'
-import styled from 'styled-components';
-import Modal from '../../components/form/modal/Modal';
-import GameInfo from './kakao/ele/GameInfo';
+import React, { useState } from "react";
+import styled from "styled-components";
+import Modal from "../../components/form/modal/Modal";
+import GameInfo from "./kakao/ele/GameInfo";
 export const KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_ID}&redirect_uri=${process.env.REACT_APP_REDIRECT}&response_type=code`;
 const Intro = () => {
-  const [modal, setModal] = useState(false)
+  const [modal, setModal] = useState(false);
 
-  const setModalHandler = ()=>{
-    setModal(prev=>!prev)
-  }
+  const setModalHandler = () => {
+    setModal((prev) => !prev);
+  };
 
   return (
-  <StWrapper>
-    <Modal modal={modal} closeModal={setModalHandler}><GameInfo/></Modal>
-    <StContainer>
-      <StBox>
-      <StLogo>로고</StLogo>
-      <StImg>
-        게임 이미지
-      </StImg>
-      <StInfo>
-        게임 간략 설명
-      </StInfo>
-      </StBox>
-      <StBtnBox>
-        <button onClick={setModalHandler}>게임 설명보기</button>
-        <a href={KAKAO_URL}>
-          <button>카카오 로그인</button>
-        </a>
-      </StBtnBox>
+    <StWrapper>
+      <Modal modal={modal} closeModal={setModalHandler}>
+        <GameInfo closeModal={setModalHandler} />
+      </Modal>
+      <StContainer>
+        <StBox>시작화면 이미지</StBox>
+        <StBtnBox>
+          <StBtn onClick={setModalHandler} color="#fff">
+            게임 설명보기
+          </StBtn>
+          <a href={KAKAO_URL}>
+            <StBtn color="#ffdf24">카카오톡 로그인</StBtn>
+          </a>
+        </StBtnBox>
       </StContainer>
-  </StWrapper>
-  )
-}
+    </StWrapper>
+  );
+};
 
-export default Intro
+export default Intro;
 
 const StWrapper = styled.div`
   display: flex;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
-  border:  1px solid red;
   justify-content: center;
   align-items: center;
-`
+`;
 const StContainer = styled.div`
+  width: 512px;
+  height: 398px;
   display: flex;
-  width: 54%;
-  min-width: 400px;
-  height: 70%;
-  min-height: 500px;
-  border:  1px solid blue;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-`
+`;
 const StBox = styled.div`
+  width: 512px;
+  height: 340px;
+
   display: flex;
-  width: 80%;
-  height: 90%;
-  min-height: 300px;
-  padding: 10px;
-  border:1px solid green;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 10px;
-`
-const StLogo = styled.div`
-  width: 70%;
-  height: 10%;
-  border: 1px solid green;
- `
- const StImg = styled.div`
-  width: 90%;
-  height: 65%;
-  border: 1px solid green; 
- `
- const StInfo = styled.div`
-  width: 100%;
-  height: 15%;
- `
- const StBtnBox = styled.div`
-  
- `
+
+  background-color: #d9d9d9;
+`;
+
+const StBtnBox = styled.div`
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  & a {
+    text-decoration: none;
+  }
+`;
+
+const StBtn = styled.button`
+  width: 252px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid 1px #000;
+  background-color: ${(props) => props.color};
+  border-radius: 6px;
+
+  font-size: 18px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: center;
+  color: #000;
+  box-shadow: 0 3px 0 0 #000;
+`;

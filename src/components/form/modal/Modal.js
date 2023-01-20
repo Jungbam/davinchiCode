@@ -21,32 +21,35 @@ export default Modal;
 
 const StModal = styled.div`
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 50vh;
+  left: 50vw;
   z-index: 140;
   transform: translate(-50%, -50%);
   display: ${({ modal }) => {
     return modal ? "flex" : "none";
+    //스위치문으로 부트스랩만들기 @@ 뭐일떄 return 사이즈랑 색깔
   }};
-  width: 400px;
-  height: 500px;
-  background-color: white;
+
+  width: 628px;
+  height: 576px;
+  border-radius: 6px;
+  border: solid 1px #bbb;
+  background-color: #fff;
+
   flex-direction: column;
   justify-content: center;
   align-content: center;
-  border-radius: 12px;
-  box-shadow: 2px 2px 6px black;
 `;
+
 const StBackDrop = styled.div`
   position: fixed;
   top: 0;
   z-index: 120;
-  margin: 0;
-  padding: 0;
   display: ${({ modal }) => {
     return modal ? "block" : "none";
   }};
+
   width: 100vw;
   height: 100vh;
-  background-color: rgba(141, 141, 141, 0.8);
+  background-color: rgba(0, 0, 0, 0.5);
 `;

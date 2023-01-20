@@ -8,6 +8,7 @@ import { useParams } from "react-router";
 import { ICON } from "../Icons";
 import Chat from "./ele/chat/Chat";
 import { io } from "socket.io-client";
+
 import { eventName } from "../../helpers/eventName";
 import background from "../../assets/images/background.png";
 import myUserBackground from "../../assets/images/myUserBackground.png";
@@ -15,7 +16,7 @@ import otherUserBackground from "../../assets/images/otherUserBackground.png";
 import Video from "./ele/chat/Video";
 
 const Game = () => {
-  const {roomID} = useParams()
+  const { roomID } = useParams();
   const [peers, setPeers] = useState([]);
   const peersRef = useRef([]);
   const userVideo = useRef();
@@ -24,7 +25,10 @@ const Game = () => {
   useEffect(() => {
     socketRef.current = io.connect(process.env.REACT_APP_SERVER);
     navigator.mediaDevices
-      .getUserMedia({ video: {  width:' 354.82px',height: '231.89px'}, audio: true })
+      .getUserMedia({
+        video: { width: " 354.82px", height: "231.89px" },
+        audio: true,
+      })
       .then((stream) => {
         userVideo.current.srcObject = stream;
         socketRef.current.emit("joined", roomID);
@@ -90,40 +94,42 @@ const Game = () => {
       <Header />
       <StWrapper>
         <StContainer>
-              <StPeerWrapper>
-        {peers[0]?
-          <StOtherUsers>
-            <StUserInfo>
-              <Video key={0} peer={peers[0]} />
-              <SelectBtn> 지목 </SelectBtn>
-            </StUserInfo>
-            <StCardArea>
-            </StCardArea>
-          </StOtherUsers>
-          :
-          <UsersBox></UsersBox>}
-           {peers[1]?
-          <StOtherUsers>
-            <StUserInfo>
-              <Video key={1} peer={peers[1]} />
-              <SelectBtn> 지목 </SelectBtn>
-            </StUserInfo>
-            <StCardArea>
-            </StCardArea>
-          </StOtherUsers>:
-          <UsersBox></UsersBox>}
-           {peers[2]?
-          <StOtherUsers>
-            <StUserInfo>
-              <Video key={2} peer={peers[2]} />
-              <SelectBtn> 지목 </SelectBtn>
-            </StUserInfo>
-            <StCardArea>
-            </StCardArea>
-          </StOtherUsers>:
-          <UsersBox></UsersBox>}
-              </StPeerWrapper>
-          <CenterBox  roomID={roomID} socket={socketRef} />
+          <StPeerWrapper>
+            {peers[0] ? (
+              <StOtherUsers>
+                <StUserInfo>
+                  <Video key={0} peer={peers[0]} />
+                  <SelectBtn> 지목 </SelectBtn>
+                </StUserInfo>
+                <StCardArea></StCardArea>
+              </StOtherUsers>
+            ) : (
+              <UsersBox></UsersBox>
+            )}
+            {peers[1] ? (
+              <StOtherUsers>
+                <StUserInfo>
+                  <Video key={1} peer={peers[1]} />
+                  <SelectBtn> 지목 </SelectBtn>
+                </StUserInfo>
+                <StCardArea></StCardArea>
+              </StOtherUsers>
+            ) : (
+              <UsersBox></UsersBox>
+            )}
+            {peers[2] ? (
+              <StOtherUsers>
+                <StUserInfo>
+                  <Video key={2} peer={peers[2]} />
+                  <SelectBtn> 지목 </SelectBtn>
+                </StUserInfo>
+                <StCardArea></StCardArea>
+              </StOtherUsers>
+            ) : (
+              <UsersBox></UsersBox>
+            )}
+          </StPeerWrapper>
+          <CenterBox roomID={roomID} socket={socketRef} />
           <StMyBoxWrapper>
             <StMyBoxContainer>
               <StyledVideo muted ref={userVideo} autoPlay playsInline />
@@ -138,26 +144,25 @@ const Game = () => {
             <Chat roomID={roomID} socket={socketRef} />
           </StMyBoxWrapper>
         </StContainer>
-      </StWrapper >
+      </StWrapper>
     </>
   );
 };
 
 export default Game;
 
-
 const StWrapper = styled.div`
   background-image: url(${background});
   background-size: cover;
-  height: 100vh;
+  height: 100vh-40px;
   background-color: #2b2b2b;
-  `;
-  const StyledVideo = styled.video`
-    object-fit: cover;
-    width: 200px;
-    height: 112px;
-    border-radius: 4px;
-  `;
+`;
+const StyledVideo = styled.video`
+  object-fit: cover;
+  width: 200px;
+  height: 112px;
+  border-radius: 4px;
+`;
 const StPeerWrapper = styled.div`
   margin-top: 20px;
   width: 100%;
