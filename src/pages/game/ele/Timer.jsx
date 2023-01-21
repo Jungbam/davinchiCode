@@ -2,11 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { ICON } from '../../Icons';
 
-const Timer = () => {
+const Timer = ({timeOver}) => {
   const [second, setSecond] = useState(String(30).padStart(2, '0'));
   const count = useRef(30);
   const interval = useRef(null);
 
+  if(second === 0) timeOver()
   useEffect(() => {
     interval.current = setInterval(() => {
       count.current -= 1;
@@ -18,14 +19,14 @@ const Timer = () => {
   useEffect(() => {
     if (count.current <= 0) clearInterval(interval.current)
   }, [second]);
-
+// timeOver
   return (
     <StTimer>
       <img src={ICON.iconTimer} alt="icon" />
       <StTimerBar>
           <StTimeLimit timer={second}/>
       </StTimerBar>
-      <span>{second} 초</span>
+      <StSecond second={second}>{second} 초</StSecond>
     </StTimer>
   );
 };
@@ -64,3 +65,10 @@ const StTimeLimit = styled.div`
   background-color: #009320;
   border-radius: 3px 0 0 3px;
 `;
+const StSecond = styled.span`
+color : ${({ second }) => {
+  if(second<10) return `red`;
+  else return 'black'
+  }};
+  
+`

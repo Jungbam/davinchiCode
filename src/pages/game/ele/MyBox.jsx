@@ -13,7 +13,7 @@ const MyBox = ({user}) => {
           </StCameraStatus>
         </StSpaceBetween>
         <StUserName>
-          <div>{user.nickName}</div>
+          <div>{user?.nickName}</div>
         </StUserName>
       </StCamera>
       <StCardList>
