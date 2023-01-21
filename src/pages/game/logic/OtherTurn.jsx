@@ -1,5 +1,5 @@
-import { styled } from '@tanstack/react-query-devtools/build/lib/utils';
 import React from 'react'
+import styled from 'styled-components';
 
 const OtherTurn = () => {
   return (
@@ -8,6 +8,7 @@ const OtherTurn = () => {
 }
 
 export default OtherTurn
+
 const StWrapper = styled.div`
   display: flex;
   flex-direction: column;

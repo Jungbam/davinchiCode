@@ -8,12 +8,13 @@ import { ICON } from "../../Icons";
 const usersMok = {
 blackCards: 4,
 whiteCards: 4,
-turn: 123,
+turn: 1,
 users: [
    {
       userId: 1,
       nickName: '익명1',
       userProfileImg: "https://cdn.pixabay.com/photo/2023/01/12/15/05/flamingo-7714344_640.jpg",
+      isReady:false,
       hand: [ 
         {
            color: 'black', 
@@ -36,6 +37,7 @@ users: [
       userId: 2,
       nickName: '익명2',
       userProfileImg: "https://cdn.pixabay.com/photo/2022/07/11/08/44/tower-7314495_1280.jpg",
+      isReady:false,
       hand: [ 
         {
            color: 'white', 
@@ -58,6 +60,7 @@ users: [
       userId: 3,
       nickName: '익명3',
       userProfileImg: "https://cdn.pixabay.com/photo/2023/01/12/07/19/rat-7713508_640.jpg",
+      isReady:false,
       hand: [ 
         {
            color: 'black', 
@@ -118,8 +121,9 @@ const IntroTile = ({selectTile}) => {
         ))}
       </StRoundBtns>
       <StConfirmBtn onClick={()=>{
-        dispatch(setUsers(usersMok.users))
+        // 소켓으로 때린 값을 반환받아서 셋.
         selectTile(black)
+        dispatch(setUsers(usersMok))
         }}>확인</StConfirmBtn>
     </StWrapper>
   );

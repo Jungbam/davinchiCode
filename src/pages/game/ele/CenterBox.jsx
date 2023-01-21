@@ -6,12 +6,15 @@ import { eventName } from "../../../helpers/eventName";
 import { useDispatch } from "react-redux";
 import Timer from "./Timer";
 import Turn from "../logic/Turn";
+import SystemMessage from "../logic/SystemMessage";
+import SelectPosition from "../logic/SelectPosition";
 
 const CenterBox = ({socket, roomID}) => {
   const [gameView, setGameView] = useState(<Ready readyHandler={readyHandler}/>)
   const [timer, setTimer] =useState(false)
   const dispatch = useDispatch()
   
+  // 게임 로직 순서대로 함수가 그려지도록(가독성) 함수선언식 사용
   function readyHandler(){
     setGameView(<IntroTile selectTile={selectTile}/>)
     setTimer(true)
@@ -21,21 +24,43 @@ const CenterBox = ({socket, roomID}) => {
     // })
   };
   function selectTile(black){
-    setGameView(<Turn/>)
-        setTimer(false)
+    setGameView(<Turn GameTurn={GameTurn}/>)
+    setTimer(false)
     // socket.current.emit(eventName.FIRST_DRAW, 123, black, roomID ,(myCards)=>{
-    //   dispatch(setUsers(usersMok))
+    //   dispatch(setUsers(myCards))
     // })
+    // socket.current.on(eventName,(gameInfo)=>{
+    //   setGameView(<Turn GameTurn={GameTurn}/>)
+    //   setTimer(false)
+    //   dispatch(setUsers(gameInfo))
+    // })
+  }
+  function GameTurn(selectedColor){
+    // socket.current.emit(eventName, selectedColor)
+    // socket.current.on(event,(card)=>{
+    //   setGameView(<SelectPosition card={card}/>)
+    //   setTimer(true)
+    // })
+    const card = {
+      value : Math.floor(Math.random()*13),
+      color : selectedColor
+    }
+    setGameView(<SelectPosition card={card}/>)
+    setTimer(true)
+  }
+
+  // 시간이 0이 되면 실행될 함수
+  const timeOver = ()=>{
+    alert('시간오버')
+    // socket.current.emit(eventName)
   }
   return (
     <StWrapper>
       <StGameField>
-        <StOnGoingStatus>
-          정말정말긴이름인데너무함님이 상대 지목을 진행 중입니다.
-        </StOnGoingStatus>
+        <SystemMessage/>
         {gameView}
       </StGameField>
-      {timer?<Timer/>:<StTimer/>}
+      {timer?<Timer timeOver={timeOver}/>:<StTimer/>}
     </StWrapper>
   );
 };
@@ -51,7 +76,6 @@ const StWrapper = styled.div`
   border: solid 1px #111;
   background-color: #fff;
 `;
-
 const StGameField = styled.div`
   width: 100%;
   height: 324px;
@@ -60,37 +84,14 @@ const StGameField = styled.div`
   align-items: center;
   position: relative;
 `;
-
-const StOnGoingStatus = styled.div`
-  margin: 10px;
-  background: #eeeeee;
-  padding: 4px 16px;
-  border-radius: 6px;
-  border: solid 1px #111;
-  background-color: #111;
-
-  left: 0;
-  top: 0;
-  color: #ffdf24;
-  font-family: Pretendard;
-  font-size: 10px;
-  font-weight: 500;
-  display: inline-block;
-  position: absolute;
-  left: 0;
-  top: 0;
-`;
-
 const StTimer = styled.div`
   height: 40px;
   border-top: solid 1px #ccc;
   background-color: #e1e1e1;
   border-radius: 0 0 6px 6px;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   gap: 5px;
   font-family: Pretendard;
   font-size: 10px;
