@@ -2,12 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { ICON } from '../../Icons';
 
-const Timer = ({timeOver}) => {
+const Timer = () => {
   const [second, setSecond] = useState(String(30).padStart(2, '0'));
   const count = useRef(30);
   const interval = useRef(null);
 
-  if(second === 0) timeOver()
   useEffect(() => {
     interval.current = setInterval(() => {
       count.current -= 1;
@@ -15,11 +14,13 @@ const Timer = ({timeOver}) => {
       return ()=>{clearInterval(interval.current)}
     }, 1000);
   }, []);
-
   useEffect(() => {
-    if (count.current <= 0) clearInterval(interval.current)
+    if (count.current <= 0) {
+      clearInterval(interval.current)
+      alert('시간오버')
+    }
   }, [second]);
-// timeOver
+
   return (
     <StTimer>
       <img src={ICON.iconTimer} alt="icon" />

@@ -4,20 +4,17 @@ import IntroTile from "../logic/IntroTile";
 import Ready from "../logic/Ready";
 import { eventName } from "../../../helpers/eventName";
 import { useDispatch } from "react-redux";
-import Timer from "./Timer";
 import Turn from "../logic/Turn";
 import SystemMessage from "../logic/SystemMessage";
 import SelectPosition from "../logic/SelectPosition";
 
 const CenterBox = ({socket, roomID}) => {
   const [gameView, setGameView] = useState(<Ready readyHandler={readyHandler}/>)
-  const [timer, setTimer] =useState(false)
   const dispatch = useDispatch()
   
   // 게임 로직 순서대로 함수가 그려지도록(가독성) 함수선언식 사용
   function readyHandler(){
     setGameView(<IntroTile selectTile={selectTile}/>)
-    setTimer(true)
     // socket.current.emit(eventName.READY,{roomID : roomID,userID:123})
     // socket.current.on(eventName.GAME_START, ()=>{
     // setGameView(<IntroTile selectTile={selectTile}/>)
@@ -25,7 +22,6 @@ const CenterBox = ({socket, roomID}) => {
   };
   function selectTile(black){
     setGameView(<Turn GameTurn={GameTurn}/>)
-    setTimer(false)
     // socket.current.emit(eventName.FIRST_DRAW, 123, black, roomID ,(myCards)=>{
     //   dispatch(setUsers(myCards))
     // })
@@ -42,17 +38,13 @@ const CenterBox = ({socket, roomID}) => {
     //   setTimer(true)
     // })
     const card = {
-      value : Math.floor(Math.random()*13),
+      value : Math.floor(Math.random()*12),
       color : selectedColor
     }
-    setGameView(<SelectPosition card={card}/>)
-    setTimer(true)
+    setGameView(<SelectPosition card={card} cardPick={cardPick}/>)
   }
-
-  // 시간이 0이 되면 실행될 함수
-  const timeOver = ()=>{
-    alert('시간오버')
-    // socket.current.emit(eventName)
+  function cardPick(resultArray=[]){
+    socket.current.emit(eventName, )
   }
   return (
     <StWrapper>
@@ -60,7 +52,7 @@ const CenterBox = ({socket, roomID}) => {
         <SystemMessage/>
         {gameView}
       </StGameField>
-      {timer?<Timer timeOver={timeOver}/>:<StTimer/>}
+      {/* {timer?<Timer timeOver={timeOver}/>:<StTimer/>} */}
     </StWrapper>
   );
 };
