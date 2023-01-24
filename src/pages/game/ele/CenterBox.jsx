@@ -19,7 +19,7 @@ const CenterBox = ({socket, roomID}) => {
   // 게임 로직 순서대로 함수가 그려지도록(가독성) 함수선언식 사용
   function readyHandler(){
     setGameView(<IntroTile selectTile={selectTile}/>)
-    // socket.current.emit(eventName.READY,{roomID : roomID,userID:123})
+    // socket.current.emit(eventName.READY,roomID : roomID,userID:123)
     // socket.current.on(eventName.GAME_START, ()=>{
     // setGameView(<IntroTile selectTile={selectTile}/>)
     // })
@@ -36,13 +36,18 @@ const CenterBox = ({socket, roomID}) => {
     // })
   }
   function GameTurn(selectedColor){
-    // socket.current.emit(eventName, selectedColor)
+    // socket.current.emit(eventName.COLOR_SELECTED, selectedColor,(card)=>{
+    //   setGameView(<SelectPosition card={card}/>)
+    //   setTimer(true)
+    // })
+    // 방에 다른 사람들
     // socket.current.on(event,(card)=>{
     //   setGameView(<SelectPosition card={card}/>)
     //   setTimer(true)
     // })
     const card = {
-      value : Math.floor(Math.random()*12),
+      // value : Math.floor(Math.random()*12),
+      value : 12,
       color : selectedColor
     }
     setGameView(<SelectPosition card={card} cardPick={cardPick} selectIndicaterCard={selectIndicaterCard}/>)
@@ -60,8 +65,8 @@ const CenterBox = ({socket, roomID}) => {
   function guessCard(indicatedUser, select){
     // 추측할때 서버에 보내주는 값 : {userId : indicatedUser.userId, card :{cardIndex : 1, value : 4}}
     // const guessValue = {userId : indicatedUser.userId, card :select}
-    // socket.current.emit(eventName, guessValue)
-    // socket.current.on(eventName, (result,gameInfo)=>{
+    // socket.current.emit(eventName.GUESS, guessValue)
+    // socket.current.on(eventName.RESULT_GUESS, (result,gameInfo)=>{
     //   setGameView(<ResultSelect gameInfo={gameInfo} result={result}/>)
     // })
     const gameInfo ={
