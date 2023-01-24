@@ -15,4 +15,5 @@ export const eventName = {
   GUESS: "guess",
   RESULT_GUESS: "result-guess",
   NEXT_TURN: "next-turn",
+  NEXT_GAMEINFO: "next-gameInfo",
 };

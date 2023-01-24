@@ -5,16 +5,25 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { setUsers } from '../../../redux/modules/gameSlice'
 
-const ResultSelect = ({gameResult, result}) => {
+const ResultSelect = ({gameResult, result, goStop}) => {
   const timer = useRef(null)
+  const setView = useRef(null)
   const dispatch=useDispatch()
   const {indicated, gameInfo} = useSelector(state=>state.gameSlice)
   const indicatedUser = gameInfo?.users?.filter(el=>el.userId === indicated)
   const turnUser = gameInfo?.users?.filter(el=> el.userId === gameInfo.turn)
   
   useEffect(() => {
-    timer.current = setTimeout(()=>dispatch(setUsers(gameResult)),3000)
-    return () => clearTimeout(timer.current)
+    timer.current = setTimeout(()=>{
+      dispatch(setUsers(gameResult))
+  },3000)
+    setView.current = setTimeout(()=>{
+      goStop(result)
+  },5000)
+    return () =>{
+      clearTimeout(timer.current)
+      clearTimeout(setView.current)
+    } 
   }, [])
   
   return (
