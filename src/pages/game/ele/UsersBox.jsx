@@ -2,8 +2,12 @@ import otherUserBackground from "../../../assets/images/otherUserBackground.png"
 import userProfile from "../../../assets/images/mask3x.jpg";
 import styled from "styled-components";
 import DavinchiCard from "./DavinchiCard";
+import { useDispatch, useSelector } from "react-redux";
+import { setIndicater } from "../../../redux/modules/gameSlice";
 
 const UsersBox = ({ user }) => {
+  const {initBtn} = useSelector(state=>state.gameSlice)
+  const dispatch = useDispatch()
   return (
     <StWrapper>
       <StOtherUsers>
@@ -17,7 +21,7 @@ const UsersBox = ({ user }) => {
               <span>{user?user?.nickName:'빈자리'}</span>
             </StUserName>
           </StCamera>
-          <SelectBtn> {user ? "지목하기" : "..."} </SelectBtn>
+          {initBtn&&<SelectBtn onClick={()=>dispatch(setIndicater(user.userId))}> {user ? "지목하기" : "..."} </SelectBtn>}
         </StUserInfo>
         <StCardArea>
           {user?.hand?.map((card,i) => (

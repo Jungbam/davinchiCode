@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 import { setUsers } from "../../../redux/modules/gameSlice";
 import { ICON } from "../../Icons";
+import Timer from "../ele/Timer";
 
 const usersMok = {
 blackCards: 4,
@@ -125,6 +126,7 @@ const IntroTile = ({selectTile}) => {
         selectTile(black)
         dispatch(setUsers(usersMok))
         }}>확인</StConfirmBtn>
+      <Timer/>
     </StWrapper>
   );
 };
