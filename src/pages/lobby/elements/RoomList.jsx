@@ -80,7 +80,7 @@ const StRoomWrapper = styled.div`
   height: 766px;
   border: 1px solid black;
   border-radius: 12px;
-  background-color: #262626;
+  background-color: rgba(144,144,144,0.8);
 `;
 
 const StRoomHeader = styled.div`

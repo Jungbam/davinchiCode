@@ -1,28 +1,34 @@
 import otherUserBackground from "../../../assets/images/otherUserBackground.png";
-import userProfile from "../../../assets/images/user_profile.png";
+import userProfile from "../../../assets/images/mask3x.jpg";
 import styled from "styled-components";
 import DavinchiCard from "./DavinchiCard";
+import { useDispatch, useSelector } from "react-redux";
+import { setIndicater } from "../../../redux/modules/gameSlice";
 
-const UsersBox = ({user}) => {
+const UsersBox = ({ user }) => {
+  const {initBtn} = useSelector(state=>state.gameSlice)
+  const dispatch = useDispatch()
   return (
     <StWrapper>
-        <StOtherUsers>
-          <StUserInfo>
-            <StCamera>
-              <StSpaceBetween>
-                <StCameraStatus>
-                </StCameraStatus>
-              </StSpaceBetween>
-              <StUserName>
-                <div>{user?.nickName}</div>
-              </StUserName>
-            </StCamera>
-            <SelectBtn> {user? '지목하기': '...'} </SelectBtn>
-          </StUserInfo>
-          <StCardArea>
-            {user?.hand?.map((card)=><DavinchiCard card={card}/>)}
-          </StCardArea>
-        </StOtherUsers>
+      <StOtherUsers>
+        <StUserInfo>
+          <StCamera>
+             {user?<StImg src={user?.userProfileImg} alt="프로필 사진"/>:<></>}
+            <StSpaceBetween>
+              <StCameraStatus></StCameraStatus>
+            </StSpaceBetween>
+            <StUserName>
+              <span>{user?user?.nickName:'빈자리'}</span>
+            </StUserName>
+          </StCamera>
+          {initBtn&&<SelectBtn onClick={()=>dispatch(setIndicater(user.userId))}> {user ? "지목하기" : "..."} </SelectBtn>}
+        </StUserInfo>
+        <StCardArea>
+          {user?.hand?.map((card,i) => (
+            <DavinchiCard key={`${user.nickName}${i}`} card={card} />
+          ))}
+        </StCardArea>
+      </StOtherUsers>
     </StWrapper>
   );
 };
@@ -30,11 +36,10 @@ const UsersBox = ({user}) => {
 export default UsersBox;
 
 const StWrapper = styled.div`
-  margin-top: 20px;
-  width: 100%;
+  width: 356px;
   height: 200px;
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
 `;
 
 const StOtherUsers = styled.div`
@@ -46,7 +51,10 @@ const StOtherUsers = styled.div`
   border: solid 1px #111;
   background-color: #eee;
 `;
-
+const StImg = styled.img`
+width:100%;
+height:100%;
+`;
 const StUserInfo = styled.div`
   width: 100%;
   display: flex;
@@ -65,6 +73,7 @@ const StCamera = styled.div`
   justify-content: space-between;
 
   background-image: url(${userProfile});
+  background-size: cover;
 `;
 
 const StSpaceBetween = styled.div`
