@@ -55,7 +55,7 @@ const RoomList = () => {
         handleCheckboxChange={handleCheckboxChange}
         isWaiting={isWaiting}
         isPrivate={isPrivate}
-      />
+      ></RoomContents>
       <StBotButtons>
         <StCreateRoomBtn onClick={() => setShowCreateRoom(true)}>
           방 만들기
@@ -178,6 +178,9 @@ const StRefreshBtn = styled.button`
   color: white;
   font-size: 14px;
   font-weight: bold;
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
 const StBotButtons = styled.div`
   display: flex;
@@ -196,6 +199,9 @@ const StCreateRoomBtn = styled.button`
   border-radius: 6px;
   font-weight: bold;
   background-color: #ffffff;
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
 
 export default RoomList;

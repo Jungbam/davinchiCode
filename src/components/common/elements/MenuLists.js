@@ -3,6 +3,20 @@ import styled from "styled-components";
 import ModalProfile from "../../form/modal/ModalProfile";
 import ModalLogout from "../../form/modal/ModalLogout";
 import ModalDelAccount from "../../form/modal/ModalDelAccount";
+import { motion } from "framer-motion";
+
+const menuDropDown = {
+  hidden: {
+    y: -10,
+  },
+  visible: {
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut",
+    },
+  },
+};
 
 function DropdownMenu() {
   const [showMenu, setShowMenu] = useState(false);
@@ -15,13 +29,22 @@ function DropdownMenu() {
         마이페이지
       </StButtonDesign>
       {showMenu && (
-        <StMenuListWrapper>
-          <StProfileUpdate onClick={() => setShowModal(true)}>
-            프로필수정
-          </StProfileUpdate>
-          <StLogout onClick={() => setShowLogout(true)}>로그아웃</StLogout>
-          <StDelAcc onClick={() => setShowDelAccount(true)}>회원탈퇴</StDelAcc>
-        </StMenuListWrapper>
+        <motion.div
+          className="menuDrop"
+          variants={menuDropDown}
+          animate="visible"
+          initial="hidden"
+        >
+          <StMenuListWrapper>
+            <StProfileUpdate onClick={() => setShowModal(true)}>
+              프로필수정
+            </StProfileUpdate>
+            <StLogout onClick={() => setShowLogout(true)}>로그아웃</StLogout>
+            <StDelAcc onClick={() => setShowDelAccount(true)}>
+              회원탈퇴
+            </StDelAcc>
+          </StMenuListWrapper>
+        </motion.div>
       )}
       {showModal && (
         <ModalProfile
@@ -68,6 +91,7 @@ const StMenuWrapper = styled.div`
   width: 200px;
   height: 300px;
   margin-right: 160px;
+  border-radius: 10px;
   z-index: 1;
 `;
 
@@ -84,7 +108,8 @@ const StButtonDesign = styled.button`
 const StMenuListWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: white;
+  background-color: black;
+  border-radius: 10px;
 `;
 
 const StProfileUpdate = styled.button`
@@ -95,6 +120,10 @@ const StProfileUpdate = styled.button`
   width: 150px;
   height: 50px;
   border: 1px solid black;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: black;
+  color: orange;
   font-size: 18px;
   font-weight: bold;
 `;
@@ -106,6 +135,8 @@ const StLogout = styled.button`
   width: 150px;
   height: 50px;
   border: 1px solid black;
+  background-color: black;
+  color: orange;
   font-size: 18px;
   font-weight: bold;
 `;
@@ -117,6 +148,10 @@ const StDelAcc = styled.button`
   width: 150px;
   height: 50px;
   border: 1px solid black;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background-color: black;
+  color: orange;
   font-size: 18px;
   font-weight: bold;
 `;

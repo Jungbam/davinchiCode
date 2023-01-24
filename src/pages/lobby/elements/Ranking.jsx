@@ -1,11 +1,48 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import IndividualRanking from "./rankingDetail/IndividualRanking";
-import Tooltip from "../../../components/common/elements/Tooltip";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import mockDataMy from "./roomListDetail/MockDataMy";
+import { AnimatePresence, motion } from "framer-motion";
+import { useCycle } from "framer-motion";
+
+const billBoardAction = {
+  hidden: {
+    x: -150,
+    opacity: 0,
+  },
+  visible: {
+    x: 0,
+    opacity: 1,
+    transition: { duration: 0.5, ease: "easeInOut" },
+  },
+  exit: {
+    x: 150,
+    opacity: 0,
+  },
+};
 
 const Ranking = () => {
+  const [textIndex, cycleText] = useCycle(
+    0,
+    (currentIndex) => (currentIndex + 1) % text.length
+  );
+  const text = [
+    "게임 순위는 1시간마다 업데이트됩니다.",
+    "장시간의 게임은 건강에 해롭습니다",
+  ];
+
+  const handleInterval = () => {
+    setTimeout(() => {
+      cycleText();
+    }, 4000);
+  };
+
+  useEffect(() => {
+    handleInterval();
+  }, [textIndex]);
+
   const { data, status } = useQuery(["PERSONAL_RANKING"], () => mockDataMy);
   return (
     <StRankingWrapper>
@@ -40,7 +77,18 @@ const Ranking = () => {
               </StMyRankBottomMid>
             </StMyRankBottom>
             <StUpdateNotice>
-              <p>게임 순위는 1시간마다 업데이트됩니다.</p>
+              <AnimatePresence>
+                <motion.p
+                  key={textIndex}
+                  className="billboard"
+                  variants={billBoardAction}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                >
+                  {text[textIndex]}
+                </motion.p>
+              </AnimatePresence>
             </StUpdateNotice>
           </>
         )}

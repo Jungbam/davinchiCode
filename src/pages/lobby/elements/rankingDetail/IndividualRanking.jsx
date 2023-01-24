@@ -41,10 +41,6 @@ const IndividualRanking = () => {
               <StIndvThrdBot>
                 <StPlayerOverallScore>{item.score}</StPlayerOverallScore>
               </StIndvThrdBot>
-
-              {/* <StIndvForth>
-                <StPlayerTier>{item.rank}</StPlayerTier>
-              </StIndvForth> */}
             </StIndividualBox>
           ))}
       </>
