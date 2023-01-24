@@ -3,14 +3,14 @@ import styled from 'styled-components';
 import { ICON } from '../../Icons';
 
 const Timer = () => {
-  const [second, setSecond] = useState(String(30).padStart(2, '0'));
+  const [second, setSecond] = useState(String(30));
   const count = useRef(30);
   const interval = useRef(null);
 
   useEffect(() => {
     interval.current = setInterval(() => {
       count.current -= 1;
-      setSecond(30-String(30-count.current).padStart(2, '0'));
+      setSecond(30-String(30-count.current));
       return ()=>{clearInterval(interval.current)}
     }, 1000);
   }, []);
