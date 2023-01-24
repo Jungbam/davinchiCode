@@ -14,7 +14,6 @@ const SetUserInfo = () => {
   const [newNick, setNewNick] = useState(null);
   const [isActive, setIsActive] = useState(false);
   const dispatch = useDispatch()
-  const {userInfo} = useSelector(state=>state.signSlice)
   
   const imgRef = useRef();
   const navigate = useNavigate()

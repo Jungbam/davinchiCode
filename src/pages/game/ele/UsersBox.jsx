@@ -2,25 +2,30 @@ import otherUserBackground from "../../../assets/images/otherUserBackground.png"
 import userProfile from "../../../assets/images/mask3x.jpg";
 import styled from "styled-components";
 import DavinchiCard from "./DavinchiCard";
+import { useDispatch, useSelector } from "react-redux";
+import { setIndicater } from "../../../redux/modules/gameSlice";
 
 const UsersBox = ({ user }) => {
+  const {initBtn} = useSelector(state=>state.gameSlice)
+  const dispatch = useDispatch()
   return (
     <StWrapper>
       <StOtherUsers>
         <StUserInfo>
           <StCamera>
+             {user?<StImg src={user?.userProfileImg} alt="프로필 사진"/>:<></>}
             <StSpaceBetween>
               <StCameraStatus></StCameraStatus>
             </StSpaceBetween>
             <StUserName>
-              <div>{user?.nickName}</div>
+              <span>{user?user?.nickName:'빈자리'}</span>
             </StUserName>
           </StCamera>
-          <SelectBtn> {user ? "지목하기" : "..."} </SelectBtn>
+          {initBtn&&<SelectBtn onClick={()=>dispatch(setIndicater(user.userId))}> {user ? "지목하기" : "..."} </SelectBtn>}
         </StUserInfo>
         <StCardArea>
-          {user?.hand?.map((card) => (
-            <DavinchiCard card={card} />
+          {user?.hand?.map((card,i) => (
+            <DavinchiCard key={`${user.nickName}${i}`} card={card} />
           ))}
         </StCardArea>
       </StOtherUsers>
@@ -46,7 +51,10 @@ const StOtherUsers = styled.div`
   border: solid 1px #111;
   background-color: #eee;
 `;
-
+const StImg = styled.img`
+width:100%;
+height:100%;
+`;
 const StUserInfo = styled.div`
   width: 100%;
   display: flex;
