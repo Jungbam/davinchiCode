@@ -17,7 +17,7 @@ import MyBox from "./ele/MyBox";
 const usersMokinit = {
   blackCards: 4,
   whiteCards: 4,
-  turn: 123,
+  turn: null,
   users: [
     {
       userId: 1,
@@ -44,13 +44,13 @@ const Game = () => {
   const [msgList, setMsgList] = useState([]);
   const { roomID } = useParams();
   const socketRef = useRef();
-  const { users } = useSelector((state) => state.gameSlice);
+  const { users } = useSelector((state) => state.gameSlice.gameInfo);
   const dispatch = useDispatch();
 
   useEffect(() => {
     socketRef.current = io.connect(process.env.REACT_APP_SERVER);
     socketRef.current.emit(eventName.JOIN, roomID);
-    dispatch(setUsers(usersMokinit.users));
+    dispatch(setUsers(usersMokinit));
   }, []);
 
   const createdAt = new Date().toLocaleString();

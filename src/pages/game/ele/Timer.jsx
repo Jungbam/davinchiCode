@@ -3,20 +3,22 @@ import styled from 'styled-components';
 import { ICON } from '../../Icons';
 
 const Timer = () => {
-  const [second, setSecond] = useState(String(30).padStart(2, '0'));
+  const [second, setSecond] = useState(String(30));
   const count = useRef(30);
   const interval = useRef(null);
 
   useEffect(() => {
     interval.current = setInterval(() => {
       count.current -= 1;
-      setSecond(30-String(30-count.current).padStart(2, '0'));
+      setSecond(30-String(30-count.current));
       return ()=>{clearInterval(interval.current)}
     }, 1000);
   }, []);
-
   useEffect(() => {
-    if (count.current <= 0) clearInterval(interval.current)
+    if (count.current <= 0) {
+      clearInterval(interval.current)
+      alert('시간오버')
+    }
   }, [second]);
 
   return (
@@ -25,7 +27,7 @@ const Timer = () => {
       <StTimerBar>
           <StTimeLimit timer={second}/>
       </StTimerBar>
-      <span>{second} 초</span>
+      <StSecond second={second}>{second} 초</StSecond>
     </StTimer>
   );
 };
@@ -64,3 +66,10 @@ const StTimeLimit = styled.div`
   background-color: #009320;
   border-radius: 3px 0 0 3px;
 `;
+const StSecond = styled.span`
+color : ${({ second }) => {
+  if(second<10) return `red`;
+  else return 'black'
+  }};
+  
+`

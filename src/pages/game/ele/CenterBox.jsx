@@ -4,38 +4,151 @@ import IntroTile from "../logic/IntroTile";
 import Ready from "../logic/Ready";
 import { eventName } from "../../../helpers/eventName";
 import { useDispatch } from "react-redux";
-import Timer from "./Timer";
 import Turn from "../logic/Turn";
+import SystemMessage from "../logic/SystemMessage";
+import SelectPosition from "../logic/SelectPosition";
+import { setUsers } from "../../../redux/modules/gameSlice";
+import Indicate from "../logic/Indicate";
+import SelectIndicatedUser from "../logic/SelectIndicatedUser";
+import ResultSelect from "../logic/ResultSelect";
 
 const CenterBox = ({socket, roomID}) => {
   const [gameView, setGameView] = useState(<Ready readyHandler={readyHandler}/>)
-  const [timer, setTimer] =useState(false)
   const dispatch = useDispatch()
   
+  // 게임 로직 순서대로 함수가 그려지도록(가독성) 함수선언식 사용
   function readyHandler(){
     setGameView(<IntroTile selectTile={selectTile}/>)
-    setTimer(true)
     // socket.current.emit(eventName.READY,{roomID : roomID,userID:123})
     // socket.current.on(eventName.GAME_START, ()=>{
     // setGameView(<IntroTile selectTile={selectTile}/>)
     // })
   };
   function selectTile(black){
-    setGameView(<Turn/>)
-        setTimer(false)
+    setGameView(<Turn GameTurn={GameTurn}/>)
     // socket.current.emit(eventName.FIRST_DRAW, 123, black, roomID ,(myCards)=>{
-    //   dispatch(setUsers(usersMok))
+    //   dispatch(setUsers(myCards))
     // })
+    // socket.current.on(eventName,(gameInfo)=>{
+    //   setGameView(<Turn GameTurn={GameTurn}/>)
+    //   setTimer(false)
+    //   dispatch(setUsers(gameInfo))
+    // })
+  }
+  function GameTurn(selectedColor){
+    // socket.current.emit(eventName, selectedColor)
+    // socket.current.on(event,(card)=>{
+    //   setGameView(<SelectPosition card={card}/>)
+    //   setTimer(true)
+    // })
+    const card = {
+      value : Math.floor(Math.random()*12),
+      color : selectedColor
+    }
+    setGameView(<SelectPosition card={card} cardPick={cardPick} selectIndicaterCard={selectIndicaterCard}/>)
+  }
+  function cardPick(resultArray=[]){
+    // socket.current.emit(eventName, resultArray)
+    // socket.current.on(evemtName,(gameInfo)=>{
+    //   dispatch(setUsers(gameInfo))
+    // })
+    setGameView(<Indicate selectIndicaterCard={selectIndicaterCard}/>)
+  }
+  function selectIndicaterCard(indicatedUser){
+    setGameView(<SelectIndicatedUser indicatedUser={indicatedUser} guessCard={guessCard}/>)
+  }
+  function guessCard(indicatedUser, select){
+    // 추측할때 서버에 보내주는 값 : {userId : indicatedUser.userId, card :{cardIndex : 1, value : 4}}
+    // const guessValue = {userId : indicatedUser.userId, card :select}
+    // socket.current.emit(eventName, guessValue)
+    // socket.current.on(eventName, (result,gameInfo)=>{
+    //   setGameView(<ResultSelect gameInfo={gameInfo} result={result}/>)
+    // })
+    const gameInfo ={
+      blackCards: 4,
+      whiteCards: 4,
+      turn: 1,
+      users: [
+         {
+            userId: 1,
+            nickName: '익명1',
+            userProfileImg: "https://cdn.pixabay.com/photo/2023/01/12/15/05/flamingo-7714344_640.jpg",
+            isReady:false,
+            hand: [ 
+              {
+                 color: 'black', 
+                 value: '1', 
+                 isOpen: false 
+                }, 
+              {
+                 color: 'black', 
+                 value: '3', 
+                 isOpen: false 
+                }, 
+              {
+                 color: 'white', 
+                 value: '4', 
+                 isOpen: false 
+                }, 
+             ]
+          },
+         {
+            userId: 2,
+            nickName: '익명2',
+            userProfileImg: "https://cdn.pixabay.com/photo/2022/07/11/08/44/tower-7314495_1280.jpg",
+            isReady:false,
+            hand: [ 
+              {
+                 color: 'white', 
+                 value: '1', 
+                 isOpen: true 
+                }, 
+              {
+                 color: 'black', 
+                 value: 'Back', 
+                 isOpen: false 
+                }, 
+              {
+                 color: 'white', 
+                 value: 'Back', 
+                 isOpen: false 
+                }, 
+             ]
+          },
+         {
+            userId: 3,
+            nickName: '익명3',
+            userProfileImg: "https://cdn.pixabay.com/photo/2023/01/12/07/19/rat-7713508_640.jpg",
+            isReady:false,
+            hand: [ 
+              {
+                 color: 'black', 
+                 value: 'Back', 
+                 isOpen: false 
+                }, 
+              {
+                 color: 'black', 
+                 value: 'Back', 
+                 isOpen: false 
+                }, 
+              {
+                 color: 'white', 
+                 value: 'Back', 
+                 isOpen: false 
+                }, 
+             ]
+          },
+        ]
+      }
+    const result = 'true'
+    setGameView(<ResultSelect gameResult={gameInfo} result={result}/>)
   }
   return (
     <StWrapper>
       <StGameField>
-        <StOnGoingStatus>
-          정말정말긴이름인데너무함님이 상대 지목을 진행 중입니다.
-        </StOnGoingStatus>
+        <SystemMessage/>
         {gameView}
       </StGameField>
-      {timer?<Timer/>:<StTimer/>}
     </StWrapper>
   );
 };
@@ -51,7 +164,6 @@ const StWrapper = styled.div`
   border: solid 1px #111;
   background-color: #fff;
 `;
-
 const StGameField = styled.div`
   width: 100%;
   height: 324px;
@@ -59,45 +171,4 @@ const StGameField = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
-`;
-
-const StOnGoingStatus = styled.div`
-  margin: 10px;
-  background: #eeeeee;
-  padding: 4px 16px;
-  border-radius: 6px;
-  border: solid 1px #111;
-  background-color: #111;
-
-  left: 0;
-  top: 0;
-  color: #ffdf24;
-  font-family: Pretendard;
-  font-size: 10px;
-  font-weight: 500;
-  display: inline-block;
-  position: absolute;
-  left: 0;
-  top: 0;
-`;
-
-const StTimer = styled.div`
-  height: 40px;
-  border-top: solid 1px #ccc;
-  background-color: #e1e1e1;
-  border-radius: 0 0 6px 6px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  gap: 5px;
-  font-family: Pretendard;
-  font-size: 10px;
-  font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #222;
 `;
