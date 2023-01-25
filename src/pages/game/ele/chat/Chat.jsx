@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { eventName } from "../../../../helpers/eventName";
+import { eventName } from "../../../../hooks/eventName";
 import Message from "./Message";
 import { ICON } from "../../../Icons";
 
