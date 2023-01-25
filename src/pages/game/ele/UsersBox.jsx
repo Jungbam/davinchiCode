@@ -21,6 +21,7 @@ const UsersBox = ({ user }) => {
               <span>{user?user?.nickName:'빈자리'}</span>
             </StUserName>
           </StCamera>
+          {user?.hasOwnProperty('isReady')&&user.isReady&&<StConfirmBtn>준비완료</StConfirmBtn>}
           {initBtn&&<SelectBtn onClick={()=>dispatch(setIndicater(user.userId))}> {user ? "지목하기" : "..."} </SelectBtn>}
         </StUserInfo>
         <StCardArea>
@@ -32,7 +33,6 @@ const UsersBox = ({ user }) => {
     </StWrapper>
   );
 };
-
 export default UsersBox;
 
 const StWrapper = styled.div`
@@ -88,6 +88,22 @@ const StCameraStatus = styled.div`
     height: 16px;
     margin-right: 3px;
   }
+`;
+const StConfirmBtn = styled.button`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 32px;
+  background: #ffdf24;
+  border: 1px solid #000000;
+  box-shadow: 0px 3px 0px #000000;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 100%;
+  margin-top: 14px;
 `;
 
 const StUserName = styled.div`
