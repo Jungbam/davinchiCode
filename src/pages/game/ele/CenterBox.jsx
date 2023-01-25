@@ -7,11 +7,12 @@ import { useDispatch } from "react-redux";
 import Turn from "../logic/Turn";
 import SystemMessage from "../logic/SystemMessage";
 import SelectPosition from "../logic/SelectPosition";
-import { setIndicater, setUsers } from "../../../redux/modules/gameSlice";
+import { setIndicater, setTrigger, setUsers } from "../../../redux/modules/gameSlice";
 import Indicate from "../logic/Indicate";
 import SelectIndicatedUser from "../logic/SelectIndicatedUser";
 import ResultSelect from "../logic/ResultSelect";
 import GoStop from "../logic/GoStop";
+import { useEffect } from "react";
 
     const gameInfo ={
       blackCards: 4,
@@ -183,22 +184,21 @@ const CenterBox = ({socket, roomID}) => {
     // socket.current.emit(eventName.FIRST_DRAW, 123, black, roomID ,(myCards)=>{
     //   dispatch(setUsers(myCards))
     // })
-    // socket.current.on(eventName,(gameInfo)=>{
+    // socket.current.on(eventName.DRAW_RESULT,(gameInfo)=>{
     //   setGameView(<Turn GameTurn={GameTurn}/>)
-    //   setTimer(false)
     //   dispatch(setUsers(gameInfo))
     // })
   }
   function GameTurn(selectedColor){
     // socket.current.emit(eventName.COLOR_SELECTED, selectedColor,(card)=>{
     //   setGameView(<SelectPosition card={card}/>)
-    //   setTimer(true)
     // })
     // 방에 다른 사람들
     // socket.current.on(event,(card)=>{
     //   setGameView(<SelectPosition card={card}/>)
     //   setTimer(true)
     // })
+    socket.current.emit('test',roomID)
     const card = {
       value : Math.floor(Math.random()*12),
       // value : 12,
@@ -208,8 +208,9 @@ const CenterBox = ({socket, roomID}) => {
   }
   function cardPick(resultArray=[]){
     // socket.current.emit(eventName, resultArray)
-    // socket.current.on(evemtName,(gameInfo)=>{
+    // socket.current.on(eventName.DRAW_RESULT,(gameInfo)=>{
     //   dispatch(setUsers(gameInfo))
+    // setGameView(<Indicate selectIndicaterCard={selectIndicaterCard}/>)
     // })
     setGameView(<Indicate selectIndicaterCard={selectIndicaterCard}/>)
   }
@@ -245,6 +246,31 @@ const CenterBox = ({socket, roomID}) => {
     dispatch(setUsers(nextGameInfo))
     setGameView(<Turn/>)
   }
+
+  // 작업 : 내 턴 외의 경우 // 서버 구현 후 마무리
+  // useEffect(()=>{
+  // socket.current.on(eventName.GAME_START, ()=>{
+  //   dispatch(setTrigger())
+  // })
+  // socket.current.on(eventName.ADD_READY,(gameInfo)=>{
+  //   dispatch(setUsers(gameInfo))
+  // } )
+  //   socket.current.on(eventName.GAME_START, ()=>{
+  //   setGameView(<IntroTile selectTile={selectTile}/>)
+  //   })
+  // socket.current.on(eventName.DRAW_RESULT,(gameInfo)=>{
+  //   setGameView(<Turn GameTurn={GameTurn}/>)
+  //   dispatch(setUsers(gameInfo))
+  // })
+  //   socket.current?.on(eventName.RESULT_GUESS, (result,gameInfo)=>{
+  //     setGameView(<ResultSelect gameInfo={gameInfo} result={result}/>)
+  //   })
+  //  socket.current?.on(eventName.NEXT_GAMEINFO,(nextGameInfo)=>{
+  //     dispatch(setUsers(nextGameInfo))
+  //     setGameView(<Indicate/>)
+  //   })
+  // },[socket.current])
+
   return (
     <StWrapper>
       <StGameField>
@@ -254,6 +280,7 @@ const CenterBox = ({socket, roomID}) => {
     </StWrapper>
   );
 };
+
 
 export default CenterBox;
 
