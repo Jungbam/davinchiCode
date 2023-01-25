@@ -1,70 +1,80 @@
 const mockDataLead = [
   {
     username: "John Smith",
-    profileImageUrl: "https://example.com/john_smith.jpg",
+    profileImageUrl:
+      "https://cdn.pixabay.com/photo/2018/05/13/16/57/dog-3397110__480.jpg",
     score: 11000,
     ranking: 1,
     change: 2000,
   },
   {
     username: "Jane Doe",
-    profileImageUrl: "https://example.com/jane_doe.jpg",
+    profileImageUrl:
+      "https://cdn.pixabay.com/photo/2018/05/13/16/57/dog-3397110__480.jpg",
     score: 9300,
     ranking: 2,
     change: 200,
   },
   {
     username: "Bob Johnson",
-    profileImageUrl: "https://example.com/bob_johnson.jpg",
+    profileImageUrl:
+      "https://cdn.pixabay.com/photo/2018/05/13/16/57/dog-3397110__480.jpg",
     score: 8800,
     ranking: 3,
     change: -500,
   },
   {
     username: "Jack Wilson",
-    profileImageUrl: "https://example.com/jack_wilson.jpg",
+    profileImageUrl:
+      "https://cdn.pixabay.com/photo/2018/05/13/16/57/dog-3397110__480.jpg",
     score: 8200,
     ranking: 4,
     change: -200,
   },
   {
     username: "Mike Thompson",
-    profileImageUrl: "https://example.com/mike_thompson.jpg",
+    profileImageUrl:
+      "https://cdn.pixabay.com/photo/2018/05/13/16/57/dog-3397110__480.jpg",
     score: 7500,
     ranking: 5,
     change: -600,
   },
   {
     username: "Emily Davis",
-    profileImageUrl: "https://example.com/emily_davis.jpg",
+    profileImageUrl:
+      "https://cdn.pixabay.com/photo/2018/05/13/16/57/dog-3397110__480.jpg",
     score: 6800,
     ranking: 6,
     change: -100,
   },
   {
     username: "David Martinez",
-    profileImageUrl: "https://example.com/david_martinez.jpg",
+    profileImageUrl:
+      "https://cdn.pixabay.com/photo/2018/05/13/16/57/dog-3397110__480.jpg",
     score: 6500,
     ranking: 7,
     change: -300,
   },
   {
     username: "Sara Wilson",
-    profileImageUrl: "https://example.com/sara_wilson.jpg",
+    profileImageUrl:
+      "https://cdn.pixabay.com/photo/2018/05/13/16/57/dog-3397110__480.jpg",
     score: 5900,
     ranking: 8,
     change: -100,
   },
   {
     username: "Chris Johnson",
-    profileImageUrl: "https://example.com/chris_johnson.jpg",
+    profileImageUrl:
+      "https://cdn.pixabay.com/photo/2018/05/13/16/57/dog-3397110__480.jpg",
     score: 5200,
     ranking: 9,
     change: -300,
   },
   {
     username: "Jessica Davis",
-    profileImageUrl: "https://example.com/jessica_davis.jpg",
+    profileImageUrl:
+      "https://cdn.pixabay.com/photo/2018/05/13/16/57/dog-3397110__480.jpg",
     score: 4900,
     ranking: 10,
     change: -300,

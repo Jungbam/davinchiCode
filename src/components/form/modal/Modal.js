@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import React from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
@@ -19,7 +20,7 @@ const Modal = ({ children, modal, closeModal, width, height }) => {
 
 export default Modal;
 
-const StModal = styled.div`
+const StModal = styled(motion.div)`
   position: absolute;
   top: 50vh;
   left: 50vw;
@@ -27,6 +28,7 @@ const StModal = styled.div`
   transform: translate(-50%, -50%);
   display: ${({ modal }) => {
     return modal ? "flex" : "none";
+    //스위치문으로 부트스랩만들기 @@ 뭐일떄 return 사이즈랑 색깔
   }};
 
   width: ${({ width }) => width || "629px"};

@@ -3,20 +3,6 @@ import styled from "styled-components";
 import ModalProfile from "../../form/modal/ModalProfile";
 import ModalLogout from "../../form/modal/ModalLogout";
 import ModalDelAccount from "../../form/modal/ModalDelAccount";
-import { motion } from "framer-motion";
-
-const menuDropDown = {
-  hidden: {
-    y: -10,
-  },
-  visible: {
-    y: 0,
-    transition: {
-      duration: 0.5,
-      ease: "easeOut",
-    },
-  },
-};
 
 function DropdownMenu() {
   const [showMenu, setShowMenu] = useState(false);
@@ -29,22 +15,15 @@ function DropdownMenu() {
         마이페이지
       </StButtonDesign>
       {showMenu && (
-        <motion.div
-          className="menuDrop"
-          variants={menuDropDown}
-          animate="visible"
-          initial="hidden"
-        >
-          <StMenuListWrapper>
-            <StProfileUpdate onClick={() => setShowModal(true)}>
-              프로필수정
-            </StProfileUpdate>
-            <StLogout onClick={() => setShowLogout(true)}>로그아웃</StLogout>
-            <StDelAcc onClick={() => setShowDelAccount(true)}>
-              회원탈퇴
-            </StDelAcc>
-          </StMenuListWrapper>
-        </motion.div>
+        <StMenuList>
+          <StMenu bottom="1px" onClick={() => setShowModal(true)}>
+            내 프로필 설정
+          </StMenu>
+          <StMenu onClick={() => setShowLogout(true)}>로그아웃</StMenu>
+          <StMenu top="1px" onClick={() => setShowDelAccount(true)}>
+            회원탈퇴
+          </StMenu>
+        </StMenuList>
       )}
       {showModal && (
         <ModalProfile
@@ -52,10 +31,7 @@ function DropdownMenu() {
           closeModal={() => {
             setShowModal(!showModal);
           }}
-        >
-          {/* Your modal content here */}
-          {/* <button onClick={() => setShowModal(false)}>Close</button> */}
-        </ModalProfile>
+        ></ModalProfile>
       )}
       {showLogout && (
         <ModalLogout
@@ -63,10 +39,7 @@ function DropdownMenu() {
           closeModal={() => {
             setShowLogout(!showLogout);
           }}
-        >
-          {/* Your modal content here */}
-          {/* <button onClick={() => setShowLogout(false)}>Close</button> */}
-        </ModalLogout>
+        ></ModalLogout>
       )}
       {showDelAccount && (
         <ModalDelAccount
@@ -74,35 +47,35 @@ function DropdownMenu() {
           closeModal={() => {
             setShowDelAccount(!showDelAccount);
           }}
-        >
-          {/* Your modal content here */}
-          {/* <button onClick={() => setShowDelAccount(false)}>Close</button> */}
-        </ModalDelAccount>
+        ></ModalDelAccount>
       )}
-    </StMenuWrapper> // run gogo
+    </StMenuWrapper>
   );
 }
 
 const StMenuWrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 200px;
-  height: 300px;
-  margin-right: 160px;
-  border-radius: 10px;
   z-index: 1;
 `;
 
 const StButtonDesign = styled.button`
-  border: 1px solid white;
-  border-radius: 4px;
-  padding: 10px;
-  background-color: #111111;
-  color: white;
+  width: 80px;
+  height: 26px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2px;
+  border: solid 1px #fff;
+  background-color: transparent;
+
   font-size: 12px;
-  font-weight: bold;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: center;
+  color: #fff;
 `;
 
 const StMenuListWrapper = styled.div`
@@ -140,7 +113,7 @@ const StLogout = styled.button`
   font-size: 18px;
   font-weight: bold;
 `;
-const StDelAcc = styled.button`
+const StMenuelAcc = styled.button`
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -156,4 +129,38 @@ const StDelAcc = styled.button`
   font-weight: bold;
 `;
 
+const StMenuList = styled.div`
+  position: absolute;
+  top: 30px;
+  right: 0;
+  width: 105px;
+  height: 90px;
+  border-radius: 6px;
+  border: solid 1px #333;
+  background-color: #000;
+
+  & div {
+    cursor: pointer;
+  }
+`;
+
+const StMenu = styled.div`
+  width: 102px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 0.83;
+  letter-spacing: normal;
+  text-align: left;
+  color: #ff601c;
+
+  border-bottom: ${({ bottom }) => `solid ${bottom} #333` || "none"};
+  border-top: ${({ top }) => `solid ${top} #333` || "none"};
+`;
 export default DropdownMenu;
