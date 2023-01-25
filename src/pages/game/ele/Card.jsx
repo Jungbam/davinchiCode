@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+
 const Card = ({card}) => {
   if(card?.color==='white'&& !card?.value) return <StWhEmCard/>
   else if(card?.color==='black'&& !card?.value) return <StBlEmCard/>

@@ -1,5 +1,5 @@
-import { QueryClient } from "@tanstack/react-query";
 import React from "react";
+import { useSelector } from "react-redux";
 import {
   BrowserRouter,
   Navigate,
@@ -7,41 +7,27 @@ import {
   Route,
   Routes,
 } from "react-router-dom";
-import { queryKeys } from "../helpers/queryKeys";
-import {
-  ErrorPage,
-  Game,
-  Intro,
-  KakaoSign,
-  Loading,
-  Lobby,
-} from "../pages/IndexPage";
-import SetUserInfo from "../pages/intro/kakao/SetUserInfo";
+import { PAGE } from "../pages/IndexPage";
 
-// Protected Route 구현
-const ProtectedRoute = ({ user, redirectPath = "/" }) => {
-  if (!user) {
-    return <Navigate to={redirectPath} replace />;
-  }
-  return <Outlet />;
+const PrivateRoutes = ({ user, redirectPath = "/" }) => {
+  return user ? <Outlet /> : <Navigate to={redirectPath} replace />;
 };
 
 const Router = () => {
-  const queryClient = new QueryClient();
-  // const user = queryClient.getQueryData(queryKeys.USER);
-
+  const user = useSelector((state) => state.signSlice.isLoggedIn);
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/loading" element={<Loading />} />
-        <Route path="/" element={<Intro />} />
-        {/* <Route element={<ProtectedRoute user={user} />}> */}
-        <Route path="/kakao" element={<KakaoSign />} />
-        <Route path="/profile" element={<SetUserInfo />} />
-        <Route path="/lobby" element={<Lobby />} />
-        <Route path="/game/:roomID" element={<Game />} />
-        {/* </Route> */}
-        <Route path="/*" element={<ErrorPage />} />
+        <Route path="/loading" element={PAGE.Loading} />
+        <Route path="/" element={PAGE.Intro} />
+        <Route path="/kakao" element={PAGE.KakaoSign} />
+        <Route path="/profile" element={PAGE.SetUserInfo} />
+        <Route element={<PrivateRoutes user={user} />}>
+          <Route path="/lobby" element={PAGE.Lobby} />
+          <Route path="/game/:roomID" element={PAGE.Game} />
+        </Route>
+        <Route path="/error" element={PAGE.ErrorPage} />
+        <Route path="/*" element={PAGE.ErrorPage} />
       </Routes>
     </BrowserRouter>
   );
