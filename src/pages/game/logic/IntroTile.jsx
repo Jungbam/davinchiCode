@@ -43,17 +43,17 @@ users: [
         {
            color: 'white', 
            value: 'Back', 
-           isOpen: false 
+           isOpen: true 
           }, 
         {
            color: 'black', 
            value: 'Back', 
-           isOpen: false 
+           isOpen: true 
           }, 
         {
            color: 'white', 
            value: 'Back', 
-           isOpen: false 
+           isOpen: true 
           }, 
        ]
     },
@@ -66,17 +66,17 @@ users: [
         {
            color: 'black', 
            value: 'Back', 
-           isOpen: false 
+           isOpen: true 
           }, 
         {
            color: 'black', 
            value: 'Back', 
-           isOpen: false 
+           isOpen: true 
           }, 
         {
            color: 'white', 
            value: 'Back', 
-           isOpen: false 
+           isOpen: true 
           }, 
        ]
     },

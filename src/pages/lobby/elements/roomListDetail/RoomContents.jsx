@@ -144,6 +144,9 @@ const StBtnEnter = styled.div`
   justify-content: center;
   width: 60px;
   height: 44px;
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
 const StNumbParticipants = styled.span`
   display: flex;

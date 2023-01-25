@@ -5,7 +5,6 @@ const mockDataLead = [
     score: 11000,
     ranking: 1,
     change: 2000,
-    rank: "Diamond",
   },
   {
     username: "Jane Doe",
@@ -13,7 +12,6 @@ const mockDataLead = [
     score: 9300,
     ranking: 2,
     change: 200,
-    rank: "Gold",
   },
   {
     username: "Bob Johnson",
@@ -21,7 +19,6 @@ const mockDataLead = [
     score: 8800,
     ranking: 3,
     change: -500,
-    rank: "Gold",
   },
   {
     username: "Jack Wilson",
@@ -29,7 +26,6 @@ const mockDataLead = [
     score: 8200,
     ranking: 4,
     change: -200,
-    rank: "Platinum",
   },
   {
     username: "Mike Thompson",
@@ -37,7 +33,6 @@ const mockDataLead = [
     score: 7500,
     ranking: 5,
     change: -600,
-    rank: "Platinum",
   },
   {
     username: "Emily Davis",
@@ -45,7 +40,6 @@ const mockDataLead = [
     score: 6800,
     ranking: 6,
     change: -100,
-    rank: "Silver",
   },
   {
     username: "David Martinez",
@@ -53,7 +47,6 @@ const mockDataLead = [
     score: 6500,
     ranking: 7,
     change: -300,
-    rank: "Bronze",
   },
   {
     username: "Sara Wilson",
@@ -61,7 +54,6 @@ const mockDataLead = [
     score: 5900,
     ranking: 8,
     change: -100,
-    rank: "Bronze",
   },
   {
     username: "Chris Johnson",
@@ -69,7 +61,6 @@ const mockDataLead = [
     score: 5200,
     ranking: 9,
     change: -300,
-    rank: "Bronze",
   },
   {
     username: "Jessica Davis",
@@ -77,8 +68,77 @@ const mockDataLead = [
     score: 4900,
     ranking: 10,
     change: -300,
-    rank: "Bronze",
   },
+  // {
+  //   username: "Tom Smith",
+  //   profileImageUrl: "https://example.com/tom_smith.jpg",
+  //   score: 4500,
+  //   ranking: 11,
+  //   change: -400,
+  // },
+  // {
+  //   username: "Amy Doe",
+  //   profileImageUrl: "https://example.com/amy_doe.jpg",
+  //   score: 4200,
+  //   ranking: 12,
+  //   change: -300,
+  // },
+  // {
+  //   username: "Steve Johnson",
+  //   profileImageUrl: "https://example.com/steve_johnson.jpg",
+  //   score: 3900,
+  //   ranking: 13,
+  //   change: -300,
+  // },
+  // {
+  //   username: "Mia Wilson",
+  //   profileImageUrl: "https://example.com/mia_wilson.jpg",
+  //   score: 3700,
+  //   ranking: 14,
+  //   change: -200,
+  // },
+  // {
+  //   username: "Mark Thompson",
+  //   profileImageUrl: "https://example.com/mark_thompson.jpg",
+  //   score: 3500,
+  //   ranking: 15,
+  //   change: -200,
+  // },
+  // {
+  //   username: "Sophia Davis",
+  //   profileImageUrl: "https://example.com/sophia_davis.jpg",
+  //   score: 3200,
+  //   ranking: 16,
+  //   change: -300,
+  // },
+  // {
+  //   username: "Jacob Martinez",
+  //   profileImageUrl: "https://example.com/jacob_martinez.jpg",
+  //   score: 2900,
+  //   ranking: 17,
+  //   change: -300,
+  // },
+  // {
+  //   username: "Emily Wilson",
+  //   profileImageUrl: "https://example.com/emily_wilson.jpg",
+  //   score: 2600,
+  //   ranking: 18,
+  //   change: -300,
+  // },
+  // {
+  //   username: "Michael Johnson",
+  //   profileImageUrl: "https://example.com/michael_johnson.jpg",
+  //   score: 2300,
+  //   ranking: 19,
+  //   change: -300,
+  // },
+  // {
+  //   username: "Madison Davis",
+  //   profileImageUrl: "https://example.com/madison_davis.jpg",
+  //   score: 2000,
+  //   ranking: 20,
+  //   change: -300,
+  // },
 ];
 
 export default mockDataLead;
