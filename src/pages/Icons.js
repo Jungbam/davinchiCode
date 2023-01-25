@@ -34,6 +34,12 @@ import iconMic from "../assets/icons/ico_mic.svg";
 import iconTimer from "../assets/icons/ico_timer.svg";
 import iconSend from "../assets/icons/ico_send.svg";
 
+import RankOne from "../assets/images/rank/rankone.png";
+import RankSecond from "../assets/images/rank/ranksecond.png";
+import RankThird from "../assets/images/rank/rankthird.png";
+import RankForth from "../assets/images/rank/rankfourth.png";
+import RankGameOver from "../assets/images/rank/gameover.png";
+
 export const ICON = {
   blackBack,
   black0,
@@ -68,4 +74,9 @@ export const ICON = {
   iconMic,
   iconTimer,
   iconSend,
+  RankOne,
+  RankSecond,
+  RankThird,
+  RankForth,
+  RankGameOver,
 };

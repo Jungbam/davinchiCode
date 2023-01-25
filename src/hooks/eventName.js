@@ -11,9 +11,12 @@ export const eventName = {
   NEW_USER_JOINED: "new-user-joined",
   GAME_START: "game-start",
   READY: "ready",
+  ADD_READY: "add-ready",
   FIRST_DRAW: "first-draw",
+  DRAW_RESULT: "draw-result",
   GUESS: "guess",
   RESULT_GUESS: "result-guess",
   NEXT_TURN: "next-turn",
   NEXT_GAMEINFO: "next-gameInfo",
+  GAMEOVER: "gameover",
 };

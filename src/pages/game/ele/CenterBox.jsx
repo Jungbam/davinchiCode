@@ -2,16 +2,18 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import IntroTile from "../logic/IntroTile";
 import Ready from "../logic/Ready";
-import { eventName } from "../../../helpers/eventName";
+import { eventName } from "../../../hooks/eventName";
 import { useDispatch } from "react-redux";
 import Turn from "../logic/Turn";
 import SystemMessage from "../logic/SystemMessage";
 import SelectPosition from "../logic/SelectPosition";
-import { setIndicater, setUsers } from "../../../redux/modules/gameSlice";
+import { setIndicater, setInit, setTrigger, setUsers } from "../../../redux/modules/gameSlice";
 import Indicate from "../logic/Indicate";
 import SelectIndicatedUser from "../logic/SelectIndicatedUser";
 import ResultSelect from "../logic/ResultSelect";
 import GoStop from "../logic/GoStop";
+import { useEffect } from "react";
+import EndingModal from "./EndingModal";
 
     const gameInfo ={
       blackCards: 4,
@@ -168,6 +170,7 @@ const nextGameInfo = {
       }
 const CenterBox = ({socket, roomID}) => {
   const [gameView, setGameView] = useState(<Ready readyHandler={readyHandler}/>)
+  const [ending, setEnding] = useState(false)
   const dispatch = useDispatch()
   
   // 게임 로직 순서대로 함수가 그려지도록(가독성) 함수선언식 사용
@@ -183,22 +186,21 @@ const CenterBox = ({socket, roomID}) => {
     // socket.current.emit(eventName.FIRST_DRAW, 123, black, roomID ,(myCards)=>{
     //   dispatch(setUsers(myCards))
     // })
-    // socket.current.on(eventName,(gameInfo)=>{
+    // socket.current.on(eventName.DRAW_RESULT,(gameInfo)=>{
     //   setGameView(<Turn GameTurn={GameTurn}/>)
-    //   setTimer(false)
     //   dispatch(setUsers(gameInfo))
     // })
   }
   function GameTurn(selectedColor){
     // socket.current.emit(eventName.COLOR_SELECTED, selectedColor,(card)=>{
     //   setGameView(<SelectPosition card={card}/>)
-    //   setTimer(true)
     // })
     // 방에 다른 사람들
     // socket.current.on(event,(card)=>{
     //   setGameView(<SelectPosition card={card}/>)
     //   setTimer(true)
     // })
+    socket.current.emit('test',roomID)
     const card = {
       value : Math.floor(Math.random()*12),
       // value : 12,
@@ -208,8 +210,9 @@ const CenterBox = ({socket, roomID}) => {
   }
   function cardPick(resultArray=[]){
     // socket.current.emit(eventName, resultArray)
-    // socket.current.on(evemtName,(gameInfo)=>{
+    // socket.current.on(eventName.DRAW_RESULT,(gameInfo)=>{
     //   dispatch(setUsers(gameInfo))
+    // setGameView(<Indicate selectIndicaterCard={selectIndicaterCard}/>)
     // })
     setGameView(<Indicate selectIndicaterCard={selectIndicaterCard}/>)
   }
@@ -228,7 +231,7 @@ const CenterBox = ({socket, roomID}) => {
   }
   function goStop(result){
     if(result)setGameView(<GoStop nextTurn={nextTurn} goingContinue={goingContinue}/>)
-    else {setGameView(<Turn/>)}
+    else {setGameView(<Turn GameTurn={GameTurn}/>)}
   }
   function goingContinue(){
     dispatch(setIndicater(null))
@@ -238,22 +241,59 @@ const CenterBox = ({socket, roomID}) => {
     // socket.current.emit(eventName.NEXT_TURN)
     // socket.current.on(eventName.NEXT_GAMEINFO,(nextGameInfo)=>{
     //   dispatch(setUsers(nextGameInfo))
-    //   setGameView(<Indicate/>)
+    //   setGameView(<Turn/>)
     // }
     // )
     dispatch(setIndicater(null))
     dispatch(setUsers(nextGameInfo))
-    setGameView(<Turn/>)
+    setGameView(<Turn GameTurn={GameTurn}/>)
   }
+  function endingHandler(){
+    dispatch(setInit())
+    setGameView(<Ready readyHandler={readyHandler}/>)
+  }
+  // 작업 : 내 턴 외의 경우 // 서버 구현 후 마무리
+  // useEffect(()=>{
+  // socket.current.on(eventName.GAME_START, ()=>{
+  //   dispatch(setTrigger())
+  // })
+  // socket.current.on(eventName.ADD_READY,(gameInfo)=>{
+  //   dispatch(setUsers(gameInfo))
+  // } )
+  //   socket.current.on(eventName.GAME_START, ()=>{
+  //   setGameView(<IntroTile selectTile={selectTile}/>)
+  //   })
+  // socket.current.on(eventName.DRAW_RESULT,(gameInfo)=>{
+  //   setGameView(<Turn GameTurn={GameTurn}/>)
+  //   dispatch(setUsers(gameInfo))
+  // })
+  //   socket.current?.on(eventName.RESULT_GUESS, (result,gameInfo)=>{
+  //     setGameView(<ResultSelect gameInfo={gameInfo} result={result}/>)
+  //   })
+  //  socket.current?.on(eventName.NEXT_GAMEINFO,(nextGameInfo)=>{
+  //     dispatch(setUsers(nextGameInfo))
+  //     setGameView(<Indicate/>)
+  //   })
+  // socket.current?.on(eventName.GAMEOVER,()=>{
+  //   setEnding(true)
+  // })
+  // return ()=>{
+  //   setEnding(false)
+  //   dispatch(setInit())
+  // }
+  // },[socket.current])
+
   return (
     <StWrapper>
       <StGameField>
         <SystemMessage/>
         {gameView}
       </StGameField>
+      <EndingModal ending={ending} setEnding={setEnding} endingHandler={endingHandler}/>
     </StWrapper>
   );
 };
+
 
 export default CenterBox;
 

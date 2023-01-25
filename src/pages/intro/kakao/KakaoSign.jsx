@@ -20,12 +20,12 @@ const KakaoSign = () => {
     const res = await SignAPI.kakaoSign(code);
     switch (res.status) {
       case 200:
-        navigate("/lobby");
         dipatch(login());
+        navigate("/lobby");
         break;
       case 201:
-        navigate("/profile");
         dipatch(login());
+        navigate("/profile");
         break;
       default:
         navigate("/");

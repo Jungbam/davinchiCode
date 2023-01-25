@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import { io } from "socket.io-client";
 
-import { eventName } from "../../helpers/eventName";
+import { eventName } from "../../hooks/eventName";
 import background from "../../assets/images/background.png";
 import myUserBackground from "../../assets/images/myUserBackground.png";
 import otherUserBackground from "../../assets/images/otherUserBackground.png";
@@ -22,12 +22,14 @@ const usersMokinit = {
     {
       userId: 1,
       nickName: "익명1",
+      isReady: true,
       userProfileImg: "https://cdn.pixabay.com/photo/2023/01/12/15/05/flamingo-7714344_640.jpg",
       hand: [],
     },
     {
       userId: 2,
       nickName: "익명2",
+      isReady: true,
       userProfileImg: "https://cdn.pixabay.com/photo/2022/07/11/08/44/tower-7314495_1280.jpg",
       hand: [],
     },
