@@ -18,6 +18,9 @@ const StGlobalStyle = createGlobalStyle`
     background-image: url('/images/background.png');
   }
 
+  button{
+    cursor:pointer;
+  }
   .App {
     position: relative;
     width: 100%;

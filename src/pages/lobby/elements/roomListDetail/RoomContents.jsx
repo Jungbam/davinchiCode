@@ -101,9 +101,8 @@ const StContainer = styled.div`
   width: 608px;
   height: 46px;
   background-color: ${(props) => (props.isWaiting ? "#fff" : "#aaa")};
-  /* background-image: ${(props) =>
-    props.isWaiting ? "white" : "palevioletred"}; */
-  /* background-image: url(${DisabledImage}); */
+  background-image: ${(props) =>
+    props.isWaiting ? "#fff" : `url(${DisabledImage})`};
   background-size: cover;
   border: 1px solid #bcbcbc;
   border-radius: 6px;
@@ -173,7 +172,7 @@ const StEnterRoom = styled(motion.button)`
   align-items: center;
   margin-left: 50px;
 
-  cursor: ${(props) => (props.isWaiting ? "pointer" : "null")};
+  cursor: ${(props) => (props.disabled ? "default" : "pointer")};
 `;
 
 const StRoomNum = styled.div`
