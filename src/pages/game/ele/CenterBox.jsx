@@ -202,8 +202,8 @@ const CenterBox = ({socket, roomID}) => {
     // })
     socket.current.emit('test',roomID)
     const card = {
-      value : Math.floor(Math.random()*12),
-      // value : 12,
+      // value : Math.floor(Math.random()*12),
+      value : 12,
       color : selectedColor
     }
     setGameView(<SelectPosition card={card} cardPick={cardPick} selectIndicaterCard={selectIndicaterCard}/>)
