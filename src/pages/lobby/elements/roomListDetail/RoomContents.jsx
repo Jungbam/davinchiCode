@@ -5,6 +5,9 @@ import LockOrUnLock from "./RoomLock";
 import mockData from "./MockDataRoom";
 import { useNavigate } from "react-router-dom";
 import { queryKeys } from "../../../../helpers/queryKeys";
+import DisabledImage from "../../../../assets/images/lobby_disabled_room.png";
+import { ICON } from "../../../Icons";
+import { motion } from "framer-motion";
 
 const RoomContents = (props) => {
   const navigate = useNavigate();
@@ -27,7 +30,7 @@ const RoomContents = (props) => {
   };
 
   return (
-    <StRoomContentWrapper>
+    <StWrapper>
       {status === "loading" && <div>Loading...</div>}
       {status === "error" && <div>Error: {error.message}</div>}
       {status === "success" && (
@@ -37,159 +40,158 @@ const RoomContents = (props) => {
               (room) =>
                 (!isWaiting || room.isWaiting) && (!isPrivate || room.isPrivate)
             )
-            .map((room) => (
-              <StRoomMain key={room.roomId}>
-                <StRoomFirst>
-                  <StParticipants>
-                    <StNumbParticipants>
-                      {room.currentMembers}/{room.maxMembers}
-                    </StNumbParticipants>
-                  </StParticipants>
-                  <StQueue>
-                    <StWaitingOrNot>
-                      {room.isWaiting ? "대기" : "진행"}
-                    </StWaitingOrNot>
-                  </StQueue>
-                  <StLock>
-                    <LockOrUnLock locked={room.isPrivate} />
-                  </StLock>
-                </StRoomFirst>
-                <StNumber>
-                  <StRoomNumber>{room.roomId}</StRoomNumber>
-                </StNumber>
-                <StName>
+            .map((room, i) => (
+              <StContainer key={`roomList${i}`} isWaiting={room.isWaiting}>
+                <StLeft>
+                  <StButton>
+                    {room.currentMembers}/{room.maxMembers}
+                  </StButton>
+                  <StButton color="#00831D">
+                    {room.isWaiting ? "대기" : "진행"}
+                  </StButton>
+                  <div>
+                    <img
+                      src={room.isPrivate ? ICON.iconLock : ICON.iconUnlock}
+                    />
+                  </div>
+                </StLeft>
+                <StMiddle>
+                  <StRoomNum>{room.roomId}</StRoomNum>
                   <StRoomName>{room.roomName}</StRoomName>
-                </StName>
-                <StBtnEnter>
-                  <StEnterGame onClick={() => handleEnterRoom(room.roomId)}>
+                </StMiddle>
+
+                {room.isWaiting ? (
+                  <StEnterRoom
+                    onClick={() => handleEnterRoom(room.roomId)}
+                    disabled={!room.isWaiting}
+                    isWaiting={room.isWaiting}
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
                     입장
-                  </StEnterGame>
-                </StBtnEnter>
-              </StRoomMain>
+                  </StEnterRoom>
+                ) : (
+                  <StEnterRoom
+                    disabled={!room.isWaiting}
+                    isWaiting={room.isWaiting}
+                  >
+                    입장
+                  </StEnterRoom>
+                )}
+              </StContainer>
             ))}
         </>
       )}
-    </StRoomContentWrapper>
+    </StWrapper>
   );
 };
 
-const StRoomContentWrapper = styled.div`
+const StWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  width: 650px;
-  height: 570px;
-  margin-top: 10px;
-  gap: 6px;
+  width: 100%;
+  height: 100%;
+  gap: 4px;
+  padding: 20px 14px;
 `;
-const StRoomMain = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 640px;
-  height: 44px;
-  padding: 10px 18px;
-  border: 1px solid #dedede;
+
+const StContainer = styled.div`
+  width: 608px;
+  height: 46px;
+  background-color: ${(props) => (props.isWaiting ? "#fff" : "#aaa")};
+  /* background-image: ${(props) =>
+    props.isWaiting ? "white" : "palevioletred"}; */
+  /* background-image: url(${DisabledImage}); */
+  background-size: cover;
+  border: 1px solid #bcbcbc;
   border-radius: 6px;
-  gap: 10px;
-  background: #ffffff;
+  padding: 10px 18px;
+  display: flex;
+  align-items: center;
 `;
 
-const StLock = styled.div`
+const StLeft = styled.div`
+  width: 94px;
+  height: 20px;
+
   display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: center;
-  width: 50px;
-  height: 44px;
+  gap: 4px;
 `;
-const StParticipants = styled.div`
+
+const StButton = styled.div`
+  width: 34px;
+  height: 20px;
+
+  border: 1px solid ${({ color }) => color || "#111"};
+  color: ${({ color }) => color || "#111"};
+  border-radius: 999px;
+
   display: flex;
-  align-items: center;
-  flex-direction: row;
   justify-content: center;
-  width: 30px;
-  height: 44px;
-`;
-const StQueue = styled.div`
-  display: flex;
   align-items: center;
-  flex-direction: row;
-  justify-content: center;
-  width: 80px;
-  height: 44px;
+
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 12px;
 `;
-const StNumber = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: center;
-  width: 80px;
-  height: 44px;
-`;
-const StName = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: flex-start;
+
+const StMiddle = styled.div`
   width: 380px;
-  height: 44px;
-`;
-const StBtnEnter = styled.div`
+  display: flex;
+  gap: 30px;
+
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
   display: flex;
   align-items: center;
-  flex-direction: row;
-  justify-content: center;
-  width: 60px;
-  height: 44px;
-`;
-const StNumbParticipants = styled.span`
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: center;
-  width: 50px;
-  height: 26px;
-  padding: 6px;
-  border: 1px solid black;
-  border-radius: 14px;
-  font-size: 12px;
-  font-weight: bold;
-  color: black;
-`;
-const StWaitingOrNot = styled.span`
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: center;
-  width: 50px;
-  height: 26px;
-  padding: 6px;
-  border: 1px solid green;
-  border-radius: 14px;
-  font-size: 12px;
-  font-weight: bold;
-  color: green;
+
+  color: #000000;
+
+  margin-left: 30px;
 `;
 
-const StRoomFirst = styled.div`
+const StEnterRoom = styled(motion.button)`
+  width: 48px;
+  height: 26px;
+  border-radius: 4px;
+  border: solid 1px ${(props) => (props.isWaiting ? "#000" : "#aaa")};
+
+  font-size: 12px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: left;
+  color: #222;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 50px;
+
+  cursor: ${(props) => (props.isWaiting ? "pointer" : "null")};
+`;
+
+const StRoomNum = styled.div`
+  width: 30px;
+  height: 16px;
+
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
   display: flex;
   align-items: center;
-  flex-direction: row;
-  justify-content: center;
-  width: 150px;
-  height: 26px;
+
+  color: #000000;
 `;
-const StRoomNumber = styled.span``;
-const StRoomName = styled.div``;
-const StEnterGame = styled.button`
-  width: 60px;
-  padding: 6px;
-  background-color: white;
-  font-size: 14px;
-  font-weight: bold;
+
+const StRoomName = styled.div`
+  width: 270px;
+  height: 16px;
 `;
 
 export default RoomContents;

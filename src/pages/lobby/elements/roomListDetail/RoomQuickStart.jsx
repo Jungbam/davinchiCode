@@ -51,6 +51,9 @@ const ImmediateStart = styled.button`
   background: yellow;
   color: black;
   font-weight: bold;
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
 
 export default QuickStart;

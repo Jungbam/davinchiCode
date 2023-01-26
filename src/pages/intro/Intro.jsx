@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Modal from "../../components/form/modal/Modal";
 import GameInfo from "./kakao/ele/GameInfo";
+import IntroPic from "../../assets/images/davincicode_main.png";
 export const KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_ID}&redirect_uri=${process.env.REACT_APP_REDIRECT}&response_type=code`;
 const Intro = () => {
   const [modal, setModal] = useState(false);
@@ -16,7 +17,8 @@ const Intro = () => {
         <GameInfo closeModal={setModalHandler} />
       </Modal>
       <StContainer>
-        <StBox>시작화면 이미지</StBox>
+        <img src={IntroPic} width="900" />
+
         <StBtnBox>
           <StBtn onClick={setModalHandler} color="#fff">
             게임 설명보기
@@ -37,29 +39,33 @@ const StWrapper = styled.div`
   width: 100vw;
   height: 100vh;
   justify-content: center;
-  align-items: center;
 `;
 const StContainer = styled.div`
   width: 512px;
   height: 398px;
+  margin-top: 160px;
   display: flex;
   flex-direction: column;
-`;
-const StBox = styled.div`
-  width: 512px;
-  height: 340px;
-
-  display: flex;
-  justify-content: center;
   align-items: center;
-
-  background-color: #d9d9d9;
+  & img {
+    margin-bottom: 50px;
+  }
 `;
+// const StBox = styled.div`
+//   width: 512px;
+//   height: 340px;
+
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+
+//   background-color: #d9d9d9;
+//   background-image: url(IntroPic);
+// `;
 
 const StBtnBox = styled.div`
-  margin-top: 10px;
   display: flex;
-  justify-content: space-between;
+  gap: 8px;
   & a {
     text-decoration: none;
   }
@@ -75,12 +81,10 @@ const StBtn = styled.button`
   background-color: ${(props) => props.color};
   border-radius: 6px;
 
+  font-weight: 700;
   font-size: 18px;
-  font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1;
-  letter-spacing: normal;
+  line-height: 100%;
+
   text-align: center;
   color: #000;
   box-shadow: 0 3px 0 0 #000;

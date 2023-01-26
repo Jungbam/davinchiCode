@@ -1,44 +1,56 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import DropdownMenu from "./MenuLists";
 
-const LobbyHeader = () => {
+const Header = () => {
+  const [modal, setModal] = useState(false);
+  const setModalHandler = () => {
+    setModal((prev) => !prev);
+  };
+
   return (
-    <>
-      <StLobbyWrapper>
-        <StLobbyHead>
-          <StLogoName>DAVINCI CODE</StLogoName>
-          <StMenuWrapper>
-            <DropdownMenu />
-          </StMenuWrapper>
-        </StLobbyHead>
-      </StLobbyWrapper>
-    </>
+    <Navbar>
+      <NavbarInside>
+        <StLogoName>DAVINCI CODE</StLogoName>
+        <StMenuWrapper>
+          <DropdownMenu />
+        </StMenuWrapper>
+      </NavbarInside>
+    </Navbar>
   );
 };
-const StLobbyWrapper = styled.div`
-  width: 100%;
-`;
 
-const StLobbyHead = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 1534px;
-  height: 48px;
-  border: 1px solid black;
-  background-color: #111111;
-  color: white;
-`;
-const StLogoName = styled.span`
+export default Header;
+
+const Navbar = styled.div`
+  color: #ffffff;
+  background-color: #111;
+  color: #aaaaaa;
+  height: 46px;
   display: flex;
   align-items: center;
-  margin-left: 220px;
-  font-size: 19px;
-  font-weight: bold;
+  justify-content: center;
+  font-size: 13px;
+`;
+
+const NavbarInside = styled.div`
+  width: 1080px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const StLogoName = styled.div`
+  font-size: 20px;
+  font-weight: 800;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: left;
+  color: #fff;
 `;
 const StMenuWrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  position: relative;
 `;
-
-export default LobbyHeader;

@@ -2,13 +2,20 @@ import React from "react";
 import styled from "styled-components";
 import mockDataLead from "../roomListDetail/MockDataLeader";
 import { queryKeys } from "../../../../helpers/queryKeys";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
+import { ICON } from "../../../Icons";
 
 const IndividualRanking = () => {
-  const { data, status, error } = useQuery(
-    [queryKeys.USER_RANKING],
-    () => mockDataLead
-  );
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  const a = (num) => {
+    if (num > 0) return ICON.iconScorePlus;
+    if (num < 0) return ICON.iconScoreMinus;
+    if (!num) return ICON.iconScoreStable;
+  };
+  const { data, status, error } = useQuery(["userRanking"], () => mockDataLead);
 
   if (status === "loading") {
     return <div>Loading...</div>;
@@ -17,133 +24,111 @@ const IndividualRanking = () => {
   if (status === "error") {
     return <div>An error occurred: {error.message}</div>;
   }
-
   if (status === "success") {
     return (
       <>
-        {data &&
-          data.map((item) => (
-            <StIndividualBox key={item.username}>
-              <StIndvFirst>
-                <StIndvFirstTop>
-                  <StPlayerRanking>{item.ranking}</StPlayerRanking>
-                </StIndvFirstTop>
-                <StIndvFirstBottom>
-                  <StPlayerRankingActive>{item.change}</StPlayerRankingActive>
-                </StIndvFirstBottom>
-              </StIndvFirst>
-
-              <StIndvSec>
-                <StPlayerProfile src={item.profileImageUrl} />
-                <StPlayerName>{item.username}</StPlayerName>
-              </StIndvSec>
-
-              <StIndvThrdBot>
-                <StPlayerOverallScore>{item.score}</StPlayerOverallScore>
-              </StIndvThrdBot>
-
-              {/* <StIndvForth>
-                <StPlayerTier>{item.rank}</StPlayerTier>
-              </StIndvForth> */}
-            </StIndividualBox>
-          ))}
+        {mockDataLead.map((el, i) => (
+          <StWrapper key={`individualRanking${i}`}>
+            <StRank>
+              <StPlayerRanking>{el.ranking}</StPlayerRanking>
+              <StPlayerRankingActive>
+                <img src={a(el.change)} /> {Math.abs(el.change)}
+              </StPlayerRankingActive>
+            </StRank>
+            <StRankDetail>
+              <StUserProfile src={el.profileImageUrl} />
+              <StUserName>{el.username}</StUserName>
+              <StUserScore>{numberWithCommas(el.score)}</StUserScore>
+            </StRankDetail>
+          </StWrapper>
+        ))}
       </>
     );
   }
 };
 
-const StIndividualBox = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  width: 420px;
+const StWrapper = styled.div`
+  background-color: ${({ color }) => color || "#fff"};
+  width: 100%;
   height: 64px;
-  border: 1px solid #e6e6e6;
-  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  border-bottom: 1px solid #ddd;
 `;
 
-const StIndvFirst = styled.div`
+const StRank = styled.div`
+  width: 40px;
+  height: 34px;
+  /* border: 1px solid green; */
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
 `;
 
-const StIndvFirstTop = styled.div`
+const StRankDetail = styled.div`
+  width: 292px;
+  height: 34px;
+
+  margin-right: 10px;
   display: flex;
-  flex-direction: row;
-  width: 50px;
-  height: 36px;
+  align-items: center;
 `;
+
+const StUserProfile = styled.img`
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid #111;
+  object-fit: cover;
+`;
+
+const StUserName = styled.div`
+  width: 150px;
+  font-size: 14px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: left;
+  color: #111;
+  margin-left: 15px;
+`;
+
+const StUserScore = styled.div`
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: left;
+  color: #333;
+  margin-left: 20px;
+`;
+
 const StPlayerRanking = styled.span`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  font-size: 14px;
   font-weight: bold;
-  font-size: 20px;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: left;
+  color: #111;
 `;
 
-const StIndvFirstBottom = styled.div`
-  display: Flex;
-  flex-direction: row;
-  width: 50px;
-  height: 36px;
+const StPlayerRankingActive = styled.div`
+  font-size: 11.8px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: left;
+  color: #ff601c;
 `;
-const StPlayerRankingActive = styled.span`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
-  width: 100%;
-  font-size: 11px;
-`;
-const StIndvSec = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  width: 180px;
-  height: 72px;
-  gap: 20px;
-`;
-const StPlayerProfile = styled.img``;
 
-// const StIndvThrd = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   align-items: center;
-//   justify-content: flex-end;
-//   width: 100px;
-//   height: 72px;
-// `;
-
-// const StIndvThrdTop = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: flex-start;
-//   align-items: center;
-//   width: 100%;
-//   height: 36px;
-// `;
-const StPlayerName = styled.span`
-  font-weight: bold;
-`;
-const StIndvThrdBot = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
-  width: 100px;
-  height: 36px;
-`;
-const StPlayerOverallScore = styled.span``;
-
-// const StIndvForth = styled.div`
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-// `;
-// const StPlayerTier = styled.span`
-//   display: inline-block;
-//   border: 1px solid black;
-// `;
 export default IndividualRanking;
