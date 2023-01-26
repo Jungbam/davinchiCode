@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import { io } from "socket.io-client";
 
-import { eventName } from "../../helpers/eventName";
+import { eventName } from "../../hooks/eventName";
 import background from "../../assets/images/background.png";
 import myUserBackground from "../../assets/images/myUserBackground.png";
 import otherUserBackground from "../../assets/images/otherUserBackground.png";

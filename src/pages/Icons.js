@@ -40,6 +40,12 @@ import iconScoreStable from "../assets/icons/ico_score_stable.svg";
 import iconScoreMinus from "../assets/icons/ico_score_minus.svg";
 import iconScorePlus from "../assets/icons/ico_score_plus.svg";
 
+import RankOne from "../assets/images/rank/rankone.png";
+import RankSecond from "../assets/images/rank/ranksecond.png";
+import RankThird from "../assets/images/rank/rankthird.png";
+import RankForth from "../assets/images/rank/rankfourth.png";
+import RankGameOver from "../assets/images/rank/gameover.png";
+
 export const ICON = {
   blackBack,
   black0,
@@ -74,6 +80,12 @@ export const ICON = {
   iconMic,
   iconTimer,
   iconSend,
+
+  RankOne,
+  RankSecond,
+  RankThird,
+  RankForth,
+  RankGameOver,
   iconAlert,
   iconUnlock,
   iconLock,

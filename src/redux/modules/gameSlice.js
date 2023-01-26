@@ -35,6 +35,27 @@ const initialState = {
       },
     ],
   },
+  ending: false,
+  endingInfo: [
+    {
+      userId: 1,
+      nickName: "익명1",
+      score: 12000,
+      ranking: 123,
+    },
+    {
+      userId: 2,
+      nickName: "익명1",
+      score: 12000,
+      ranking: 123,
+    },
+    {
+      userId: 3,
+      nickName: "익명1",
+      score: 12000,
+      ranking: 123,
+    },
+  ],
 };
 
 const gameSlice = createSlice({
@@ -53,8 +74,20 @@ const gameSlice = createSlice({
     setTrigger: (state, action) => {
       state.trigger = !state.trigger;
     },
+    setEnding: (state, action) => {
+      state.ending = !state.ending;
+    },
+    setInit: (state, action) => {
+      state = initialState;
+    },
   },
 });
-export const { setUsers, setIndicater, setInitBtn, setTrigger } =
-  gameSlice.actions;
+export const {
+  setUsers,
+  setIndicater,
+  setInitBtn,
+  setTrigger,
+  setInit,
+  setEnding,
+} = gameSlice.actions;
 export default gameSlice.reducer;
