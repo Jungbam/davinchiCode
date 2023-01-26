@@ -3,8 +3,22 @@ import ReactDOM from "react-dom";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { logout } from "../../../redux/modules/signSlice";
+import exitModal from "../../../assets/icons/ico_modal_cancle.svg";
+import { motion } from "framer-motion";
+
+const buttonVariants = {
+  hover: {
+    scale: 1.1,
+    textShadow: "0px 0px 8px rgb(255,255,255)",
+    boxShadow: "0px 0px 8px rgb(255,255,255)",
+    transition: {
+      duration: 0.3,
+    },
+  },
+};
 
 const ModalLogout = ({ children, modal, closeModal }) => {
+  console.log("여기", modal);
   const dispatch = useDispatch();
   const styles = { modal };
 
@@ -12,19 +26,30 @@ const ModalLogout = ({ children, modal, closeModal }) => {
     dispatch(logout());
     closeModal();
   };
+
   return (
     <>
       {ReactDOM.createPortal(
         <>
           <StModal {...styles}>
-            {children}
-            <StLogoutTop>
-              <h3>로그아웃 하시겠습니까?</h3>
-            </StLogoutTop>
-            <StLogoutBot>
-              <button onClick={closeModal}>취소</button>
-              <button onClick={logoutHandler}>확인</button>
-            </StLogoutBot>
+            <StBtnArea>
+              <StExitBtn
+                variants={buttonVariants}
+                whileHover="hover"
+                onClick={closeModal}
+                src={exitModal}
+              />
+            </StBtnArea>
+
+            <StLogoutComment>로그아웃 하시겠습니까?</StLogoutComment>
+            <StLogoutBtnList>
+              <StButton color="#fff" onClick={closeModal}>
+                취소
+              </StButton>
+              <StButton color="#ffdf24" onClick={logoutHandler}>
+                확인
+              </StButton>
+            </StLogoutBtnList>
           </StModal>
           <StBackDrop {...styles} onClick={closeModal}></StBackDrop>
         </>,
@@ -38,21 +63,23 @@ export default ModalLogout;
 
 const StModal = styled.div`
   position: fixed;
-  top: 25%;
-  left: 35%;
+  top: 50vh;
+  left: 50vw;
   z-index: 140;
   transform: translate(-50%, -50%);
   display: ${({ modal }) => {
     return modal ? "flex" : "none";
   }};
-  width: 300px;
-  height: 154px;
-  background-color: white;
+  width: 288px;
+  height: 160px;
+
+  background-color: #ffffff;
+  border: 1px solid #bbbbbb;
+  border-radius: 6px;
+
+  display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-content: center;
-  border-radius: 12px;
-  box-shadow: 2px 2px 6px black;
+  align-items: center;
 `;
 const StBackDrop = styled.div`
   position: fixed;
@@ -65,24 +92,51 @@ const StBackDrop = styled.div`
   }};
   width: 100vw;
   height: 100vh;
-  background-color: rgba(141, 141, 141, 0.8);
+  background-color: rgba(0, 0, 0, 0.5);
 `;
 
-const StLogoutTop = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: flex-end;
-  width: 100%;
-  height: 50%;
-  font-size: 18px;
+const StLogoutComment = styled.div`
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+
+  margin-top: 46px;
 `;
-const StLogoutBot = styled.div`
+
+const StLogoutBtnList = styled.div`
+  width: 206px;
+  height: 32px;
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  justify-content: space-between;
+  margin-top: 26px;
+`;
+
+const StButton = styled.div`
+  width: 100px;
+  height: 32px;
+  background: ${({ color }) => color};
+  border: 1px solid #000000;
+  box-shadow: 0px 3px 0px #000000;
+  border-radius: 6px;
+  display: flex;
   justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 100%;
+`;
+
+const StExitBtn = styled(motion.img)`
+  display: absolute;
+  cursor: pointer;
+`;
+
+const StBtnArea = styled.div`
+  padding: 16px;
+  position: absolute;
   width: 100%;
-  height: 50%;
-  gap: 34px;
+  display: flex;
+  justify-content: flex-end;
 `;
