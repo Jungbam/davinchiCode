@@ -33,6 +33,12 @@ import iconVideocam from "../assets/icons/ico_videocam.svg";
 import iconMic from "../assets/icons/ico_mic.svg";
 import iconTimer from "../assets/icons/ico_timer.svg";
 import iconSend from "../assets/icons/ico_send.svg";
+import iconAlert from "../assets/icons/info-circle.svg";
+import iconUnlock from "../assets/icons/ico_lobby_unlock.svg";
+import iconLock from "../assets/icons/ico_lobby_lock.svg";
+import iconScoreStable from "../assets/icons/ico_score_stable.svg";
+import iconScoreMinus from "../assets/icons/ico_score_minus.svg";
+import iconScorePlus from "../assets/icons/ico_score_plus.svg";
 
 export const ICON = {
   blackBack,
@@ -68,4 +74,10 @@ export const ICON = {
   iconMic,
   iconTimer,
   iconSend,
+  iconAlert,
+  iconUnlock,
+  iconLock,
+  iconScoreStable,
+  iconScoreMinus,
+  iconScorePlus,
 };

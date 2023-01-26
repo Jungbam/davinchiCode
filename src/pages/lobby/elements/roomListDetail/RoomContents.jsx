@@ -5,6 +5,9 @@ import LockOrUnLock from "./RoomLock";
 import mockData from "./MockDataRoom";
 import { useNavigate } from "react-router-dom";
 import { queryKeys } from "../../../../helpers/queryKeys";
+import DisabledImage from "../../../../assets/images/lobby_disabled_room.png";
+import { ICON } from "../../../Icons";
+import { motion } from "framer-motion";
 
 const RoomContents = (props) => {
   const navigate = useNavigate();
@@ -38,7 +41,7 @@ const RoomContents = (props) => {
                 (!isWaiting || room.isWaiting) && (!isPrivate || room.isPrivate)
             )
             .map((room, i) => (
-              <StContainer key={`roomList${i}`}>
+              <StContainer key={`roomList${i}`} isWaiting={room.isWaiting}>
                 <StLeft>
                   <StButton>
                     {room.currentMembers}/{room.maxMembers}
@@ -46,15 +49,35 @@ const RoomContents = (props) => {
                   <StButton color="#00831D">
                     {room.isWaiting ? "대기" : "진행"}
                   </StButton>
-                  <div>◀️</div>
+                  <div>
+                    <img
+                      src={room.isPrivate ? ICON.iconLock : ICON.iconUnlock}
+                    />
+                  </div>
                 </StLeft>
                 <StMiddle>
                   <StRoomNum>{room.roomId}</StRoomNum>
                   <StRoomName>{room.roomName}</StRoomName>
                 </StMiddle>
-                <StEnterRoom onClick={() => handleEnterRoom(room.roomId)}>
-                  입장
-                </StEnterRoom>
+
+                {room.isWaiting ? (
+                  <StEnterRoom
+                    onClick={() => handleEnterRoom(room.roomId)}
+                    disabled={!room.isWaiting}
+                    isWaiting={room.isWaiting}
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    입장
+                  </StEnterRoom>
+                ) : (
+                  <StEnterRoom
+                    disabled={!room.isWaiting}
+                    isWaiting={room.isWaiting}
+                  >
+                    입장
+                  </StEnterRoom>
+                )}
               </StContainer>
             ))}
         </>
@@ -77,7 +100,11 @@ const StWrapper = styled.div`
 const StContainer = styled.div`
   width: 608px;
   height: 46px;
-  background: #ffffff;
+  background-color: ${(props) => (props.isWaiting ? "#fff" : "#aaa")};
+  /* background-image: ${(props) =>
+    props.isWaiting ? "white" : "palevioletred"}; */
+  /* background-image: url(${DisabledImage}); */
+  background-size: cover;
   border: 1px solid #bcbcbc;
   border-radius: 6px;
   padding: 10px 18px;
@@ -126,12 +153,11 @@ const StMiddle = styled.div`
   margin-left: 30px;
 `;
 
-const StEnterRoom = styled.div`
+const StEnterRoom = styled(motion.button)`
   width: 48px;
   height: 26px;
   border-radius: 4px;
-  border: solid 1px #000;
-  background-color: #fff;
+  border: solid 1px ${(props) => (props.isWaiting ? "#000" : "#aaa")};
 
   font-size: 12px;
   font-weight: bold;
@@ -147,11 +173,11 @@ const StEnterRoom = styled.div`
   align-items: center;
   margin-left: 50px;
 
-  cursor: pointer;
+  cursor: ${(props) => (props.isWaiting ? "pointer" : "null")};
 `;
 
 const StRoomNum = styled.div`
-  width: 50px;
+  width: 30px;
   height: 16px;
 
   font-weight: 500;

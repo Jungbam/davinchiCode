@@ -3,6 +3,7 @@ import styled from "styled-components";
 import ModalProfile from "../../form/modal/ModalProfile";
 import ModalLogout from "../../form/modal/ModalLogout";
 import ModalDelAccount from "../../form/modal/ModalDelAccount";
+import { motion } from "framer-motion";
 
 function DropdownMenu() {
   const [showMenu, setShowMenu] = useState(false);
@@ -15,7 +16,11 @@ function DropdownMenu() {
         마이페이지
       </StButtonDesign>
       {showMenu && (
-        <StMenuList>
+        <StMenuList
+          initial={{ y: -60, opacity: 0 }}
+          animate={{ y: 0, opacity: 1, transition: { duration: 1 } }}
+          exit={{ y: 60, transition: { duration: 2 } }}
+        >
           <StMenu bottom="1px" onClick={() => setShowModal(true)}>
             내 프로필 설정
           </StMenu>
@@ -129,7 +134,7 @@ const StMenuelAcc = styled.button`
   font-weight: bold;
 `;
 
-const StMenuList = styled.div`
+const StMenuList = styled(motion.div)`
   position: absolute;
   top: 30px;
   right: 0;

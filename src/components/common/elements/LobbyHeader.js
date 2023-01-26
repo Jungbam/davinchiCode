@@ -41,7 +41,6 @@ const NavbarInside = styled.div`
 `;
 
 const StLogoName = styled.div`
-  /* font-family: Fellix; */
   font-size: 20px;
   font-weight: 800;
   font-stretch: normal;

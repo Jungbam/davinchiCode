@@ -3,8 +3,18 @@ import styled from "styled-components";
 import mockDataLead from "../roomListDetail/MockDataLeader";
 import { queryKeys } from "../../../../helpers/queryKeys";
 import { useQuery } from "@tanstack/react-query";
+import { ICON } from "../../../Icons";
 
-const IndividualRanking = ({ color }) => {
+const IndividualRanking = () => {
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  const a = (num) => {
+    if (num > 0) return ICON.iconScorePlus;
+    if (num < 0) return ICON.iconScoreMinus;
+    if (!num) return ICON.iconScoreStable;
+  };
   const { data, status, error } = useQuery(["userRanking"], () => mockDataLead);
 
   if (status === "loading") {
@@ -21,12 +31,14 @@ const IndividualRanking = ({ color }) => {
           <StWrapper key={`individualRanking${i}`}>
             <StRank>
               <StPlayerRanking>{el.ranking}</StPlayerRanking>
-              <StPlayerRankingActive>◀ {el.change}</StPlayerRankingActive>
+              <StPlayerRankingActive>
+                <img src={a(el.change)} /> {Math.abs(el.change)}
+              </StPlayerRankingActive>
             </StRank>
             <StRankDetail>
               <StUserProfile src={el.profileImageUrl} />
               <StUserName>{el.username}</StUserName>
-              <StUserScore>{el.score}</StUserScore>
+              <StUserScore>{numberWithCommas(el.score)}</StUserScore>
             </StRankDetail>
           </StWrapper>
         ))}
@@ -109,7 +121,7 @@ const StPlayerRanking = styled.span`
 `;
 
 const StPlayerRankingActive = styled.div`
-  font-size: 12px;
+  font-size: 11.8px;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;

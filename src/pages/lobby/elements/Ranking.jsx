@@ -6,26 +6,41 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import mockDataMy from "./roomListDetail/MockDataMy";
 import { AnimatePresence, motion } from "framer-motion";
 import { useCycle } from "framer-motion";
+import { ICON } from "../../Icons";
+
+const TextVariants = {
+  hidden: {
+    y: -30,
+    opacity: 0,
+  },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 2,
+    },
+  },
+  exit: {
+    y: 30,
+    opacity: 0,
+  },
+};
 
 const Ranking = () => {
-  //   const [textIndex, cycleText] = useCycle(
-  //     0,
-  //     (currentIndex) => (currentIndex + 1) % text.length
-  //   );
-  //   const text = [
-  //     "게임 순위는 1시간마다 업데이트됩니다.",
-  //     "장시간의 게임은 건강에 해롭습니다",
-  //   ];
+  const [textIndex, setTextIndex] = useState(false);
 
-  //   const handleInterval = () => {
-  //     setTimeout(() => {
-  //       cycleText();
-  //     }, 4000);
-  //   };
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  }
+  const handleInterval = () => {
+    setTimeout(() => {
+      setTextIndex((prev) => !prev);
+    }, 8000);
+  };
 
-  //   useEffect(() => {
-  //     handleInterval();
-  //   }, [textIndex]);
+  useEffect(() => {
+    handleInterval();
+  }, [textIndex]);
 
   const { data, status } = useQuery(["PERSONAL_RANKING"], () => mockDataMy);
 
@@ -41,12 +56,37 @@ const Ranking = () => {
           <StPlayerRankingActive>◀ {mockDataMy.change}</StPlayerRankingActive>
         </StRank>
         <StRankDetail>
-          <StUserProfile src="https://cdn.pixabay.com/photo/2018/05/13/16/57/dog-3397110__480.jpg" />
+          <StUserProfile src={mockDataMy.profileImageUrl} />
           <StUserName>{mockDataMy.username}</StUserName>
-          <StUserScore>{mockDataMy.score}</StUserScore>
+          <StUserScore>{numberWithCommas(mockDataMy.score)}</StUserScore>
         </StRankDetail>
       </StWrapper>
-      <StRankingBottom>게임 순위는 1시간마다 업데이트됩니다.</StRankingBottom>
+
+      <StRankingBottom>
+        {textIndex ? (
+          <StText
+            key="0"
+            variants={TextVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
+            <img src={ICON.iconAlert} />
+            장시간의 게임은 건강에 해롭습니다
+          </StText>
+        ) : (
+          <StText
+            key="1"
+            variants={TextVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
+            <img src={ICON.iconAlert} />
+            게임 순위는 1시간마다 업데이트됩니다
+          </StText>
+        )}
+      </StRankingBottom>
     </StRankingWrapper>
   );
 };
@@ -89,7 +129,7 @@ const StRankingBottom = styled.div`
   width: 420px;
   height: 36px;
   border-radius: 0px 0px 5px 5px;
-  background: #111111;
+  background-color: #111111;
 
   font-size: 12px;
   font-weight: normal;
@@ -183,5 +223,14 @@ const StPlayerRankingActive = styled.div`
   letter-spacing: normal;
   text-align: left;
   color: #ff601c;
+`;
+
+const StText = styled(motion.div)`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  & img {
+    margin-right: 4px;
+  }
 `;
 export default Ranking;

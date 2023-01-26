@@ -1,10 +1,21 @@
 import React from "react";
 import styled from "styled-components";
-import Dropdown from "../../../components/common/elements/DropDown";
 import RoomContents from "./roomListDetail/RoomContents";
 import { useState } from "react";
 import ModalCreateRoom from "./ModalCreateRoom";
+import { motion } from "framer-motion";
 import QuickStart from "./roomListDetail/RoomQuickStart";
+
+const buttonVariants = {
+  hover: {
+    scale: 1.05,
+    transition: {
+      duration: 0.3,
+      repeat: Infinity,
+      repeatType: "reverse",
+    },
+  },
+};
 
 const RoomList = () => {
   const [isWaiting, setIsWaiting] = useState(false);
@@ -57,8 +68,26 @@ const RoomList = () => {
         ></RoomContents>
       </StRoomList>
       <StRoomListBottom>
-        <StPagination></StPagination>
-        <StButton color="#fff" onClick={() => setShowCreateRoom(true)}>
+        <StPagination>
+          <div>≪</div>
+          <div>﹤</div>
+          <StPages>
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+            <div>5</div>
+            <div>6</div>
+          </StPages>
+          <div>﹥</div>
+          <div>≫</div>
+        </StPagination>
+        <StButton
+          variants={buttonVariants}
+          whileHover="hover"
+          color="#fff"
+          onClick={() => setShowCreateRoom(true)}
+        >
           방 만들기
         </StButton>
         {showCreateRoom && (
@@ -69,7 +98,9 @@ const RoomList = () => {
             }}
           ></ModalCreateRoom>
         )}
-        <StButton color="#FFDF24">바로 시작</StButton>
+        <StButton variants={buttonVariants} whileHover="hover" color="#FFDF24">
+          바로 시작
+        </StButton>
       </StRoomListBottom>
     </StWrapper>
 
@@ -189,10 +220,24 @@ const StSelect = styled.select`
 const StPagination = styled.div`
   width: 330px;
   height: 44px;
-  border: 1px solid red;
+  gap: 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  /* color: rgba(255, 255, 255, 0.2); */
+  color: #aaaaaa;
+
+  & div {
+    cursor: pointer;
+  }
 `;
 
-const StButton = styled.div`
+const StButton = styled(motion.div)`
   width: 130px;
   height: 44px;
   border-radius: 6px;
@@ -265,6 +310,11 @@ const StRefreshBtn = styled.button`
   text-align: center;
   color: #fff;
 `;
-// ends
+
+const StPages = styled.div`
+  display: flex;
+  gap: 18px;
+  margin: 0 12px;
+`;
 
 export default RoomList;
