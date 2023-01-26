@@ -24,7 +24,7 @@ const Router = () => {
         <Route path="/profile" element={PAGE.SetUserInfo} />
         <Route element={<PrivateRoutes user={user} />}>
           <Route path="/lobby" element={PAGE.Lobby} />
-          <Route path="/game/:roomID" element={PAGE.Game} />
+          <Route path="/game/:roomId" element={PAGE.Game} />
         </Route>
         <Route path="/error" element={PAGE.ErrorPage} />
         <Route path="/*" element={PAGE.ErrorPage} />

@@ -43,17 +43,18 @@ const usersMokinit = {
     },
   ],
 };
+const userId = Math.floor(Math.random()*10)
 
 const Game = () => {
+
   const [msgList, setMsgList] = useState([]);
-  const { roomID } = useParams();
+  const { roomId } = useParams();
   const socketRef = useRef();
   const { users } = useSelector((state) => state.gameSlice.gameInfo);
   const dispatch = useDispatch();
-
   useEffect(() => {
     socketRef.current = io.connect(process.env.REACT_APP_SERVER);
-    socketRef.current.emit(eventName.JOIN, roomID);
+    socketRef.current.emit(eventName.JOIN, {roomId,userId});
     dispatch(setUsers(usersMokinit));
   }, []);
 
@@ -75,13 +76,13 @@ const Game = () => {
             <UsersBox user={users[2] ? users[2] : null} />
             <UsersBox user={users[3] ? users[3] : null} />
           </StPeerWrapper>
-          <CenterBox roomID={roomID} socket={socketRef} />
+          <CenterBox roomId={roomId} socket={socketRef} userId={userId}/>
           <StMyBoxWrapper>
             <StMyBoxContainer>
               <MyBox user={users[0] ? users[0] : null} />
             </StMyBoxContainer>
             <Chat
-              roomID={roomID}
+              roomId={roomId}
               socket={socketRef}
               msgList={msgList}
               setMsgList={setMsgList}

@@ -18,7 +18,6 @@ const buttonVariants = {
 };
 
 const ModalLogout = ({ children, modal, closeModal }) => {
-  console.log("여기", modal);
   const dispatch = useDispatch();
   const styles = { modal };
 
