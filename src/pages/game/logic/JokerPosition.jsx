@@ -11,17 +11,19 @@ const JokerPosition = ({selectedCard, cardPick}) => {
   const {users} = useSelector(state=>state.gameSlice.gameInfo)
   const [mine, setMine] = useState(users[0]?.hand||[])
   const [picked, setPicked] = useState(true)
+  const [vali,setVali] = useState(false)
 
   const handleChange = (result) => {
     if (!result.destination) return;
     if(!result.draggableId.includes(12)){
-      alert('조커 외의 카드는 움직일 수 없습니다.')
+      setVali(true)
       return
     }
     const items = [...mine];
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
     setMine(items);
+    setVali(false)
     setPicked(false)
   };
 
@@ -58,8 +60,9 @@ const JokerPosition = ({selectedCard, cardPick}) => {
           )}
         </Droppable>
       </DragDropContext>
-      <button disabled={picked} onClick={()=>{cardPick(mine)}}>확인</button>
     </StAllCard>
+    {vali&&<StVali>조커 외에 타일은 움직이지 않습니다.</StVali>}
+    <button disabled={picked} onClick={()=>{cardPick(mine)}}>확인</button>
     <Timer/>
     </div>
   )
@@ -73,4 +76,7 @@ const StMyCard = styled.div`
   display: flex;
   gap: 10px;
   height: 120px;
+`
+const StVali = styled.div`
+  color: red;
 `
