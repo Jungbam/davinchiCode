@@ -18,7 +18,7 @@ const Indicate = ({selectIndicaterCard}) => {
       <p>다른 참여자의 화면에 있는 '지목하기' 버튼을 클릭하세요.</p>
       {indicated&&
       <div>
-        <p>{indicatedUser[0]?.nickName}님을 지목상대로 결정하시겠습니까?</p>
+        <p>{indicatedUser[0]?.userName}님을 지목상대로 결정하시겠습니까?</p>
         <button onClick={()=>dispatch(setIndicater(null))}>취소</button>
         <button onClick={()=>selectIndicaterCard(indicatedUser)}>결정</button>
       </div>}

@@ -22,20 +22,20 @@ const EndingModal = ({ ending, endingHandler }) => {
           <StUserContainer>
             <StRankBox one={true}>
               <img src={ICON.RankOne} alt="1등" />
-              <StNick>{endingInfo[0].nickName}</StNick>
+              <StNick>{endingInfo[0]?.userName}</StNick>
               <StAdd>+100</StAdd>
-              <StScore>{endingInfo[0].ranking}</StScore>
+              <StScore>{endingInfo[0]?.ranking}</StScore>
             </StRankBox>
             <StRankBox>
               <img src={ICON.RankSecond} alt="2등" />
-              <StNick>{endingInfo[1].nickName}</StNick>
+              <StNick>{endingInfo[1]?.userName}</StNick>
               <StAdd>+100</StAdd>
-              <StScore>{endingInfo[1].ranking}</StScore>
+              <StScore>{endingInfo[1]?.ranking}</StScore>
             </StRankBox>
             {endingInfo[2] ? (
               <StRankBox>
                 <img src={ICON.RankThird} alt="3등" />
-                <StNick>{endingInfo[2].nickName}</StNick>
+                <StNick>{endingInfo[2].userName}</StNick>
                 <StAdd>+100</StAdd>
                 <StScore>{endingInfo[2].ranking}</StScore>
               </StRankBox>
@@ -45,7 +45,7 @@ const EndingModal = ({ ending, endingHandler }) => {
             {endingInfo[3] ? (
               <StRankBox>
                 <img src={ICON.RankForth} alt="4등" />
-                <StNick>{endingInfo[3].nickName}</StNick>
+                <StNick>{endingInfo[3].userName}</StNick>
                 <StAdd>+100</StAdd>
                 <StScore>{endingInfo[3].ranking}</StScore>
               </StRankBox>

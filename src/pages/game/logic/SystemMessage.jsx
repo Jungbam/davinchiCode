@@ -7,7 +7,7 @@ const SystemMessage = () => {
   const turnUser = gameInfo.users.filter(el=>el.userId===gameInfo.turn)
   if(gameInfo.turn===null) return <></>
   return (
-    turnUser&&<StOnGoingStatus>{turnUser[0]?.nickName}님의 차례입니다.</StOnGoingStatus>
+    turnUser&&<StOnGoingStatus>{turnUser[0]?.userName}님의 차례입니다.</StOnGoingStatus>
   )
 }
 
