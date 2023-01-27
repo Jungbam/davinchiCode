@@ -17,7 +17,7 @@ const buttonVariants = {
   },
 };
 
-const ModalLogout = ({ children, modal, closeModal }) => {
+const ModalLogout = ({ modal, closeModal }) => {
   const dispatch = useDispatch();
   const styles = { modal };
 
@@ -67,16 +67,15 @@ const StModal = styled.div`
   z-index: 140;
   transform: translate(-50%, -50%);
   display: ${({ modal }) => {
-    return modal ? "flex" : "none";
+    return modal === "true" ? "flex" : "none";
   }};
+
   width: 288px;
   height: 160px;
 
   background-color: #ffffff;
   border: 1px solid #bbbbbb;
   border-radius: 6px;
-
-  display: flex;
   flex-direction: column;
   align-items: center;
 `;
@@ -87,7 +86,7 @@ const StBackDrop = styled.div`
   margin: 0;
   padding: 0;
   display: ${({ modal }) => {
-    return modal ? "block" : "none";
+    return modal === "true" ? "block" : "none";
   }};
   width: 100vw;
   height: 100vh;

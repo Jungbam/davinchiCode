@@ -3,11 +3,6 @@ import styled from "styled-components";
 import DropdownMenu from "./MenuLists";
 
 const Header = () => {
-  const [modal, setModal] = useState(false);
-  const setModalHandler = () => {
-    setModal((prev) => !prev);
-  };
-
   return (
     <Navbar>
       <NavbarInside>

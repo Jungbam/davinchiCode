@@ -9,17 +9,9 @@ import DisabledImage from "../../../../assets/images/lobby_disabled_room.png";
 import { ICON } from "../../../Icons";
 import { motion } from "framer-motion";
 
-const RoomContents = (props) => {
+const RoomContents = ({ isWaiting, isPrivate }) => {
   const navigate = useNavigate();
 
-  const [isWaiting, setIsWaiting] = useState(props.isWaiting);
-  const [isPrivate, setIsPrivate] = useState(props.isPrivate);
-
-  useEffect(() => {
-    props.handleCheckboxChange(isWaiting, isPrivate);
-  }, [isWaiting, isPrivate]);
-
-  const [roomId, setRoomId, error] = useState(1);
   const { data: rooms, status } = useQuery(
     [queryKeys.ROOM_LIST],
     async () => mockData.rooms
@@ -32,7 +24,6 @@ const RoomContents = (props) => {
   return (
     <StWrapper>
       {status === "loading" && <div>Loading...</div>}
-      {status === "error" && <div>Error: {error.message}</div>}
       {status === "success" && (
         <>
           {rooms
@@ -41,7 +32,10 @@ const RoomContents = (props) => {
                 (!isWaiting || room.isWaiting) && (!isPrivate || room.isPrivate)
             )
             .map((room, i) => (
-              <StContainer key={`roomList${i}`} isWaiting={room.isWaiting}>
+              <StContainer
+                key={`roomList${i}`}
+                iswaiting={room.isWaiting.toString()}
+              >
                 <StLeft>
                   <StButton>
                     {room.currentMembers}/{room.maxMembers}
@@ -63,8 +57,8 @@ const RoomContents = (props) => {
                 {room.isWaiting ? (
                   <StEnterRoom
                     onClick={() => handleEnterRoom(room.roomId)}
-                    disabled={!room.isWaiting}
-                    isWaiting={room.isWaiting}
+                    disabled={!room.isWaiting.toString()}
+                    iswaiting={room.isWaiting.toString()}
                     whileHover={{ scale: 1.1 }}
                     transition={{ type: "spring", stiffness: 300 }}
                   >
@@ -72,8 +66,8 @@ const RoomContents = (props) => {
                   </StEnterRoom>
                 ) : (
                   <StEnterRoom
-                    disabled={!room.isWaiting}
-                    isWaiting={room.isWaiting}
+                    disabled={!room.isWaiting.toString()}
+                    iswaiting={room.isWaiting.toString()}
                   >
                     입장
                   </StEnterRoom>
@@ -100,9 +94,8 @@ const StWrapper = styled.div`
 const StContainer = styled.div`
   width: 608px;
   height: 46px;
-  background-color: ${(props) => (props.isWaiting ? "#fff" : "#aaa")};
-  background-image: ${(props) =>
-    props.isWaiting ? "#fff" : `url(${DisabledImage})`};
+  background: ${(props) =>
+    props.iswaiting === "true" ? "#fff" : `url(${DisabledImage})`};
   background-size: cover;
   border: 1px solid #bcbcbc;
   border-radius: 6px;
@@ -156,7 +149,7 @@ const StEnterRoom = styled(motion.button)`
   width: 48px;
   height: 26px;
   border-radius: 4px;
-  border: solid 1px ${(props) => (props.isWaiting ? "#000" : "#aaa")};
+  border: solid 1px ${(props) => (props.iswaiting === "true" ? "#000" : "#aaa")};
 
   font-size: 12px;
   font-weight: bold;
