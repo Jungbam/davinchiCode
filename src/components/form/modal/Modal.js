@@ -27,8 +27,7 @@ const StModal = styled(motion.div)`
   z-index: 140;
   transform: translate(-50%, -50%);
   display: ${({ modal }) => {
-    return modal ? "flex" : "none";
-    //스위치문으로 부트스랩만들기 @@ 뭐일떄 return 사이즈랑 색깔
+    return modal === "true" ? "flex" : "none";
   }};
 
   width: ${({ width }) => width || "629px"};
@@ -47,7 +46,7 @@ const StBackDrop = styled.div`
   top: 0;
   z-index: 120;
   display: ${({ modal }) => {
-    return modal ? "block" : "none";
+    return modal === "true" ? "block" : "none";
   }};
 
   width: 100vw;

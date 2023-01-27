@@ -179,24 +179,27 @@ const nextGameInfo = {
     },
   ],
 };
-const CenterBox = ({ socket, roomID }) => {
+const CenterBox = ({ socket, roomId,userId }) => {
   const [gameView, setGameView] = useState(
-    <Ready readyHandler={readyHandler} />
+    <Ready readyHandler={readyHandler} goSelecetTile={goSelecetTile}/>
   );
   const [ending, setEnding] = useState(false);
   const dispatch = useDispatch();
 
   // 게임 로직 순서대로 함수가 그려지도록(가독성) 함수선언식 사용
   function readyHandler() {
-    setGameView(<IntroTile selectTile={selectTile} />);
-    // socket.current.emit(eventName.READY,roomID : roomID,userID:123)
-    // socket.current.on(eventName.GAME_START, ()=>{
-    // setGameView(<IntroTile selectTile={selectTile}/>)
-    // })
+    // setGameView(<IntroTile selectTile={selectTile} />);
+    socket.current.emit(eventName.READY,userId)
+    socket.current.on(eventName.GAME_START, ()=>{
+    dispatch(setTrigger())
+   })
+  }
+  function goSelecetTile(){
+    setGameView(<IntroTile selectTile={selectTile}/>)
   }
   function selectTile(black) {
     setGameView(<Turn GameTurn={GameTurn} />);
-    // socket.current.emit(eventName.FIRST_DRAW, 123, black, roomID ,(myCards)=>{
+    // socket.current.emit(eventName.FIRST_DRAW, 123, black, roomId ,(myCards)=>{
     //   dispatch(setUsers(myCards))
     // })
     // socket.current.on(eventName.DRAW_RESULT,(gameInfo)=>{
@@ -213,7 +216,7 @@ const CenterBox = ({ socket, roomID }) => {
     //   setGameView(<SelectPosition card={card}/>)
     //   setTimer(true)
     // })
-    socket.current.emit("test", roomID);
+    socket.current.emit("test", roomId);
     const card = {
       // value : Math.floor(Math.random()*12),
       value: 12,

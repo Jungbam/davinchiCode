@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useRef } from "react";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { setTrigger } from "../../../redux/modules/gameSlice";
 
-const Ready = ({readyHandler}) => {
+const Ready = ({readyHandler,goSelecetTile}) => {
   const [ready, setReady] = useState(false)
   const [second, setSecond] = useState(String(5))
   const {gameInfo, trigger} = useSelector(state=>state.gameSlice)
@@ -13,9 +14,16 @@ const Ready = ({readyHandler}) => {
   const gameStart = useRef(null)
   const interval = useRef(null)
   const count = useRef(5);
-
+  const navigate = useNavigate()
   const dispatch = useDispatch()
 
+  const onReadyHandler = ()=>{
+    setReady(prev=>!prev)
+    readyHandler()
+  }
+  const goBackHandler = ()=>{
+    navigate('/lobby')
+  }
   useEffect(()=>{
     if(trigger){
       interval.current = setInterval(()=>{
@@ -23,19 +31,22 @@ const Ready = ({readyHandler}) => {
       setSecond(5-String(5-count.current));
       },1000)
       gameStart.current = setTimeout(()=>{
-        readyHandler()
+        goSelecetTile()
       },5000)
     }else{
       clearInterval(interval.current)
       clearTimeout(gameStart.current)
     }
-    return ()=>clearTimeout(gameStart.current)
+    return ()=>{
+      clearTimeout(gameStart.current)
+      clearInterval(interval.current)
+    }
   },[trigger])
   return (
     <StWrapper>
       {trigger?<p>{second}초 후 게임이 시작됩니다.</p>:<p>{readyMembers.length}명 준비완료</p>}
-      <StConfirmBtn onClick={()=>setReady(prev=>!prev)}>{ready?'준비취소':'준비완료'}</StConfirmBtn>
-      <StConfirmBtn onClick={()=>dispatch(setTrigger())}>방 나가기</StConfirmBtn>
+      <StConfirmBtn onClick={onReadyHandler} disabled={trigger}>{ready?'준비취소':'준비완료'}</StConfirmBtn>
+      <StConfirmBtn onClick={goBackHandler}>방 나가기</StConfirmBtn>
     </StWrapper>
   );
 };
