@@ -15,7 +15,7 @@ const Header = () => {
   return (
     <Navbar>
       <Modal
-        modal={modal}
+        modal={modal.toString()}
         closeModal={setModalHandler}
         width="440px"
         height="396px"
@@ -27,7 +27,7 @@ const Header = () => {
           <RoomStauts>
             <RoundStatus>1/4</RoundStatus>
             <RoundStatus>진행</RoundStatus>
-            <img src={iconLock} />
+            <img src={iconLock} alt='잠금'/>
           </RoomStauts>
           <SideBar>|</SideBar>
           <div>1234566</div>
@@ -39,7 +39,7 @@ const Header = () => {
         </NavbarStatus>
 
         <ReportButton onClick={setModalHandler}>
-          <img src={iconSiren} />
+          <img src={iconSiren} alt='버그 신고' />
           <div>버그신고</div>
         </ReportButton>
       </NavbarInside>

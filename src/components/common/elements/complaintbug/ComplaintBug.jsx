@@ -45,7 +45,8 @@ const ComplaintBug = ({ closeModal }) => {
       <Absolute>
         <StExitBtn onClick={closeModalHandler} src={exitModal} />
       </Absolute>
-      <StContainer>
+       {sending? <StSending>신고메일 보내는 중</StSending>:
+      <StContainer ref={complainForm}>
         <StBugHeader>버그신고</StBugHeader>
         <StInput
           type="text"
@@ -70,10 +71,10 @@ const ComplaintBug = ({ closeModal }) => {
           onChange={onChangeHandler}
         />
         <StBtnArea>
-          <StBtn onClick={closeModal}>취소</StBtn>
-          <StBtn color="#ffdf24">신고하기</StBtn>
+          <StBtn type="cancel" onClick={closeModal}>취소</StBtn>
+          <StBtn type="submit" color="#ffdf24" onClick={sendEmailHandler}>신고하기</StBtn>
         </StBtnArea>
-      </StContainer>
+      </StContainer>}
     </StWrapper>
   );
 };
@@ -86,7 +87,6 @@ const StWrapper = styled.div`
   padding: 16px;
   display: flex;
   justify-content: center;
-  /* align-items: center; */
 `;
 
 const StBugHeader = styled.div`
@@ -104,13 +104,14 @@ const StBugHeader = styled.div`
 const StExitBtn = styled.img`
   cursor: pointer;
 `;
-
-const StContainer = styled.div`
+const StSending = styled.h1`
+  text-align: center;
+`
+const StContainer = styled.form`
   width: 320px;
   height: 100%;
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
   gap: 10px;
 `;
