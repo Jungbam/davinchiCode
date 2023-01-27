@@ -188,7 +188,6 @@ const CenterBox = ({ socket, roomId,userId }) => {
 
   // 게임 로직 순서대로 함수가 그려지도록(가독성) 함수선언식 사용
   function readyHandler() {
-    // setGameView(<IntroTile selectTile={selectTile} />);
     socket.current.emit(eventName.READY,userId)
     socket.current.on(eventName.GAME_START, ()=>{
     dispatch(setTrigger())
@@ -199,13 +198,13 @@ const CenterBox = ({ socket, roomId,userId }) => {
   }
   function selectTile(black) {
     setGameView(<Turn GameTurn={GameTurn} />);
-    // socket.current.emit(eventName.FIRST_DRAW, 123, black, roomId ,(myCards)=>{
-    //   dispatch(setUsers(myCards))
-    // })
-    // socket.current.on(eventName.DRAW_RESULT,(gameInfo)=>{
-    //   setGameView(<Turn GameTurn={GameTurn}/>)
-    //   dispatch(setUsers(gameInfo))
-    // })
+    socket.current.emit(eventName.FIRST_DRAW, 123, black ,(myCards)=>{
+      dispatch(setUsers(myCards))
+    })
+    socket.current.on(eventName.DRAW_RESULT,(gameInfo)=>{
+      setGameView(<Turn GameTurn={GameTurn}/>)
+      dispatch(setUsers(gameInfo))
+    })
   }
   function GameTurn(selectedColor) {
     // socket.current.emit(eventName.COLOR_SELECTED, selectedColor,(card)=>{
