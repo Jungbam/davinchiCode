@@ -1,23 +1,32 @@
-import React, { useEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
-import { ICON } from '../../Icons';
+import React, { useEffect, useRef, useState } from "react";
+import styled from "styled-components";
+import useSound from "use-sound";
+import { ICON } from "../../Icons";
+import { Sounds } from "../../sounds";
 
 const Timer = () => {
   const [second, setSecond] = useState(String(30));
   const count = useRef(30);
   const interval = useRef(null);
+  const [play] = useSound(Sounds.Test);
 
   useEffect(() => {
     interval.current = setInterval(() => {
       count.current -= 1;
-      setSecond(30-String(30-count.current));
-      return ()=>{clearInterval(interval.current)}
+      setSecond(30 - String(30 - count.current));
+      return () => {
+        clearInterval(interval.current);
+      };
     }, 1000);
   }, []);
+
   useEffect(() => {
+    if (Number(second) === 9) {
+      play();
+    }
     if (count.current <= 0) {
-      clearInterval(interval.current)
-      alert('시간오버')
+      clearInterval(interval.current);
+      alert("시간오버");
     }
   }, [second]);
 
@@ -25,7 +34,7 @@ const Timer = () => {
     <StTimer>
       <img src={ICON.iconTimer} alt="icon" />
       <StTimerBar>
-          <StTimeLimit timer={second}/>
+        <StTimeLimit timer={second} />
       </StTimerBar>
       <StSecond second={second}>{second} 초</StSecond>
     </StTimer>
@@ -60,16 +69,15 @@ const StTimerBar = styled.div`
 `;
 const StTimeLimit = styled.div`
   width: ${({ timer }) => {
-    return `${(486*timer/30)}px`;
+    return `${(486 * timer) / 30}px`;
   }};
   height: 100%;
   background-color: #009320;
   border-radius: 3px 0 0 3px;
 `;
 const StSecond = styled.span`
-color : ${({ second }) => {
-  if(second<10) return `red`;
-  else return 'black'
+  color: ${({ second }) => {
+    if (second < 10) return `red`;
+    else return "black";
   }};
-  
-`
+`;

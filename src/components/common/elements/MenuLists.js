@@ -30,30 +30,24 @@ function DropdownMenu() {
           </StMenu>
         </StMenuList>
       )}
-      {showModal && (
-        <ModalProfile
-          modal
-          closeModal={() => {
-            setShowModal(!showModal);
-          }}
-        ></ModalProfile>
-      )}
-      {showLogout && (
-        <ModalLogout
-          modal
-          closeModal={() => {
-            setShowLogout(!showLogout);
-          }}
-        ></ModalLogout>
-      )}
-      {showDelAccount && (
-        <ModalDelAccount
-          modal
-          closeModal={() => {
-            setShowDelAccount(!showDelAccount);
-          }}
-        ></ModalDelAccount>
-      )}
+      <ModalProfile
+        modal={showModal.toString()}
+        closeModal={() => {
+          setShowModal(!showModal);
+        }}
+      ></ModalProfile>
+      <ModalLogout
+        modal={showLogout.toString()}
+        closeModal={() => {
+          setShowLogout(!showLogout);
+        }}
+      ></ModalLogout>
+      <ModalDelAccount
+        modal={showDelAccount.toString()}
+        closeModal={() => {
+          setShowDelAccount(!showDelAccount);
+        }}
+      ></ModalDelAccount>
     </StMenuWrapper>
   );
 }
