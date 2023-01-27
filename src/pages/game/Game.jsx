@@ -13,49 +13,23 @@ import { eventName } from "../../helpers/eventName";
 import { useDispatch, useSelector } from "react-redux";
 import { setUsers } from "../../redux/modules/gameSlice";
 import MyBox from "./ele/MyBox";
-const usersMokinit = {
-  blackCards: 4,
-  whiteCards: 4,
-  turn: null,
-  users: [
-    {
-      userId: 1,
-      nickName: "익명1",
-      isReady: true,
-      userProfileImg:
-        "https://cdn.pixabay.com/photo/2023/01/12/15/05/flamingo-7714344_640.jpg",
-      hand: [],
-    },
-    {
-      userId: 2,
-      nickName: "익명2",
-      isReady: true,
-      userProfileImg:
-        "https://cdn.pixabay.com/photo/2022/07/11/08/44/tower-7314495_1280.jpg",
-      hand: [],
-    },
-    {
-      userId: 3,
-      nickName: "익명3",
-      userProfileImg:
-        "https://cdn.pixabay.com/photo/2023/01/12/07/19/rat-7713508_640.jpg",
-      hand: [],
-    },
-  ],
-};
+
 const userId = Math.floor(Math.random()*10)
 
 const Game = () => {
-
   const [msgList, setMsgList] = useState([]);
   const { roomId } = useParams();
   const socketRef = useRef();
   const { users } = useSelector((state) => state.gameSlice.gameInfo);
+
+  const myInfo = users.filter((user)=>user.userId ===userId)
+  const others = users.filter((user)=>user.userId !==userId)
   const dispatch = useDispatch();
   useEffect(() => {
     socketRef.current = io.connect(process.env.REACT_APP_SERVER);
-    socketRef.current.emit(eventName.JOIN, {roomId,userId});
-    dispatch(setUsers(usersMokinit));
+    socketRef.current.emit(eventName.JOIN, userId,roomId,(usersInRoom)=>{
+      dispatch(setUsers(usersInRoom));
+    });
   }, []);
 
   const createdAt = new Date().toLocaleString();
@@ -72,14 +46,14 @@ const Game = () => {
       <StWrapper>
         <StContainer>
           <StPeerWrapper>
-            <UsersBox user={users[1] ? users[1] : null} />
-            <UsersBox user={users[2] ? users[2] : null} />
-            <UsersBox user={users[3] ? users[3] : null} />
+            <UsersBox user={others[0] ? others[0] : null} />
+            <UsersBox user={others[1] ? others[1] : null} />
+            <UsersBox user={others[2] ? others[2] : null} />
           </StPeerWrapper>
           <CenterBox roomId={roomId} socket={socketRef} userId={userId}/>
           <StMyBoxWrapper>
             <StMyBoxContainer>
-              <MyBox user={users[0] ? users[0] : null} />
+              <MyBox user={myInfo[0] ? myInfo[0] : null} />
             </StMyBoxContainer>
             <Chat
               roomId={roomId}
