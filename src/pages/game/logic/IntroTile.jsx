@@ -6,87 +6,10 @@ import { setUsers } from "../../../redux/modules/gameSlice";
 import { ICON } from "../../Icons";
 import Timer from "../ele/Timer";
 
-const usersMok = {
-blackCards: 4,
-whiteCards: 4,
-turn: 1,
-users: [
-   {
-      userId: 1,
-      nickName: '익명1',
-      userProfileImg: "https://cdn.pixabay.com/photo/2023/01/12/15/05/flamingo-7714344_640.jpg",
-      isReady:false,
-      hand: [ 
-        {
-           color: 'black', 
-           value: '1', 
-           isOpen: false 
-          }, 
-        {
-           color: 'black', 
-           value: '3', 
-           isOpen: false 
-          }, 
-        {
-           color: 'white', 
-           value: '4', 
-           isOpen: false 
-          }, 
-       ]
-    },
-   {
-      userId: 2,
-      nickName: '익명2',
-      userProfileImg: "https://cdn.pixabay.com/photo/2022/07/11/08/44/tower-7314495_1280.jpg",
-      isReady:false,
-      hand: [ 
-        {
-           color: 'white', 
-           value: 'Back', 
-           isOpen: true 
-          }, 
-        {
-           color: 'black', 
-           value: 'Back', 
-           isOpen: true 
-          }, 
-        {
-           color: 'white', 
-           value: 'Back', 
-           isOpen: true 
-          }, 
-       ]
-    },
-   {
-      userId: 3,
-      nickName: '익명3',
-      userProfileImg: "https://cdn.pixabay.com/photo/2023/01/12/07/19/rat-7713508_640.jpg",
-      isReady:false,
-      hand: [ 
-        {
-           color: 'black', 
-           value: 'Back', 
-           isOpen: true 
-          }, 
-        {
-           color: 'black', 
-           value: 'Back', 
-           isOpen: true 
-          }, 
-        {
-           color: 'white', 
-           value: 'Back', 
-           isOpen: true 
-          }, 
-       ]
-    },
-  ]
-}
-
 const IntroTile = ({selectTile}) => {
   const [black, setBlack] = useState(0);
   const countBlackBtn = [0, 1, 2, 3];
-  const dispatch = useDispatch()
+  
   return (
     <StWrapper>
       <StButton>가져올 타일을 정해주세요!</StButton>
@@ -124,7 +47,6 @@ const IntroTile = ({selectTile}) => {
       <StConfirmBtn onClick={()=>{
         // 소켓으로 때린 값을 반환받아서 셋.
         selectTile(black)
-        dispatch(setUsers(usersMok))
         }}>확인</StConfirmBtn>
       <Timer/>
     </StWrapper>

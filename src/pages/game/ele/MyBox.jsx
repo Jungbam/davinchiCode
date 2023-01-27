@@ -13,12 +13,12 @@ const MyBox = ({user}) => {
           </StCameraStatus>
         </StSpaceBetween>
         <StUserName>
-          <div>{user?.nickName}</div>
+          <div>{user?.userName}</div>
         </StUserName>
       </StCamera>
       <StCardList>
         {user?.hand?.map((card,i) => (
-          <DavinchiCard key={`${user.nickName}${i}`} card={card} />
+          <DavinchiCard key={`${user.userName}${i}`} card={card} />
         ))}
       </StCardList>
     </StBox>
