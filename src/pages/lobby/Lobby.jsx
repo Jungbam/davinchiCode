@@ -26,9 +26,6 @@ const Lobby = () => {
         <StContainer>
           <Ranking />
           <RoomList />
-          git remote add origin
-          git@github.com-hackelmo:DaVinciCodeGame/frontend.git git push -u
-          origin main https://github.com/DaVinciCodeGame/frontend
         </StContainer>
       </StWrapper>
     </>
