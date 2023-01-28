@@ -21,6 +21,7 @@ const RoomContents = ({ isWaiting, isPrivate }) => {
     navigate(`/game/${roomId}`);
   };
 
+  useEffect(() => {});
   return (
     <StWrapper>
       {status === "loading" && <div>Loading...</div>}
