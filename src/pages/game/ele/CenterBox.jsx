@@ -20,7 +20,7 @@ import GoStop from "../logic/GoStop";
 import { useEffect } from "react";
 import EndingModal from "./EndingModal";
 
-const CenterBox = ({ socket, roomId,userId }) => {
+const CenterBox = ({ socket,userId }) => {
   const [gameView, setGameView] = useState(
     <Ready readyHandler={readyHandler} goSelecetTile={goSelecetTile}/>
   );
