@@ -13,12 +13,11 @@ const Intro = () => {
 
   return (
     <StWrapper>
-      <Modal modal={modal.toString()} closeModal={setModalHandler}>
+      <Modal modal={modal.toString()} closeModal={setModalHandler} width="628px" height="600px">
         <GameInfo closeModal={setModalHandler} />
       </Modal>
       <StContainer>
         <img src={IntroPic} width="900" alt='인트로 이미지'/>
-
         <StBtnBox>
           <StBtn onClick={setModalHandler} color="#fff">
             게임 설명보기
