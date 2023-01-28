@@ -36,7 +36,7 @@ const RoomList = () => {
   const queryClient = useQueryClient();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPage, setTotalPage] = useState(10);
+  const [totalPage, setTotalPage] = useState(17);
   const [selectedPost, setSelectedPost] = useState(null);
   const [list, setList] = useState([1, 2, 3, 4, 5]);
   const [isWaiting, setIsWaiting] = useState(false);
@@ -56,8 +56,9 @@ const RoomList = () => {
     const newArr = [];
     const pageGroup = Math.ceil(currentPage / 5);
     const last = pageGroup * 5;
+    const arrLast = last > totalPage ? totalPage : last;
     const first = last - 4;
-    for (let i = first; i <= last; i++) {
+    for (let i = first; i <= arrLast; i++) {
       newArr.push(i);
     }
     return newArr;
