@@ -18,7 +18,7 @@ const UsersBox = ({ user }) => {
               <StCameraStatus></StCameraStatus>
             </StSpaceBetween>
             <StUserName>
-              <span>{user?user?.nickName:'빈자리'}</span>
+              <span>{user?user?.userName:'빈자리'}</span>
             </StUserName>
           </StCamera>
           {user?.hasOwnProperty('isReady')&&user.isReady&&<StConfirmBtn>준비완료</StConfirmBtn>}
@@ -26,7 +26,7 @@ const UsersBox = ({ user }) => {
         </StUserInfo>
         <StCardArea>
           {user?.hand?.map((card,i) => (
-            <DavinchiCard key={`${user.nickName}${i}`} card={card} />
+            <DavinchiCard key={`${user.userName}${i}`} card={card} />
           ))}
         </StCardArea>
       </StOtherUsers>

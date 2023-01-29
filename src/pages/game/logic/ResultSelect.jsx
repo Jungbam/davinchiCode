@@ -4,8 +4,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import useSound from "use-sound";
+import { Sounds } from "../../../helpers/sounds";
 import { setUsers } from "../../../redux/modules/gameSlice";
-import { Sounds } from "../../sounds";
 
 const ResultSelect = ({ gameResult, result, goStop }) => {
   const timer = useRef(null);
@@ -46,11 +46,11 @@ const ResultSelect = ({ gameResult, result, goStop }) => {
         타일 맞추기 {result ? "성공!" : "실패!"}
       </StReult>
       <p>
-        {turnUser[0]?.nickName}님이 타일 맞추기에 {result ? "성공!" : "실패!"}
+        {turnUser[0]?.userName}님이 타일 맞추기에 {result ? "성공!" : "실패!"}
         하셨습니다.
       </p>
       <p>
-        {result ? indicatedUser[0]?.nickName : turnUser[0]?.nickName}님의 타일이
+        {result ? indicatedUser[0]?.userName : turnUser[0]?.userName}님의 타일이
         공개됩니다.
       </p>
     </div>

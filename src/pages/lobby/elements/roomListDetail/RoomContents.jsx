@@ -1,14 +1,11 @@
-import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import LockOrUnLock from "./RoomLock";
+import { useQuery } from "@tanstack/react-query";
 import mockData from "./MockDataRoom";
 import { useNavigate } from "react-router-dom";
 import { queryKeys } from "../../../../helpers/queryKeys";
 import DisabledImage from "../../../../assets/images/lobby_disabled_room.png";
-import { ICON } from "../../../Icons";
 import { motion } from "framer-motion";
-
+import { ICON } from "../../../../helpers/Icons";
 const RoomContents = ({ isWaiting, isPrivate }) => {
   const navigate = useNavigate();
 
@@ -45,7 +42,7 @@ const RoomContents = ({ isWaiting, isPrivate }) => {
                   </StButton>
                   <div>
                     <img
-                      src={room.isPrivate ? ICON.iconLock : ICON.iconUnlock}
+                      src={room.isPrivate ? ICON.iconLock : ICON.iconUnlock} alt="공개설정"
                     />
                   </div>
                 </StLeft>

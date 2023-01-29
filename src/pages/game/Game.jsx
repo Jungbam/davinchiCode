@@ -8,54 +8,47 @@ import { useParams } from "react-router";
 import { io } from "socket.io-client";
 import background from "../../assets/images/background.png";
 import myUserBackground from "../../assets/images/myUserBackground.png";
-import otherUserBackground from "../../assets/images/otherUserBackground.png";
 import { eventName } from "../../helpers/eventName";
 import { useDispatch, useSelector } from "react-redux";
 import { setUsers } from "../../redux/modules/gameSlice";
 import MyBox from "./ele/MyBox";
-const usersMokinit = {
-  blackCards: 4,
-  whiteCards: 4,
-  turn: null,
-  users: [
-    {
-      userId: 1,
-      nickName: "익명1",
-      isReady: true,
-      userProfileImg:
-        "https://cdn.pixabay.com/photo/2023/01/12/15/05/flamingo-7714344_640.jpg",
-      hand: [],
-    },
-    {
-      userId: 2,
-      nickName: "익명2",
-      isReady: true,
-      userProfileImg:
-        "https://cdn.pixabay.com/photo/2022/07/11/08/44/tower-7314495_1280.jpg",
-      hand: [],
-    },
-    {
-      userId: 3,
-      nickName: "익명3",
-      userProfileImg:
-        "https://cdn.pixabay.com/photo/2023/01/12/07/19/rat-7713508_640.jpg",
-      hand: [],
-    },
-  ],
-};
-const userId = Math.floor(Math.random()*10)
-
+import { useQuery } from "@tanstack/react-query";
+import { queryKeys } from "../../helpers/queryKeys";
+import { SignAPI } from "../../api/axios";
+const userId = Math.floor(Math.random()*100)
 const Game = () => {
-
   const [msgList, setMsgList] = useState([]);
   const { roomId } = useParams();
   const socketRef = useRef();
+  const {data} = useQuery([queryKeys.MYINFO], SignAPI.myinfo, {
+      staleTime: 30 * 60 * 1000,
+      cacheTime: 30 * 60 * 1000,
+      onSuccess: (res) => {},
+      onError: () => {},
+  })
+  // const userId = data.data.userId
   const { users } = useSelector((state) => state.gameSlice.gameInfo);
+
+  const myInfo = users.filter((user)=>user.userId ===userId)
+  const others = users.filter((user)=>user.userId !==userId)
   const dispatch = useDispatch();
+
+  const preventHandler = (e)=>{
+    e.preventDefault()
+    if(e.keyCode === 116) {
+      const answer = window.confirm('새로고침을 진행하면 로비로 나가집니다. 진행하시겠습니까?')
+        if(answer) window.location.reload() 
+        else return
+    }
+  }
+
   useEffect(() => {
+    document.onkeydown=preventHandler;
     socketRef.current = io.connect(process.env.REACT_APP_SERVER);
-    socketRef.current.emit(eventName.JOIN, {roomId,userId});
-    dispatch(setUsers(usersMokinit));
+    socketRef.current.emit(eventName.JOIN, userId,roomId,(usersInRoom)=>{
+      dispatch(setUsers(usersInRoom));
+    });
+    return ()=> document.onkeydown = null
   }, []);
 
   const createdAt = new Date().toLocaleString();
@@ -67,19 +60,18 @@ const Game = () => {
   }, [socketRef.current]);
 
   return (
-    <>
-      <Header />
       <StWrapper>
+        <Header />
         <StContainer>
           <StPeerWrapper>
-            <UsersBox user={users[1] ? users[1] : null} />
-            <UsersBox user={users[2] ? users[2] : null} />
-            <UsersBox user={users[3] ? users[3] : null} />
+            <UsersBox user={others[0] ? others[0] : null} />
+            <UsersBox user={others[1] ? others[1] : null} />
+            <UsersBox user={others[2] ? others[2] : null} />
           </StPeerWrapper>
           <CenterBox roomId={roomId} socket={socketRef} userId={userId}/>
           <StMyBoxWrapper>
             <StMyBoxContainer>
-              <MyBox user={users[0] ? users[0] : null} />
+              <MyBox user={myInfo[0] ? myInfo[0] : null} />
             </StMyBoxContainer>
             <Chat
               roomId={roomId}
@@ -90,7 +82,6 @@ const Game = () => {
           </StMyBoxWrapper>
         </StContainer>
       </StWrapper>
-    </>
   );
 };
 
@@ -99,7 +90,7 @@ export default Game;
 const StWrapper = styled.div`
   background-image: url(${background});
   background-size: cover;
-  height: 100vh-40px;
+  height: 100vh;
   background-color: #2b2b2b;
 `;
 const StPeerWrapper = styled.div`

@@ -8,7 +8,7 @@ import styled from "styled-components";
 const SetUserInfo = ({ closeModal }) => {
   // const [profileImg, setProfileImg] = useState(null);
   // const [newProfileImg, setNewProfileImg] = useState(null);
-  // const [nickName, setNickName] = useState(null);
+  // const [userName, setNickName] = useState(null);
   // const [newNick, setNewNick] = useState(null);
 
   // const imgRef = useRef();
@@ -107,7 +107,7 @@ const SetUserInfo = ({ closeModal }) => {
         </StProfileBox>
         <StUserInfoBox>
           <label>설정 이름</label>
-          <input type="text" value={nickName || ""} disabled readOnly />
+          <input type="text" value={userName || ""} disabled readOnly />
           <input
             type="text"
             value={newNick || ""}

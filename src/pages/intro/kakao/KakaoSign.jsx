@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
+import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import styled from "styled-components";
 import { SignAPI } from "../../../api/axios";
 import { login } from "../../../redux/modules/signSlice";
+import Loading from "../../loading/Loading";
 
 const { Kakao } = window;
 Kakao.init(process.env.REACT_APP_KAKAO_ID);
@@ -12,6 +13,7 @@ const KakaoSign = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const dipatch = useDispatch();
+  const count = useRef(null)
 
   const code = location.search.split("=")[1];
   const loginError = location.search.includes("error");
@@ -21,20 +23,29 @@ const KakaoSign = () => {
     switch (res.status) {
       case 200:
         dipatch(login());
-        navigate("/lobby");
+        count.current = setTimeout(()=>{
+          navigate("/lobby");
+        },1000)
         break;
       case 201:
         dipatch(login());
-        navigate("/profile");
+        count.current = setTimeout(()=>{
+          navigate("/profile");
+        },1000)
         break;
       default:
-        navigate("/");
+        count.current = setTimeout(()=>{
+          navigate("/");
+        },1000)
         break;
     }
   };
 
   useEffect(() => {
     kakaoLoginFn();
+    return ()=>{
+      clearTimeout(count.current)
+    }
   }, []);
 
   if (loginError) {
@@ -42,18 +53,7 @@ const KakaoSign = () => {
     return navigate("/");
   }
 
-  return <StWrapper>카카오 로그인을 진행중입니다.</StWrapper>;
+  return <Loading/>;
 };
 
 export default KakaoSign;
-
-const StWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  height: 100vh;
-  color: #ffdf24;
-  font-size: 18px;
-  font-weight: 500;
-`;

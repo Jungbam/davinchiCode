@@ -5,15 +5,15 @@ import DavinchiCard from '../ele/DavinchiCard'
 
 const SelectIndicatedUser = ({indicatedUser,guessCard}) => {
   const controledCard = indicatedUser[0]?.hand
-  const [select, setSelect] = useState({cardIndex : null, value : null})
+  const [select, setSelect] = useState({index : null, value : null})
 
   return (
     <div>
       <StRow>
         {controledCard?.map((card,i) => (
-          <div key={`${indicatedUser.nickName}indicated${i}`}>
-            <DavinchiCard card={card} onClick={()=>setSelect(prev=>{return{...prev, cardIndex : i}})}/>
-            {select.cardIndex===i&&<p>선택</p>}
+          <div key={`${indicatedUser.userName}indicated${i}`}>
+            <DavinchiCard card={card} onClick={()=>setSelect(prev=>{return{...prev, index : i}})}/>
+            {select.index===i&&<p>선택</p>}
           </div>
         ))}
       </StRow>

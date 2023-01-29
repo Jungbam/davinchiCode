@@ -3,7 +3,7 @@ import styled from "styled-components";
 import mockDataLead from "../roomListDetail/MockDataLeader";
 import { queryKeys } from "../../../../helpers/queryKeys";
 import { useQuery } from "@tanstack/react-query";
-import { ICON } from "../../../Icons";
+import { ICON } from "../../../../helpers/Icons";
 
 const IndividualRanking = () => {
   function numberWithCommas(x) {
@@ -32,7 +32,7 @@ const IndividualRanking = () => {
             <StRank>
               <StPlayerRanking>{el.ranking}</StPlayerRanking>
               <StPlayerRankingActive>
-                <img src={a(el.change)} /> {Math.abs(el.change)}
+                <img src={a(el.change)} alt="순위"/> {Math.abs(el.change)}
               </StPlayerRankingActive>
             </StRank>
             <StRankDetail>

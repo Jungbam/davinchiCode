@@ -7,8 +7,7 @@ import {
   Route,
   Routes,
 } from "react-router-dom";
-import { PAGE } from "../pages/IndexPage";
-
+import { PAGE } from "../helpers/IndexPage";
 const PrivateRoutes = ({ user, redirectPath = "/" }) => {
   return user ? <Outlet /> : <Navigate to={redirectPath} replace />;
 };

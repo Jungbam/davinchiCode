@@ -1,6 +1,5 @@
 import React from 'react'
-import { ICON } from '../../Icons'
-
+import { ICON } from '../../../helpers/Icons'
 const DavinchiCard = ({card, onClick}) => {
   const cardName = card?.color + card?.value
   return (

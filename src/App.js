@@ -6,7 +6,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Provider } from "react-redux";
 import store from "./redux/store/store";
 import useSound from "use-sound";
-import { Sounds } from "./pages/sounds";
+import { Sounds } from "./helpers/sounds";
 
 if (process.env.REACT_APP_NODE_ENV === "production") {
   disableReactDevTools();

@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isLoggedIn: false,
-  userInfo: { nickName: "익명" },
+  userInfo: {},
 };
 
 const signSlice = createSlice({

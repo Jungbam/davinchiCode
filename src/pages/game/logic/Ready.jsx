@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useRef } from "react";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -15,7 +14,6 @@ const Ready = ({readyHandler,goSelecetTile}) => {
   const interval = useRef(null)
   const count = useRef(5);
   const navigate = useNavigate()
-  const dispatch = useDispatch()
 
   const onReadyHandler = ()=>{
     setReady(prev=>!prev)
