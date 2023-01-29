@@ -15,7 +15,7 @@ import MyBox from "./ele/MyBox";
 import { useQuery } from "@tanstack/react-query";
 import { queryKeys } from "../../helpers/queryKeys";
 import { SignAPI } from "../../api/axios";
-
+const userId = Math.floor(Math.random()*100)
 const Game = () => {
   const [msgList, setMsgList] = useState([]);
   const { roomId } = useParams();
@@ -26,7 +26,7 @@ const Game = () => {
       onSuccess: (res) => {},
       onError: () => {},
   })
-  const userId = data.data.userId
+  // const userId = data.data.userId
   const { users } = useSelector((state) => state.gameSlice.gameInfo);
 
   const myInfo = users.filter((user)=>user.userId ===userId)
@@ -34,7 +34,6 @@ const Game = () => {
   const dispatch = useDispatch();
 
   const preventHandler = (e)=>{
-    console.log(e)
     e.preventDefault()
     if(e.keyCode === 116) {
       const answer = window.confirm('새로고침을 진행하면 로비로 나가집니다. 진행하시겠습니까?')

@@ -56,7 +56,7 @@ const CenterBox = ({ socket,userId }) => {
   }
   function guessCard(indicatedUser, select) {
     const guessValue = {...select}
-    socket.current.emit(eventName.GUESS, indicatedUser,guessValue)
+    socket.current.emit(eventName.GUESS, indicatedUser[0].userId,guessValue)
   }
   function goStop(result) {
     if (result)
@@ -92,7 +92,7 @@ const CenterBox = ({ socket,userId }) => {
       dispatch(setUsers(gameInfo))
     })
       socket.current?.on(eventName.RESULT_GUESS, (result,gameInfo)=>{
-        setGameView(<ResultSelect gameInfo={gameInfo} result={result} goStop={goStop}/>)
+        setGameView(<ResultSelect gameResult={gameInfo} result={result} goStop={goStop}/>)
       })
      socket.current?.on(eventName.NEXT_GAMEINFO,(nextGameInfo)=>{
         dispatch(setUsers(nextGameInfo))
