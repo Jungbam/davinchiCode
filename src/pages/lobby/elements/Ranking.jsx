@@ -4,9 +4,8 @@ import styled from "styled-components";
 import IndividualRanking from "./rankingDetail/IndividualRanking";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import mockDataMy from "./roomListDetail/MockDataMy";
-import { AnimatePresence, motion } from "framer-motion";
-import { useCycle } from "framer-motion";
-import { ICON } from "../../Icons";
+import {  motion } from "framer-motion";
+import { ICON } from "../../../helpers/Icons";
 
 const TextVariants = {
   hidden: {
@@ -71,7 +70,7 @@ const Ranking = () => {
             animate="visible"
             exit="exit"
           >
-            <img src={ICON.iconAlert} />
+            <img src={ICON.iconAlert} alt="게임이용"/>
             장시간의 게임은 건강에 해롭습니다
           </StText>
         ) : (
@@ -82,7 +81,7 @@ const Ranking = () => {
             animate="visible"
             exit="exit"
           >
-            <img src={ICON.iconAlert} />
+            <img src={ICON.iconAlert} alt="랭킹갱신"/>
             게임 순위는 1시간마다 업데이트됩니다
           </StText>
         )}

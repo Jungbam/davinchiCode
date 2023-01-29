@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import styled from "styled-components";
 import { SignAPI } from "../../../api/axios";
 import { login } from "../../../redux/modules/signSlice";
 import Loading from "../../loading/Loading";
@@ -58,14 +57,3 @@ const KakaoSign = () => {
 };
 
 export default KakaoSign;
-
-const StWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  height: 100vh;
-  color: #ffdf24;
-  font-size: 18px;
-  font-weight: 500;
-`;

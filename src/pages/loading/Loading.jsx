@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { IMG } from "../image";
+import { IMG } from "../../helpers/image";
 
 const Loading = () => {
   return (
@@ -19,21 +19,4 @@ const StWrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-`;
-const StContainer = styled.div`
-  width: 300px;
-  height: 300px;
-  background-color: #d9d9d9;
-  color: #444;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const StDiv = styled.div`
-  font-size: 18px;
-  font-weight: 500;
-  color: #ffdf24;
-  margin-top: 30px;
 `;

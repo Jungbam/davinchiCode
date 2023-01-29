@@ -4,9 +4,8 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import useSound from "use-sound";
 import Modal from "../../../components/form/modal/Modal";
-import { ICON } from "../../Icons";
-import { Sounds } from "../../sounds";
-
+import { ICON } from "../../../helpers/Icons";
+import { Sounds } from "../../../helpers/sounds";
 const EndingModal = ({ ending, endingHandler }) => {
   const [play] = useSound(Sounds.Test);
   useEffect(() => {

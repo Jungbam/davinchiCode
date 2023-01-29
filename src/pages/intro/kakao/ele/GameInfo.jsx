@@ -7,7 +7,7 @@ import styled from "styled-components";
 
 import exitModal from "../../../../assets/icons/ico_modal_cancle.svg";
 import { motion } from "framer-motion";
-import { IMG } from "../../../image";
+import { IMG } from "../../../../helpers/image";
 
 const buttonVariants = {
   hover: {

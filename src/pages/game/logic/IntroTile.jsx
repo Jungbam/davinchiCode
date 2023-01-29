@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { ICON } from "../../../helpers/Icons";
 
 import { setUsers } from "../../../redux/modules/gameSlice";
-import { ICON } from "../../Icons";
 import Timer from "../ele/Timer";
-
 const IntroTile = ({selectTile}) => {
   const [black, setBlack] = useState(0);
   const countBlackBtn = [0, 1, 2, 3];

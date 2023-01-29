@@ -4,8 +4,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import useSound from "use-sound";
+import { Sounds } from "../../../helpers/sounds";
 import { setUsers } from "../../../redux/modules/gameSlice";
-import { Sounds } from "../../sounds";
 
 const ResultSelect = ({ gameResult, result, goStop }) => {
   const timer = useRef(null);
