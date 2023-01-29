@@ -1,9 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import useSound from "use-sound";
-import { ICON } from "../../Icons";
-import { Sounds } from "../../sounds";
-
+import { ICON } from "../../../helpers/Icons";
+import { Sounds } from "../../../helpers/sounds";
 const Timer = () => {
   const [second, setSecond] = useState(String(30));
   const count = useRef(30);

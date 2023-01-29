@@ -5,6 +5,8 @@ import { useState } from "react";
 import ModalCreateRoom from "./ModalCreateRoom";
 import { motion } from "framer-motion";
 import QuickStart from "./roomListDetail/RoomQuickStart";
+import { useEffect } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 const buttonVariants = {
   hover: {
@@ -17,15 +19,66 @@ const buttonVariants = {
   },
 };
 
+// async function fetchPosts(pageNum) {
+//   const response = await axios.get(
+//     `https://hanghae99.goguma.online
+//     /main/rooms?page=${pageNum}`
+//   );
+//   return response;
+// }
+
+async function fetchPosts(pageNum) {
+  const response = [];
+  return response;
+}
+
 const RoomList = () => {
+  const queryClient = useQueryClient();
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(17);
+  const [selectedPost, setSelectedPost] = useState(null);
+  const [list, setList] = useState([1, 2, 3, 4, 5]);
   const [isWaiting, setIsWaiting] = useState(false);
   const [isPrivate, setIsPrivate] = useState(false);
   const [showCreateRoom, setShowCreateRoom] = useState(false);
+
+  const { data, isError, error, isLoading } = useQuery(
+    ["posts", currentPage],
+    () => fetchPosts(currentPage),
+    {
+      staleTime: 2000,
+      keepPreviousData: true,
+    }
+  );
+
+  const arrLoop = (currentPage) => {
+    const newArr = [];
+    const pageGroup = Math.ceil(currentPage / 5);
+    const last = pageGroup * 5;
+    const arrLast = last > totalPage ? totalPage : last;
+    const first = last - 4;
+    for (let i = first; i <= arrLast; i++) {
+      newArr.push(i);
+    }
+    return newArr;
+  };
 
   const handleCheckboxChange = (isWaiting, isPrivate) => {
     setIsWaiting(isWaiting);
     setIsPrivate(isPrivate);
   };
+
+  useEffect(() => {
+    setList(arrLoop(currentPage));
+    if (currentPage < totalPage) {
+      const nextPage = currentPage + 1;
+      queryClient.prefetchQuery(["posts", nextPage], () =>
+        fetchPosts(nextPage)
+      );
+    }
+  }, [currentPage]);
+
   return (
     <StWrapper>
       <StRoomListHeader>방 리스트</StRoomListHeader>
@@ -67,21 +120,68 @@ const RoomList = () => {
           isPrivate={isPrivate}
         ></RoomContents>
       </StRoomList>
+
       <StRoomListBottom>
         <StPagination>
-          <div>≪</div>
-          <div>﹤</div>
           <StPages>
-            <div>1</div>
-            <div>2</div>
-            <div>3</div>
-            <div>4</div>
-            <div>5</div>
-            <div>6</div>
+            <ArrowPageBtn
+              onClick={() => {
+                setCurrentPage(1);
+              }}
+              page="1"
+              currentPage={currentPage.toString()}
+            >
+              ≪
+            </ArrowPageBtn>
+            <ArrowPageBtn
+              disabled={currentPage <= 1}
+              onClick={() => {
+                setCurrentPage((previousValue) => previousValue - 1);
+              }}
+              page="1"
+              currentPage={currentPage.toString()}
+            >
+              ﹤
+            </ArrowPageBtn>
+            {list.map((el, i) =>
+              el === currentPage ? (
+                <PageBtn key={i} color="green">
+                  {el}
+                </PageBtn>
+              ) : (
+                <PageBtn
+                  key={i}
+                  color="#fff"
+                  onClick={() => {
+                    setCurrentPage(el);
+                  }}
+                >
+                  {el}
+                </PageBtn>
+              )
+            )}
+            <ArrowPageBtn
+              disabled={currentPage >= totalPage}
+              onClick={() => {
+                setCurrentPage((previousValue) => previousValue + 1);
+              }}
+              page={totalPage.toString()}
+              currentPage={currentPage.toString()}
+            >
+              ﹥
+            </ArrowPageBtn>
+            <ArrowPageBtn
+              onClick={() => {
+                setCurrentPage(totalPage);
+              }}
+              page={totalPage.toString()}
+              currentPage={currentPage.toString()}
+            >
+              ≫
+            </ArrowPageBtn>
           </StPages>
-          <div>﹥</div>
-          <div>≫</div>
         </StPagination>
+
         <StButton
           variants={buttonVariants}
           whileHover="hover"
@@ -120,6 +220,8 @@ const RoomList = () => {
     //   </StBotButtons>
   );
 };
+
+export default RoomList;
 
 const StWrapper = styled.div`
   border-radius: 6px;
@@ -220,7 +322,7 @@ const StSelect = styled.select`
 const StPagination = styled.div`
   width: 330px;
   height: 44px;
-  gap: 16px;
+  gap: 8px;
 
   display: flex;
   align-items: center;
@@ -313,8 +415,23 @@ const StRefreshBtn = styled.button`
 
 const StPages = styled.div`
   display: flex;
-  gap: 18px;
+  gap: 3px;
   margin: 0 12px;
+  & button {
+    width: 30px;
+  }
 `;
 
-export default RoomList;
+const PageBtn = styled.button`
+  border: none;
+  background-color: #111;
+  color: ${({ color }) => color};
+`;
+
+const ArrowPageBtn = styled.button`
+  border: none;
+  background-color: #111;
+  color: ${({ page, currentPage }) => (currentPage === page ? "gray" : "#fff")};
+  cursor: ${({ page, currentPage }) =>
+    currentPage === page ? "default" : "pointer"};
+`;

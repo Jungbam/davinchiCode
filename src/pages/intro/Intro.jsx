@@ -13,12 +13,11 @@ const Intro = () => {
 
   return (
     <StWrapper>
-      <Modal modal={modal.toString()} closeModal={setModalHandler}>
+      <Modal modal={modal.toString()} closeModal={setModalHandler} width="628px" height="600px">
         <GameInfo closeModal={setModalHandler} />
       </Modal>
       <StContainer>
         <img src={IntroPic} width="900" alt='인트로 이미지'/>
-
         <StBtnBox>
           <StBtn onClick={setModalHandler} color="#fff">
             게임 설명보기
@@ -51,17 +50,7 @@ const StContainer = styled.div`
     margin-bottom: 50px;
   }
 `;
-// const StBox = styled.div`
-//   width: 512px;
-//   height: 340px;
 
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-
-//   background-color: #d9d9d9;
-//   background-image: url(IntroPic);
-// `;
 
 const StBtnBox = styled.div`
   display: flex;

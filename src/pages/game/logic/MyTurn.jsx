@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { ICON } from '../../Icons'
-
+import { ICON } from '../../../helpers/Icons'
 const MyTurn = ({GameTurn}) => {
   const {gameInfo} = useSelector(state=>state.gameSlice)
   const [select, setSelect] = useState(null)

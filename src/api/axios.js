@@ -7,7 +7,7 @@ export const client = axios.create({
 
 export const SignAPI = {
   kakaoSign: (code) =>
-    client.get(
+    client.post(
       `/auth/kakao?code=${code}&redirect-uri=${process.env.REACT_APP_REDIRECT}`
     ),
   myinfo: () => client.get("/users/me"),

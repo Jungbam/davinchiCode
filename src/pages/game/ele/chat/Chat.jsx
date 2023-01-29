@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { eventName } from "../../../../helpers/eventName";
+import { ICON } from "../../../../helpers/Icons";
 import Message from "./Message";
-import { ICON } from "../../../Icons";
-
 const Chat = ({ socket, roomID, msgList, setMsgList }) => {
   const [msg, setMsg] = useState("");
 

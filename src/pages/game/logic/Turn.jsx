@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import MyTurn from "./MyTurn";
 import OtherTurn from "./OtherTurn";
 import useSound from "use-sound";
-import { Sounds } from "../../../pages/sounds";
+import { Sounds } from "../../../helpers/sounds";
 
 const Turn = ({ GameTurn, userId }) => {
   const [play] = useSound(Sounds.Test);
