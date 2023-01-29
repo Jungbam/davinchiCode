@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import ModalProfile from "../../form/modal/ModalProfile";
-import ModalLogout from "../../form/modal/ModalLogout";
-import ModalDelAccount from "../../form/modal/ModalDelAccount";
 import { motion } from "framer-motion";
+import Modal from "../../form/modal/Modal";
+import SetUserInfo from "../../../pages/intro/kakao/SetUserInfo";
+import Logout from "../../form/modal/Logout";
+import DelAccount from "../../form/modal/DelAccount";
 
 function DropdownMenu() {
   const [showMenu, setShowMenu] = useState(false);
@@ -30,24 +31,36 @@ function DropdownMenu() {
           </StMenu>
         </StMenuList>
       )}
-      <ModalProfile
+      <Modal
         modal={showModal.toString()}
         closeModal={() => {
           setShowModal(!showModal);
         }}
-      ></ModalProfile>
-      <ModalLogout
+        width="440px"
+        height="428px"
+      >
+        <SetUserInfo />
+      </Modal>
+      <Modal
         modal={showLogout.toString()}
         closeModal={() => {
           setShowLogout(!showLogout);
         }}
-      ></ModalLogout>
-      <ModalDelAccount
+        width="288px"
+        height="160px"
+      >
+        <Logout />
+      </Modal>
+      <Modal
         modal={showDelAccount.toString()}
         closeModal={() => {
           setShowDelAccount(!showDelAccount);
         }}
-      ></ModalDelAccount>
+        width="440px"
+        height="498px"
+      >
+        <DelAccount />
+      </Modal>
     </StMenuWrapper>
   );
 }
@@ -75,57 +88,6 @@ const StButtonDesign = styled.button`
   letter-spacing: normal;
   text-align: center;
   color: #fff;
-`;
-
-const StMenuListWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  background-color: black;
-  border-radius: 10px;
-`;
-
-const StProfileUpdate = styled.button`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 150px;
-  height: 50px;
-  border: 1px solid black;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  background-color: black;
-  color: orange;
-  font-size: 18px;
-  font-weight: bold;
-`;
-const StLogout = styled.button`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 150px;
-  height: 50px;
-  border: 1px solid black;
-  background-color: black;
-  color: orange;
-  font-size: 18px;
-  font-weight: bold;
-`;
-const StMenuelAcc = styled.button`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 150px;
-  height: 50px;
-  border: 1px solid black;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  background-color: black;
-  color: orange;
-  font-size: 18px;
-  font-weight: bold;
 `;
 
 const StMenuList = styled(motion.div)`

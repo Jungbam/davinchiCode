@@ -2,6 +2,18 @@ import { motion } from "framer-motion";
 import React from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
+import exitModal from "../../../assets/icons/ico_modal_cancle.svg";
+
+const buttonVariants = {
+  hover: {
+    scale: 1.1,
+    textShadow: "0px 0px 8px rgb(255,255,255)",
+    boxShadow: "0px 0px 8px rgb(255,255,255)",
+    transition: {
+      duration: 0.3,
+    },
+  },
+};
 
 const Modal = ({ children, modal, closeModal, width, height }) => {
   const styles = { modal, width, height };
@@ -9,7 +21,18 @@ const Modal = ({ children, modal, closeModal, width, height }) => {
     <>
       {ReactDOM.createPortal(
         <>
-          <StModal {...styles}>{children}</StModal>
+          <StModal {...styles}>
+            <StBtnArea>
+              <StExitBtn
+                variants={buttonVariants}
+                whileHover="hover"
+                onClick={closeModal}
+                src={exitModal}
+              />
+            </StBtnArea>
+
+            {children}
+          </StModal>
           <StBackDrop {...styles} onClick={closeModal}></StBackDrop>
         </>,
         document.getElementById("root")
@@ -35,9 +58,7 @@ const StModal = styled(motion.div)`
   border-radius: 6px;
   border: solid 1px #bbb;
   background-color: #fff;
-
   flex-direction: column;
-  justify-content: center;
   align-content: center;
 `;
 
@@ -52,4 +73,17 @@ const StBackDrop = styled.div`
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
+`;
+
+const StExitBtn = styled(motion.img)`
+  display: absolute;
+  cursor: pointer;
+`;
+
+const StBtnArea = styled.div`
+  padding: 16px;
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 `;
