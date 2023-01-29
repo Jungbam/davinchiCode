@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import Modal from "../../form/modal/Modal";
 import SetUserInfo from "../../../pages/intro/kakao/SetUserInfo";
-import Logout from "../../form/modal/Logout";
-import DelAccount from "../../form/modal/DelAccount";
+import Logout from "../../form/modal/sign/Logout";
+import DelAccount from "../../form/modal/sign/DelAccount";
 
 function DropdownMenu() {
   const [showMenu, setShowMenu] = useState(false);

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { logout } from "../../../redux/modules/signSlice";
-import { SignAPI } from "../../../api/axios";
+import { logout } from "../../../../redux/modules/signSlice";
+import { SignAPI } from "../../../../api/axios";
 import { useMutation } from "@tanstack/react-query";
 
 const DelAccount = ({ closeModal }) => {

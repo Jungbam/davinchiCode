@@ -56,7 +56,6 @@ const StModal = styled(motion.div)`
   width: ${({ width }) => width || "629px"};
   height: ${({ height }) => height || "576px"};
   border-radius: 6px;
-  border: solid 1px #bbb;
   background-color: #fff;
   flex-direction: column;
   align-content: center;
