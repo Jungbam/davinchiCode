@@ -4,7 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 import mockData from "./MockDataRoom";
 import styled from "styled-components";
 import { queryKeys } from "../../../../helpers/queryKeys";
-import ModalCreateRoom from "../ModalCreateRoom";
 import { motion } from "framer-motion";
 
 const buttonVariants = {
@@ -49,7 +48,6 @@ const QuickStart = () => {
   // 문제 : ModalCreateRoom
   return (
     <>
-      <ModalCreateRoom modal={modal} closeModal={() => setModal(false)} />
       <ImmediateStart
         variants={buttonVariants}
         whileHover="hover"
