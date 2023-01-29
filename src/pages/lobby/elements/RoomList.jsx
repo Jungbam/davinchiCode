@@ -123,31 +123,33 @@ const RoomList = () => {
 
       <StRoomListBottom>
         <StPagination>
-          <div
-            onClick={() => {
-              setCurrentPage(1);
-            }}
-          >
-            ≪
-          </div>
-
           <StPages>
-            <button
-              style={{ border: "none", background: "#111", color: "#fff" }}
+            <ArrowPageBtn
+              onClick={() => {
+                setCurrentPage(1);
+              }}
+              page="1"
+              currentPage={currentPage.toString()}
+            >
+              ≪
+            </ArrowPageBtn>
+            <ArrowPageBtn
               disabled={currentPage <= 1}
               onClick={() => {
                 setCurrentPage((previousValue) => previousValue - 1);
               }}
+              page="1"
+              currentPage={currentPage.toString()}
             >
               ﹤
-            </button>
+            </ArrowPageBtn>
             {list.map((el, i) =>
               el === currentPage ? (
-                <CurrentPage key={i} color="green">
+                <PageBtn key={i} color="green">
                   {el}
-                </CurrentPage>
+                </PageBtn>
               ) : (
-                <CurrentPage
+                <PageBtn
                   key={i}
                   color="#fff"
                   onClick={() => {
@@ -155,27 +157,29 @@ const RoomList = () => {
                   }}
                 >
                   {el}
-                </CurrentPage>
+                </PageBtn>
               )
             )}
-            <button
-              style={{ border: "none", background: "#111", color: "#fff" }}
+            <ArrowPageBtn
               disabled={currentPage >= totalPage}
               onClick={() => {
                 setCurrentPage((previousValue) => previousValue + 1);
               }}
+              page={totalPage.toString()}
+              currentPage={currentPage.toString()}
             >
               ﹥
-            </button>
+            </ArrowPageBtn>
+            <ArrowPageBtn
+              onClick={() => {
+                setCurrentPage(totalPage);
+              }}
+              page={totalPage.toString()}
+              currentPage={currentPage.toString()}
+            >
+              ≫
+            </ArrowPageBtn>
           </StPages>
-
-          <div
-            onClick={() => {
-              setCurrentPage(totalPage);
-            }}
-          >
-            ≫
-          </div>
         </StPagination>
 
         <StButton
@@ -411,13 +415,23 @@ const StRefreshBtn = styled.button`
 
 const StPages = styled.div`
   display: flex;
-  gap: 8px;
+  gap: 3px;
   margin: 0 12px;
+  & button {
+    width: 30px;
+  }
 `;
 
-const CurrentPage = styled.button`
-  width: 30px;
+const PageBtn = styled.button`
   border: none;
   background-color: #111;
   color: ${({ color }) => color};
+`;
+
+const ArrowPageBtn = styled.button`
+  border: none;
+  background-color: #111;
+  color: ${({ page, currentPage }) => (currentPage === page ? "gray" : "#fff")};
+  cursor: ${({ page, currentPage }) =>
+    currentPage === page ? "default" : "pointer"};
 `;

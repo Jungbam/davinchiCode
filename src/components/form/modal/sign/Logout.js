@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { logout } from "../../../redux/modules/signSlice";
+import { logout } from "../../../../redux/modules/signSlice";
 
 const Logout = ({ closeModal }) => {
   const dispatch = useDispatch();
@@ -27,7 +27,6 @@ const Logout = ({ closeModal }) => {
 export default Logout;
 
 const StWrapper = styled.div`
-  border: 1px solid red;
   width: 100%;
   height: 100%;
   display: flex;
