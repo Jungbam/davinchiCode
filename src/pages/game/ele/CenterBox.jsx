@@ -20,7 +20,7 @@ import GoStop from "../logic/GoStop";
 import { useEffect } from "react";
 import EndingModal from "./EndingModal";
 
-const CenterBox = ({ socket, roomId,userId }) => {
+const CenterBox = ({ socket,userId }) => {
   const [gameView, setGameView] = useState(
     <Ready readyHandler={readyHandler} goSelecetTile={goSelecetTile}/>
   );
@@ -56,7 +56,7 @@ const CenterBox = ({ socket, roomId,userId }) => {
   }
   function guessCard(indicatedUser, select) {
     const guessValue = {...select}
-    socket.current.emit(eventName.GUESS, indicatedUser,guessValue)
+    socket.current.emit(eventName.GUESS, indicatedUser[0].userId,guessValue)
   }
   function goStop(result) {
     if (result)
@@ -92,7 +92,7 @@ const CenterBox = ({ socket, roomId,userId }) => {
       dispatch(setUsers(gameInfo))
     })
       socket.current?.on(eventName.RESULT_GUESS, (result,gameInfo)=>{
-        setGameView(<ResultSelect gameInfo={gameInfo} result={result} goStop={goStop}/>)
+        setGameView(<ResultSelect gameResult={gameInfo} result={result} goStop={goStop}/>)
       })
      socket.current?.on(eventName.NEXT_GAMEINFO,(nextGameInfo)=>{
         dispatch(setUsers(nextGameInfo))

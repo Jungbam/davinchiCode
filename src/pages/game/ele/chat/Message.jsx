@@ -17,7 +17,7 @@ const Message = ({msg}) => {
 
 export default Message
 const StComment = styled.div`
-  text-align: left;
+  text-decoration: wavy;
 `
 const StMyMsg = styled.div`
   text-align: right ;

@@ -8,28 +8,47 @@ import { useParams } from "react-router";
 import { io } from "socket.io-client";
 import background from "../../assets/images/background.png";
 import myUserBackground from "../../assets/images/myUserBackground.png";
-import otherUserBackground from "../../assets/images/otherUserBackground.png";
 import { eventName } from "../../helpers/eventName";
 import { useDispatch, useSelector } from "react-redux";
 import { setUsers } from "../../redux/modules/gameSlice";
 import MyBox from "./ele/MyBox";
-
-const userId = Math.floor(Math.random()*10)
-
+import { useQuery } from "@tanstack/react-query";
+import { queryKeys } from "../../helpers/queryKeys";
+import { SignAPI } from "../../api/axios";
+const userId = Math.floor(Math.random()*100)
 const Game = () => {
   const [msgList, setMsgList] = useState([]);
   const { roomId } = useParams();
   const socketRef = useRef();
+  const {data} = useQuery([queryKeys.MYINFO], SignAPI.myinfo, {
+      staleTime: 30 * 60 * 1000,
+      cacheTime: 30 * 60 * 1000,
+      onSuccess: (res) => {},
+      onError: () => {},
+  })
+  // const userId = data.data.userId
   const { users } = useSelector((state) => state.gameSlice.gameInfo);
 
   const myInfo = users.filter((user)=>user.userId ===userId)
   const others = users.filter((user)=>user.userId !==userId)
   const dispatch = useDispatch();
+
+  const preventHandler = (e)=>{
+    e.preventDefault()
+    if(e.keyCode === 116) {
+      const answer = window.confirm('새로고침을 진행하면 로비로 나가집니다. 진행하시겠습니까?')
+        if(answer) window.location.reload() 
+        else return
+    }
+  }
+
   useEffect(() => {
+    document.onkeydown=preventHandler;
     socketRef.current = io.connect(process.env.REACT_APP_SERVER);
     socketRef.current.emit(eventName.JOIN, userId,roomId,(usersInRoom)=>{
       dispatch(setUsers(usersInRoom));
     });
+    return ()=> document.onkeydown = null
   }, []);
 
   const createdAt = new Date().toLocaleString();
@@ -41,9 +60,8 @@ const Game = () => {
   }, [socketRef.current]);
 
   return (
-    <>
-      <Header />
       <StWrapper>
+        <Header />
         <StContainer>
           <StPeerWrapper>
             <UsersBox user={others[0] ? others[0] : null} />
@@ -64,7 +82,6 @@ const Game = () => {
           </StMyBoxWrapper>
         </StContainer>
       </StWrapper>
-    </>
   );
 };
 
@@ -73,7 +90,7 @@ export default Game;
 const StWrapper = styled.div`
   background-image: url(${background});
   background-size: cover;
-  height: 100vh-40px;
+  height: 100vh;
   background-color: #2b2b2b;
 `;
 const StPeerWrapper = styled.div`

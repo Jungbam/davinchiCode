@@ -13,7 +13,7 @@ const SelectIndicatedUser = ({indicatedUser,guessCard}) => {
         {controledCard?.map((card,i) => (
           <div key={`${indicatedUser.userName}indicated${i}`}>
             <DavinchiCard card={card} onClick={()=>setSelect(prev=>{return{...prev, index : i}})}/>
-            {select.cardIndex===i&&<p>선택</p>}
+            {select.index===i&&<p>선택</p>}
           </div>
         ))}
       </StRow>
