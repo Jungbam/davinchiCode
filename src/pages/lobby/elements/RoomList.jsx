@@ -198,26 +198,9 @@ const RoomList = () => {
             }}
           ></ModalCreateRoom>
         )}
-        <StButton variants={buttonVariants} whileHover="hover" color="#FFDF24">
-          바로 시작
-        </StButton>
+        <QuickStart>바로시작</QuickStart>
       </StRoomListBottom>
     </StWrapper>
-
-    //   <StBotButtons>
-    //     <StCreateRoomBtn onClick={() => setShowCreateRoom(true)}>
-    //       방 만들기
-    //     </StCreateRoomBtn>
-    //     {showCreateRoom && (
-    //       <ModalCreateRoom
-    //         modal
-    //         closeModal={() => {
-    //           setShowCreateRoom(!showCreateRoom); // <- 이거를 내려받음 누구요
-    //         }}
-    //       ></ModalCreateRoom>
-    //     )}
-    //     <QuickStart>바로시작</QuickStart>
-    //   </StBotButtons>
   );
 };
 

@@ -1,11 +1,22 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { client } from "../../../../api/axios";
 import mockData from "./MockDataRoom";
 import styled from "styled-components";
 import { queryKeys } from "../../../../helpers/queryKeys";
 import ModalCreateRoom from "../ModalCreateRoom";
+import { motion } from "framer-motion";
+
+const buttonVariants = {
+  hover: {
+    scale: 1.05,
+    transition: {
+      duration: 0.3,
+      repeat: Infinity,
+      repeatType: "reverse",
+    },
+  },
+};
 
 const QuickStart = () => {
   const [modal, setModal] = useState(false);
@@ -39,21 +50,38 @@ const QuickStart = () => {
   return (
     <>
       <ModalCreateRoom modal={modal} closeModal={() => setModal(false)} />
-      <ImmediateStart onClick={handleClick}>바로 시작</ImmediateStart>;
+      <ImmediateStart
+        variants={buttonVariants}
+        whileHover="hover"
+        onClick={handleClick}
+      >
+        바로 시작
+      </ImmediateStart>
+      ;
     </>
   );
 };
 
-const ImmediateStart = styled.button`
+const ImmediateStart = styled(motion.button)`
+  background-color: #ffdf24;
   width: 130px;
   height: 44px;
   border-radius: 6px;
-  background: yellow;
-  color: black;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 18px;
   font-weight: bold;
-  &:hover {
-    transform: scale(1.1);
-  }
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: center;
+  color: #000;
+
+  cursor: pointer;
 `;
 
 export default QuickStart;

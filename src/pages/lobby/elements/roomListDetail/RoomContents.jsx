@@ -59,8 +59,12 @@ const RoomContents = ({ isWaiting, isPrivate }) => {
                     onClick={() => handleEnterRoom(room.roomId)}
                     disabled={!room.isWaiting.toString()}
                     iswaiting={room.isWaiting.toString()}
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ type: "spring", stiffness: 300 }}
+                    whileHover={{
+                      color: "#fff",
+                      backgroundColor: "#000",
+                      scale: 1.1,
+                    }}
+                    transition={{ type: "spring" }}
                   >
                     입장
                   </StEnterRoom>
