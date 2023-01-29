@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setIndicater } from "../../../redux/modules/gameSlice";
 
 const UsersBox = ({ user }) => {
-  const {initBtn} = useSelector(state=>state.gameSlice)
+  const {initBtn, initReady} = useSelector(state=>state.gameSlice)
   const dispatch = useDispatch()
   return (
     <StWrapper>
@@ -21,7 +21,7 @@ const UsersBox = ({ user }) => {
               <span>{user?user?.userName:'빈자리'}</span>
             </StUserName>
           </StCamera>
-          {user?.hasOwnProperty('isReady')&&user.isReady&&<StConfirmBtn>준비완료</StConfirmBtn>}
+          {initReady&&user?.hasOwnProperty('isReady')&&user.isReady&&<StConfirmBtn>준비완료</StConfirmBtn>}
           {initBtn&&<SelectBtn onClick={()=>dispatch(setIndicater(user.userId))}> {user ? "지목하기" : "..."} </SelectBtn>}
         </StUserInfo>
         <StCardArea>
@@ -39,7 +39,6 @@ const StWrapper = styled.div`
   width: 356px;
   height: 200px;
   display: flex;
-  /* justify-content: space-between; */
 `;
 
 const StOtherUsers = styled.div`
@@ -151,5 +150,3 @@ const StCardArea = styled.div`
   display: flex;
   margin: 20px 7px;
 `;
-
-const StCard = styled.img``;

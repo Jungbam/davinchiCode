@@ -11,6 +11,7 @@ import {
   setEndingInfo,
   setIndicater,
   setInit,
+  setInitReadyBtn,
   setTrigger,
   setUsers,
 } from "../../../redux/modules/gameSlice";
@@ -45,7 +46,8 @@ const CenterBox = ({ socket,userId }) => {
       setGameView(<SelectPosition card={card} cardPick={cardPick} selectIndicaterCard={selectIndicaterCard}/>)
     })
   }
-  function cardPick(resultArray = []) {
+  function cardPick(resultArray = null) {
+    socket.current.emit(eventName.PLACE_JOKER, userId, resultArray)
     setGameView(<Indicate selectIndicaterCard={selectIndicaterCard} />);
   }
   function selectIndicaterCard(indicatedUser) {
@@ -85,14 +87,17 @@ const CenterBox = ({ socket,userId }) => {
   }
   function endingHandler() {
     dispatch(setInit());
+    setEnding(false)
     setGameView(<Ready readyHandler={readyHandler} />);
   }
   
   useEffect(()=>{
     socket.current?.on(eventName.GAME_START, ()=>{
-      dispatch(setTrigger())
+      dispatch(setInitReadyBtn())
+      dispatch(setTrigger(false))
     })
     socket.current?.on(eventName.ADD_READY,(gameInfo)=>{
+      dispatch(setInitReadyBtn(true))
       dispatch(setUsers(gameInfo))
     } )
     socket.current?.on(eventName.DRAW_RESULT,(gameInfo)=>{
@@ -111,8 +116,6 @@ const CenterBox = ({ socket,userId }) => {
       setEnding(true)
     })
     return ()=>{
-      setEnding(false)
-      dispatch(setInit())
     }
   },[socket.current])
 

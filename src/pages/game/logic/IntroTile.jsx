@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { ICON } from "../../../helpers/Icons";
-
-import { setUsers } from "../../../redux/modules/gameSlice";
 import Timer from "../ele/Timer";
+
 const IntroTile = ({selectTile}) => {
   const [black, setBlack] = useState(0);
   const countBlackBtn = [0, 1, 2, 3];
@@ -44,7 +42,6 @@ const IntroTile = ({selectTile}) => {
         ))}
       </StRoundBtns>
       <StConfirmBtn onClick={()=>{
-        // 소켓으로 때린 값을 반환받아서 셋.
         selectTile(black)
         }}>확인</StConfirmBtn>
       <Timer/>
@@ -58,21 +55,17 @@ const StButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-
   width: 225px;
   height: 32px;
   left: calc(50% - 225px / 2 + 0.5px);
   top: calc(50% - 32px / 2 - 116px);
-
   background-color: #fff;
   border: 1px solid #111111;
   border-radius: 6px;
   filter: drop-shadow(0px 4px 0px #111);
-
   font-weight: 700;
   font-size: 16px;
   line-height: 16px;
-
   margin-bottom: 14px;
 `;
 
@@ -80,7 +73,6 @@ const StWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
@@ -118,12 +110,10 @@ const StConfirmBtn = styled.button`
   align-items: center;
   width: 100px;
   height: 32px;
-
   background: #ffdf24;
   border: 1px solid #000000;
   box-shadow: 0px 3px 0px #000000;
   border-radius: 6px;
-
   font-weight: 700;
   font-size: 14px;
   line-height: 100%;
