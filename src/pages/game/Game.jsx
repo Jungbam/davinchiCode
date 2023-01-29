@@ -48,7 +48,10 @@ const Game = () => {
     socketRef.current.emit(eventName.JOIN, userId,roomId,(usersInRoom)=>{
       dispatch(setUsers(usersInRoom));
     });
-    return ()=> document.onkeydown = null
+    return ()=> {
+      document.onkeydown = null
+      socketRef.current.emit(eventName.ROOMOUT)
+    }
   }, []);
 
   const createdAt = new Date().toLocaleString();

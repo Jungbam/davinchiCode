@@ -19,4 +19,5 @@ export const eventName = {
   NEXT_TURN: "next-turn",
   NEXT_GAMEINFO: "next-gameInfo",
   GAMEOVER: "gameover",
+  ROOMOUT: "room-out",
 };
