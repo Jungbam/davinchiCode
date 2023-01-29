@@ -7,7 +7,7 @@ import useSound from "use-sound";
 import { Sounds } from "../../../helpers/sounds";
 import { setUsers } from "../../../redux/modules/gameSlice";
 
-const ResultSelect = ({ gameResult, result, goStop }) => {
+const ResultSelect = ({ gameResult, security, result, goStop }) => {
   const timer = useRef(null);
   const setView = useRef(null);
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ const ResultSelect = ({ gameResult, result, goStop }) => {
       dispatch(setUsers(gameResult));
     }, 3000);
     setView.current = setTimeout(() => {
-      goStop(result);
+      goStop(result, security);
     }, 5000);
     return () => {
       clearTimeout(timer.current);
@@ -32,17 +32,16 @@ const ResultSelect = ({ gameResult, result, goStop }) => {
   }, []);
 
   useEffect(() => {
-    if (result === "성공") {
+    if (result) {
+      play();
+    }else{
       play();
     }
-    if (result === "실패") {
-      play();
-    }
-  }, []);
+  }, [result]);
 
   return (
     <div>
-      <StReult result={result}>
+      <StReult result={result.toString()}>
         타일 맞추기 {result ? "성공!" : "실패!"}
       </StReult>
       <p>

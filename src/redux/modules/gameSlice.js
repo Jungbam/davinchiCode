@@ -30,7 +30,7 @@ const gameSlice = createSlice({
     setTrigger: (state, action) => {
       state.trigger = !state.trigger;
     },
-    setEnding: (state, action) => {
+    setEndingInfo: (state, action) => {
       state.ending = !state.ending;
     },
     setInit: (state, action) => {
@@ -44,6 +44,6 @@ export const {
   setInitBtn,
   setTrigger,
   setInit,
-  setEnding,
+  setEndingInfo,
 } = gameSlice.actions;
 export default gameSlice.reducer;
