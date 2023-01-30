@@ -73,7 +73,7 @@ const CenterBox = ({ socket,userId }) => {
   }
   function goingContinue() {
     dispatch(setIndicater(null));
-    setGameView(<Indicate selectIndicaterCard={selectIndicaterCard} />);
+    setGameView(<Indicate selectIndicaterCard={selectIndicaterCard}  userId={userId}/>);
   }
   function nextTurn() {
     socket.current.emit(eventName.NEXT_TURN)

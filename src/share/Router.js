@@ -20,6 +20,7 @@ const Router = () => {
         <Route path="/loading" element={PAGE.Loading} />
         <Route path="/" element={PAGE.Intro} />
         <Route path="/kakao" element={PAGE.KakaoSign} />
+        <Route path="/kakaodel" element={PAGE.KakaoDel} />
         <Route path="/profile" element={PAGE.SetUserInfo} />
         <Route element={<PrivateRoutes user={user} />}>
           <Route path="/lobby" element={PAGE.Lobby} />
