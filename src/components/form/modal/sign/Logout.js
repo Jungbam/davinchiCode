@@ -1,12 +1,21 @@
+import { useMutation } from "@tanstack/react-query";
 import React from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { SignAPI } from "../../../../api/axios";
 import { logout } from "../../../../redux/modules/signSlice";
 
 const Logout = ({ closeModal }) => {
+  const { mutate } = useMutation(SignAPI.logout, {
+    onSuccess: (data) => {},
+    onError: (error) => {
+      console.log(error);
+    },
+  });
   const dispatch = useDispatch();
 
   const logoutHandler = () => {
+    mutate();
     dispatch(logout());
     closeModal();
   };

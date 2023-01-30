@@ -16,6 +16,7 @@ export const SignAPI = {
     client.post(
       `/auth/unregister/kakao?code=${code}&redirect-uri=${process.env.REACT_APP_REDIRECT}kakaodel`
     ),
+  logout: () => client.post("/auth/logout"),
 };
 export const RoomAPI = {
   postRoom: (roomData) => client.post("/rooms", roomData),
