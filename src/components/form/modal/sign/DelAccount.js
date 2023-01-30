@@ -1,22 +1,10 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { logout } from "../../../../redux/modules/signSlice";
-import { SignAPI } from "../../../../api/axios";
-import { useMutation } from "@tanstack/react-query";
 
+const KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_ID}&redirect_uri=${process.env.REACT_APP_REDIRECT}kakaodel&response_type=code`;
 const DelAccount = ({ closeModal }) => {
   const [isAgree, setisAgree] = useState(false);
-  const dispatch = useDispatch();
 
-  const { mutate } = useMutation(() => SignAPI.deleteInfo, {
-    onSuccess: () => {
-      dispatch(logout());
-    },
-  });
-  const deleteUser = () => {
-    mutate();
-  };
   return (
     <StWrapper>
       <StDelHeader>회원탈퇴</StDelHeader>
@@ -49,11 +37,11 @@ const DelAccount = ({ closeModal }) => {
           취소
         </StBtn>
         {isAgree ? (
-          <StBtn color="#FFDF24" onClick={deleteUser}>
-            확인
-          </StBtn>
+          <a href={KAKAO_URL}>
+            <StBtn color="#FFDF24">확인</StBtn>
+          </a>
         ) : (
-          <StBtn color="#DDD" onClick={deleteUser} disabled>
+          <StBtn color="#DDD" disabled>
             확인
           </StBtn>
         )}
