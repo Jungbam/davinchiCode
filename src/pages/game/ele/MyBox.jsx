@@ -18,7 +18,10 @@ const MyBox = ({user}) => {
       </StCamera>
       <StCardList>
         {user?.hand?.map((card,i) => (
+          <StCardBox>
           <DavinchiCard key={`${user.userName}${i}`} card={card} />
+          {card.isOpen?<span>Open</span>:<></>}
+          </StCardBox>
         ))}
       </StCardList>
     </StBox>
@@ -74,24 +77,11 @@ const StCameraStatus = styled.div`
   }
 `;
 
-const StGameStatus = styled.div`
-  width: 46px;
-  height: 20px;
+const StCardBox = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 5px 10px;
-  border-radius: 4px;
-  background-color: #ffdf24;
-
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1;
-  letter-spacing: normal;
-  color: #000;
-`;
+  flex-direction: column;
+  width: 32px;
+`
 
 const StUserName = styled.div`
   width: 64px;

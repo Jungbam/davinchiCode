@@ -14,7 +14,7 @@ const SelectPosition = ({card, cardPick, selectIndicaterCard}) => {
       <DavinchiCard card ={card}/>
       <p>뽑으신 타일의 숫자는 {card.value} 입니다.</p>
       <p>오름차순으로 자동으로 배치됩니다.</p>
-      <button onClick={cardPick}>확인</button>
+      <button onClick={()=>cardPick()}>확인</button>
       <Timer/>
     </div>
   )
