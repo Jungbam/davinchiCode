@@ -15,5 +15,6 @@ export const eventName = {
   NEXT_GAMEINFO: "next-gameInfo",
   GAMEOVER: "gameover",
   ROOMOUT: "room-out",
-  PLACE_JOKER: "place_joker",
+  PLACE_JOKER: "place-joker",
+  ONGOING: "ongoing",
 };

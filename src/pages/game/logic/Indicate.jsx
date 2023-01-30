@@ -2,16 +2,18 @@ import React from 'react'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setIndicater, setInitBtn } from '../../../redux/modules/gameSlice'
+import OtherTurn from './OtherTurn'
 
-const Indicate = ({selectIndicaterCard}) => {
+const Indicate = ({selectIndicaterCard, userId}) => {
   const {indicated, gameInfo} = useSelector(state=>state.gameSlice)
   const indicatedUser = gameInfo?.users?.filter(el=>el.userId ===indicated)
-  
+  const { turn } = useSelector((state) => state.gameSlice.gameInfo);
   const dispatch = useDispatch()
   useEffect(()=>{
     dispatch(setInitBtn())
     return ()=>dispatch(setInitBtn())
   },[])
+  if (turn === userId)
   return (
     <div>
       <p>지목할 상대를 선택해주세요!</p>
@@ -24,6 +26,7 @@ const Indicate = ({selectIndicaterCard}) => {
       </div>}
     </div>
   )
+  else return <OtherTurn text="상대 지목하기"/>
 }
 
 export default Indicate
