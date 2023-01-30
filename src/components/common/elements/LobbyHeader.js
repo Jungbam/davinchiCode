@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import DropdownMenu from "./MenuLists";
+import DropdownMenu from "./DropdownMenu";
 
 const Header = () => {
   return (

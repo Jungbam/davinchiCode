@@ -65,6 +65,7 @@ const ImmediateStart = styled(motion.button)`
   width: 130px;
   height: 44px;
   border-radius: 6px;
+  border: none;
 
   display: flex;
   justify-content: center;

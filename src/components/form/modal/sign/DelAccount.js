@@ -8,7 +8,6 @@ const DelAccount = ({ closeModal }) => {
   return (
     <StWrapper>
       <StDelHeader>회원탈퇴</StDelHeader>
-      <StImg>이미지 제작 예정</StImg>
       <StMainDesc>
         탈퇴 시 회원님의 계정에 저장된 모든 정보가 영구적으로 삭제되며, 다시는
         복구할 수 없습니다.
@@ -66,24 +65,13 @@ const StDelHeader = styled.div`
   line-height: 20px;
 `;
 
-const StImg = styled.div`
-  width: 320px;
-  height: 150px;
-  background-color: #eee;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 24px;
-  font-size: 10px;
-`;
-
 const StMainDesc = styled.div`
   width: 266px;
   height: 38px;
   font-weight: 700;
   font-size: 14px;
   line-height: 135.5%;
-  margin-top: 14px;
+  margin-top: 24px;
 `;
 
 const StSubDesc = styled.div`

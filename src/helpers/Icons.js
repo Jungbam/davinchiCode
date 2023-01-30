@@ -28,6 +28,7 @@ import white10 from "../assets/icons/tiles/10_white.png";
 import white11 from "../assets/icons/tiles/11_white.png";
 import white12 from "../assets/icons/tiles/joker_white.png";
 
+import iconRefresh from "../assets/icons/ico_refresh.svg";
 import iconSetting from "../assets/icons/ico_setting.svg";
 import iconVideocam from "../assets/icons/ico_videocam.svg";
 import iconMic from "../assets/icons/ico_mic.svg";
@@ -92,4 +93,5 @@ export const ICON = {
   iconScoreStable,
   iconScoreMinus,
   iconScorePlus,
+  iconRefresh,
 };

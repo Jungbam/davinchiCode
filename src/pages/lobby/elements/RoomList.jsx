@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Modal from "../../../components/form/modal/Modal";
 import CreateRoom from "../../../components/form/modal/sign/CreateRoom";
+import { ICON } from "../../../helpers/Icons";
 
 const buttonVariants = {
   hover: {
@@ -111,7 +112,10 @@ const RoomList = () => {
             <option value="roomname">방제목</option>
           </StSelect>
           <StSearchBarStyle type="text" placeholder="방 제목을 입력해주세요." />
-          <StRefreshBtn>ㅁ새로고침</StRefreshBtn>
+          <StRefreshBtn>
+            <img src={ICON.iconRefresh} />
+            새로고침
+          </StRefreshBtn>
         </StFuncBack>
       </StSearchRoom>
       <StRoomList>
@@ -399,6 +403,10 @@ const StRefreshBtn = styled.button`
   letter-spacing: normal;
   text-align: center;
   color: #fff;
+
+  & img {
+    margin-right: 2px;
+  }
 `;
 
 const StPages = styled.div`
