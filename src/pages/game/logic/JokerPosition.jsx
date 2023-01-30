@@ -8,8 +8,9 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useEffect } from 'react'
 
 const JokerPosition = ({selectedCard, cardPick}) => {
-  const {users} = useSelector(state=>state.gameSlice.gameInfo)
-  const [mine, setMine] = useState(users[0]?.hand||[])
+  const {users, turn} = useSelector(state=>state.gameSlice.gameInfo)
+  const myCard = users.filter(el=>el.userId===turn)
+  const [mine, setMine] = useState(myCard[0]?.hand||[])
   const [picked, setPicked] = useState(true)
   const [vali,setVali] = useState(false)
 
@@ -27,6 +28,7 @@ const JokerPosition = ({selectedCard, cardPick}) => {
     setPicked(false)
   };
 
+  // 해결 : 렌더링에서 useEffect가 왜 두번 실행되었는지?
   useEffect(()=>{
     setMine([...mine, selectedCard])
   },[])

@@ -18,8 +18,8 @@ const MyBox = ({user}) => {
       </StCamera>
       <StCardList>
         {user?.hand?.map((card,i) => (
-          <StCardBox>
-          <DavinchiCard key={`${user.userName}${i}`} card={card} />
+          <StCardBox key={`${user.userName}${i}`} >
+          <DavinchiCard card={card} />
           {card.isOpen?<StOpen>Out</StOpen>:<StOpenNull></StOpenNull>}
           </StCardBox>
         ))}
