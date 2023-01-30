@@ -1,7 +1,11 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
 import Timer from '../ele/Timer'
+import OtherTurn from './OtherTurn';
 
-const GoStop = ({nextTurn, goingContinue}) => {
+const GoStop = ({nextTurn, goingContinue, userId}) => {
+  const { turn } = useSelector((state) => state.gameSlice.gameInfo);
+  if (turn === userId)
   return (
     <div>
       <p>상대방의 타일을 지목하시겠습니까?</p>
@@ -11,6 +15,7 @@ const GoStop = ({nextTurn, goingContinue}) => {
       <Timer/>
     </div>
   )
+  else return <OtherTurn text="상대 지목하기"/>
 }
 
 export default GoStop

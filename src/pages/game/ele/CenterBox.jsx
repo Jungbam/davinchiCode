@@ -64,7 +64,7 @@ const CenterBox = ({ socket,userId }) => {
   function goStop(result, security) {
     dispatch(setIndicater(null));
     if (result)
-      setGameView(<GoStop nextTurn={nextTurn} goingContinue={goingContinue} />);
+      setGameView(<GoStop nextTurn={nextTurn} goingContinue={goingContinue} userId={userId}/>);
     else if(!result&& security) {
       setGameView(<Turn GameTurn={GameTurn} userId={userId}/>);
     }else{

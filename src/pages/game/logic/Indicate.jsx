@@ -26,7 +26,7 @@ const Indicate = ({selectIndicaterCard, userId}) => {
       </div>}
     </div>
   )
-  else return <OtherTurn text="상대 지목하기"/>
+  else return <OtherTurn text="상대방이 고할지 스톱할지"/>
 }
 
 export default Indicate
