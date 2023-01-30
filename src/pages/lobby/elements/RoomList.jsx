@@ -2,11 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import RoomContents from "./roomListDetail/RoomContents";
 import { useState } from "react";
-import ModalCreateRoom from "./ModalCreateRoom";
 import { motion } from "framer-motion";
 import QuickStart from "./roomListDetail/RoomQuickStart";
 import { useEffect } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import Modal from "../../../components/form/modal/Modal";
+import CreateRoom from "../../../components/form/modal/sign/CreateRoom";
 
 const buttonVariants = {
   hover: {
@@ -191,33 +192,20 @@ const RoomList = () => {
           방 만들기
         </StButton>
         {showCreateRoom && (
-          <ModalCreateRoom
-            modal
+          <Modal
+            modal={showCreateRoom.toString()}
             closeModal={() => {
               setShowCreateRoom(!showCreateRoom);
             }}
-          ></ModalCreateRoom>
+            width="440px"
+            height="327px"
+          >
+            <CreateRoom />
+          </Modal>
         )}
-        <StButton variants={buttonVariants} whileHover="hover" color="#FFDF24">
-          바로 시작
-        </StButton>
+        <QuickStart>바로시작</QuickStart>
       </StRoomListBottom>
     </StWrapper>
-
-    //   <StBotButtons>
-    //     <StCreateRoomBtn onClick={() => setShowCreateRoom(true)}>
-    //       방 만들기
-    //     </StCreateRoomBtn>
-    //     {showCreateRoom && (
-    //       <ModalCreateRoom
-    //         modal
-    //         closeModal={() => {
-    //           setShowCreateRoom(!showCreateRoom); // <- 이거를 내려받음 누구요
-    //         }}
-    //       ></ModalCreateRoom>
-    //     )}
-    //     <QuickStart>바로시작</QuickStart>
-    //   </StBotButtons>
   );
 };
 
