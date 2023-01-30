@@ -94,6 +94,7 @@ const SetUserInfo = () => {
           type="text"
           value={newNick || ""}
           onChange={(e) => setNewNick(e.target.value)}
+          placeholder="변경할 이름을 입력해주세요."
           />
         </StBox>
         <StBtnList>
