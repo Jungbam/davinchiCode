@@ -21,13 +21,13 @@ const KakaoSign = () => {
   const kakaoLoginFn = async () => {
     const res = await SignAPI.kakaoSign(code);
     switch (res.status) {
-      case 200:
+      case 201:
         dipatch(login());
         count.current = setTimeout(()=>{
           navigate("/lobby");
         },1000)
         break;
-      case 201:
+      case 200:
         dipatch(login());
         count.current = setTimeout(()=>{
           navigate("/profile");
