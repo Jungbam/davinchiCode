@@ -130,6 +130,7 @@ const RoomList = () => {
         <StPagination>
           <StPages>
             <ArrowPageBtn
+              disabled={currentPage <= 1}
               onClick={() => {
                 setCurrentPage(1);
               }}
@@ -150,13 +151,13 @@ const RoomList = () => {
             </ArrowPageBtn>
             {list.map((el, i) =>
               el === currentPage ? (
-                <PageBtn key={i} color="green">
+                <PageBtn key={i} color="#fff">
                   {el}
                 </PageBtn>
               ) : (
                 <PageBtn
                   key={i}
-                  color="#fff"
+                  color="rgba(255, 255, 255, 0.2)"
                   onClick={() => {
                     setCurrentPage(el);
                   }}
@@ -176,6 +177,7 @@ const RoomList = () => {
               ﹥
             </ArrowPageBtn>
             <ArrowPageBtn
+              disabled={currentPage >= totalPage}
               onClick={() => {
                 setCurrentPage(totalPage);
               }}
@@ -204,7 +206,7 @@ const RoomList = () => {
             width="440px"
             height="327px"
           >
-            <CreateRoom />
+            <CreateRoom closeModal={setShowCreateRoom} />
           </Modal>
         )}
         <QuickStart>바로시작</QuickStart>
@@ -414,18 +416,21 @@ const StPages = styled.div`
   gap: 3px;
   margin: 0 12px;
   & button {
-    width: 30px;
+    width: 25px;
   }
 `;
 
 const PageBtn = styled.button`
   border: none;
   background-color: #111;
+  font-weight: bold;
+  margin: 2.5px;
   color: ${({ color }) => color};
 `;
 
 const ArrowPageBtn = styled.button`
   border: none;
+  font-size: 12px;
   background-color: #111;
   color: ${({ page, currentPage }) => (currentPage === page ? "gray" : "#fff")};
   cursor: ${({ page, currentPage }) =>

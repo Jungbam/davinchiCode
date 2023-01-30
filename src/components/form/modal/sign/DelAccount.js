@@ -17,7 +17,7 @@ const DelAccount = ({ closeModal }) => {
         아래의 “동의하기” 항목을 체크해주세요.
       </StSubDesc>
       <StMainApproval>
-        <Sta>
+        <StAgreeBtn>
           <input
             type="checkbox"
             id="agree"
@@ -25,20 +25,20 @@ const DelAccount = ({ closeModal }) => {
             onChange={() => setisAgree(!isAgree)}
           />
           <label htmlFor="agree">동의하기</label>
-        </Sta>
-        <Stb>
+        </StAgreeBtn>
+        <StAgreeText>
           회원탈퇴 시 처리사항 안내 내용을
           <br /> 확인하였으며, 회원탈퇴에 동의합니다
-        </Stb>
+        </StAgreeText>
       </StMainApproval>
       <StBtnList>
         <StBtn color="#fff" onClick={closeModal}>
           취소
         </StBtn>
         {isAgree ? (
-          <a href={KAKAO_URL}>
+          <StConfirm href={KAKAO_URL}>
             <StBtn color="#FFDF24">확인</StBtn>
-          </a>
+          </StConfirm>
         ) : (
           <StBtn color="#DDD" disabled>
             확인
@@ -96,7 +96,7 @@ const StMainApproval = styled.div`
   margin-top: 30px;
 `;
 
-const Sta = styled.div`
+const StAgreeBtn = styled.div`
   width: 70px;
   height: 19px;
   font-weight: 700;
@@ -113,7 +113,7 @@ const Sta = styled.div`
   }
 `;
 
-const Stb = styled.div`
+const StAgreeText = styled.div`
   width: 210px;
   height: 34px;
   color: #777777;
@@ -146,4 +146,8 @@ const StBtn = styled.button`
   line-height: 100%;
 
   background-color: ${({ color }) => color};
+`;
+
+const StConfirm = styled.a`
+  text-decoration: none;
 `;

@@ -39,7 +39,7 @@ function DropdownMenu() {
         width="440px"
         height="428px"
       >
-        <SetUserInfo closeModal={setShowDelAccount} />
+        <SetUserInfo closeModal={setShowModal} />
       </Modal>
       <Modal
         modal={showLogout.toString()}
@@ -49,7 +49,7 @@ function DropdownMenu() {
         width="288px"
         height="160px"
       >
-        <Logout closeModal={setShowDelAccount} />
+        <Logout closeModal={setShowLogout} />
       </Modal>
       <Modal
         modal={showDelAccount.toString()}
