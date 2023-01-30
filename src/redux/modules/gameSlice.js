@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   indicated: null,
   initBtn: false,
+  initReady: false,
   trigger: false,
   gameInfo: {
     blackCards: 4,
@@ -27,10 +28,13 @@ const gameSlice = createSlice({
     setInitBtn: (state, action) => {
       state.initBtn = !state.initBtn;
     },
+    setInitReadyBtn: (state, action) => {
+      state.initReady = action.payload;
+    },
     setTrigger: (state, action) => {
       state.trigger = !state.trigger;
     },
-    setEnding: (state, action) => {
+    setEndingInfo: (state, action) => {
       state.ending = !state.ending;
     },
     setInit: (state, action) => {
@@ -44,6 +48,7 @@ export const {
   setInitBtn,
   setTrigger,
   setInit,
-  setEnding,
+  setEndingInfo,
+  setInitReadyBtn,
 } = gameSlice.actions;
 export default gameSlice.reducer;

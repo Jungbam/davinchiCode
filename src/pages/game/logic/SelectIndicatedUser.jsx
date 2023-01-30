@@ -19,7 +19,7 @@ const SelectIndicatedUser = ({indicatedUser,guessCard}) => {
       </StRow>
       <StRow>
         {new Array(13).fill('_').map((el,i)=>(
-          <StValue key={`indicatedCard${i}`} selected={select.value===i} onClick={()=>setSelect(prev=>{return{...prev, value : i}})}>{i===12?'joker':i+1}</StValue>
+          <StValue key={`indicatedCard${i}`} selected={select.value===i} onClick={()=>setSelect(prev=>{return{...prev, value : i}})}>{i===12?'joker':i}</StValue>
           ))}
       </StRow>
       <StRow>

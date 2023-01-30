@@ -1,14 +1,9 @@
 export const eventName = {
-  ERROR: "error",
-  CONNECT: "connect",
-  DISCONNECT: "disconnect",
   READY_TO_JOIN: "ready-to-join",
   JOIN: "joined",
   COLOR_SELECTED: "color-selected",
   SEND_MESSAGE: "send-message",
   RECEIVE_MESSAGE: "receive-message",
-  YOU_JOINED: "you-joined",
-  NEW_USER_JOINED: "new-user-joined",
   GAME_START: "game-start",
   READY: "ready",
   ADD_READY: "add-ready",
@@ -19,4 +14,6 @@ export const eventName = {
   NEXT_TURN: "next-turn",
   NEXT_GAMEINFO: "next-gameInfo",
   GAMEOVER: "gameover",
+  ROOMOUT: "room-out",
+  PLACE_JOKER: "place_joker",
 };

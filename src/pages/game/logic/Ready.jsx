@@ -22,6 +22,7 @@ const Ready = ({readyHandler,goSelecetTile}) => {
   const goBackHandler = ()=>{
     navigate('/lobby')
   }
+
   useEffect(()=>{
     if(trigger){
       interval.current = setInterval(()=>{

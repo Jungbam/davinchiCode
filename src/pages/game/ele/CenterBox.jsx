@@ -8,8 +8,10 @@ import Turn from "../logic/Turn";
 import SystemMessage from "../logic/SystemMessage";
 import SelectPosition from "../logic/SelectPosition";
 import {
+  setEndingInfo,
   setIndicater,
   setInit,
+  setInitReadyBtn,
   setTrigger,
   setUsers,
 } from "../../../redux/modules/gameSlice";
@@ -19,6 +21,7 @@ import ResultSelect from "../logic/ResultSelect";
 import GoStop from "../logic/GoStop";
 import { useEffect } from "react";
 import EndingModal from "./EndingModal";
+import ThrowMine from "../logic/ThrowMine";
 
 const CenterBox = ({ socket,userId }) => {
   const [gameView, setGameView] = useState(
@@ -43,7 +46,8 @@ const CenterBox = ({ socket,userId }) => {
       setGameView(<SelectPosition card={card} cardPick={cardPick} selectIndicaterCard={selectIndicaterCard}/>)
     })
   }
-  function cardPick(resultArray = []) {
+  function cardPick(resultArray = null) {
+    socket.current.emit(eventName.PLACE_JOKER, userId, resultArray)
     setGameView(<Indicate selectIndicaterCard={selectIndicaterCard} />);
   }
   function selectIndicaterCard(indicatedUser) {
@@ -58,11 +62,14 @@ const CenterBox = ({ socket,userId }) => {
     const guessValue = {...select}
     socket.current.emit(eventName.GUESS, indicatedUser[0].userId,guessValue)
   }
-  function goStop(result) {
+  function goStop(result, security) {
+    dispatch(setIndicater(null));
     if (result)
       setGameView(<GoStop nextTurn={nextTurn} goingContinue={goingContinue} />);
-    else {
+    else if(!result&& security) {
       setGameView(<Turn GameTurn={GameTurn} userId={userId}/>);
+    }else{
+      setGameView(<ThrowMine userId ={userId} openMine={openMine}/>)
     }
   }
   function goingContinue() {
@@ -71,46 +78,51 @@ const CenterBox = ({ socket,userId }) => {
   }
   function nextTurn() {
     socket.current.emit(eventName.NEXT_TURN)
-    // dispatch(setIndicater(null));
-    // dispatch(setUsers(nextGameInfo));
-    // setGameView(<Turn GameTurn={GameTurn} />);
+    setGameView(<Turn GameTurn={GameTurn} userId={userId}/>);
+  }
+  function openMine(userId, select){
+    const openMine = {...select}
+    socket.current.emit(eventName.GUESS, userId, openMine)
+    setGameView(<Turn GameTurn={GameTurn} userId={userId}/>);
   }
   function endingHandler() {
     dispatch(setInit());
+    setEnding(false)
     setGameView(<Ready readyHandler={readyHandler} />);
   }
   
   useEffect(()=>{
     socket.current?.on(eventName.GAME_START, ()=>{
-      dispatch(setTrigger())
+      dispatch(setInitReadyBtn())
+      dispatch(setTrigger(false))
     })
     socket.current?.on(eventName.ADD_READY,(gameInfo)=>{
+      dispatch(setInitReadyBtn(true))
       dispatch(setUsers(gameInfo))
     } )
     socket.current?.on(eventName.DRAW_RESULT,(gameInfo)=>{
       setGameView(<Turn GameTurn={GameTurn} userId={userId}/>)
       dispatch(setUsers(gameInfo))
     })
-      socket.current?.on(eventName.RESULT_GUESS, (result,gameInfo)=>{
-        setGameView(<ResultSelect gameResult={gameInfo} result={result} goStop={goStop}/>)
+    socket.current?.on(eventName.RESULT_GUESS, (result,security,gameInfo)=>{
+      setGameView(<ResultSelect gameResult={gameInfo} security={security} result={result} goStop={goStop}/>)
       })
-     socket.current?.on(eventName.NEXT_GAMEINFO,(nextGameInfo)=>{
-        dispatch(setUsers(nextGameInfo))
-        setGameView(<Indicate/>)
+    socket.current?.on(eventName.NEXT_GAMEINFO,(nextGameInfo)=>{
+      dispatch(setUsers(nextGameInfo))
+      setGameView(<Turn GameTurn={GameTurn} userId={userId}/>);
       })
-    socket.current?.on(eventName.GAMEOVER,()=>{
+    socket.current?.on(eventName.GAMEOVER,(endingInfo)=>{
+      dispatch(setEndingInfo(endingInfo))
       setEnding(true)
     })
     return ()=>{
-      setEnding(false)
-      dispatch(setInit())
     }
   },[socket.current])
 
   return (
     <StWrapper>
       <StGameField>
-        <SystemMessage />
+      <SystemMessage />
         {gameView}
       </StGameField>
       <EndingModal
