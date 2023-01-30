@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { ICON } from '../../../helpers/Icons';
 
-const OtherTurn = () => {
+const OtherTurn = ({text}) => {
   const {gameInfo}=useSelector(state=>state.gameSlice)
   const turnUser = gameInfo.users.filter(el=>el.userId===gameInfo.turn)
   return (
@@ -12,7 +12,7 @@ const OtherTurn = () => {
         <img src={ICON.blackBack} alt="다빈치 코드"/>
         <img src={ICON.whiteBack} alt="다빈치 코드"/>
       </div>
-      <StWrapper>{turnUser[0]?.userName}님이 타일 뽑기를 진행중입니다.</StWrapper>
+      <StWrapper>{turnUser[0]?.userName}님이 {text}를 진행중입니다.</StWrapper>
     </>
   )
 }

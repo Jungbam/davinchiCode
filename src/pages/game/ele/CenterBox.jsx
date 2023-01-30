@@ -48,7 +48,6 @@ const CenterBox = ({ socket,userId }) => {
   }
   function cardPick(resultArray = null) {
     socket.current.emit(eventName.PLACE_JOKER, userId, resultArray)
-    setGameView(<Indicate selectIndicaterCard={selectIndicaterCard} />);
   }
   function selectIndicaterCard(indicatedUser) {
     setGameView(
@@ -102,6 +101,10 @@ const CenterBox = ({ socket,userId }) => {
     } )
     socket.current?.on(eventName.DRAW_RESULT,(gameInfo)=>{
       setGameView(<Turn GameTurn={GameTurn} userId={userId}/>)
+      dispatch(setUsers(gameInfo))
+    })
+    socket.current?.on(eventName.ONGOING,(gameInfo)=>{
+      setGameView(<Indicate selectIndicaterCard={selectIndicaterCard} userId={userId}/>);
       dispatch(setUsers(gameInfo))
     })
     socket.current?.on(eventName.RESULT_GUESS, (result,security,gameInfo)=>{

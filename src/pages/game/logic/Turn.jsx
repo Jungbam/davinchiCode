@@ -13,7 +13,7 @@ const Turn = ({ GameTurn, userId }) => {
   }, []);
   const { turn } = useSelector((state) => state.gameSlice.gameInfo);
   if (turn === userId) return <MyTurn GameTurn={GameTurn} />;
-  else return <OtherTurn />;
+  else return <OtherTurn text="타일 뽑기"/>;
 };
 
 export default Turn;
