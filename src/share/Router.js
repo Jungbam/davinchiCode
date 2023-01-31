@@ -13,16 +13,17 @@ const PrivateRoutes = ({ user, redirectPath = "/" }) => {
 };
 
 const Router = () => {
-  const user = useSelector((state) => state.signSlice.isLoggedIn);
+  const { isLoggedIn } = useSelector((state) => state.signSlice);
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/loading" element={PAGE.Loading} />
-        <Route path="/" element={PAGE.Intro} />
+        <Route path="/" element={PAGE.Auth} />
+        <Route path="/Intro" element={PAGE.Intro} />
         <Route path="/kakao" element={PAGE.KakaoSign} />
         <Route path="/kakaodel" element={PAGE.KakaoDel} />
         <Route path="/profile" element={PAGE.SetUserInfo} />
-        <Route element={<PrivateRoutes user={user} />}>
+        <Route element={<PrivateRoutes user={isLoggedIn} />}>
           <Route path="/lobby" element={PAGE.Lobby} />
           <Route path="/game/:roomId" element={PAGE.Game} />
         </Route>
