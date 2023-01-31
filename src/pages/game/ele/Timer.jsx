@@ -7,8 +7,8 @@ import { ICON } from "../../../helpers/Icons";
 import { Sounds } from "../../../helpers/sounds";
 const Timer = () => {
   const [gameOver, setGameOver] = useState(false);
-  const [second, setSecond] = useState(String(29));
-  const count = useRef(29);
+  const [second, setSecond] = useState(String(30));
+  const count = useRef(30);
   const interval = useRef(null);
   const [play] = useSound(Sounds.Test);
 

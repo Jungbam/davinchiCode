@@ -4,8 +4,10 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { BootStrap } from "../../BootStrap";
 
 const Ready = ({ readyHandler, goSelecetTile }) => {
+  const { StTitle, StBtn, StBtnList } = BootStrap;
   const [ready, setReady] = useState(false);
   const [second, setSecond] = useState(String(5));
   const { gameInfo, trigger } = useSelector((state) => state.gameSlice);
@@ -70,49 +72,6 @@ const StWrapper = styled.div`
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
-`;
-
-const StTitle = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-
-  width: ${({ width }) => width || "388px"};
-  height: 32px;
-
-  border: 1px solid #111111;
-  box-shadow: 0px 3px 0px #111;
-  border-radius: 6px;
-  font-weight: 700;
-  margin-top: ${({ mgTop }) => mgTop || "100px"};
-`;
-
-const StBtnList = styled.div`
-  width: 266px;
-  height: 44px;
-  display: flex;
-  justify-content: space-between;
-
-  margin-top: 32px;
-`;
-
-const StBtn = styled.button`
-  width: 130px;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  background: ${({ color }) => color};
-  border: 1px solid #000000;
-  box-shadow: 0px 3px 0px #000000;
-  border-radius: 6px;
-
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 100%;
-  color: #111;
 `;
 
 const StReady = styled.div`

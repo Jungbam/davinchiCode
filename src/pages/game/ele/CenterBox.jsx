@@ -153,8 +153,8 @@ const CenterBox = ({ socket, userId }) => {
     <StWrapper>
       <StGameField>
         <SystemMessage />
-        {gameView}
-        {/* <Indicate /> */}
+        {/* {gameView} */}
+        <Indicate />
         {/* <Ready /> */}
         {/* <IntroTile /> */}
       </StGameField>

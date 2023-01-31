@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { ICON } from "../../../helpers/Icons";
+import { BootStrap } from "../../BootStrap";
 import Timer from "../ele/Timer";
 
 const IntroTile = ({ selectTile }) => {
   const [black, setBlack] = useState(0);
   const countBlackBtn = [0, 1, 2, 3];
+  const { StTitle, StText } = BootStrap;
 
   return (
     <StWrapper>
@@ -55,34 +57,6 @@ const IntroTile = ({ selectTile }) => {
 };
 
 export default IntroTile;
-
-const StTitle = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-
-  width: ${({ width }) => width || "388px"};
-  height: 32px;
-
-  border: 1px solid #111111;
-  box-shadow: 0px 3px 0px #111;
-  border-radius: 6px;
-  font-weight: 700;
-  margin-top: ${({ mgTop }) => mgTop || "100px"};
-`;
-
-const StText = styled.div`
-  margin-top: ${({ mgTop }) => mgTop || "20px"};
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  font-size: 14px;
-  line-height: 17px;
-  & span {
-    font-weight: 700;
-  }
-`;
 
 const StWrapper = styled.div`
   display: flex;
