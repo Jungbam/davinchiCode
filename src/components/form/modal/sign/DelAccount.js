@@ -8,17 +8,16 @@ const DelAccount = ({ closeModal }) => {
   return (
     <StWrapper>
       <StDelHeader>회원탈퇴</StDelHeader>
-      <StImg>이미지 제작 예정</StImg>
       <StMainDesc>
-        탈퇴 시 회원님의 계정에 저장된 모든 정보가 영구적으로 삭제되며, 다시는
-        복구할 수 없습니다.
+        탈퇴 시 회원님의 계정에 저장된 모든 정보가 <br />
+        영구적으로 삭제되며, 다시는 복구할 수 없습니다.
       </StMainDesc>
       <StSubDesc>
         내용에 동의하여 탈퇴를 원하실 경우, <br />
         아래의 “동의하기” 항목을 체크해주세요.
       </StSubDesc>
       <StMainApproval>
-        <Sta>
+        <StAgreeBtn>
           <input
             type="checkbox"
             id="agree"
@@ -26,20 +25,20 @@ const DelAccount = ({ closeModal }) => {
             onChange={() => setisAgree(!isAgree)}
           />
           <label htmlFor="agree">동의하기</label>
-        </Sta>
-        <Stb>
+        </StAgreeBtn>
+        <StAgreeText>
           회원탈퇴 시 처리사항 안내 내용을
           <br /> 확인하였으며, 회원탈퇴에 동의합니다
-        </Stb>
+        </StAgreeText>
       </StMainApproval>
       <StBtnList>
         <StBtn color="#fff" onClick={closeModal}>
           취소
         </StBtn>
         {isAgree ? (
-          <a href={KAKAO_URL}>
+          <StConfirm href={KAKAO_URL}>
             <StBtn color="#FFDF24">확인</StBtn>
-          </a>
+          </StConfirm>
         ) : (
           <StBtn color="#DDD" disabled>
             확인
@@ -66,24 +65,14 @@ const StDelHeader = styled.div`
   line-height: 20px;
 `;
 
-const StImg = styled.div`
-  width: 320px;
-  height: 150px;
-  background-color: #eee;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 24px;
-  font-size: 10px;
-`;
-
 const StMainDesc = styled.div`
-  width: 266px;
+  text-align: center;
+  width: 270px;
   height: 38px;
   font-weight: 700;
   font-size: 14px;
   line-height: 135.5%;
-  margin-top: 14px;
+  margin-top: 24px;
 `;
 
 const StSubDesc = styled.div`
@@ -108,7 +97,7 @@ const StMainApproval = styled.div`
   margin-top: 30px;
 `;
 
-const Sta = styled.div`
+const StAgreeBtn = styled.div`
   width: 70px;
   height: 19px;
   font-weight: 700;
@@ -125,7 +114,7 @@ const Sta = styled.div`
   }
 `;
 
-const Stb = styled.div`
+const StAgreeText = styled.div`
   width: 210px;
   height: 34px;
   color: #777777;
@@ -158,4 +147,8 @@ const StBtn = styled.button`
   line-height: 100%;
 
   background-color: ${({ color }) => color};
+`;
+
+const StConfirm = styled.a`
+  text-decoration: none;
 `;

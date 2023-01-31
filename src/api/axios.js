@@ -10,6 +10,10 @@ export const SignAPI = {
     client.post(
       `/auth/login/kakao?code=${code}&redirect-uri=${process.env.REACT_APP_REDIRECT}kakao`
     ),
+  deleteInfo: (code) =>
+    client.post(
+      `/auth/unregister/kakao?code=${code}&redirect-uri=${process.env.REACT_APP_REDIRECT}kakaodel`
+    ),
   myinfo: () => client.get("/users/me"),
   updateInfo: (formData) =>
     client.put("/users/me", formData, {
@@ -17,24 +21,9 @@ export const SignAPI = {
         "Content-Type": "multipart/form-data",
       },
     }),
-  deleteInfo: (code) =>
-    client.post(
-      `/auth/unregister/kakao?code=${code}&redirect-uri=${process.env.REACT_APP_REDIRECT}kakaodel`
-    ),
   logout: () => client.post("/auth/logout"),
+  auth: () => client.get("/auth/check"),
 };
 export const RoomAPI = {
   postRoom: (roomData) => client.post("/rooms", roomData),
 };
-
-// client.interceptors.response.use(
-//   function (response) {
-//     return response;
-//   },
-//   function (error) {
-//     if (error?.response.status === 401) {
-//       return error;
-//     }
-//     return error;
-//   }
-// );

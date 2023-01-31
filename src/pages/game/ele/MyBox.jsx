@@ -1,21 +1,15 @@
 import React from "react";
 import styled from "styled-components";
-import userProfile from "../../../assets/images/mask3x.jpg";
+import { IMG } from "../../../helpers/image";
 import DavinchiCard from "./DavinchiCard";
 
-const MyBox = ({user}) => {
+const MyBox = ({ user }) => {
   return (
     <StBox>
-      <StCamera>
-            <StImg src={user?.userProfileImg} alt="프로필 사진"/>
-        <StSpaceBetween>
-          <StCameraStatus>
-          </StCameraStatus>
-        </StSpaceBetween>
-        <StUserName>
-          <div>{user?.userName}</div>
-        </StUserName>
-      </StCamera>
+      <StUserProfile>
+        <img src={IMG.userProfile} alt="유저 프로필 사진"/>
+        <div>{user?.userName}</div>
+      </StUserProfile>
       <StCardList>
         {user?.hand?.map((card,i) => (
           <StCardBox key={`${user.userName}${i}`} >
@@ -34,79 +28,55 @@ const StBox = styled.div`
   display: flex;
 `;
 
+const StUserProfile = styled.div`
+  width: 166px;
+  height: 110px;
+  margin: 0 10px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 100%;
+
+  color: #111;
+
+  & div {
+    margin-top: 13px;
+  }
+`;
+
 const StCardList = styled.div`
+  position: absolute;
+  top: 44px;
+  right: 20px;
+
+  width: 464px;
   height: 48px;
   gap: 3.5px;
   display: flex;
-  margin-top: 24px;
-  margin-left: 14px;
 `;
-
-const StCamera = styled.div`
-  width: 200px;
-  height: 112px;
-  border-radius: 4px;
-  padding: 6px;
-  font-size: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background-image: url(${userProfile});
-  background-size: cover;
-`;
+const StCard = styled.img``;
 
 const StOpen = styled.span`
   text-align: center;
   width: 32px;
   height: 20px;
   border-radius: 4px;
-  background: #FFDF24;
+  background: #ffdf24;
   border: 1px solid #111111;
-`
+`;
 const StOpenNull = styled.span`
   width: 32px;
   height: 20px;
   background: none;
   border: none;
-`
-
-const StSpaceBetween = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const StImg = styled.img`
-width:100%;
-height:100%;
-`;
-
-
-const StCameraStatus = styled.div`
-  gap: 10px;
-  width: 40px;
-  & img {
-    height: 16px;
-    margin-right: 3px;
-  }
 `;
 
 const StCardBox = styled.div`
   display: flex;
   flex-direction: column;
   width: 32px;
-`
-
-const StUserName = styled.div`
-  width: 64px;
-  height: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-  padding: 5px 10px;
-  border-radius: 999px;
-  background-color: rgba(0, 0, 0, 0.7);
-  & div {
-    display: block;
-  }
 `;

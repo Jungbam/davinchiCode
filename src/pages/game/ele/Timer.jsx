@@ -1,9 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import useSound from "use-sound";
+import Modal from "../../../components/form/modal/Modal";
+import GameOver from "../../../components/form/modal/sign/GameOver";
 import { ICON } from "../../../helpers/Icons";
 import { Sounds } from "../../../helpers/sounds";
 const Timer = () => {
+  const [gameOver, setGameOver] = useState(false);
   const [second, setSecond] = useState(String(30));
   const count = useRef(30);
   const interval = useRef(null);
@@ -28,20 +31,38 @@ const Timer = () => {
       alert("시간오버");
     }
   }, [second]);
-
   return (
     <StTimer>
+      {second === 0 ? (
+        <Modal
+          modal={gameOver.toString()}
+          closeModal={() => {
+            setGameOver((prev) => !prev);
+          }}
+          width="288px"
+          height="160px"
+        >
+          <GameOver />
+        </Modal>
+      ) : (
+        <></>
+      )}
+
       <img src={ICON.iconTimer} alt="icon" />
       <StTimerBar>
         <StTimeLimit timer={second} />
       </StTimerBar>
-      <StSecond second={second}>{second} 초</StSecond>
+      <StSecond second={second}>남은시간 {second}초</StSecond>
     </StTimer>
   );
 };
 
 export default Timer;
 const StTimer = styled.div`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
   height: 40px;
   border-top: solid 1px #ccc;
   background-color: #e1e1e1;
@@ -73,8 +94,11 @@ const StTimeLimit = styled.div`
   height: 100%;
   background-color: #009320;
   border-radius: 3px 0 0 3px;
+  transition-duration: 1s;
+  transition-timing-function: linear;
 `;
-const StSecond = styled.span`
+const StSecond = styled.div`
+  width: 61px;
   color: ${({ second }) => {
     if (second < 10) return `red`;
     else return "black";
