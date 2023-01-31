@@ -1,77 +1,92 @@
-import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
-import styled from 'styled-components'
-import { ICON } from '../../../helpers/Icons'
-import Timer from '../ele/Timer'
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import styled from "styled-components";
+import { ICON } from "../../../helpers/Icons";
+import { BootStrap } from "../../BootStrap";
+import Timer from "../ele/Timer";
 
-const MyTurn = ({GameTurn}) => {
-  const {gameInfo} = useSelector(state=>state.gameSlice)
-  const [select, setSelect] = useState(null)
+const MyTurn = ({ GameTurn }) => {
+  const { StTitle, StBtn, StText, StWrapper, StCardArea } = BootStrap;
+  const { gameInfo } = useSelector((state) => state.gameSlice);
+  const [select, setSelect] = useState(null);
   return (
     <StWrapper>
-      <StP>가져올 타일의 색상을 정해주세요!</StP>
+      <StTitle mgTop="30px" width="270px">
+        가져올 타일의 색상을 정해주세요!
+      </StTitle>
+      <StLeftTyle>
+        {gameInfo.blackCards && (
+          <StText width="128px" fontSize="14px" color=" #888888" mgTop="10px">
+            남은 검은색 타일 &nbsp;<span>{gameInfo.blackCards}개</span>
+          </StText>
+        )}
+        {gameInfo.blackCards && (
+          <StText width="128px" fontSize="14px" color=" #888888" mgTop="10px">
+            남은 흰색 타일 &nbsp;<span>{gameInfo.whiteCards}개</span>
+          </StText>
+        )}
+      </StLeftTyle>
       <StCardContainer>
         <StCardBox>
-          {gameInfo.blackCards&&<StCardP>남은 검은색 타일 : {gameInfo.blackCards} 개</StCardP>}
-          {gameInfo.blackCards&&<StCard src={ICON.blackBack} alt='검은색' onClick={()=>setSelect('black')}/>}
-          {select==='black'?<StSelect>선택</StSelect>:<StSelectNull/>}        </StCardBox>
+          <div>검은색 타일</div>
+          {gameInfo.blackCards && (
+            <StCard
+              src={ICON.blackBack}
+              alt="검은색"
+              onClick={() => setSelect("black")}
+            />
+          )}
+          {select === "black" ? <StSelect>선택</StSelect> : <StSelectNull />}{" "}
+        </StCardBox>
         <StCardBox>
-          {gameInfo.whiteCards&&<StCardP>남은 흰색 타일 : {gameInfo.whiteCards} 개</StCardP>}
-          {gameInfo.whiteCards&&<StCard src={ICON.whiteBack} alt='흰색' onClick={()=>setSelect('white')}/>}
-          {select==='white'?<StSelect>선택</StSelect>:<StSelectNull/>}
+          <div>흰색 타일</div>
+          {gameInfo.whiteCards && (
+            <StCard
+              src={ICON.whiteBack}
+              alt="흰색"
+              onClick={() => setSelect("white")}
+            />
+          )}
+          {select === "white" ? <StSelect>선택</StSelect> : <StSelectNull />}
         </StCardBox>
       </StCardContainer>
-      <button onClick={()=>GameTurn(select)}>확인</button>
-      <Timer/>
+      <StBtn
+        width="100px"
+        height="32px"
+        fontSize="14px"
+        color="#FFDF24"
+        onClick={() => GameTurn(select)}
+      >
+        확인
+      </StBtn>
+      <Timer />
     </StWrapper>
-  )
-}
+  );
+};
 
-export default MyTurn
+export default MyTurn;
 
-const StWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap:20px;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 17px;
-`;
-const StP = styled.p`
-  width: 270px;
-  height: 32px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  border-radius: 6px;
-  box-shadow: 0 4px 0 0 #111;
-  border: solid 1px #111;
-`
 const StCardContainer = styled.div`
   display: flex;
-`
+`;
 const StCardBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap:20px;
+  gap: 6px;
   width: 128px;
-  height: 188px;
-`
-const StCardP = styled.span`
-  font-family: PretendardVariable;
-  font-size: 12px;
+  height: 150px;
   font-weight: 600;
-`
+  font-size: 12px;
+  line-height: 14px;
+`;
+
 const StCard = styled.img`
   width: 56px;
   height: 80px;
   cursor: pointer;
-`
-const StSelect = styled.span`
+`;
+const StSelect = styled.button`
   width: 34px;
   height: 20px;
   font-family: PretendardVariable;
@@ -80,12 +95,18 @@ const StSelect = styled.span`
   border-radius: 999px;
   background-color: black;
   color: #ff601c;
-  text-align: center;
+  display: flex;
+  justify-content: center;
   align-items: center;
-`
+  border: none;
+`;
 const StSelectNull = styled.span`
   width: 34px;
   height: 20px;
   background-color: none;
   border: none;
-`
+`;
+const StLeftTyle = styled.div`
+  display: flex;
+  gap: 10px;
+`;

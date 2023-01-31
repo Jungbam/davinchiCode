@@ -9,8 +9,8 @@ const DelAccount = ({ closeModal }) => {
     <StWrapper>
       <StDelHeader>회원탈퇴</StDelHeader>
       <StMainDesc>
-        탈퇴 시 회원님의 계정에 저장된 모든 정보가 영구적으로 삭제되며, 다시는
-        복구할 수 없습니다.
+        탈퇴 시 회원님의 계정에 저장된 모든 정보가 <br />
+        영구적으로 삭제되며, 다시는 복구할 수 없습니다.
       </StMainDesc>
       <StSubDesc>
         내용에 동의하여 탈퇴를 원하실 경우, <br />
@@ -66,7 +66,8 @@ const StDelHeader = styled.div`
 `;
 
 const StMainDesc = styled.div`
-  width: 266px;
+  text-align: center;
+  width: 270px;
   height: 38px;
   font-weight: 700;
   font-size: 14px;
