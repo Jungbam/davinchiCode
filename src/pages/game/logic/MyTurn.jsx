@@ -6,7 +6,7 @@ import { BootStrap } from "../../BootStrap";
 import Timer from "../ele/Timer";
 
 const MyTurn = ({ GameTurn }) => {
-  const { StTitle, StBtn, StText, StWrapper, StCardArea } = BootStrap;
+  const { StTitle, StBtn, StText, StWrapper } = BootStrap;
   const { gameInfo } = useSelector((state) => state.gameSlice);
   const [select, setSelect] = useState(null);
   return (

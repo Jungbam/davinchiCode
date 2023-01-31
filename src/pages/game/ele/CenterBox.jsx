@@ -160,9 +160,8 @@ const CenterBox = ({ socket, userId }) => {
         {/* {gameView} */}
         {/* <JokerPosition /> */}
         {/* 조커포지션 드래그앤드롭 몰라서 css입혀주세요 */}
-        <MyTurn />
-        {/* <Indicate /> */}
-        {/* <ResultSelect /> */}
+        {/* <MyTurn /> */}
+        <ResultSelect />
         {/* <SelectIndicatedUser /> */}
       </StGameField>
       <EndingModal
