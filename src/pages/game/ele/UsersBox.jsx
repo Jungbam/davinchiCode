@@ -10,6 +10,8 @@ const UsersBox = ({ user }) => {
   const dispatch = useDispatch();
 
   //버튼 StAbsoluteBtn으로 내려서써주세요! color
+  //모달화시키기 예정 indicate 에 있는거 스타일컴포넌트 StText (StBtnList StBtn) StTitle
+
   return (
     <StOtherUsers>
       <StOnGoingStatus>진행중</StOnGoingStatus>

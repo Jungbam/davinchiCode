@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import useSound from "use-sound";
+import Modal from "../../../components/form/modal/Modal";
 import { ICON } from "../../../helpers/Icons";
 import { Sounds } from "../../../helpers/sounds";
 const Timer = () => {
-  const [second, setSecond] = useState(String(30));
-  const count = useRef(30);
+  const [second, setSecond] = useState(String(29));
+  const count = useRef(29);
   const interval = useRef(null);
   const [play] = useSound(Sounds.Test);
 
@@ -28,20 +29,25 @@ const Timer = () => {
       alert("시간오버");
     }
   }, [second]);
-
-  return (
-    <StTimer>
-      <img src={ICON.iconTimer} alt="icon" />
-      <StTimerBar>
-        <StTimeLimit timer={second} />
-      </StTimerBar>
-      <StSecond second={second}>{second} 초</StSecond>
-    </StTimer>
-  );
+  if (second === 0)
+    return (
+      <StTimer>
+        <img src={ICON.iconTimer} alt="icon" />
+        <StTimerBar>
+          <StTimeLimit timer={second} />
+        </StTimerBar>
+        <StSecond second={second}>{second} 초</StSecond>
+      </StTimer>
+    );
+  else return <Modal></Modal>;
 };
 
 export default Timer;
 const StTimer = styled.div`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
   height: 40px;
   border-top: solid 1px #ccc;
   background-color: #e1e1e1;
@@ -73,8 +79,11 @@ const StTimeLimit = styled.div`
   height: 100%;
   background-color: #009320;
   border-radius: 3px 0 0 3px;
+  transition-duration: 1s;
+  transition-timing-function: linear;
 `;
-const StSecond = styled.span`
+const StSecond = styled.div`
+  width: 30px;
   color: ${({ second }) => {
     if (second < 10) return `red`;
     else return "black";
