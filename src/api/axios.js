@@ -11,7 +11,12 @@ export const SignAPI = {
       `/auth/login/kakao?code=${code}&redirect-uri=${process.env.REACT_APP_REDIRECT}kakao`
     ),
   myinfo: () => client.get("/users/me"),
-  updateInfo: (formData) => client.put("/users/me", formData),
+  updateInfo: (formData) =>
+    client.put("/users/me", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }),
   deleteInfo: (code) =>
     client.post(
       `/auth/unregister/kakao?code=${code}&redirect-uri=${process.env.REACT_APP_REDIRECT}kakaodel`
