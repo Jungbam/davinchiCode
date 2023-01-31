@@ -13,7 +13,7 @@ function DropdownMenu() {
   const [showDelAccount, setShowDelAccount] = useState(false);
   return (
     <StMenuWrapper>
-      <StButtonDesign onClick={() => setShowMenu(!showMenu)}>
+      <StButtonDesign onClick={() => setShowMenu((prev) => !prev)}>
         마이페이지
       </StButtonDesign>
       {showMenu && (
@@ -34,7 +34,7 @@ function DropdownMenu() {
       <Modal
         modal={showModal.toString()}
         closeModal={() => {
-          setShowModal(!showModal);
+          setShowModal((prev) => !prev);
         }}
         width="440px"
         height="428px"
@@ -48,22 +48,22 @@ function DropdownMenu() {
       <Modal
         modal={showLogout.toString()}
         closeModal={() => {
-          setShowLogout(!showLogout);
+          setShowLogout((prev) => !prev);
         }}
         width="288px"
         height="160px"
       >
-        <Logout />
+        <Logout closeModal={setShowLogout} />
       </Modal>
       <Modal
         modal={showDelAccount.toString()}
         closeModal={() => {
-          setShowDelAccount(!showDelAccount);
+          setShowDelAccount((prev) => !prev);
         }}
         width="440px"
-        height="498px"
+        height="338px"
       >
-        <DelAccount />
+        <DelAccount closeModal={setShowDelAccount} />
       </Modal>
     </StMenuWrapper>
   );

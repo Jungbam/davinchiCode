@@ -3,4 +3,5 @@ export const queryKeys = {
   MYINFO: "myInfo",
   ROOM_LIST: "roomsList",
   USER_RANKING: "userRanking",
+  AUTH: "auth",
 };

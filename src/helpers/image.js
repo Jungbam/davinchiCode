@@ -6,6 +6,8 @@ import GameInfo5 from "../assets/images/explain/5_modal_game-info.png";
 import GameInfo6 from "../assets/images/explain/6_modal_game-info.png";
 import GameInfo7 from "../assets/images/explain/7_modal_game-info.png";
 import GameLoading from "../assets/images/main_loading.gif";
+import userProfile from "../assets/images/user-profile.png";
+
 export const IMG = {
   GameInfo1,
   GameInfo2,
@@ -15,4 +17,5 @@ export const IMG = {
   GameInfo6,
   GameInfo7,
   GameLoading,
+  userProfile,
 };

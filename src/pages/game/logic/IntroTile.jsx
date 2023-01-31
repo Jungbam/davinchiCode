@@ -1,25 +1,29 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { ICON } from "../../../helpers/Icons";
+import { BootStrap } from "../../BootStrap";
 import Timer from "../ele/Timer";
 
-const IntroTile = ({selectTile}) => {
+const IntroTile = ({ selectTile }) => {
   const [black, setBlack] = useState(0);
   const countBlackBtn = [0, 1, 2, 3];
-  
+  const { StTitle, StText } = BootStrap;
+
   return (
     <StWrapper>
-      <StButton>가져올 타일을 정해주세요!</StButton>
-      <div>
+      <StTitle mgTop="30px" width="225px">
+        가져올 타일을 정해주세요!
+      </StTitle>
+      <StText mgTop="16px">
         처음 주어지는 타일은 3개입니다. 아래의 슬라이더를 이동시켜 원하는 색상의
         타일을 획득하세요.
-      </div>
+      </StText>
       <StCardArea>
         {new Array(black).fill("_").map((_, i) => (
-          <StCard key={`whiteCenter${i}`} src={ICON.blackBack} />
+          <img key={`whiteCenter${i}`} src={ICON.blackBack} alt="card" />
         ))}
         {new Array(3 - black).fill("_").map((_, i) => (
-          <StCard key={`blackCenter${i}`} src={ICON.whiteBack} />
+          <img key={`blackCenter${i}`} src={ICON.whiteBack} alt="card" />
         ))}
       </StCardArea>
       <StTileNumber>
@@ -37,37 +41,22 @@ const IntroTile = ({selectTile}) => {
             onClick={() => {
               setBlack(el);
             }}
-          >
-          </StRoundBtn>
+          ></StRoundBtn>
         ))}
       </StRoundBtns>
-      <StConfirmBtn onClick={()=>{
-        selectTile(black)
-        }}>확인</StConfirmBtn>
-      <Timer/>
+      <StConfirmBtn
+        onClick={() => {
+          selectTile(black);
+        }}
+      >
+        확인
+      </StConfirmBtn>
+      <Timer />
     </StWrapper>
   );
 };
 
 export default IntroTile;
-
-const StButton = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 225px;
-  height: 32px;
-  left: calc(50% - 225px / 2 + 0.5px);
-  top: calc(50% - 32px / 2 - 116px);
-  background-color: #fff;
-  border: 1px solid #111111;
-  border-radius: 6px;
-  filter: drop-shadow(0px 4px 0px #111);
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 16px;
-  margin-bottom: 14px;
-`;
 
 const StWrapper = styled.div`
   display: flex;

@@ -1,12 +1,11 @@
 import React from "react";
-import ReactDOM from "react-dom";
+
 import styled from "styled-components";
 import DropdownPlayerCount from "../../../common/elements/DropDownPlayerCount";
 import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { RoomAPI } from "../../../../api/axios";
 import { queryKeys } from "../../../../helpers/queryKeys";
-import { motion } from "framer-motion";
 
 const CreateRoom = ({ closeModal, modal }) => {
   const styles = { modal };
@@ -18,10 +17,7 @@ const CreateRoom = ({ closeModal, modal }) => {
 
   // Mutation function to send the POST request
   const { mutate: createRoom } = useMutation(
-    async () => {
-      const roomData = { roomName, maxMembers, password };
-      const { data } = await RoomAPI.postRoom(roomData);
-    },
+    RoomAPI.postRoom({ roomName, maxMembers, password }),
     {
       onSuccess: (data) => {
         queryClient.invalidateQueries([queryKeys.ROOM_LIST]);
