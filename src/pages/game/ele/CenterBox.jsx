@@ -22,9 +22,6 @@ import GoStop from "../logic/GoStop";
 import { useEffect } from "react";
 import EndingModal from "./EndingModal";
 import ThrowMine from "../logic/ThrowMine";
-import JokerPosition from "../logic/JokerPosition";
-import MyTurn from "../logic/MyTurn";
-import OtherTurn from "../logic/OtherTurn";
 
 const CenterBox = ({ socket, userId }) => {
   const [gameView, setGameView] = useState(

@@ -4,26 +4,26 @@ import styled from "styled-components";
 import DavinchiCard from "../ele/DavinchiCard";
 
 const SelectIndicatedUser = ({ indicatedUser, guessCard }) => {
-  // const controledCard = indicatedUser[0]?.hand
+  const controledCard = indicatedUser[0]?.hand
   const [select, setSelect] = useState({ index: null, value: null });
 
   return (
     <div>
       <StCardContainer>
-        {/* {controledCard?.map((card,i) => (
+        {controledCard?.map((card,i) => (
           <StCardBox key={`${indicatedUser.userName}indicated${i}`}>
             <DavinchiCard card={card} onClick={()=>setSelect(prev=>{return{...prev, index : i}})}/>
             {select.index===i&&<StSelect>선택</StSelect>}
           </StCardBox>
-        ))} */}
+        ))}
       </StCardContainer>
       <StValueContainer>
-        {/* {new Array(13).fill('_').map((el,i)=>(
+        {new Array(13).fill('_').map((el,i)=>(
           <StValue key={`indicatedCard${i}`} selected={select.value===i} onClick={()=>setSelect(prev=>{return{...prev, value : i}})}>{i===12?'joker':i}</StValue>
-          ))} */}
+          ))}
       </StValueContainer>
       <StRow>
-        {/* <button onClick={()=>guessCard(indicatedUser, select)}>결정</button> */}
+        <button onClick={()=>guessCard(indicatedUser, select)}>결정</button>
       </StRow>
     </div>
   );
