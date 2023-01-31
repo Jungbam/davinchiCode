@@ -115,6 +115,7 @@ const CenterBox = ({ socket,userId }) => {
       setGameView(<Turn GameTurn={GameTurn} userId={userId}/>);
       })
     socket.current?.on(eventName.GAMEOVER,(endingInfo,gameInfo)=>{
+      console.log(gameInfo, endingInfo)
       dispatch(setEndingInfo(endingInfo))
       dispatch(setUsers(gameInfo))
       setEnding(true)
