@@ -23,20 +23,24 @@ const EndingModal = ({ ending, endingHandler }) => {
               <img src={ICON.RankOne} alt="1등" />
               <StNick>{endingInfo[0]?.userName}</StNick>
               <StAdd>+100</StAdd>
-              <StScore>{endingInfo[0]?.ranking}</StScore>
+              <StScore>{endingInfo[0]?.score}</StScore>
             </StRankBox>
+            {endingInfo[1] ? (
             <StRankBox>
               <img src={ICON.RankSecond} alt="2등" />
               <StNick>{endingInfo[1]?.userName}</StNick>
               <StAdd>+100</StAdd>
-              <StScore>{endingInfo[1]?.ranking}</StScore>
+              <StScore>{endingInfo[1]?.score}</StScore>
             </StRankBox>
+            ): (
+              <StRankNullBox />
+            )}
             {endingInfo[2] ? (
               <StRankBox>
                 <img src={ICON.RankThird} alt="3등" />
                 <StNick>{endingInfo[2].userName}</StNick>
                 <StAdd>+100</StAdd>
-                <StScore>{endingInfo[2].ranking}</StScore>
+                <StScore>{endingInfo[2].score}</StScore>
               </StRankBox>
             ) : (
               <StRankNullBox />
@@ -46,7 +50,7 @@ const EndingModal = ({ ending, endingHandler }) => {
                 <img src={ICON.RankForth} alt="4등" />
                 <StNick>{endingInfo[3].userName}</StNick>
                 <StAdd>+100</StAdd>
-                <StScore>{endingInfo[3].ranking}</StScore>
+                <StScore>{endingInfo[3].score}</StScore>
               </StRankBox>
             ) : (
               <StRankNullBox />

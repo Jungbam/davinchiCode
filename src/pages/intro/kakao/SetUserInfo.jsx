@@ -5,7 +5,7 @@ import { SignAPI } from "../../../api/axios";
 import { queryKeys } from "../../../helpers/queryKeys";
 import styled from "styled-components";
 
-const SetUserInfo = () => {
+const SetUserInfo = ({closeModal}) => {
   const [profileImg, setProfileImg] = useState(null);
   const [newProfileImg, setNewProfileImg] = useState(null);
   const [userName, setNickName] = useState(null);
@@ -15,7 +15,7 @@ const SetUserInfo = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  const { error, isLoading } = useQuery([queryKeys.MYINFO], SignAPI.myinfo, {
+  const { data } = useQuery([queryKeys.MYINFO], SignAPI.myinfo, {
     staleTime: 6000,
     cacheTime: 60 * 60 * 1000,
     onSuccess: (res) => {
@@ -27,16 +27,18 @@ const SetUserInfo = () => {
       navigate("/");
     },
   });
-  const { mutate } = useMutation((formData) => SignAPI.updateInfo(formData), {
+  const { mutate, isError,isLoading } = useMutation((formData) => SignAPI.updateInfo(formData), {
     onSuccess: (res) => {
       queryClient.invalidateQueries(queryKeys.MYINFO);
       alert("프로필 수정 완료");
+      closeModal()
       navigate("/lobby");
     },
     onError: (error) => {
       alert(
         "프로필 수정이 정상적으로 되지 않았습니다. 우측 상단 배너에서 프로필을 다시한번 설정해주세요."
       );
+      closeModal()
       navigate("/lobby");
     },
   });
@@ -49,19 +51,19 @@ const SetUserInfo = () => {
     reader.onloadend = () => {
       setNewProfileImg(reader.result);
     };
-    if (imgSrc) setNewProfileImg(imgSrc);
+    setProfileImg(imgSrc);
   };
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("username", newNick);
-    formData.append("image", newProfileImg);
+    if(newNick) formData.append("username", newNick);
+    if(newProfileImg) formData.append("image", profileImg);
     mutate(formData);
   };
 
   if (isLoading) <p>...loading</p>;
-  if (error) <p>error</p>;
+  if (isError) <p>error</p>;
   return (
     <StWrapper>
     <StContainerForm onSubmit={onSubmitHandler}>
@@ -108,6 +110,10 @@ const SetUserInfo = () => {
   );
 };
 export default SetUserInfo;
+
+SetUserInfo.defaultProps={
+  closeModal : ()=>{}
+}
 
 const StWrapper = styled.div`
   display: flex;

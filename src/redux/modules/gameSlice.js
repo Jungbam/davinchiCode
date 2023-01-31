@@ -36,6 +36,7 @@ const gameSlice = createSlice({
     },
     setEndingInfo: (state, action) => {
       state.ending = !state.ending;
+      state.endingInfo = action.payload;
     },
     setInit: (state, action) => {
       state = initialState;

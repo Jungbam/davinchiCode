@@ -39,7 +39,11 @@ function DropdownMenu() {
         width="440px"
         height="428px"
       >
-        <SetUserInfo />
+        <SetUserInfo
+          closeModal={() => {
+            setShowModal(!showModal);
+          }}
+        />
       </Modal>
       <Modal
         modal={showLogout.toString()}
