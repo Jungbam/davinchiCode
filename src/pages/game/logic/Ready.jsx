@@ -78,14 +78,14 @@ const StTitle = styled.div`
   justify-content: center;
   align-items: center;
 
-  width: 388px;
+  width: ${({ width }) => width || "388px"};
   height: 32px;
 
   border: 1px solid #111111;
   box-shadow: 0px 3px 0px #111;
   border-radius: 6px;
-
-  margin-top: 100px;
+  font-weight: 700;
+  margin-top: ${({ mgTop }) => mgTop || "100px"};
 `;
 
 const StBtnList = styled.div`
@@ -121,21 +121,4 @@ const StReady = styled.div`
   line-height: 17px;
 
   margin-top: 16px;
-`;
-
-const StConfirmBtn = styled.button`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 100px;
-  height: 32px;
-  background: #ffdf24;
-  border: 1px solid #000000;
-  box-shadow: 0px 3px 0px #000000;
-  border-radius: 6px;
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 100%;
-  margin-top: 14px;
 `;

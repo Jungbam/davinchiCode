@@ -153,7 +153,9 @@ const CenterBox = ({ socket, userId }) => {
     <StWrapper>
       <StGameField>
         <SystemMessage />
-        {gameView}
+        {/* {gameView} */}
+        <Indicate />
+        {/* <Ready /> */}
       </StGameField>
       <EndingModal
         ending={ending}
@@ -176,9 +178,10 @@ const StWrapper = styled.div`
   background-color: #fff;
 `;
 const StGameField = styled.div`
+  position: relative;
   width: 100%;
   height: 324px;
-  display: flex;
-  justify-content: center;
-  position: relative;
+  /* display: flex;
+  justify-content: center; */
+  /* position: relative; */
 `;

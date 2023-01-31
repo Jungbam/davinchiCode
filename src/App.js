@@ -25,7 +25,7 @@ const queryClient = new QueryClient({
 
 function App() {
   const [play] = useSound(Sounds.Click);
-  // onClick={play}
+  // onClick = { play };
   return (
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
