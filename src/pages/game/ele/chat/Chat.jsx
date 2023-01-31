@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { eventName } from "../../../../helpers/eventName";
 import { ICON } from "../../../../helpers/Icons";
 import Message from "./Message";
-const Chat = ({ socket, roomID, msgList, setMsgList }) => {
+const Chat = ({ socket, roomId, msgList, setMsgList }) => {
   const [msg, setMsg] = useState("");
 
   const createdAt = new Date().toLocaleString();
@@ -14,11 +14,11 @@ const Chat = ({ socket, roomID, msgList, setMsgList }) => {
   };
   const sendMessage = (e) => {
     if (e.keyCode === 13) {
-      socket?.current.emit(eventName.SEND_MESSAGE, msg, roomID, addMyMessage);
+      socket?.current.emit(eventName.SEND_MESSAGE, msg, roomId, addMyMessage);
     }
   };
   const sendMessageBtn = (e) => {
-    socket?.current.emit(eventName.SEND_MESSAGE, msg, roomID, addMyMessage);
+    socket?.current.emit(eventName.SEND_MESSAGE, msg, roomId, addMyMessage);
   };
 
   return (

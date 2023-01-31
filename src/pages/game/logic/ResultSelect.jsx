@@ -45,7 +45,7 @@ const ResultSelect = ({ gameResult, security, result, goStop }) => {
     <StWrapper>
       <StReult>
         <StText>타일 맞추기 {result ? "성공!" : "실패!"}</StText>
-        <UnderLine result={result} />
+        <StUnderLine result={result.toString()} />
       </StReult>
       <StP>
         <span>{turnUser[0]?.userName}</span>님이 타일 맞추기에{" "}
@@ -75,7 +75,7 @@ const StReult = styled.div`
   justify-content: center;
 `;
 
-const UnderLine = styled.div`
+const StUnderLine = styled.div`
   position: absolute;
   width: 186px;
   height: 16px;

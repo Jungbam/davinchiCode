@@ -112,7 +112,7 @@ const CenterBox = ({ socket, userId }) => {
   useEffect(() => {
     socket.current?.on(eventName.GAME_START, () => {
       dispatch(setInitReadyBtn());
-      dispatch(setTrigger(false));
+      dispatch(setTrigger(true));
     });
     socket.current?.on(eventName.ADD_READY, (gameInfo) => {
       dispatch(setInitReadyBtn(true));
@@ -145,9 +145,11 @@ const CenterBox = ({ socket, userId }) => {
     socket.current?.on(eventName.GAMEOVER, (endingInfo, gameInfo) => {
       dispatch(setEndingInfo(endingInfo));
       dispatch(setUsers(gameInfo));
+      dispatch(setTrigger(false));
       setEnding(true);
     });
-    return () => {};
+    return () => {
+    };
   }, [socket.current]);
 
   return (

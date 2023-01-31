@@ -32,7 +32,7 @@ const gameSlice = createSlice({
       state.initReady = action.payload;
     },
     setTrigger: (state, action) => {
-      state.trigger = !state.trigger;
+      state.trigger = action.payload;
     },
     setEndingInfo: (state, action) => {
       state.ending = !state.ending;

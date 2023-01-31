@@ -10,7 +10,7 @@ import background from "../../assets/images/background.png";
 import myUserBackground from "../../assets/images/myUserBackground.png";
 import { eventName } from "../../helpers/eventName";
 import { useDispatch, useSelector } from "react-redux";
-import { setUsers } from "../../redux/modules/gameSlice";
+import { setInit, setUsers } from "../../redux/modules/gameSlice";
 import MyBox from "./ele/MyBox";
 import { useQuery } from "@tanstack/react-query";
 import { queryKeys } from "../../helpers/queryKeys";
@@ -43,26 +43,24 @@ const Game = () => {
       else return;
     }
   };
-
+  
+  const createdAt = new Date().toLocaleString();
   useEffect(() => {
     document.onkeydown = preventHandler;
     socketRef.current = io.connect(process.env.REACT_APP_SERVER);
     socketRef.current.emit(eventName.JOIN, userId, roomId, (usersInRoom) => {
       dispatch(setUsers(usersInRoom));
     });
-    return () => {
-      document.onkeydown = null;
-      socketRef.current.emit(eventName.ROOMOUT);
-    };
-  }, []);
-
-  const createdAt = new Date().toLocaleString();
-  useEffect(() => {
     socketRef.current.on(eventName.RECEIVE_MESSAGE, (msg) => {
       const myMsg = { msg, mine: false, createdAt };
       setMsgList((prev) => [...prev, myMsg]);
     });
-  }, [socketRef.current]);
+    return () => {
+      document.onkeydown = null;
+      socketRef.current.emit(eventName.ROOMOUT);
+      dispatch(setInit())
+    };
+  }, []);
 
   return (
     <StWrapper>
