@@ -25,10 +25,11 @@ const queryClient = new QueryClient({
 
 function App() {
   const [play] = useSound(Sounds.Click);
+  // onClick={play}
   return (
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
-        <div className="App" onClick={play}>
+        <div className="App">
           <Router />
           <ReactQueryDevtools />
         </div>

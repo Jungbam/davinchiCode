@@ -9,20 +9,24 @@ const UsersBox = ({ user }) => {
   const { initBtn, initReady } = useSelector((state) => state.gameSlice);
   const dispatch = useDispatch();
 
+  //버튼 StAbsoluteBtn으로 내려서써주세요! color
   return (
     <StOtherUsers>
-      <Stb>진행중</Stb>
+      <StOnGoingStatus>진행중</StOnGoingStatus>
       {initBtn && (
-        <SelectBtn onClick={() => dispatch(setIndicater(user.userId))}>
+        <StAbsoluteBtn
+          background="#009320"
+          onClick={() => dispatch(setIndicater(user.userId))}
+        >
           {user ? "지목하기" : "..."}
-        </SelectBtn>
+        </StAbsoluteBtn>
       )}
-      <Sta>
+      <StUserProfile>
         <img src={IMG.userProfile} />
         <div>{user ? user?.userName : "빈자리"}</div>
-      </Sta>
+      </StUserProfile>
       {initReady && user?.hasOwnProperty("isReady") && user.isReady && (
-        <StConfirmBtn>준비완료</StConfirmBtn>
+        <StAbsoluteBtn>준비완료</StAbsoluteBtn>
       )}
 
       <StCardArea>
@@ -47,7 +51,7 @@ const StOtherUsers = styled.div`
   background-color: #eee;
 `;
 
-const SelectBtn = styled.button`
+const StAbsoluteBtn = styled.button`
   position: absolute;
   top: 16px;
   right: 16px;
@@ -56,9 +60,9 @@ const SelectBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #009320;
+  background: ${({ background }) => background || "#FFDF24"};
   border: 1px solid #000000;
-  box-shadow: 0px 3px 0px #000000;
+  box-shadow: 0px 3px 0px ${({ color }) => color || "#000"};
   border-radius: 6px;
 
   //
@@ -69,7 +73,7 @@ const SelectBtn = styled.button`
   font-style: normal;
   line-height: 1;
   letter-spacing: normal;
-  color: #000000;
+  color: ${({ color }) => color || "#000"};
 `;
 
 const StCardArea = styled.div`
@@ -80,7 +84,7 @@ const StCardArea = styled.div`
   margin: 6px 7px;
 `;
 
-const Stb = styled.div`
+const StOnGoingStatus = styled.div`
   background: #111111;
   border-radius: 999px;
   position: absolute;
@@ -97,7 +101,7 @@ const Stb = styled.div`
   align-items: center;
 `;
 
-const Sta = styled.div`
+const StUserProfile = styled.div`
   height: 130px;
   font-size: 14px;
   font-weight: 600;

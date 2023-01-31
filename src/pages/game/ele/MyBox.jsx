@@ -6,10 +6,10 @@ import DavinchiCard from "./DavinchiCard";
 const MyBox = ({ user }) => {
   return (
     <StBox>
-      <Sta>
+      <StUserProfile>
         <img src={IMG.userProfile} />
         <div>{user?.userName}</div>
-      </Sta>
+      </StUserProfile>
       <StCardList>
         {user?.hand?.map((card, i) => (
           <StCardBox>
@@ -28,7 +28,7 @@ const StBox = styled.div`
   display: flex;
 `;
 
-const Sta = styled.div`
+const StUserProfile = styled.div`
   width: 166px;
   height: 110px;
   margin: 0 10px;
