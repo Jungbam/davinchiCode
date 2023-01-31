@@ -108,55 +108,45 @@ const CenterBox = ({ socket, userId }) => {
     setEnding(false);
     setGameView(<Ready readyHandler={readyHandler} />);
   }
-
-  useEffect(() => {
-    socket.current?.on(eventName.GAME_START, () => {
-      dispatch(setInitReadyBtn());
-      dispatch(setTrigger(false));
-    });
-    socket.current?.on(eventName.ADD_READY, (gameInfo) => {
-      dispatch(setInitReadyBtn(true));
-      dispatch(setUsers(gameInfo));
-    });
-    socket.current?.on(eventName.DRAW_RESULT, (gameInfo) => {
-      setGameView(<Turn GameTurn={GameTurn} userId={userId} />);
-      dispatch(setUsers(gameInfo));
-    });
-    socket.current?.on(eventName.ONGOING, (gameInfo) => {
-      setGameView(
-        <Indicate selectIndicaterCard={selectIndicaterCard} userId={userId} />
-      );
-      dispatch(setUsers(gameInfo));
-    });
-    socket.current?.on(eventName.RESULT_GUESS, (result, security, gameInfo) => {
-      setGameView(
-        <ResultSelect
-          gameResult={gameInfo}
-          security={security}
-          result={result}
-          goStop={goStop}
-        />
-      );
-    });
-    socket.current?.on(eventName.NEXT_GAMEINFO, (nextGameInfo) => {
-      dispatch(setUsers(nextGameInfo));
-      setGameView(<Turn GameTurn={GameTurn} userId={userId} />);
-    });
-    socket.current?.on(eventName.GAMEOVER, (endingInfo) => {
-      dispatch(setEndingInfo(endingInfo));
-      setEnding(true);
-    });
-    return () => {};
-  }, [socket.current]);
+  
+  useEffect(()=>{
+    socket.current?.on(eventName.GAME_START, ()=>{
+      dispatch(setInitReadyBtn())
+      dispatch(setTrigger(false))
+    })
+    socket.current?.on(eventName.ADD_READY,(gameInfo)=>{
+      dispatch(setInitReadyBtn(true))
+      dispatch(setUsers(gameInfo))
+    } )
+    socket.current?.on(eventName.DRAW_RESULT,(gameInfo)=>{
+      setGameView(<Turn GameTurn={GameTurn} userId={userId}/>)
+      dispatch(setUsers(gameInfo))
+    })
+    socket.current?.on(eventName.ONGOING,(gameInfo)=>{
+      setGameView(<Indicate selectIndicaterCard={selectIndicaterCard} userId={userId}/>);
+      dispatch(setUsers(gameInfo))
+    })
+    socket.current?.on(eventName.RESULT_GUESS, (result,security,gameInfo)=>{
+      setGameView(<ResultSelect gameResult={gameInfo} security={security} result={result} goStop={goStop}/>)
+      })
+    socket.current?.on(eventName.NEXT_GAMEINFO,(nextGameInfo)=>{
+      dispatch(setUsers(nextGameInfo))
+      setGameView(<Turn GameTurn={GameTurn} userId={userId}/>);
+      })
+    socket.current?.on(eventName.GAMEOVER,(endingInfo,gameInfo)=>{
+      dispatch(setEndingInfo(endingInfo))
+      dispatch(setUsers(gameInfo))
+      setEnding(true)
+    })
+    return ()=>{
+    }
+  },[socket.current])
 
   return (
     <StWrapper>
       <StGameField>
         <SystemMessage />
-        {/* {gameView} */}
-        <Indicate />
-        {/* <Ready /> */}
-        {/* <IntroTile /> */}
+        {gameView}
       </StGameField>
       <EndingModal
         ending={ending}

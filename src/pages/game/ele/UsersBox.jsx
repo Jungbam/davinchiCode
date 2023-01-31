@@ -8,7 +8,6 @@ import { IMG } from "../../../helpers/image";
 const UsersBox = ({ user }) => {
   const { initBtn, initReady } = useSelector((state) => state.gameSlice);
   const dispatch = useDispatch();
-
   //버튼 StAbsoluteBtn으로 내려서써주세요! color
   //모달화시키기 예정 indicate 에 있는거 스타일컴포넌트 StText (StBtnList StBtn) StTitle
 
@@ -24,13 +23,12 @@ const UsersBox = ({ user }) => {
         </StAbsoluteBtn>
       )}
       <StUserProfile>
-        <img src={IMG.userProfile} />
+        <img src={user?user?.userProfileImg : IMG.userProfile} alt="유저 프로필 사진"/>
         <div>{user ? user?.userName : "빈자리"}</div>
       </StUserProfile>
       {initReady && user?.hasOwnProperty("isReady") && user.isReady && (
         <StAbsoluteBtn>준비완료</StAbsoluteBtn>
       )}
-
       <StCardArea>
         {user?.hand?.map((card, i) => (
           <DavinchiCard key={`${user.userName}${i}`} card={card} />

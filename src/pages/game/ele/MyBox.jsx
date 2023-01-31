@@ -7,14 +7,14 @@ const MyBox = ({ user }) => {
   return (
     <StBox>
       <StUserProfile>
-        <img src={IMG.userProfile} />
+        <img src={IMG.userProfile} alt="유저 프로필 사진"/>
         <div>{user?.userName}</div>
       </StUserProfile>
       <StCardList>
-        {user?.hand?.map((card, i) => (
-          <StCardBox>
-            <DavinchiCard key={`${user.userName}${i}`} card={card} />
-            {card.isOpen ? <StOpen>Out</StOpen> : <StOpenNull></StOpenNull>}
+        {user?.hand?.map((card,i) => (
+          <StCardBox key={`${user.userName}${i}`} >
+          <DavinchiCard card={card} />
+          {card.isOpen?<StOpen>Out</StOpen>:<StOpenNull></StOpenNull>}
           </StCardBox>
         ))}
       </StCardList>
