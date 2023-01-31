@@ -7,7 +7,6 @@ import Timer from "../ele/Timer";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useEffect } from "react";
 import { BootStrap } from "../../BootStrap";
-import { ICON } from "../../../helpers/Icons";
 
 const JokerPosition = ({ selectedCard, cardPick }) => {
   const { StTitle, StBtn, StText, StWrapper } = BootStrap;
@@ -41,14 +40,14 @@ const JokerPosition = ({ selectedCard, cardPick }) => {
       <StText mgTop="10px">
         조커 블록을 마우스로 끌어 원하는 자리로 이동시켜 주세요.
       </StText>
-      <Sta>
+      {/* <Sta>
         <StCardArea>
           <img src={ICON.blackBack} />
           <img src={ICON.blackBack} />
           <img src={ICON.blackBack} />
         </StCardArea>
-      </Sta>
-      {/* <StAllCard>
+      </Sta> */}
+      <StAllCard>
         <DragDropContext onDragEnd={handleChange}>
           <Droppable droppableId="cardlists" direction="horizontal">
             {(provided) => (
@@ -57,7 +56,7 @@ const JokerPosition = ({ selectedCard, cardPick }) => {
                 {...provided.droppableProps}
                 ref={provided.innerRef}
               >
-                <StMyCard>
+                <StCardArea>
                   {mine?.map((card, i) => (
                     <Draggable
                       draggableId={`card${card?.color}${card?.value}`}
@@ -77,14 +76,14 @@ const JokerPosition = ({ selectedCard, cardPick }) => {
                       }}
                     </Draggable>
                   ))}
-                </StMyCard>
+                </StCardArea>
                 {provided.placeholder}
               </div>
             )}
           </Droppable>
         </DragDropContext>
       </StAllCard>
-      {vali && <StVali>조커 외에 타일은 움직이지 않습니다.</StVali>} */}
+      {vali && <StVali>조커 외에 타일은 움직이지 않습니다.</StVali>}
       <StBtn
         mgTop="38px"
         width="100px"

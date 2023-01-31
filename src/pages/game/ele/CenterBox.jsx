@@ -157,12 +157,7 @@ const CenterBox = ({ socket, userId }) => {
     <StWrapper>
       <StGameField>
         <SystemMessage />
-        {/* {gameView} */}
-        {/* <JokerPosition /> */}
-        {/* 조커포지션 드래그앤드롭 몰라서 css입혀주세요 */}
-        {/* <MyTurn /> */}
-        <ResultSelect />
-        {/* <SelectIndicatedUser /> */}
+        {gameView}
       </StGameField>
       <EndingModal
         ending={ending}
