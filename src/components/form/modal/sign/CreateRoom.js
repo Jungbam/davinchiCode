@@ -114,8 +114,8 @@ const CreateRoom = ({ closeModal, modal }) => {
           취소
         </StButton>
         <StCheckBtn
-          passwordChecked={passwordChecked.toString()}
           disabled={!passwordChecked}
+          passwordChecked={passwordChecked.toString()}
           onClick={createRoomHandler}
         >
           확인
@@ -198,7 +198,7 @@ const StButton = styled.div`
   line-height: 100%;
 `;
 
-const StCheckBtn = styled.div`
+const StCheckBtn = styled.button`
   width: 100px;
   height: 32px;
   background: ${({ passwordChecked }) =>
@@ -214,7 +214,6 @@ const StCheckBtn = styled.div`
 
   color: ${({ passwordChecked }) =>
     passwordChecked === "true" ? "#111" : "#616161"};
-
   font-weight: 700;
   font-size: 14px;
   line-height: 100%;
