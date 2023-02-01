@@ -34,21 +34,12 @@ const RoomList = () => {
   const queryClient = useQueryClient();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPage, setTotalPage] = useState(2);
+  const [totalPage, setTotalPage] = useState(7);
   const [selectedPost, setSelectedPost] = useState(null);
   const [list, setList] = useState([1, 2, 3, 4, 5]);
   const [isWaiting, setIsWaiting] = useState(false);
   const [isPrivate, setIsPrivate] = useState(false);
   const [showCreateRoom, setShowCreateRoom] = useState(false);
-
-  // const { data, status, isError, error, isLoading } = useQuery(
-  //   ["posts", currentPage],
-  //   () => fetchPosts(currentPage),
-  //   {
-  //     staleTime: 2000,
-  //     keepPreviousData: true,
-  //   }
-  // );
 
   const arrLoop = (currentPage) => {
     const newArr = [];
@@ -69,13 +60,11 @@ const RoomList = () => {
 
   useEffect(() => {
     setList(arrLoop(currentPage));
-    // if (currentPage < totalPage) {
-    //   const nextPage = currentPage + 1;
-    //   queryClient.prefetchQuery(["posts", nextPage], () =>
-    //     fetchPosts(nextPage)
-    //   );
-    // }
-  }, [currentPage]);
+    if (currentPage < totalPage) {
+      const nextPage = currentPage + 1;
+      queryClient.prefetchQuery(["posts", nextPage], () => axios.get());
+    }
+  }, [currentPage, totalPage]);
 
   return (
     <StWrapper>

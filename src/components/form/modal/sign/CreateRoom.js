@@ -8,16 +8,22 @@ import { RoomAPI } from "../../../../api/axios";
 import { queryKeys } from "../../../../helpers/queryKeys";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { ICON } from "../../../../helpers/Icons";
 
 const CreateRoom = ({ closeModal, modal }) => {
   const navigate = useNavigate();
   const styles = { modal };
   const queryClient = useQueryClient();
-  // State to store the form data
   const [roomName, setRoomName] = useState("");
+  const [maxMembers, setMaxMembers] = useState("4명");
   const [isSecret, setIsSecret] = useState(false);
-  const [maxMembers, setMaxMembers] = useState(0);
   const [password, setPassword] = useState("");
+  const [roomModal, setRoomModal] = useState(false);
+
+  const roomMembersHandler = (num) => {
+    setMaxMembers(num);
+    setRoomModal((prev) => !prev);
+  };
 
   // Mutation function to send the POST request
   // const { mutate: createRoom } = useMutation(
@@ -47,7 +53,7 @@ const CreateRoom = ({ closeModal, modal }) => {
       "https://game.davinci-code.online/rooms",
       {
         roomName,
-        maxMembers: 2,
+        maxMembers,
         password,
       },
       {
@@ -66,16 +72,35 @@ const CreateRoom = ({ closeModal, modal }) => {
           type="text"
           placeholder="초보자 환영! 같이 배우면서 즐겨요."
           onChange={(e) => setRoomName(e.target.value)}
+          value={roomName}
         />
       </StRoomName>
       <StSettingRoom>
         <Sta>
           <label>인원설정</label>
-          <select>
+          <StModalOpener
+            onClick={() => {
+              setRoomModal((prev) => !prev);
+            }}
+          >
+            <span>{maxMembers}</span>
+            <img src={ICON.iconDropDown} />
+          </StModalOpener>
+          <StModal roomModal={roomModal}>
+            {["2명", "3명", "4명"].map((el, i) => (
+              <button
+                key={`roomMembers${i}`}
+                onClick={() => roomMembersHandler(el)}
+              >
+                <span>{el}</span>
+              </button>
+            ))}
+          </StModal>
+          {/* <select>
             <option>4명</option>
             <option>3명</option>
             <option>2명</option>
-          </select>
+          </select> */}
         </Sta>
         <Stb>
           <label>공개설정</label>
@@ -83,7 +108,10 @@ const CreateRoom = ({ closeModal, modal }) => {
             <input
               type="checkbox"
               checked={!isSecret}
-              onChange={() => setIsSecret(!isSecret)}
+              onChange={() => {
+                setIsSecret(!isSecret);
+                setPassword("");
+              }}
             />
             <div>공개</div>
           </StOpen>
@@ -98,6 +126,8 @@ const CreateRoom = ({ closeModal, modal }) => {
           <input
             type="text"
             placeholder="0000"
+            value={password}
+            disabled={!isSecret}
             maxLength={4}
             onChange={(e) => {
               setPassword(e.target.value);
@@ -207,18 +237,48 @@ const Sta = styled.div`
     font-size: 12px;
     line-height: 14px;
   }
-  & select {
+`;
+
+const StModalOpener = styled.button`
+  margin-top: 4px;
+  width: 100%;
+  height: 40px;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 14px;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  & span {
+    margin-right: 10px;
+  }
+`;
+
+const StModal = styled.div`
+  display: ${({ roomModal }) => (roomModal ? "flex" : "none")};
+  flex-direction: column;
+  z-index: 100000;
+  position: relative;
+  & button {
     margin-top: 4px;
     width: 100%;
-    height: 40px;
+    height: 35px;
     border: 1px solid #dddddd;
-    border-radius: 4px;
+    border-radius: 2px;
     background-color: #f9f9f9;
-    padding-left: 14px;
 
     font-weight: 500;
     font-size: 14px;
     line-height: 14px;
+    padding-left: 13px;
+    margin: 0;
+    display: flex;
+    align-items: center;
   }
 `;
 
@@ -300,7 +360,7 @@ const StIsSecret = styled.div`
     font-weight: 500;
     font-size: 14px;
     line-height: 14px;
-    padding-left: 8.5px;
+    padding-left: 5px;
     border: none;
     background-color: #f9f9f9;
     font-family: "Pretendard Variable";

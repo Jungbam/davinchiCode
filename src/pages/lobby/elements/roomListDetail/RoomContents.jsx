@@ -12,14 +12,6 @@ import { useEffect } from "react";
 const RoomContents = ({ isWaiting, isPrivate, currentPage, setTotalPage }) => {
   const navigate = useNavigate();
 
-  // const { data: rooms, status } = useQuery(
-  //   [queryKeys.ROOM_LIST],
-  //   async () => mockData.rooms,
-  //   {
-  //     staleTime: 2000,
-  //     keepPreviousData: true,
-  //   }
-  // );
   const { data, status } = useQuery(
     ["posts", currentPage],
     async () =>
@@ -27,27 +19,15 @@ const RoomContents = ({ isWaiting, isPrivate, currentPage, setTotalPage }) => {
     {
       staleTime: 2000,
       keepPreviousData: true,
+      onSuccess: (data) => {
+        setTotalPage((prev) => data.data.totalPage);
+      },
     }
   );
-  useEffect(() => {
-    if (data !== undefined) {
-      setTotalPage(data.data.totalPage);
-    }
-  }, []);
-  // const fetchPosts = async (pageNum) => {
-  //   console.log("fetchPosts", pageNum);
-  //   await axios.get(`https://game.davinci-code.online/rooms?page=${pageNum}`);
-  // };
-
-  // const { data, status } = useQuery(["fff"], () => fetchPosts(currentPage), {
-  //   keepPreviousData: true,
-  // });
 
   const handleEnterRoom = (roomId) => {
     navigate(`/game/${roomId}`);
   };
-
-  console.log(data);
 
   return (
     <StWrapper>
@@ -57,7 +37,8 @@ const RoomContents = ({ isWaiting, isPrivate, currentPage, setTotalPage }) => {
           {data?.data.rooms
             .filter(
               (room) =>
-                (!isWaiting || room.isPlaying) && (!isPrivate || room.isPrivate)
+                (!isWaiting || !room.isPlaying) &&
+                (!isPrivate || room.isPrivate)
             )
             .map((room, i) => (
               <StContainer
