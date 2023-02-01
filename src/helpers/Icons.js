@@ -40,6 +40,7 @@ import iconLock from "../assets/icons/ico_lobby_lock.svg";
 import iconScoreStable from "../assets/icons/ico_score_stable.svg";
 import iconScoreMinus from "../assets/icons/ico_score_minus.svg";
 import iconScorePlus from "../assets/icons/ico_score_plus.svg";
+import iconDropDown from "../assets/icons/arrow_dropdown.svg";
 
 import RankOne from "../assets/images/rank/rankone.png";
 import RankSecond from "../assets/images/rank/ranksecond.png";
@@ -94,4 +95,5 @@ export const ICON = {
   iconScoreMinus,
   iconScorePlus,
   iconRefresh,
+  iconDropDown,
 };

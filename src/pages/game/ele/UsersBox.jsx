@@ -23,7 +23,11 @@ const UsersBox = ({ user }) => {
         </StAbsoluteBtn>
       )}
       <StUserProfile>
-        <img src={user?user?.userProfileImg : IMG.userProfile} alt="유저 프로필 사진"/>
+        <img
+          src={user ? user?.userProfileImg : IMG.userProfile}
+          width="80"
+          alt="유저 프로필 사진"
+        />
         <div>{user ? user?.userName : "빈자리"}</div>
       </StUserProfile>
       {initReady && user?.hasOwnProperty("isReady") && user.isReady && (

@@ -5,6 +5,11 @@ export const client = axios.create({
   withCredentials: true,
 });
 
+export const gameClient = axios.create({
+  baseURL: process.env.REACT_APP_GAME_SERVER,
+  withCredentials: true,
+});
+
 export const SignAPI = {
   kakaoSign: (code) =>
     client.post(
@@ -25,5 +30,5 @@ export const SignAPI = {
   auth: () => client.get("/auth/check"),
 };
 export const RoomAPI = {
-  postRoom: (roomData) => client.post("/rooms", roomData),
+  postRoom: (roomData) => gameClient.post("/rooms", roomData),
 };
