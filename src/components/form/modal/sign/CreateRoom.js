@@ -3,17 +3,14 @@ import React from "react";
 import styled from "styled-components";
 import DropdownPlayerCount from "../../../common/elements/DropDownPlayerCount";
 import { useState } from "react";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { RoomAPI } from "../../../../api/axios";
-import { queryKeys } from "../../../../helpers/queryKeys";
-import axios from "axios";
+
 import { useNavigate } from "react-router-dom";
 import { ICON } from "../../../../helpers/Icons";
 
 const CreateRoom = ({ closeModal, modal }) => {
   const navigate = useNavigate();
-  const styles = { modal };
-  const queryClient = useQueryClient();
   const [roomName, setRoomName] = useState("");
   const [maxMembers, setMaxMembers] = useState("4명");
   const [isSecret, setIsSecret] = useState(false);
@@ -28,7 +25,7 @@ const CreateRoom = ({ closeModal, modal }) => {
   const passwordChecked =
     (!isSecret || password.length === 4) && roomName !== "";
 
-  const { data, mutate: createRoom } = useMutation(
+  const { mutate: createRoom } = useMutation(
     () => RoomAPI.postRoom({ roomName, maxMembers, password }),
     {
       onSuccess: ({ data }) => {

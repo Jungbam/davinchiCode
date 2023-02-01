@@ -1,13 +1,11 @@
 import styled from "styled-components";
 import { useQuery } from "@tanstack/react-query";
-import mockData from "./MockDataRoom";
 import { useNavigate } from "react-router-dom";
 import { queryKeys } from "../../../../helpers/queryKeys";
 import DisabledImage from "../../../../assets/images/lobby_disabled_room.png";
 import { motion } from "framer-motion";
 import { ICON } from "../../../../helpers/Icons";
 import axios from "axios";
-import { useEffect } from "react";
 
 const RoomContents = ({ isWaiting, isPrivate, currentPage, setTotalPage }) => {
   const navigate = useNavigate();
@@ -29,7 +27,6 @@ const RoomContents = ({ isWaiting, isPrivate, currentPage, setTotalPage }) => {
   const handleEnterRoom = (roomId) => {
     navigate(`/game/${roomId}`);
   };
-  console.log(data?.data);
   return (
     <StWrapper>
       {status === "loading" && <div>Loading...</div>}
