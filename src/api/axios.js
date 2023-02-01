@@ -6,7 +6,7 @@ export const client = axios.create({
 });
 
 export const gameClient = axios.create({
-  baseURL: process.env.REACT_APP_GAME_SERVER,
+  baseURL: process.env.REACT_APP_SERVER,
   withCredentials: true,
 });
 
