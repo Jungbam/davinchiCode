@@ -51,7 +51,7 @@ const Game = () => {
   };
   const preventReloadHandler = (e)=>{
     e.preventDefault()
-    if(e.keyCode===116||(e.keyCode===91&&e.keyCode===82)){
+    if(e.keyCode===116||(e.keyCode===55&&e.keyCode===15)){
       const answer = window.confirm('새로고침을 진행하면 패배처리되며 로비로 이동됩니다. 진행하시겠습니까?')
       if(answer){
         navigate('/lobby')
