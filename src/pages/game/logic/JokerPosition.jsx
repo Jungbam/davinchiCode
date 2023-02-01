@@ -40,13 +40,6 @@ const JokerPosition = ({ selectedCard, cardPick }) => {
       <StText mgTop="10px">
         조커 블록을 마우스로 끌어 원하는 자리로 이동시켜 주세요.
       </StText>
-      {/* <Sta>
-        <StCardArea>
-          <img src={ICON.blackBack} />
-          <img src={ICON.blackBack} />
-          <img src={ICON.blackBack} />
-        </StCardArea>
-      </Sta> */}
       <StAllCard>
         <DragDropContext onDragEnd={handleChange}>
           <Droppable droppableId="cardlists" direction="horizontal">
@@ -105,23 +98,9 @@ const JokerPosition = ({ selectedCard, cardPick }) => {
 const StAllCard = styled.div`
   height: 120px;
 `;
-const StMyCard = styled.div`
-  display: flex;
-  gap: 10px;
-  height: 120px;
-`;
 const StVali = styled.div`
   color: red;
 `;
-//// 카드 중간 만들어놓은거 가져다쓰세요
-const Sta = styled.div`
-  width: 636px;
-  height: 102px;
-  background: #e6e6e6;
-  border-radius: 6px;
-  margin-top: 27px;
-`;
-
 const StCardArea = styled.div`
   height: 62px;
   gap: 4px;

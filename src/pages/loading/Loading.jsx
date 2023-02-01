@@ -5,7 +5,7 @@ import { IMG } from "../../helpers/image";
 const Loading = () => {
   return (
     <StWrapper>
-      <img src={IMG.GameLoading} alt="로딩중"/>
+      <StLoding src={IMG.GameLoading} alt="로딩중"/>
     </StWrapper>
   );
 };
@@ -20,3 +20,6 @@ const StWrapper = styled.div`
   align-items: center;
   flex-direction: column;
 `;
+const StLoding = styled.img`
+  width: 50vw;
+`

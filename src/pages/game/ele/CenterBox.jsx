@@ -163,7 +163,6 @@ const CenterBox = ({ socket, userId }) => {
       </StGameField>
       <EndingModal
         ending={ending}
-        setEnding={setEnding}
         endingHandler={endingHandler}
       />
     </StWrapper>
@@ -185,10 +184,5 @@ const StGameField = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
-  //이거 지우지말아주세요 매니저님 질문 !
   border: 1px double transparent;
-  /* background-color: green; */
-  /* display: flex;
-  justify-content: center; */
-  /* position: relative; */
 `;

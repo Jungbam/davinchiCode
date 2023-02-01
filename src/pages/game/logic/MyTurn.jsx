@@ -10,19 +10,19 @@ const MyTurn = ({ GameTurn }) => {
   const { gameInfo } = useSelector((state) => state.gameSlice);
   const [select, setSelect] = useState(null);
   return (
-    <StWrapper>
+    <StWrapper gap="4px">
       <StTitle mgTop="30px" width="270px">
         가져올 타일의 색상을 정해주세요!
       </StTitle>
       <StLeftTyle>
         {gameInfo.blackCards && (
-          <StText width="128px" fontSize="14px" color=" #888888" mgTop="10px">
-            남은 검은색 타일 &nbsp;<span>{gameInfo.blackCards}개</span>
+          <StText width="128px" fontSize="14px" color=" #888888" mgTop="10px" dir="column">
+            <p>남은 검은색 타일</p><p>{gameInfo.blackCards}개</p>
           </StText>
         )}
         {gameInfo.blackCards && (
-          <StText width="128px" fontSize="14px" color=" #888888" mgTop="10px">
-            남은 흰색 타일 &nbsp;<span>{gameInfo.whiteCards}개</span>
+          <StText width="128px" fontSize="14px" color=" #888888" mgTop="10px" dir="column">
+            <p>남은 흰색 타일</p><p>{gameInfo.whiteCards}개</p>
           </StText>
         )}
       </StLeftTyle>
@@ -59,7 +59,7 @@ const MyTurn = ({ GameTurn }) => {
       >
         확인
       </StBtn>
-      <Timer />
+      <Timer timeOver={()=>GameTurn("white")}/>
     </StWrapper>
   );
 };
@@ -109,4 +109,5 @@ const StSelectNull = styled.span`
 const StLeftTyle = styled.div`
   display: flex;
   gap: 10px;
+  text-align: center;
 `;

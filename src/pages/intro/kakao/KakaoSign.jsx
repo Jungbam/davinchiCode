@@ -25,18 +25,18 @@ const KakaoSign = () => {
         dipatch(login());
         count.current = setTimeout(()=>{
           navigate("/lobby");
-        },1000)
+        },1200)
         break;
       case 201:
         dipatch(login());
         count.current = setTimeout(()=>{
           navigate("/profile");
-        },1000)
+        },1200)
         break;
       default:
         count.current = setTimeout(()=>{
           navigate("/");
-        },1000)
+        },1200)
         break;
     }
   };

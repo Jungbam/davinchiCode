@@ -20,6 +20,7 @@ const StText = styled.div`
   margin-top: ${({ mgTop }) => mgTop || "20px"};
   width: ${({ width }) => width || "100%"};
   display: flex;
+  flex-direction: ${({ dir }) => dir || "row"};
   justify-content: center;
   font-size: ${({ fontSize }) => fontSize || "14px"};
   line-height: 17px;
@@ -60,10 +61,14 @@ const StBtnList = styled.div`
 const StWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  width: ${({ width }) => width || "100%"};
+  height: ${({ height }) => height || "100%"};
+  justify-content: ${({ jus }) => jus || null};
   align-items: center;
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
+  gap: ${({ gap }) => gap || "5px"};
 `;
 
 const StCardArea = styled.div`

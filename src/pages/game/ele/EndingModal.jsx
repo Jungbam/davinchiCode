@@ -14,7 +14,7 @@ const EndingModal = ({ ending, endingHandler }) => {
   const { endingInfo } = useSelector((state) => state.gameSlice);
 
   return (
-    <Modal width="628px" height="438px" modal={ending.toString()}>
+    <Modal width="628px" height="438px" modal={ending.toString()} closeModal={endingHandler}>
       <StGameEndingWrapper>
         <StRankContainer>
           <StGameOverImg src={ICON.RankGameOver} alt="게임오버"></StGameOverImg>

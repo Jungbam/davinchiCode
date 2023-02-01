@@ -5,12 +5,12 @@ import Modal from "../../../components/form/modal/Modal";
 import GameOver from "../../../components/form/modal/sign/GameOver";
 import { ICON } from "../../../helpers/Icons";
 import { Sounds } from "../../../helpers/sounds";
-const Timer = () => {
+const Timer = ({timeOver}) => {
   const [gameOver, setGameOver] = useState(false);
   const [second, setSecond] = useState(String(30));
   const count = useRef(30);
   const interval = useRef(null);
-  const [play] = useSound(Sounds.Test);
+  const [Late] = useSound(Sounds.Ten);
 
   useEffect(() => {
     interval.current = setInterval(() => {
@@ -23,12 +23,10 @@ const Timer = () => {
   }, []);
 
   useEffect(() => {
-    if (Number(second) === 9) {
-      play();
-    }
+    if (Number(second) === 9) Late();
     if (count.current <= 0) {
       clearInterval(interval.current);
-      alert("시간오버");
+      timeOver();
     }
   }, [second]);
   return (
@@ -56,7 +54,9 @@ const Timer = () => {
     </StTimer>
   );
 };
-
+Timer.defaultProps ={
+  timeOver : ()=>{alert('시간오버')}
+}
 export default Timer;
 const StTimer = styled.div`
   position: absolute;
@@ -98,7 +98,6 @@ const StTimeLimit = styled.div`
   transition-timing-function: linear;
 `;
 const StSecond = styled.div`
-  width: 61px;
   color: ${({ second }) => {
     if (second < 10) return `red`;
     else return "black";

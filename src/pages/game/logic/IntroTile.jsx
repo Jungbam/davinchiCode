@@ -38,20 +38,16 @@ const IntroTile = ({ selectTile }) => {
         {countBlackBtn.map((el, i) => (
           <StRoundBtn
             key={`countBlackBtn ${i}`}
-            onClick={() => {
-              setBlack(el);
-            }}
+            onClick={() => setBlack(el)}
           ></StRoundBtn>
         ))}
       </StRoundBtns>
       <StConfirmBtn
-        onClick={() => {
-          selectTile(black);
-        }}
+        onClick={() => selectTile(black)}
       >
         확인
       </StConfirmBtn>
-      <Timer />
+      <Timer timeOver={() => selectTile(black)}/>
     </StWrapper>
   );
 };

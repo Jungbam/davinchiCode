@@ -28,33 +28,36 @@ const Game = () => {
   });
   // const userId = data.data.userId
   const { users } = useSelector((state) => state.gameSlice.gameInfo);
-
   const myInfo = users.filter((user) => user.userId === userId);
   const others = users.filter((user) => user.userId !== userId);
   const dispatch = useDispatch();
   const navigate = useNavigate()
 
+  const initHandler = ()=>{
+    dispatch(setInit())
+    socketRef.current.emit(eventName.ROOMOUT)
+    navigate('/lobby')
+  }
   const preventGoBack = (e)=>{
     e.preventDefault()
     const answer = window.confirm(
       "로비로 돌아가면 패배한 것으로 처리됩니다. 그래도 진행하시겠습니까?"
       );
       if (answer){
-        socketRef.current.emit(eventName.ROOMOUT)
-        navigate('/lobby')
+        initHandler()
       }
       else window.history.pushState(null, "", window.location.href);
     }
   const beforeUnloadHandler = (e) => {
     e.preventDefault();
-    socketRef.current.emit(eventName.ROOMOUT)
+    initHandler()
   };
   const preventReloadHandler = (e)=>{
     if(e.keyCode===116||(e.keyCode===82&&(e.ctrlKey||e.metaKey))){
       e.preventDefault()
       const answer = window.confirm('새로고침을 진행하면 패배처리되며 로비로 이동됩니다. 진행하시겠습니까?')
       if(answer){
-        navigate('/lobby')
+        initHandler()
       }else return
     }
   }
