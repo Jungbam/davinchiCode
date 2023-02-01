@@ -106,7 +106,7 @@ const CenterBox = ({ socket, userId }) => {
   function endingHandler() {
     dispatch(setInit());
     setEnding(false);
-    setGameView(<Ready readyHandler={readyHandler} />);
+    setGameView(<Ready readyHandler={readyHandler} goSelecetTile={goSelecetTile} />);
   }
 
   useEffect(() => {
