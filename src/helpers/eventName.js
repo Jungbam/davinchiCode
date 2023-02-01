@@ -17,4 +17,5 @@ export const eventName = {
   ROOMOUT: "room-out",
   PLACE_JOKER: "place-joker",
   ONGOING: "ongoing",
+  LEAVE_USER: "leave-user",
 };

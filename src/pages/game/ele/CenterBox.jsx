@@ -148,6 +148,9 @@ const CenterBox = ({ socket, userId }) => {
       dispatch(setTrigger(false));
       setEnding(true);
     });
+    socket.current?.on(eventName.LEAVE_USER, (gameInfo)=>{
+      dispatch(setUsers(gameInfo))
+    })
     return () => {
     };
   }, [socket.current]);
