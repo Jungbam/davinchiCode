@@ -4,7 +4,7 @@ import UsersBox from "./ele/UsersBox";
 import CenterBox from "./ele/CenterBox";
 import Chat from "./ele/chat/Chat";
 import { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { io } from "socket.io-client";
 import background from "../../assets/images/background.png";
 import myUserBackground from "../../assets/images/myUserBackground.png";
@@ -32,21 +32,38 @@ const Game = () => {
   const myInfo = users.filter((user) => user.userId === userId);
   const others = users.filter((user) => user.userId !== userId);
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
-  const preventHandler = (e) => {
-    e.preventDefault();
-    if (e.keyCode === 116) {
-      const answer = window.confirm(
-        "새로고침을 진행하면 로비로 나가집니다. 진행하시겠습니까?"
+  const preventGoBack = (e)=>{
+    e.preventDefault()
+    const answer = window.confirm(
+      "로비로 돌아가면 패배한 것으로 처리됩니다. 그래도 진행하시겠습니까?"
       );
-      if (answer) window.location.reload();
-      else return;
+      if (answer){
+        socketRef.current.emit(eventName.ROOMOUT)
+        navigate('/lobby')
+      }
+      else window.history.pushState(null, "", window.location.href);
     }
+  const beforeUnloadHandler = (e) => {
+    e.preventDefault();
+    socketRef.current.emit(eventName.ROOMOUT)
   };
-  
+  const preventReloadHandler = (e)=>{
+    e.preventDefault()
+    if(e.keyCode===116||(e.keyCode===91&&e.keyCode===82)){
+      const answer = window.confirm('새로고침을 진행하면 패배처리되며 로비로 이동됩니다. 진행하시겠습니까?')
+      if(answer){
+        navigate('/lobby')
+      }else return
+    }
+  }
   const createdAt = new Date().toLocaleString();
   useEffect(() => {
-    document.onkeydown = preventHandler;
+    document.onkeydown=preventReloadHandler
+    window.addEventListener('beforeunload',beforeUnloadHandler)
+    window.history.pushState(null, "", window.location.href);
+    window.addEventListener('popstate', preventGoBack)
     socketRef.current = io.connect(process.env.REACT_APP_SERVER);
     socketRef.current.emit(eventName.JOIN, userId, roomId, (usersInRoom) => {
       dispatch(setUsers(usersInRoom));
@@ -56,7 +73,9 @@ const Game = () => {
       setMsgList((prev) => [...prev, myMsg]);
     });
     return () => {
-      document.onkeydown = null;
+      document.onkeydown=null
+      window.removeEventListener('beforeunload', beforeUnloadHandler)
+      window.removeEventListener('popstate', preventGoBack)
       socketRef.current.emit(eventName.ROOMOUT);
       dispatch(setInit())
     };
