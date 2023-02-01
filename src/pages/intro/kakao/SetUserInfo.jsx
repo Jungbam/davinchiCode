@@ -5,7 +5,7 @@ import { SignAPI } from "../../../api/axios";
 import { queryKeys } from "../../../helpers/queryKeys";
 import styled from "styled-components";
 
-const SetUserInfo = ({closeModal}) => {
+const SetUserInfo = ({ closeModal }) => {
   const [profileImg, setProfileImg] = useState(null);
   const [newProfileImg, setNewProfileImg] = useState(null);
   const [userName, setNickName] = useState(null);
@@ -27,21 +27,24 @@ const SetUserInfo = ({closeModal}) => {
       navigate("/");
     },
   });
-  const { mutate, isError,isLoading } = useMutation((formData) => SignAPI.updateInfo(formData), {
-    onSuccess: (res) => {
-      queryClient.invalidateQueries(queryKeys.MYINFO);
-      alert("프로필 수정 완료");
-      closeModal()
-      navigate("/lobby");
-    },
-    onError: (error) => {
-      alert(
-        "프로필 수정이 정상적으로 되지 않았습니다. 우측 상단 배너에서 프로필을 다시한번 설정해주세요."
-      );
-      closeModal()
-      navigate("/lobby");
-    },
-  });
+  const { mutate, isError, isLoading } = useMutation(
+    (formData) => SignAPI.updateInfo(formData),
+    {
+      onSuccess: (res) => {
+        queryClient.invalidateQueries(queryKeys.MYINFO);
+        alert("프로필 수정 완료");
+        closeModal();
+        navigate("/lobby");
+      },
+      onError: (error) => {
+        alert(
+          "프로필 수정이 정상적으로 되지 않았습니다. 우측 상단 배너에서 프로필을 다시한번 설정해주세요."
+        );
+        closeModal();
+        navigate("/lobby");
+      },
+    }
+  );
 
   const onChangeImgHandler = (e) => {
     const imgSrc = e.target.files[0];
@@ -57,8 +60,8 @@ const SetUserInfo = ({closeModal}) => {
   const onSubmitHandler = (e) => {
     e.preventDefault();
     const formData = new FormData();
-    if(newNick) formData.append("username", newNick);
-    if(newProfileImg) formData.append("image", profileImg);
+    if (newNick) formData.append("username", newNick);
+    if (newProfileImg) formData.append("image", profileImg);
     mutate(formData);
   };
 
@@ -66,44 +69,46 @@ const SetUserInfo = ({closeModal}) => {
   if (isError) <p>error</p>;
   return (
     <StWrapper>
-    <StContainerForm onSubmit={onSubmitHandler}>
-      <StTitle htmlFor="profileImg">프로필을 변경 해보세요.</StTitle>
-      <StProfileBox>
-        <StProfile
-          alt="profile"
-          src={newProfileImg ? newProfileImg : profileImg}
-          width="32px"
-          height="32px"
-          border-radius="50%"
-          object-fit="cover"
+      <StContainerForm onSubmit={onSubmitHandler}>
+        <StTitle htmlFor="profileImg">프로필을 변경 해보세요.</StTitle>
+        <StProfileBox>
+          <StProfile
+            alt="profile"
+            src={newProfileImg ? newProfileImg : profileImg}
+            width="32px"
+            height="32px"
+            border-radius="50%"
+            object-fit="cover"
           />
-        <StChangePhoto
-          id="profileImg"
-          ref={imgRef}
-          accept="image/*"
-          name="profileImg"
-          type="file"
-          onChange={onChangeImgHandler}
+          <StChangePhoto
+            id="profileImg"
+            ref={imgRef}
+            accept="image/*"
+            name="profileImg"
+            type="file"
+            onChange={onChangeImgHandler}
           />
-      </StProfileBox>
-      <StBox>
-        <label>설정 이름</label>
-        <input type="text" value={userName || ""} disabled readOnly />
-      </StBox>
-      <StBox>
-        <label>설정 이름 변경</label>
-        <input
-          type="text"
-          value={newNick || ""}
-          onChange={(e) => setNewNick(e.target.value)}
-          placeholder="변경할 이름을 입력해주세요."
+        </StProfileBox>
+        <StBox>
+          <label>설정 이름</label>
+          <input type="text" value={userName || ""} disabled readOnly />
+        </StBox>
+        <StBox>
+          <label>설정 이름 변경</label>
+          <input
+            type="text"
+            value={newNick || ""}
+            onChange={(e) => setNewNick(e.target.value)}
+            placeholder="변경할 이름을 입력해주세요."
           />
         </StBox>
         <StBtnList>
           <StButton type="cancel" onClick={() => navigate("/lobby")}>
             다음에 변경
           </StButton>
-          <StButton type="submit" disabled={!newNick&&!newProfileImg}>변경하기</StButton>
+          <StButton type="submit" disabled={!newNick && !newProfileImg}>
+            변경하기
+          </StButton>
         </StBtnList>
       </StContainerForm>
     </StWrapper>
@@ -111,9 +116,9 @@ const SetUserInfo = ({closeModal}) => {
 };
 export default SetUserInfo;
 
-SetUserInfo.defaultProps={
-  closeModal : ()=>{}
-}
+SetUserInfo.defaultProps = {
+  closeModal: () => {},
+};
 
 const StWrapper = styled.div`
   display: flex;
@@ -121,7 +126,6 @@ const StWrapper = styled.div`
   align-items: center;
   width: 100%;
   height: 100vh;
-
 `;
 const StContainerForm = styled.form`
   display: flex;
@@ -131,7 +135,7 @@ const StContainerForm = styled.form`
   align-items: center;
   background-color: whitesmoke;
   border-radius: 6px;
-`
+`;
 const StProfileBox = styled.div`
   width: 320px;
   height: 100px;
@@ -216,9 +220,9 @@ const StProfile = styled.img`
 `;
 
 const StChangePhoto = styled.input`
-  width: 74px;
+  width: 62px;
   height: 26px;
-  background: #ffffff;
+  background: rgb(249, 249, 249);
   border-radius: 4px;
   font-weight: 700;
   font-size: 12px;

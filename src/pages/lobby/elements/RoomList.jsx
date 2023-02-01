@@ -9,6 +9,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Modal from "../../../components/form/modal/Modal";
 import CreateRoom from "../../../components/form/modal/sign/CreateRoom";
 import { ICON } from "../../../helpers/Icons";
+import axios from "axios";
 
 const buttonVariants = {
   hover: {
@@ -21,38 +22,33 @@ const buttonVariants = {
   },
 };
 
-// async function fetchPosts(pageNum) {
+// async function fetchPosts(pageNum = 1) {
+//   console.log("fetchPosts", pageNum);
 //   const response = await axios.get(
-//     `https://hanghae99.goguma.online
-//     /main/rooms?page=${pageNum}`
+//     `https://game.davinci-code.online/rooms?page=${pageNum}`
 //   );
 //   return response;
 // }
-
-async function fetchPosts(pageNum) {
-  const response = [];
-  return response;
-}
 
 const RoomList = () => {
   const queryClient = useQueryClient();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPage, setTotalPage] = useState(17);
+  const [totalPage, setTotalPage] = useState(2);
   const [selectedPost, setSelectedPost] = useState(null);
   const [list, setList] = useState([1, 2, 3, 4, 5]);
   const [isWaiting, setIsWaiting] = useState(false);
   const [isPrivate, setIsPrivate] = useState(false);
   const [showCreateRoom, setShowCreateRoom] = useState(false);
 
-  const { data, isError, error, isLoading } = useQuery(
-    ["posts", currentPage],
-    () => fetchPosts(currentPage),
-    {
-      staleTime: 2000,
-      keepPreviousData: true,
-    }
-  );
+  // const { data, status, isError, error, isLoading } = useQuery(
+  //   ["posts", currentPage],
+  //   () => fetchPosts(currentPage),
+  //   {
+  //     staleTime: 2000,
+  //     keepPreviousData: true,
+  //   }
+  // );
 
   const arrLoop = (currentPage) => {
     const newArr = [];
@@ -73,12 +69,12 @@ const RoomList = () => {
 
   useEffect(() => {
     setList(arrLoop(currentPage));
-    if (currentPage < totalPage) {
-      const nextPage = currentPage + 1;
-      queryClient.prefetchQuery(["posts", nextPage], () =>
-        fetchPosts(nextPage)
-      );
-    }
+    // if (currentPage < totalPage) {
+    //   const nextPage = currentPage + 1;
+    //   queryClient.prefetchQuery(["posts", nextPage], () =>
+    //     fetchPosts(nextPage)
+    //   );
+    // }
   }, [currentPage]);
 
   return (
@@ -120,9 +116,11 @@ const RoomList = () => {
       </StSearchRoom>
       <StRoomList>
         <RoomContents
+          currentPage={currentPage}
           handleCheckboxChange={handleCheckboxChange}
           isWaiting={isWaiting}
           isPrivate={isPrivate}
+          setTotalPage={setTotalPage}
         ></RoomContents>
       </StRoomList>
 

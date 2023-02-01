@@ -6,54 +6,67 @@ import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { RoomAPI } from "../../../../api/axios";
 import { queryKeys } from "../../../../helpers/queryKeys";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const CreateRoom = ({ closeModal, modal }) => {
+  const navigate = useNavigate();
   const styles = { modal };
   const queryClient = useQueryClient();
   // State to store the form data
   const [roomName, setRoomName] = useState("");
+  const [isSecret, setIsSecret] = useState(false);
   const [maxMembers, setMaxMembers] = useState(0);
   const [password, setPassword] = useState("");
 
   // Mutation function to send the POST request
-  const { mutate: createRoom } = useMutation(
-    RoomAPI.postRoom({ roomName, maxMembers, password }),
-    {
-      onSuccess: (data) => {
-        queryClient.invalidateQueries([queryKeys.ROOM_LIST]);
-        alert("최신화 완료");
-      },
-      onError: (error) => {
-        console.log(error);
-      },
-    }
-  );
-
-  // Handle the form input changes
-  const handleRoomNameChange = (e) => {
-    setRoomName(e.target.value);
-  };
-  const handleMaxMembersChange = (e) => {
-    setMaxMembers(e.target.value);
-  };
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
+  // const { mutate: createRoom } = useMutation(
+  //   RoomAPI.postRoom({ roomName, maxMembers, password }),
+  //   {
+  //     onSuccess: (data) => {
+  //       queryClient.invalidateQueries([queryKeys.ROOM_LIST]);
+  //       alert("최신화 완료");
+  //     },
+  //     onError: (error) => {
+  //       console.log(error);
+  //     },
+  //   }
+  // );
 
   // Handle the form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    // Send the POST request with the form data
-    await createRoom();
-    // Close the modal
-    closeModal();
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   // Send the POST request with the form data
+  //   await createRoom();
+  //   // Close the modal
+  //   closeModal();
+  // };
+
+  const createRoomHandler = async () => {
+    const { roomId } = await axios.post(
+      "https://game.davinci-code.online/rooms",
+      {
+        roomName,
+        maxMembers: 2,
+        password,
+      },
+      {
+        withCredentials: true,
+      }
+    );
+    navigate(`/game/${roomId}`);
   };
+
   return (
     <StWrapper>
       <StHeadText>방 만들기</StHeadText>
       <StRoomName>
         <label>방 제목</label>
-        <input type="text" placeholder="초보자 환영! 같이 배우면서 즐겨요." />
+        <input
+          type="text"
+          placeholder="초보자 환영! 같이 배우면서 즐겨요."
+          onChange={(e) => setRoomName(e.target.value)}
+        />
       </StRoomName>
       <StSettingRoom>
         <Sta>
@@ -67,14 +80,29 @@ const CreateRoom = ({ closeModal, modal }) => {
         <Stb>
           <label>공개설정</label>
           <StOpen>
-            <input type="checkbox" />
+            <input
+              type="checkbox"
+              checked={!isSecret}
+              onChange={() => setIsSecret(!isSecret)}
+            />
             <div>공개</div>
           </StOpen>
         </Stb>
         <StIsSecret>
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            checked={isSecret}
+            onChange={() => setIsSecret(!isSecret)}
+          />
           <div>비공개</div>
-          <input type="text" placeholder="0000" maxLength={4} />
+          <input
+            type="text"
+            placeholder="0000"
+            maxLength={4}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
         </StIsSecret>
       </StSettingRoom>
       <StSecretDesc>비밀번호 숫자 4자리 입력</StSecretDesc>
@@ -82,7 +110,9 @@ const CreateRoom = ({ closeModal, modal }) => {
         <StButton color="#fff" onClick={closeModal}>
           취소
         </StButton>
-        <StButton color="#ffdf24">확인</StButton>
+        <StButton color="#ffdf24" onClick={createRoomHandler}>
+          확인
+        </StButton>
       </StBtnList>
     </StWrapper>
   );

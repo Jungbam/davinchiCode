@@ -6,43 +6,75 @@ import { queryKeys } from "../../../../helpers/queryKeys";
 import DisabledImage from "../../../../assets/images/lobby_disabled_room.png";
 import { motion } from "framer-motion";
 import { ICON } from "../../../../helpers/Icons";
-const RoomContents = ({ isWaiting, isPrivate }) => {
+import axios from "axios";
+import { useEffect } from "react";
+
+const RoomContents = ({ isWaiting, isPrivate, currentPage, setTotalPage }) => {
   const navigate = useNavigate();
 
-  const { data: rooms, status } = useQuery(
-    [queryKeys.ROOM_LIST],
-    async () => mockData.rooms
+  // const { data: rooms, status } = useQuery(
+  //   [queryKeys.ROOM_LIST],
+  //   async () => mockData.rooms,
+  //   {
+  //     staleTime: 2000,
+  //     keepPreviousData: true,
+  //   }
+  // );
+  const { data, status } = useQuery(
+    ["posts", currentPage],
+    async () =>
+      axios.get(`https://game.davinci-code.online/rooms?page=${currentPage}`),
+    {
+      staleTime: 2000,
+      keepPreviousData: true,
+    }
   );
+  useEffect(() => {
+    if (data !== undefined) {
+      setTotalPage(data.data.totalPage);
+    }
+  }, []);
+  // const fetchPosts = async (pageNum) => {
+  //   console.log("fetchPosts", pageNum);
+  //   await axios.get(`https://game.davinci-code.online/rooms?page=${pageNum}`);
+  // };
+
+  // const { data, status } = useQuery(["fff"], () => fetchPosts(currentPage), {
+  //   keepPreviousData: true,
+  // });
 
   const handleEnterRoom = (roomId) => {
     navigate(`/game/${roomId}`);
   };
+
+  console.log(data);
 
   return (
     <StWrapper>
       {status === "loading" && <div>Loading...</div>}
       {status === "success" && (
         <>
-          {rooms
+          {data?.data.rooms
             .filter(
               (room) =>
-                (!isWaiting || room.isWaiting) && (!isPrivate || room.isPrivate)
+                (!isWaiting || room.isPlaying) && (!isPrivate || room.isPrivate)
             )
             .map((room, i) => (
               <StContainer
                 key={`roomList${i}`}
-                iswaiting={room.isWaiting.toString()}
+                iswaiting={room.isPlaying.toString()}
               >
                 <StLeft>
                   <StButton>
                     {room.currentMembers}/{room.maxMembers}
                   </StButton>
                   <StButton color="#00831D">
-                    {room.isWaiting ? "대기" : "진행"}
+                    {room.isPlaying ? "진행" : "대기"}
                   </StButton>
                   <div>
                     <img
-                      src={room.isPrivate ? ICON.iconLock : ICON.iconUnlock} alt="공개설정"
+                      src={room.isPrivate ? ICON.iconLock : ICON.iconUnlock}
+                      alt="공개설정"
                     />
                   </div>
                 </StLeft>
@@ -51,11 +83,11 @@ const RoomContents = ({ isWaiting, isPrivate }) => {
                   <StRoomName>{room.roomName}</StRoomName>
                 </StMiddle>
 
-                {room.isWaiting ? (
+                {!room.isPlaying ? (
                   <StEnterRoom
                     onClick={() => handleEnterRoom(room.roomId)}
-                    disabled={!room.isWaiting.toString()}
-                    iswaiting={room.isWaiting.toString()}
+                    disabled={room.isPlaying}
+                    isplaying={room.isPlaying.toString()}
                     whileHover={{
                       color: "#fff",
                       backgroundColor: "#000",
@@ -67,8 +99,8 @@ const RoomContents = ({ isWaiting, isPrivate }) => {
                   </StEnterRoom>
                 ) : (
                   <StEnterRoom
-                    disabled={!room.isWaiting.toString()}
-                    iswaiting={room.isWaiting.toString()}
+                    disabled={room.isPlaying}
+                    isplaying={room.isPlaying.toString()}
                   >
                     입장
                   </StEnterRoom>
@@ -96,7 +128,7 @@ const StContainer = styled.div`
   width: 608px;
   height: 46px;
   background: ${(props) =>
-    props.iswaiting === "true" ? "#fff" : `url(${DisabledImage})`};
+    props.iswaiting === "true" ? `url(${DisabledImage})` : "#fff"};
   background-size: cover;
   border: 1px solid #bcbcbc;
   border-radius: 6px;
@@ -150,7 +182,7 @@ const StEnterRoom = styled(motion.button)`
   width: 48px;
   height: 26px;
   border-radius: 4px;
-  border: solid 1px ${(props) => (props.iswaiting === "true" ? "#000" : "#aaa")};
+  border: solid 1px ${(props) => (props.isplaying === "true" ? "#eee" : "#000")};
 
   font-size: 12px;
   font-weight: bold;
@@ -166,7 +198,7 @@ const StEnterRoom = styled(motion.button)`
   align-items: center;
   margin-left: 50px;
 
-  cursor: ${(props) => (props.disabled ? "default" : "pointer")};
+  cursor: ${(props) => (props.isplaying === "true" ? "default" : "pointer")};
 `;
 
 const StRoomNum = styled.div`
