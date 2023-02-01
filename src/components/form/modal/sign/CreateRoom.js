@@ -3,25 +3,33 @@ import React from "react";
 import styled from "styled-components";
 import DropdownPlayerCount from "../../../common/elements/DropDownPlayerCount";
 import { useState } from "react";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { RoomAPI } from "../../../../api/axios";
-import { queryKeys } from "../../../../helpers/queryKeys";
+
+import { useNavigate } from "react-router-dom";
+import { ICON } from "../../../../helpers/Icons";
 
 const CreateRoom = ({ closeModal, modal }) => {
-  const styles = { modal };
-  const queryClient = useQueryClient();
-  // State to store the form data
+  const navigate = useNavigate();
   const [roomName, setRoomName] = useState("");
-  const [maxMembers, setMaxMembers] = useState(0);
+  const [maxMembers, setMaxMembers] = useState("4명");
+  const [isSecret, setIsSecret] = useState(false);
   const [password, setPassword] = useState("");
+  const [roomModal, setRoomModal] = useState(false);
 
-  // Mutation function to send the POST request
+  const roomMembersHandler = (num) => {
+    setMaxMembers(num);
+    setRoomModal((prev) => !prev);
+  };
+
+  const passwordChecked =
+    (!isSecret || password.length === 4) && roomName !== "";
+
   const { mutate: createRoom } = useMutation(
-    RoomAPI.postRoom({ roomName, maxMembers, password }),
+    () => RoomAPI.postRoom({ roomName, maxMembers, password }),
     {
-      onSuccess: (data) => {
-        queryClient.invalidateQueries([queryKeys.ROOM_LIST]);
-        alert("최신화 완료");
+      onSuccess: ({ data }) => {
+        navigate(`/game/${data.roomId}`);
       },
       onError: (error) => {
         console.log(error);
@@ -29,52 +37,75 @@ const CreateRoom = ({ closeModal, modal }) => {
     }
   );
 
-  // Handle the form input changes
-  const handleRoomNameChange = (e) => {
-    setRoomName(e.target.value);
-  };
-  const handleMaxMembersChange = (e) => {
-    setMaxMembers(e.target.value);
-  };
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
+  const createRoomHandler = () => {
+    createRoom();
   };
 
-  // Handle the form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    // Send the POST request with the form data
-    await createRoom();
-    // Close the modal
-    closeModal();
-  };
   return (
     <StWrapper>
       <StHeadText>방 만들기</StHeadText>
       <StRoomName>
         <label>방 제목</label>
-        <input type="text" placeholder="초보자 환영! 같이 배우면서 즐겨요." />
+        <input
+          type="text"
+          placeholder="초보자 환영! 같이 배우면서 즐겨요."
+          onChange={(e) => setRoomName(e.target.value)}
+          value={roomName}
+        />
       </StRoomName>
       <StSettingRoom>
         <Sta>
           <label>인원설정</label>
-          <select>
-            <option>4명</option>
-            <option>3명</option>
-            <option>2명</option>
-          </select>
+          <StModalOpener
+            onClick={() => {
+              setRoomModal((prev) => !prev);
+            }}
+          >
+            <span>{maxMembers}</span>
+            <img src={ICON.iconDropDown} />
+          </StModalOpener>
+          <StModal roomModal={roomModal}>
+            {["2명", "3명", "4명"].map((el, i) => (
+              <button
+                key={`roomMembers${i}`}
+                onClick={() => roomMembersHandler(el)}
+              >
+                <span>{el}</span>
+              </button>
+            ))}
+          </StModal>
         </Sta>
         <Stb>
           <label>공개설정</label>
           <StOpen>
-            <input type="checkbox" />
+            <input
+              type="checkbox"
+              checked={!isSecret}
+              onChange={() => {
+                setIsSecret(!isSecret);
+                setPassword("");
+              }}
+            />
             <div>공개</div>
           </StOpen>
         </Stb>
         <StIsSecret>
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            checked={isSecret}
+            onChange={() => setIsSecret(!isSecret)}
+          />
           <div>비공개</div>
-          <input type="text" placeholder="0000" maxLength={4} />
+          <input
+            type="text"
+            placeholder="0000"
+            value={password}
+            disabled={!isSecret}
+            maxLength={4}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
         </StIsSecret>
       </StSettingRoom>
       <StSecretDesc>비밀번호 숫자 4자리 입력</StSecretDesc>
@@ -82,7 +113,13 @@ const CreateRoom = ({ closeModal, modal }) => {
         <StButton color="#fff" onClick={closeModal}>
           취소
         </StButton>
-        <StButton color="#ffdf24">확인</StButton>
+        <StCheckBtn
+          disabled={!passwordChecked}
+          passwordChecked={passwordChecked.toString()}
+          onClick={createRoomHandler}
+        >
+          확인
+        </StCheckBtn>
       </StBtnList>
     </StWrapper>
   );
@@ -161,6 +198,27 @@ const StButton = styled.div`
   line-height: 100%;
 `;
 
+const StCheckBtn = styled.button`
+  width: 100px;
+  height: 32px;
+  background: ${({ passwordChecked }) =>
+    passwordChecked === "true" ? "#ffdf24" : "#DDDDDD;"};
+  border: 1px solid #000000;
+  box-shadow: 0px 3px 0px #000000;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: ${({ passwordChecked }) =>
+    passwordChecked === "true" ? "pointer" : "default"};
+
+  color: ${({ passwordChecked }) =>
+    passwordChecked === "true" ? "#111" : "#616161"};
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 100%;
+`;
+
 const StSettingRoom = styled.div`
   margin-top: 8px;
   width: 320px;
@@ -177,18 +235,48 @@ const Sta = styled.div`
     font-size: 12px;
     line-height: 14px;
   }
-  & select {
+`;
+
+const StModalOpener = styled.button`
+  margin-top: 4px;
+  width: 100%;
+  height: 40px;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 14px;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  & span {
+    margin-right: 10px;
+  }
+`;
+
+const StModal = styled.div`
+  display: ${({ roomModal }) => (roomModal ? "flex" : "none")};
+  flex-direction: column;
+  z-index: 100000;
+  position: relative;
+  & button {
     margin-top: 4px;
     width: 100%;
-    height: 40px;
+    height: 35px;
     border: 1px solid #dddddd;
-    border-radius: 4px;
+    border-radius: 2px;
     background-color: #f9f9f9;
-    padding-left: 14px;
 
     font-weight: 500;
     font-size: 14px;
     line-height: 14px;
+    padding-left: 13px;
+    margin: 0;
+    display: flex;
+    align-items: center;
   }
 `;
 
@@ -270,7 +358,7 @@ const StIsSecret = styled.div`
     font-weight: 500;
     font-size: 14px;
     line-height: 14px;
-    padding-left: 8.5px;
+    padding-left: 5px;
     border: none;
     background-color: #f9f9f9;
     font-family: "Pretendard Variable";
