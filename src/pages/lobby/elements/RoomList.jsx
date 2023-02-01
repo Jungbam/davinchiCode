@@ -34,9 +34,9 @@ const RoomList = () => {
   const queryClient = useQueryClient();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPage, setTotalPage] = useState(7);
+  const [totalPage, setTotalPage] = useState(1);
   const [selectedPost, setSelectedPost] = useState(null);
-  const [list, setList] = useState([1, 2, 3, 4, 5]);
+  const [list, setList] = useState([]);
   const [isWaiting, setIsWaiting] = useState(false);
   const [isPrivate, setIsPrivate] = useState(false);
   const [showCreateRoom, setShowCreateRoom] = useState(false);
@@ -60,10 +60,10 @@ const RoomList = () => {
 
   useEffect(() => {
     setList(arrLoop(currentPage));
-    if (currentPage < totalPage) {
-      const nextPage = currentPage + 1;
-      queryClient.prefetchQuery(["posts", nextPage], () => axios.get());
-    }
+    // if (currentPage < totalPage) {
+    //   const nextPage = currentPage + 1;
+    //   queryClient.prefetchQuery(["posts", nextPage], () => axios.get());
+    // }
   }, [currentPage, totalPage]);
 
   return (
@@ -78,7 +78,7 @@ const RoomList = () => {
               checked={isWaiting}
               onChange={() => setIsWaiting(!isWaiting)}
             />
-            <label htmlFor="standby">대기방</label>
+            <label onClick={() => setIsWaiting(!isWaiting)}>대기방</label>
           </StCheckButton>
           <StCheckButton color="#00831d">
             <input
@@ -87,7 +87,7 @@ const RoomList = () => {
               checked={isPrivate}
               onChange={() => setIsPrivate(!isPrivate)}
             />
-            <label htmlFor="privacyControl">비공개</label>
+            <label onClick={() => setIsPrivate(!isPrivate)}>비공개</label>
           </StCheckButton>
         </StBtnList>
         <StFuncBack>

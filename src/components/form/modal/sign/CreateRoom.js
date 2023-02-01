@@ -25,42 +25,23 @@ const CreateRoom = ({ closeModal, modal }) => {
     setRoomModal((prev) => !prev);
   };
 
-  // Mutation function to send the POST request
-  // const { mutate: createRoom } = useMutation(
-  //   RoomAPI.postRoom({ roomName, maxMembers, password }),
-  //   {
-  //     onSuccess: (data) => {
-  //       queryClient.invalidateQueries([queryKeys.ROOM_LIST]);
-  //       alert("최신화 완료");
-  //     },
-  //     onError: (error) => {
-  //       console.log(error);
-  //     },
-  //   }
-  // );
+  const passwordChecked =
+    (!isSecret || password.length === 4) && roomName !== "";
 
-  // Handle the form submission
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   // Send the POST request with the form data
-  //   await createRoom();
-  //   // Close the modal
-  //   closeModal();
-  // };
-
-  const createRoomHandler = async () => {
-    const { roomId } = await axios.post(
-      "https://game.davinci-code.online/rooms",
-      {
-        roomName,
-        maxMembers,
-        password,
+  const { data, mutate: createRoom } = useMutation(
+    () => RoomAPI.postRoom({ roomName, maxMembers, password }),
+    {
+      onSuccess: ({ data }) => {
+        navigate(`/game/${data.roomId}`);
       },
-      {
-        withCredentials: true,
-      }
-    );
-    navigate(`/game/${roomId}`);
+      onError: (error) => {
+        console.log(error);
+      },
+    }
+  );
+
+  const createRoomHandler = () => {
+    createRoom();
   };
 
   return (
@@ -96,11 +77,6 @@ const CreateRoom = ({ closeModal, modal }) => {
               </button>
             ))}
           </StModal>
-          {/* <select>
-            <option>4명</option>
-            <option>3명</option>
-            <option>2명</option>
-          </select> */}
         </Sta>
         <Stb>
           <label>공개설정</label>
@@ -140,9 +116,13 @@ const CreateRoom = ({ closeModal, modal }) => {
         <StButton color="#fff" onClick={closeModal}>
           취소
         </StButton>
-        <StButton color="#ffdf24" onClick={createRoomHandler}>
+        <StCheckBtn
+          passwordChecked={passwordChecked.toString()}
+          disabled={!passwordChecked}
+          onClick={createRoomHandler}
+        >
           확인
-        </StButton>
+        </StCheckBtn>
       </StBtnList>
     </StWrapper>
   );
@@ -215,6 +195,28 @@ const StButton = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 100%;
+`;
+
+const StCheckBtn = styled.div`
+  width: 100px;
+  height: 32px;
+  background: ${({ passwordChecked }) =>
+    passwordChecked === "true" ? "#ffdf24" : "#DDDDDD;"};
+  border: 1px solid #000000;
+  box-shadow: 0px 3px 0px #000000;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: ${({ passwordChecked }) =>
+    passwordChecked === "true" ? "pointer" : "default"};
+
+  color: ${({ passwordChecked }) =>
+    passwordChecked === "true" ? "#111" : "#616161"};
 
   font-weight: 700;
   font-size: 14px;

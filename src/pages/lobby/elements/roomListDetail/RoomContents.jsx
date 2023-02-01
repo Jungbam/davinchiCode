@@ -12,8 +12,9 @@ import { useEffect } from "react";
 const RoomContents = ({ isWaiting, isPrivate, currentPage, setTotalPage }) => {
   const navigate = useNavigate();
 
+  // queryClient.invalidateQueries([queryKeys.ROOM_LIST]);
   const { data, status } = useQuery(
-    ["posts", currentPage],
+    [queryKeys.ROOM_LIST, currentPage],
     async () =>
       axios.get(`https://game.davinci-code.online/rooms?page=${currentPage}`),
     {
@@ -28,7 +29,7 @@ const RoomContents = ({ isWaiting, isPrivate, currentPage, setTotalPage }) => {
   const handleEnterRoom = (roomId) => {
     navigate(`/game/${roomId}`);
   };
-
+  console.log(data?.data);
   return (
     <StWrapper>
       {status === "loading" && <div>Loading...</div>}
@@ -183,7 +184,7 @@ const StEnterRoom = styled(motion.button)`
 `;
 
 const StRoomNum = styled.div`
-  width: 30px;
+  width: 50px;
   height: 16px;
 
   font-weight: 500;
