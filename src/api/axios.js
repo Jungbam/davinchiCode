@@ -30,10 +30,6 @@ export const SignAPI = {
   auth: () => client.get("/auth/check"),
 };
 export const RoomAPI = {
-  // getRoom: (currentPage) =>
-  //   gameClient.get(
-  //     `/rooms?page=${currentPage}&searchType=${searchType}&search=`
-  //   ),
   postRoom: (roomData) => gameClient.post("/rooms", roomData),
   inRoom: (roomId, password) => gameClient.post(`/rooms/${roomId}`, password),
   searchRoom: ({ currentPage, searchType = "name", search = "" }) =>
