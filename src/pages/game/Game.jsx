@@ -12,21 +12,11 @@ import { eventName } from "../../helpers/eventName";
 import { useDispatch, useSelector } from "react-redux";
 import { setInit, setUsers } from "../../redux/modules/gameSlice";
 import MyBox from "./ele/MyBox";
-import { useQuery } from "@tanstack/react-query";
-import { queryKeys } from "../../helpers/queryKeys";
-import { SignAPI } from "../../api/axios";
 const userId = Math.floor(Math.random() * 100);
 const Game = () => {
   const [msgList, setMsgList] = useState([]);
   const { roomId } = useParams();
   const socketRef = useRef();
-  const { data } = useQuery([queryKeys.MYINFO], SignAPI.myinfo, {
-    staleTime: 30 * 60 * 1000,
-    cacheTime: 30 * 60 * 1000,
-    onSuccess: (res) => {},
-    onError: () => {},
-  });
-  // const userId = data.data.userId
   const { users,turn } = useSelector((state) => state.gameSlice.gameInfo);
   const myInfo = users.filter((user) => user.userId === userId);
   const others = users.filter((user) => user.userId !== userId);
