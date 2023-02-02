@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import Modal from "../../form/modal/Modal";
 import SetUserInfo from "../../../pages/intro/kakao/SetUserInfo";
 import Logout from "../../form/modal/sign/Logout";
@@ -16,21 +16,42 @@ function DropdownMenu() {
       <StButtonDesign onClick={() => setShowMenu((prev) => !prev)}>
         마이페이지
       </StButtonDesign>
-      {showMenu && (
-        <StMenuList
-          initial={{ y: -60, opacity: 0 }}
-          animate={{ y: 0, opacity: 1, transition: { duration: 1 } }}
-          exit={{ y: 60, transition: { duration: 2 } }}
-        >
-          <StMenu bottom="1px" onClick={() => setShowModal(true)}>
-            내 프로필 설정
-          </StMenu>
-          <StMenu onClick={() => setShowLogout(true)}>로그아웃</StMenu>
-          <StMenu top="1px" onClick={() => setShowDelAccount(true)}>
-            회원탈퇴
-          </StMenu>
-        </StMenuList>
-      )}
+      <AnimatePresence>
+        {showMenu && (
+          <StMenuList
+            initial={{ y: -60, opacity: 0 }}
+            animate={{ y: 0, opacity: 1, transition: { duration: 0.3 } }}
+            exit={{ opacity: 0, transition: { duration: 0.5 } }}
+          >
+            <StMenu
+              bottom="1px"
+              onClick={() => {
+                setShowModal(true);
+                setShowMenu((prev) => !prev);
+              }}
+            >
+              내 프로필 설정
+            </StMenu>
+            <StMenu
+              onClick={() => {
+                setShowLogout(true);
+                setShowMenu((prev) => !prev);
+              }}
+            >
+              로그아웃
+            </StMenu>
+            <StMenu
+              top="1px"
+              onClick={() => {
+                setShowDelAccount(true);
+                setShowMenu((prev) => !prev);
+              }}
+            >
+              회원탈퇴
+            </StMenu>
+          </StMenuList>
+        )}
+      </AnimatePresence>
       <Modal
         modal={showModal.toString()}
         closeModal={() => {

@@ -9,122 +9,187 @@ import Modal from "../../../../components/form/modal/Modal";
 import { useState } from "react";
 import { RoomAPI } from "../../../../api/axios";
 import { BootStrap } from "../../../BootStrap";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const RoomContents = ({ isWaiting, isPrivate, currentPage, setTotalPage }) => {
-  const [modal, setModal] = useState(false)
-  const [inRoom, setInRoom] = useState(0)
-  const [inRoomPrivate, setInRoomPrivate] = useState(false)
-  const [password, setPassword] = useState('')
-  const {StBtn,StWrapper}=BootStrap;
+  const [modal, setModal] = useState(false);
+  const [inRoom, setInRoom] = useState(0);
+  const [inRoomPrivate, setInRoomPrivate] = useState(false);
+  const [password, setPassword] = useState("");
+  const { reFetch } = useSelector((state) => state.signSlice);
+  const { StBtn, StWrapper } = BootStrap;
   const navigate = useNavigate();
-  
+
   const { data, status } = useQuery(
-    [queryKeys.ROOM_LIST, currentPage], ()=>RoomAPI.getRoom(currentPage),
+    [queryKeys.ROOM_LIST, currentPage],
+    () => RoomAPI.getRoom(currentPage),
     {
-      staleTime: 2000,
       keepPreviousData: true,
       onSuccess: (data) => {
         setTotalPage((prev) => data.data.totalPage);
       },
     }
   );
-  const enterInRoomHandler = (roomId, isPrivate)=>{
-    setModal(true)
-    setInRoomPrivate(isPrivate)
-    setInRoom(roomId)
-  }
-  const closeModalHandler = ()=>{
-    setModal(false)
-    setPassword('')
-    setInRoom(0)
-  }
-  const {mutate} = useMutation(()=>RoomAPI.inRoom(inRoom, password),{
-    onSuccess : (data)=>{
-      if(data.status===200) navigate(`/game/${inRoom}`)
+  const enterInRoomHandler = (roomId, isPrivate) => {
+    setModal(true);
+    setInRoomPrivate(isPrivate);
+    setInRoom(roomId);
+  };
+  const closeModalHandler = () => {
+    setModal(false);
+    setPassword("");
+    setInRoom(0);
+  };
+  const { mutate } = useMutation(() => RoomAPI.inRoom(inRoom, password), {
+    onSuccess: (data) => {
+      if (data.status === 200) navigate(`/game/${inRoom}`);
     },
-    onError:(error)=>{
+    onError: (error) => {
       // error에 대한 경우 처리
-      alert('방 입장 에러')
-      navigate('/')
+      alert("방 입장 에러");
+      navigate("/");
+    },
+  });
+  useEffect(() => {
+    if (reFetch) {
     }
-  })
+  }, [reFetch]);
   return (
     <>
-    <StWrapper jus="flex-start" padding="20px 14px">
-      {status === "loading" && <div>Loading...</div>}
-      {status === "success" && (
-        <>
-          {data?.data.rooms
-            .filter(
-              (room) =>
-                (!isWaiting || !room.isPlaying) &&
-                (!isPrivate || room.isPrivate)
-            )
-            .map((room, i) => (
-              <StContainer
-                key={`roomList${i}`}
-                iswaiting={room.isPlaying.toString()}
-              >
-                <StLeft>
-                  <StButton>
-                    {room.currentMembers}/{room.maxMembers}
-                  </StButton>
-                  <StButton color="#00831D">
-                    {room.isPlaying ? "진행" : "대기"}
-                  </StButton>
-                  <div>
-                    <img
-                      src={room.isPrivate ? ICON.iconLock : ICON.iconUnlock}
-                      alt="공개설정"
-                    />
-                  </div>
-                </StLeft>
-                <StMiddle>
-                  <StRoomNum>{room.roomId}</StRoomNum>
-                  <StRoomName>{room.roomName}</StRoomName>
-                </StMiddle>
+      <StWrapper jus="flex-start" padding="20px 14px">
+        {status === "loading" && <div>Loading...</div>}
+        {status === "success" && (
+          <>
+            {data?.data.rooms
+              .filter(
+                (room) =>
+                  (!isWaiting || !room.isPlaying) &&
+                  (!isPrivate || room.isPrivate)
+              )
+              .map((room, i) => (
+                <StContainer
+                  key={`roomList${i}`}
+                  iswaiting={(
+                    room.isPlaying || room.currentMembers === room.maxMembers
+                  ).toString()}
+                >
+                  <StLeft>
+                    <StButton
+                      isplaying={
+                        room.isPlaying ||
+                        room.currentMembers === room.maxMembers
+                      }
+                      color="#111"
+                    >
+                      {room.currentMembers}/{room.maxMembers}
+                    </StButton>
+                    <StButton
+                      isplaying={
+                        room.isPlaying ||
+                        room.currentMembers === room.maxMembers
+                      }
+                      color="#00831D"
+                    >
+                      {room.isPlaying ? "진행" : "대기"}
+                    </StButton>
+                    <div>
+                      <img
+                        src={room.isPrivate ? ICON.iconLock : ICON.iconUnlock}
+                        alt="공개설정"
+                      />
+                    </div>
+                  </StLeft>
+                  <StMiddle
+                    isplaying={
+                      room.isPlaying || room.currentMembers === room.maxMembers
+                    }
+                  >
+                    <StRoomNum>{room.roomId}</StRoomNum>
+                    <StRoomName>{room.roomName}</StRoomName>
+                  </StMiddle>
 
-                {!room.isPlaying ? (
-                  <StEnterRoom
-                    onClick={()=>enterInRoomHandler(room.roomId, room.isPrivate)}
-                    disabled={room.isPlaying}
-                    isplaying={room.isPlaying.toString()}
-                    whileHover={{
-                      color: "#fff",
-                      backgroundColor: "#000",
-                      scale: 1.1,
-                    }}
-                    transition={{ type: "spring" }}
-                  >
-                    입장
-                  </StEnterRoom>
-                ) : (
-                  <StEnterRoom
-                    disabled={room.isPlaying}
-                    isplaying={room.isPlaying.toString()}
-                  >
-                    입장
-                  </StEnterRoom>
-                )}
-              </StContainer>
-            ))}
-        </>
-      )}
-    </StWrapper>
-    <Modal width="288px" height="180px" modal={modal.toString()} closeModal={closeModalHandler}>
-      <StWrapper jus='center' padding = "10px">
-        <p>{inRoom}번 방에 입장하시겠습니까?</p>
-        {inRoomPrivate&&<StBtnBox>
-          <label>비밀번호</label>
-          <StInputPass value={password} onChange={(e)=>setPassword(e.target.value)}></StInputPass>
-        </StBtnBox>}
-        <StBtnBox>
-          <StBtn color="#ffdf24" width="100px" height="32px" onClick={()=>mutate()}>확인</StBtn>
-          <StBtn color="#fff" width="100px" height="32px" onClick={closeModalHandler}>취소</StBtn>
-        </StBtnBox>
+                  {!(
+                    room.isPlaying || room.currentMembers === room.maxMembers
+                  ) ? (
+                    <StEnterRoom
+                      onClick={() =>
+                        enterInRoomHandler(room.roomId, room.isPrivate)
+                      }
+                      disabled={
+                        room.isPlaying ||
+                        room.currentMembers === room.maxMembers
+                      }
+                      isplaying={(
+                        room.isPlaying ||
+                        room.currentMembers === room.maxMembers
+                      ).toString()}
+                      whileHover={{
+                        color: "#fff",
+                        backgroundColor: "#000",
+                        scale: 1.1,
+                      }}
+                      transition={{ type: "spring" }}
+                    >
+                      입장
+                    </StEnterRoom>
+                  ) : (
+                    <StEnterRoom
+                      disabled={
+                        room.isPlaying ||
+                        room.currentMembers === room.maxMembers
+                      }
+                      isplaying={(
+                        room.isPlaying ||
+                        room.currentMembers === room.maxMembers
+                      ).toString()}
+                    >
+                      입장
+                    </StEnterRoom>
+                  )}
+                </StContainer>
+              ))}
+          </>
+        )}
       </StWrapper>
-    </Modal>
-  </>
+      <Modal
+        width="288px"
+        height="180px"
+        modal={modal.toString()}
+        closeModal={closeModalHandler}
+      >
+        <StWrapper jus="center" padding="10px">
+          <p>{inRoom}번 방에 입장하시겠습니까?</p>
+          {inRoomPrivate && (
+            <StBtnBox>
+              <label>비밀번호</label>
+              <StInputPass
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              ></StInputPass>
+            </StBtnBox>
+          )}
+          <StBtnBox>
+            <StBtn
+              color="#ffdf24"
+              width="100px"
+              height="32px"
+              onClick={() => mutate()}
+            >
+              확인
+            </StBtn>
+            <StBtn
+              color="#fff"
+              width="100px"
+              height="32px"
+              onClick={closeModalHandler}
+            >
+              취소
+            </StBtn>
+          </StBtnBox>
+        </StWrapper>
+      </Modal>
+    </>
   );
 };
 
@@ -132,7 +197,7 @@ const StContainer = styled.div`
   width: 608px;
   height: 46px;
   background: ${(props) =>
-  props.iswaiting === "true" ? `url(${DisabledImage})` : "#fff"};
+    props.iswaiting === "true" ? `url(${DisabledImage})` : "#fff"};
   background-size: cover;
   border: 1px solid #bcbcbc;
   border-radius: 6px;
@@ -151,8 +216,8 @@ const StLeft = styled.div`
 const StButton = styled.div`
   width: 34px;
   height: 20px;
-  border: 1px solid ${({ color }) => color || "#111"};
-  color: ${({ color }) => color || "#111"};
+  border: 1px solid ${({ isplaying, color }) => (isplaying ? "#666" : color)};
+  color: ${({ isplaying, color }) => (isplaying ? "#666" : color)};
   border-radius: 999px;
   display: flex;
   justify-content: center;
@@ -167,11 +232,15 @@ const StMiddle = styled.div`
   display: flex;
   gap: 30px;
   font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
   font-size: 14px;
   line-height: 17px;
   display: flex;
   align-items: center;
-  color: #000000;
+  color: ${({ isplaying }) => (isplaying ? "#666" : "#111")};
   margin-left: 30px;
 `;
 
@@ -179,7 +248,7 @@ const StEnterRoom = styled(motion.button)`
   width: 48px;
   height: 26px;
   border-radius: 4px;
-  border: solid 1px ${(props) => (props.isplaying === "true" ? "#eee" : "#000")};
+  border: solid 1px ${(props) => (props.isplaying === "true" ? "#888" : "#000")};
   font-size: 12px;
   font-weight: bold;
   font-stretch: normal;
@@ -187,7 +256,7 @@ const StEnterRoom = styled(motion.button)`
   line-height: 1;
   letter-spacing: normal;
   text-align: left;
-  color: #222;
+  color: ${(props) => (props.isplaying === "true" ? "#888" : "#000")};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -198,12 +267,6 @@ const StEnterRoom = styled(motion.button)`
 const StRoomNum = styled.div`
   width: 50px;
   height: 16px;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 17px;
-  display: flex;
-  align-items: center;
-  color: #000000;
 `;
 
 const StInputPass = styled.input`
@@ -213,14 +276,14 @@ const StInputPass = styled.input`
   padding: 12px 14px;
   border: solid 1px #ddd;
   background-color: #f9f9f9;
-`
+`;
 
 const StBtnBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 6px;
-`
+`;
 
 const StRoomName = styled.div`
   width: 270px;

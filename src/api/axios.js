@@ -33,4 +33,7 @@ export const RoomAPI = {
   getRoom: (currentPage) => gameClient.get(`/rooms?page=${currentPage}`),
   postRoom: (roomData) => gameClient.post("/rooms", roomData),
   inRoom: (roomId, password) => gameClient.post(`/rooms/${roomId}`, password),
+  searchRoom: ({ searchType, search }) =>
+    gameClient.get(`/rooms?page=1&searchType=${searchType}&search=${search}`),
+  quickStart: () => gameClient.get(`/rooms/quick-start`),
 };
