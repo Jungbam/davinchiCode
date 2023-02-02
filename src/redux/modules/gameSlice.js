@@ -1,10 +1,11 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   indicated: null,
   initBtn: false,
   initReady: false,
   trigger: false,
+  gameStart: false,
   gameInfo: {
     blackCards: 4,
     whiteCards: 4,
@@ -26,13 +27,16 @@ const gameSlice = createSlice({
       state.indicated = action.payload;
     },
     setInitBtn: (state, action) => {
-      state.initBtn = !state.initBtn;
+      state.initBtn = action.payload;
     },
     setInitReadyBtn: (state, action) => {
       state.initReady = action.payload;
     },
     setTrigger: (state, action) => {
       state.trigger = action.payload;
+    },
+    setGameStart: (state, action) => {
+      state.gameStart = action.payload;
     },
     setEndingInfo: (state, action) => {
       state.ending = !state.ending;
@@ -50,6 +54,7 @@ const gameSlice = createSlice({
         turn: null,
         users: [],
       };
+      state.gameStart = false;
       state.ending = false;
       state.endingInfo = [];
     },
@@ -63,5 +68,6 @@ export const {
   setInit,
   setEndingInfo,
   setInitReadyBtn,
+  setGameStart,
 } = gameSlice.actions;
 export default gameSlice.reducer;

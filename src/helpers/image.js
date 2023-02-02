@@ -7,6 +7,9 @@ import GameInfo6 from "../assets/images/explain/6_modal_game-info.png";
 import GameInfo7 from "../assets/images/explain/7_modal_game-info.png";
 import GameLoading from "../assets/images/main_loading.gif";
 import userProfile from "../assets/images/user-profile.png";
+import otherUserBackground from "../assets/images/otherUserBackground.png";
+import otherUserBackgroundgameout from "../assets/images/otherUserBackground_gameout.png";
+import otherUserBackgroundNone from "../assets/images/otherUserBackgroundNone.png";
 
 export const IMG = {
   GameInfo1,
@@ -18,4 +21,7 @@ export const IMG = {
   GameInfo7,
   GameLoading,
   userProfile,
+  otherUserBackground,
+  otherUserBackgroundgameout,
+  otherUserBackgroundNone,
 };

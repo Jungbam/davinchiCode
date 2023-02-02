@@ -9,6 +9,7 @@ import SystemMessage from "../logic/SystemMessage";
 import SelectPosition from "../logic/SelectPosition";
 import {
   setEndingInfo,
+  setGameStart,
   setIndicater,
   setInit,
   setInitReadyBtn,
@@ -120,6 +121,7 @@ const CenterBox = ({ socket, userId }) => {
     });
     socket.current?.on(eventName.DRAW_RESULT, (gameInfo) => {
       setGameView(<Turn GameTurn={GameTurn} userId={userId} />);
+      dispatch(setGameStart(true))
       dispatch(setUsers(gameInfo));
     });
     socket.current?.on(eventName.ONGOING, (gameInfo) => {

@@ -16,8 +16,8 @@ const Indicate = ({ selectIndicaterCard, userId }) => {
   const { turn } = useSelector((state) => state.gameSlice.gameInfo);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(setInitBtn());
-    return () => dispatch(setInitBtn());
+    dispatch(setInitBtn(true));
+    return () => dispatch(setInitBtn(false));
   }, []);
   if (turn === userId)
     return (

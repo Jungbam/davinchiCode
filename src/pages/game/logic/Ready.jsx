@@ -16,7 +16,6 @@ const Ready = ({ readyHandler, goSelecetTile }) => {
   const interval = useRef(null);
   const count = useRef(5);
   const navigate = useNavigate();
-  console.log(trigger)
   const onReadyHandler = () => {
     setReady((prev) => !prev);
     readyHandler();

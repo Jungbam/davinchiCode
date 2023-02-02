@@ -27,7 +27,7 @@ const Game = () => {
     onError: () => {},
   });
   // const userId = data.data.userId
-  const { users } = useSelector((state) => state.gameSlice.gameInfo);
+  const { users,turn } = useSelector((state) => state.gameSlice.gameInfo);
   const myInfo = users.filter((user) => user.userId === userId);
   const others = users.filter((user) => user.userId !== userId);
   const dispatch = useDispatch();
@@ -89,9 +89,9 @@ const Game = () => {
       <Header />
       <StContainer>
         <StPeerWrapper>
-          <UsersBox user={others[0] ? others[0] : null} />
-          <UsersBox user={others[1] ? others[1] : null} />
-          <UsersBox user={others[2] ? others[2] : null} />
+          <UsersBox user={others[0] ? others[0] : null} turn={turn} userId={userId}/>
+          <UsersBox user={others[1] ? others[1] : null} turn={turn} userId={userId}/>
+          <UsersBox user={others[2] ? others[2] : null} turn={turn} userId={userId}/>
         </StPeerWrapper>
         <CenterBox roomId={roomId} socket={socketRef} userId={userId} />
         <StMyBoxWrapper>

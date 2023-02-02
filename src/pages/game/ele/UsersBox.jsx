@@ -1,44 +1,51 @@
-import otherUserBackground from "../../../assets/images/otherUserBackground.png";
 import styled from "styled-components";
 import DavinchiCard from "./DavinchiCard";
 import { useDispatch, useSelector } from "react-redux";
 import { setIndicater } from "../../../redux/modules/gameSlice";
 import { IMG } from "../../../helpers/image";
+import { useState } from "react";
+import { useEffect } from "react";
 
-const UsersBox = ({ user }) => {
-  const { initBtn, initReady } = useSelector((state) => state.gameSlice);
+const UsersBox = ({ user, turn, userId }) => {
+  const [gameover, setGameover] = useState(false)
+  const { initBtn, initReady, gameStart } = useSelector((state) => state.gameSlice);
   const dispatch = useDispatch();
-  //버튼 StAbsoluteBtn으로 내려서써주세요! color
-  //모달화시키기 예정 indicate 에 있는거 스타일컴포넌트 StText (StBtnList StBtn) StTitle
+
+  useEffect(()=>{
+    if(user?.hand.length ===0) setGameover(true)
+    else setGameover(false)
+  },[user])
 
   return (
-    <StOtherUsers>
-      <StOnGoingStatus>진행중</StOnGoingStatus>
-      {initBtn && (
+  <>
+    {user?<StOtherUsers url={(gameStart&&gameover)?IMG.otherUserBackgroundgameout:IMG.otherUserBackground}>
+      {turn===user?.userId&&<StOnGoingStatus>진행중</StOnGoingStatus>}
+      {(turn===userId&&initBtn) && (
         <StAbsoluteBtn
           background="#009320"
           onClick={() => dispatch(setIndicater(user.userId))}
-        >
-          {user ? "지목하기" : "..."}
+          >
+          지목하기
         </StAbsoluteBtn>
       )}
       <StUserProfile>
         <img
-          src={user ? user?.userProfileImg : IMG.userProfile}
+          src={user?.userProfileImg}
           width="80"
           alt="유저 프로필 사진"
-        />
-        <div>{user ? user?.userName : "빈자리"}</div>
+          />
+        <div>{user.userName}</div>
       </StUserProfile>
       {initReady && user?.hasOwnProperty("isReady") && user.isReady && (
         <StAbsoluteBtn>준비완료</StAbsoluteBtn>
-      )}
+        )}
       <StCardArea>
         {user?.hand?.map((card, i) => (
           <DavinchiCard key={`${user.userName}${i}`} card={card} />
         ))}
       </StCardArea>
-    </StOtherUsers>
+    </StOtherUsers>:<StOtherUsersNull></StOtherUsersNull>}
+  </>
   );
 };
 export default UsersBox;
@@ -48,11 +55,21 @@ const StOtherUsers = styled.div`
   position: relative;
   width: 356px;
   height: 100%;
-  background-image: url(${otherUserBackground});
+  background-image: url(${({ url }) => url});
   padding: 14px;
   border-radius: 6px;
   border: solid 1px #111;
   background-color: #eee;
+`;
+const StOtherUsersNull = styled.div`
+  border: 1px solid green;
+  position: relative;
+  width: 356px;
+  height: 100%;
+  background-image: url(${IMG.otherUserBackgroundNone});
+  padding: 14px;
+  border-radius: 6px;
+  border: solid 1px #111;
 `;
 
 const StAbsoluteBtn = styled.button`
