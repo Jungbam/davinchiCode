@@ -5,11 +5,12 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import QuickStart from "./roomListDetail/RoomQuickStart";
 import { useEffect } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Modal from "../../../components/form/modal/Modal";
 import CreateRoom from "../../../components/form/modal/sign/CreateRoom";
 import { ICON } from "../../../helpers/Icons";
-import axios from "axios";
+import { RoomAPI } from "../../../api/axios";
+import { useDispatch } from "react-redux";
 
 const buttonVariants = {
   hover: {
@@ -31,8 +32,12 @@ const buttonVariants = {
 // }
 
 const RoomList = () => {
+  const dispatch = useDispatch();
   const queryClient = useQueryClient();
 
+  const [search, setSearch] = useState("");
+  const [searchRoomModal, setSearchRoomModal] = useState(null);
+  const [searchType, setSearchType] = useState("name");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
   const [selectedPost, setSelectedPost] = useState(null);
@@ -58,6 +63,28 @@ const RoomList = () => {
     setIsPrivate(isPrivate);
   };
 
+  const { mutate: searchRoom } = useMutation(
+    () => RoomAPI.searchRoom({ searchType, search, currentPage }),
+    {
+      onSuccess: ({ data }) => {
+        console.log("search룸ㅎㅎ", data);
+        //dispatch
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    }
+  );
+
+  const searchHandler = () => {
+    searchRoom();
+  };
+
+  const searchRoomHandler = (type) => {
+    setSearchType(type);
+    setSearchRoomModal((prev) => !prev);
+  };
+
   useEffect(() => {
     setList(arrLoop(currentPage));
     // if (currentPage < totalPage) {
@@ -72,39 +99,69 @@ const RoomList = () => {
       <StSearchRoom>
         <StBtnList>
           <StCheckButton color="#eee">
-            <input
-              type="checkbox"
-              id="standby"
-              checked={isWaiting}
-              onChange={() => setIsWaiting(!isWaiting)}
+            <img
+              src={
+                isWaiting ? ICON.iconCheckBoxChecked : ICON.iconCheckBoxBlank
+              }
+              width={16}
+              onClick={() => setIsWaiting(!isWaiting)}
             />
-            <label onClick={() => setIsWaiting(!isWaiting)}>대기방</label>
+            <div onClick={() => setIsWaiting(!isWaiting)}>대기방</div>
           </StCheckButton>
           <StCheckButton color="#00831d">
-            <input
-              type="checkbox"
-              id="privacyControl"
-              checked={isPrivate}
-              onChange={() => setIsPrivate(!isPrivate)}
+            <img
+              src={
+                isPrivate ? ICON.iconCheckBoxChecked : ICON.iconCheckBoxBlank
+              }
+              width={16}
+              onClick={() => setIsPrivate(!isPrivate)}
             />
-            <label onClick={() => setIsPrivate(!isPrivate)}>비공개</label>
+            <div onClick={() => setIsPrivate(!isPrivate)}>비공개</div>
           </StCheckButton>
         </StBtnList>
         <StFuncBack>
-          <StSelect name="pets" id="pet-select">
-            <option value="all">전체</option>
-            <option value="roomnumber">방번호</option>
-            <option value="roomname">방제목</option>
-          </StSelect>
-          <StSearchBarStyle type="text" placeholder="방 제목을 입력해주세요." />
+          <StModal>
+            <StModalOpener
+              onClick={() => {
+                setSearchRoomModal((prev) => !prev);
+              }}
+            >
+              {}
+              <span>{searchType === "number" ? "방 번호" : "방 제목"}</span>
+              <img src={ICON.iconDropDown} />
+            </StModalOpener>
+            <StSearchModal searchRoomModal={searchRoomModal}>
+              {["name", "number"].map((el, i) => (
+                <button
+                  onClick={() => {
+                    searchRoomHandler(el);
+                  }}
+                  key={`StSearchModal${i}`}
+                >
+                  {el === "number" ? "방 번호" : "방 제목"}
+                </button>
+              ))}
+            </StSearchModal>
+          </StModal>
+          <StSearchBar>
+            <StSearchBarInput
+              type="text"
+              placeholder="방 제목을 입력해주세요."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <img onClick={searchHandler} src={ICON.iconSearch} />
+          </StSearchBar>
           <StRefreshBtn>
-            <img src={ICON.iconRefresh} alt="새로고침"/>
+            <img src={ICON.iconRefresh} alt="새로고침" />
             새로고침
           </StRefreshBtn>
         </StFuncBack>
       </StSearchRoom>
       <StRoomList>
         <RoomContents
+          searchType={searchType}
+          search={search}
           currentPage={currentPage}
           handleCheckboxChange={handleCheckboxChange}
           isWaiting={isWaiting}
@@ -260,7 +317,7 @@ const StBtnList = styled.div`
   display: flex;
 `;
 
-const StCheckButton = styled.div`
+const StCheckButton = styled.button`
   width: 64px;
   height: 26px;
 
@@ -275,28 +332,12 @@ const StCheckButton = styled.div`
   justify-content: center;
   margin-right: 4px;
   gap: 2px;
+  cursor: pointer;
 
   & input[type="checkbox"] {
     width: 12px;
     height: 12px;
     border: none;
-  }
-`;
-
-const StSelect = styled.select`
-  width: 85px;
-  height: 26px;
-  background-color: #333;
-  border: 1px solid #000000;
-  border-radius: 4px;
-  padding-left: 12px;
-
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 100%;
-  color: #ffffff;
-  &:focus {
-    outline: none;
   }
 `;
 
@@ -350,28 +391,6 @@ const StFuncBack = styled.div`
   margin-left: 8px;
 `;
 
-const StSearchBarStyle = styled.input`
-  width: 284px;
-  height: 26px;
-  padding-left: 14px;
-  border-radius: 4px;
-  border: solid 1px #000;
-  background-color: #333;
-
-  font-size: 12px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1;
-  letter-spacing: normal;
-  text-align: left;
-  color: #888;
-  margin-left: 4px;
-
-  &:focus {
-    outline: none;
-  }
-`;
 const StRefreshBtn = styled.button`
   width: 76px;
   height: 26px;
@@ -422,4 +441,94 @@ const ArrowPageBtn = styled.button`
   color: ${({ page, currentPage }) => (currentPage === page ? "gray" : "#fff")};
   cursor: ${({ page, currentPage }) =>
     currentPage === page ? "default" : "pointer"};
+`;
+
+const StModal = styled.div`
+  width: 85px;
+  height: 26px;
+`;
+
+const StSearchBar = styled.div`
+  width: 284px;
+  height: 26px;
+
+  border-radius: 4px;
+  border: solid 1px #000;
+  background-color: #333;
+
+  color: #888;
+  margin-left: 4px;
+  display: flex;
+  align-items: center;
+  & img {
+    width: 30px;
+    height: 30px;
+    padding: 9px;
+    cursor: pointer;
+  }
+`;
+
+const StSearchBarInput = styled.input`
+  padding: 0 14px;
+  font-size: 12px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: left;
+  width: 255px;
+
+  color: #fff;
+  background-color: #333;
+  border: 1px solid #333;
+  &:focus {
+    outline: none;
+  }
+`;
+
+const StModalOpener = styled.button`
+  background-color: #333;
+  border: 1px solid #000000;
+  border-radius: 4px;
+  padding-left: 12px;
+  width: 85px;
+  height: 26px;
+
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 100%;
+  color: #ffffff;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  & span {
+    margin-right: 10px;
+  }
+`;
+
+const StSearchModal = styled.div`
+  display: ${({ searchRoomModal }) => (searchRoomModal ? "flex" : "none")};
+  flex-direction: column;
+  position: relative;
+  z-index: 3;
+  & button {
+    background-color: #333;
+    border: 0.5px solid #000;
+    border-radius: 2px;
+    padding-left: 12px;
+    width: 85px;
+    height: 26px;
+
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 100%;
+    color: #ffffff;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
 `;

@@ -1,7 +1,6 @@
 import React from "react";
 
 import styled from "styled-components";
-import DropdownPlayerCount from "../../../common/elements/DropDownPlayerCount";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { RoomAPI } from "../../../../api/axios";
@@ -78,24 +77,24 @@ const CreateRoom = ({ closeModal, modal }) => {
         <Stb>
           <label>공개설정</label>
           <StOpen>
-            <input
-              type="checkbox"
-              checked={!isSecret}
-              onChange={() => {
+            <img
+              src={isSecret ? ICON.iconCheckBoxBlank : ICON.iconCheckBoxChecked}
+              onClick={() => {
                 setIsSecret(!isSecret);
                 setPassword("");
               }}
+              width={16}
             />
             <div>공개</div>
           </StOpen>
         </Stb>
         <StIsSecret>
-          <input
-            type="checkbox"
-            checked={isSecret}
-            onChange={() => setIsSecret(!isSecret)}
+          <img
+            src={isSecret ? ICON.iconCheckBoxChecked : ICON.iconCheckBoxBlank}
+            onClick={() => setIsSecret(!isSecret)}
+            width={16}
           />
-          <div>비공개</div>
+          <div onClick={() => setIsSecret(!isSecret)}>비공개</div>
           <input
             type="text"
             placeholder="0000"
@@ -318,6 +317,10 @@ const StOpen = styled.div`
   justify-content: center;
   align-items: center;
   gap: 2px;
+
+  & img {
+    cursor: pointer;
+  }
   & input {
     width: 13px;
     height: 13px;
@@ -349,8 +352,9 @@ const StIsSecret = styled.div`
   & input:focus {
     outline: none;
   }
-  & input[type="checkbox"] {
+  & img {
     margin-right: 2px;
+    cursor: pointer;
   }
   & input[type="text"] {
     width: 52px;

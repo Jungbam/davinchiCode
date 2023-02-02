@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isLoggedIn: false,
   userInfo: {},
+  reFetch: false,
 };
 
 const signSlice = createSlice({
@@ -17,6 +18,9 @@ const signSlice = createSlice({
     },
     setUser: (state, action) => {
       state.userInfo = action.payload;
+    },
+    reFetch: (state, action) => {
+      state.reFetch = action.payload;
     },
   },
 });

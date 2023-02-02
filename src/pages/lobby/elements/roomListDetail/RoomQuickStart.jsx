@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import mockData from "./MockDataRoom";
 import styled from "styled-components";
 import { queryKeys } from "../../../../helpers/queryKeys";
 import { motion } from "framer-motion";
+import { RoomAPI } from "../../../../api/axios";
 
 const buttonVariants = {
   hover: {
@@ -18,40 +19,27 @@ const buttonVariants = {
 };
 
 const QuickStart = () => {
-  const [modal, setModal] = useState(false);
   const navigate = useNavigate();
 
-  const { data: rooms, isLoading } = useQuery(
-    [queryKeys.ROOM_LIST],
-    async () => {
-      // const { data } = await axios.get("/main/rooms");
-      // return data;
-      return mockData.rooms;
-    }
-  );
+  const { mutate: searchRoom } = useMutation(() => RoomAPI.quickStart(), {
+    onSuccess: ({ data }) => {
+      navigate(`/game/${data}`);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
 
-  const handleClick = async () => {
-    if (!isLoading && rooms) {
-      const availableRoom = rooms.find(
-        (room) => room.isWaiting && room.currentMembers < room.maxMembers
-      );
-      if (availableRoom) {
-        navigate(`/game/${availableRoom.roomId}`);
-      } else {
-      }
-    }
+  const quickStartHandler = () => {
+    searchRoom();
   };
 
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
-  // 문제 : ModalCreateRoom
   return (
     <>
       <ImmediateStart
         variants={buttonVariants}
         whileHover="hover"
-        onClick={handleClick}
+        onClick={quickStartHandler}
       >
         바로 시작
       </ImmediateStart>
