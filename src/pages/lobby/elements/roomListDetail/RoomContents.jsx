@@ -1,16 +1,24 @@
 import styled from "styled-components";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { queryKeys } from "../../../../helpers/queryKeys";
 import DisabledImage from "../../../../assets/images/lobby_disabled_room.png";
 import { motion } from "framer-motion";
 import { ICON } from "../../../../helpers/Icons";
 import axios from "axios";
+import Modal from "../../../../components/form/modal/Modal";
+import { useState } from "react";
+import { RoomAPI } from "../../../../api/axios";
+import { BootStrap } from "../../../BootStrap";
 
 const RoomContents = ({ isWaiting, isPrivate, currentPage, setTotalPage }) => {
+  const [modal, setModal] = useState(false)
+  const [inRoom, setInRoom] = useState(0)
+  const [inRoomPrivate, setInRoomPrivate] = useState(false)
+  const [password, setPassword] = useState('')
+  const {StBtn,StWrapper}=BootStrap;
   const navigate = useNavigate();
-
-  // queryClient.invalidateQueries([queryKeys.ROOM_LIST]);
+  
   const { data, status } = useQuery(
     [queryKeys.ROOM_LIST, currentPage],
     async () =>
@@ -23,12 +31,27 @@ const RoomContents = ({ isWaiting, isPrivate, currentPage, setTotalPage }) => {
       },
     }
   );
-
-  const handleEnterRoom = (roomId) => {
-    navigate(`/game/${roomId}`);
-  };
+  const enterInRoomHandler = (roomId, isPrivate)=>{
+    setModal(true)
+    setInRoomPrivate(isPrivate)
+    setInRoom(roomId)
+  }
+  const closeModalHandler = ()=>{
+    setModal(false)
+    setPassword('')
+    setInRoom(0)
+  }
+  const {mutate} = useMutation(()=>RoomAPI.inRoom(inRoom, password),{
+    onSuccess : (data)=>{
+      // navigate(`/game/${inRoom}`)
+      // closeModalHandler()
+    },
+    onError:(error)=>{
+    }
+  })
   return (
-    <StWrapper>
+    <>
+    <StWrapper jus="flex-start" padding="20px 14px">
       {status === "loading" && <div>Loading...</div>}
       {status === "success" && (
         <>
@@ -64,7 +87,7 @@ const RoomContents = ({ isWaiting, isPrivate, currentPage, setTotalPage }) => {
 
                 {!room.isPlaying ? (
                   <StEnterRoom
-                    onClick={() => handleEnterRoom(room.roomId)}
+                    onClick={()=>enterInRoomHandler(room.roomId, room.isPrivate)}
                     disabled={room.isPlaying}
                     isplaying={room.isPlaying.toString()}
                     whileHover={{
@@ -89,25 +112,28 @@ const RoomContents = ({ isWaiting, isPrivate, currentPage, setTotalPage }) => {
         </>
       )}
     </StWrapper>
+    <Modal width="288px" height="180px" modal={modal.toString()} closeModal={closeModalHandler}>
+      <StWrapper jus='center' padding = "10px">
+        <p>{inRoom}번 방에 입장하시겠습니까?</p>
+        {inRoomPrivate&&<StBtnBox>
+          <label>비밀번호</label>
+          <StInputPass value={password} onChange={(e)=>setPassword(e.target.value)}></StInputPass>
+        </StBtnBox>}
+        <StBtnBox>
+          <StBtn color="#ffdf24" width="100px" height="32px" onClick={()=>mutate()}>확인</StBtn>
+          <StBtn color="#fff" width="100px" height="32px" onClick={closeModalHandler}>취소</StBtn>
+        </StBtnBox>
+      </StWrapper>
+    </Modal>
+  </>
   );
 };
-
-const StWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  width: 100%;
-  height: 100%;
-  gap: 4px;
-  padding: 20px 14px;
-`;
 
 const StContainer = styled.div`
   width: 608px;
   height: 46px;
   background: ${(props) =>
-    props.iswaiting === "true" ? `url(${DisabledImage})` : "#fff"};
+  props.iswaiting === "true" ? `url(${DisabledImage})` : "#fff"};
   background-size: cover;
   border: 1px solid #bcbcbc;
   border-radius: 6px;
@@ -119,7 +145,6 @@ const StContainer = styled.div`
 const StLeft = styled.div`
   width: 94px;
   height: 20px;
-
   display: flex;
   gap: 4px;
 `;
@@ -127,15 +152,12 @@ const StLeft = styled.div`
 const StButton = styled.div`
   width: 34px;
   height: 20px;
-
   border: 1px solid ${({ color }) => color || "#111"};
   color: ${({ color }) => color || "#111"};
   border-radius: 999px;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   font-weight: 500;
   font-size: 10px;
   line-height: 12px;
@@ -145,15 +167,12 @@ const StMiddle = styled.div`
   width: 380px;
   display: flex;
   gap: 30px;
-
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
   display: flex;
   align-items: center;
-
   color: #000000;
-
   margin-left: 30px;
 `;
 
@@ -162,7 +181,6 @@ const StEnterRoom = styled(motion.button)`
   height: 26px;
   border-radius: 4px;
   border: solid 1px ${(props) => (props.isplaying === "true" ? "#eee" : "#000")};
-
   font-size: 12px;
   font-weight: bold;
   font-stretch: normal;
@@ -171,27 +189,39 @@ const StEnterRoom = styled(motion.button)`
   letter-spacing: normal;
   text-align: left;
   color: #222;
-
   display: flex;
   justify-content: center;
   align-items: center;
   margin-left: 50px;
-
   cursor: ${(props) => (props.isplaying === "true" ? "default" : "pointer")};
 `;
 
 const StRoomNum = styled.div`
   width: 50px;
   height: 16px;
-
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
   display: flex;
   align-items: center;
-
   color: #000000;
 `;
+
+const StInputPass = styled.input`
+  width: 60%;
+  height: 30px;
+  border-radius: 4px;
+  padding: 12px 14px;
+  border: solid 1px #ddd;
+  background-color: #f9f9f9;
+`
+
+const StBtnBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+`
 
 const StRoomName = styled.div`
   width: 270px;

@@ -59,7 +59,7 @@ const MyTurn = ({ GameTurn }) => {
       >
         확인
       </StBtn>
-      <Timer timeOver={()=>GameTurn("white")}/>
+      <Timer timeOver={()=>GameTurn(gameInfo.whiteCards?"white":"black")}/>
     </StWrapper>
   );
 };

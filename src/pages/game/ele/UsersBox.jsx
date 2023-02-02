@@ -10,16 +10,16 @@ const UsersBox = ({ user, turn, userId }) => {
   const [gameover, setGameover] = useState(false)
   const { initBtn, initReady, gameStart } = useSelector((state) => state.gameSlice);
   const dispatch = useDispatch();
-
+  
   useEffect(()=>{
-    if(user?.hand.length ===0) setGameover(true)
+    if(user?.hand.length!==0&&user?.hand.filter(el=>el.isOpen===false).length ===0) setGameover(true)
     else setGameover(false)
   },[user])
 
   return (
   <>
     {user?<StOtherUsers url={(gameStart&&gameover)?IMG.otherUserBackgroundgameout:IMG.otherUserBackground}>
-      {turn===user?.userId&&<StOnGoingStatus>진행중</StOnGoingStatus>}
+      {gameStart&&turn===user?.userId&&<StOnGoingStatus>진행중</StOnGoingStatus>}
       {(turn===userId&&initBtn) && (
         <StAbsoluteBtn
           background="#009320"
@@ -44,7 +44,7 @@ const UsersBox = ({ user, turn, userId }) => {
           <DavinchiCard key={`${user.userName}${i}`} card={card} />
         ))}
       </StCardArea>
-    </StOtherUsers>:<StOtherUsersNull></StOtherUsersNull>}
+    </StOtherUsers>:<StOtherUsersNull/>}
   </>
   );
 };

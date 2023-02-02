@@ -16,7 +16,7 @@ const StTitle = styled.div`
   margin-top: ${({ mgTop }) => mgTop || "100px"};
 `;
 
-const StText = styled.div`
+const StText = styled.span`
   margin-top: ${({ mgTop }) => mgTop || "20px"};
   width: ${({ width }) => width || "100%"};
   display: flex;
@@ -63,6 +63,7 @@ const StWrapper = styled.div`
   flex-direction: column;
   width: ${({ width }) => width || "100%"};
   height: ${({ height }) => height || "100%"};
+  padding: ${({ padding }) => padding || 0};
   justify-content: ${({ jus }) => jus || null};
   align-items: center;
   font-weight: 500;

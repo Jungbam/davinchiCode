@@ -10,6 +10,7 @@ import OtherTurn from "./OtherTurn";
 const Indicate = ({ selectIndicaterCard, userId }) => {
   const { StTitle, StText, StBtn, StBtnList } = BootStrap;
   const { indicated, gameInfo } = useSelector((state) => state.gameSlice);
+  const others = gameInfo?.users.filter((user) => user.userId !== userId);
   const indicatedUser = gameInfo?.users?.filter(
     (el) => el.userId === indicated
   );
@@ -54,7 +55,7 @@ const Indicate = ({ selectIndicaterCard, userId }) => {
             </StBtnList>
           </>
         )}
-        <Timer />
+        <Timer timeOver={() => selectIndicaterCard(others)}/>
       </StWrapper>
     );
   else return <OtherTurn text="타일 뽑기" />;

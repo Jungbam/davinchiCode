@@ -1,14 +1,16 @@
 import React from "react";
 import { useState } from "react";
 import styled from "styled-components";
+import { BootStrap } from "../../BootStrap";
 import DavinchiCard from "../ele/DavinchiCard";
+import Timer from "../ele/Timer";
 
 const SelectIndicatedUser = ({ indicatedUser, guessCard }) => {
+  const {StBtn,StWrapper} = BootStrap
   const controledCard = indicatedUser[0]?.hand
   const [select, setSelect] = useState({ index: null, value: null });
-
   return (
-    <div>
+    <StWrapper jus="center">
       <StCardContainer>
         {controledCard?.map((card,i) => (
           <StCardBox key={`${indicatedUser.userName}indicated${i}`}>
@@ -23,25 +25,30 @@ const SelectIndicatedUser = ({ indicatedUser, guessCard }) => {
           ))}
       </StValueContainer>
       <StRow>
-        <button onClick={()=>guessCard(indicatedUser, select)}>결정</button>
+        <StBtn width="100px" height="30px" color="#ffdf24" fontSize="14px"
+          onClick={()=>guessCard(indicatedUser, select)}>결정</StBtn>
       </StRow>
-    </div>
+      <Timer timeOver={()=>guessCard(indicatedUser, { index: 0, value: 11 })}/>
+    </StWrapper>
   );
 };
 
 export default SelectIndicatedUser;
 
-const StValue = styled.div`
+const StValue = styled.span`
   width: 25px;
   height: 25px;
+  text-align: center;
+  align-items: center;
   font-weight: ${({ selected }) => {
     return selected ? "1000" : "400";
   }};
-  border: 1px solid grey;
 `;
 const StCardContainer = styled.div`
   display: flex;
   justify-content: center;
+  gap: 4px;
+  width: 636px;
   height: 102px;
   align-items: center;
   background: #ddd;
@@ -50,13 +57,17 @@ const StCardContainer = styled.div`
 const StValueContainer = styled.div`
   display: flex;
   justify-content: center;
-  width: 637px;
+  gap: 20px;
+  width: 636px;
   height: 32px;
   padding: 10px 20px;
+  background-color: #f4f4f4;
+  border-radius: 4px;
 `;
 const StCardBox = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 4px;
   width: 42px;
 `;
 const StSelect = styled.span`
@@ -65,6 +76,10 @@ const StSelect = styled.span`
   background: #111;
   color: rgba(255, 96, 28, 1);
   border-radius: 999px;
+  font-size: 10px;
+  text-align: center;
+  align-items: center;
+  margin: 0 auto;
 `;
 const StRow = styled.div`
   display: flex;

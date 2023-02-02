@@ -3,18 +3,9 @@ import React from 'react'
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { SignAPI } from '../../../api/axios';
-import { queryKeys } from '../../../helpers/queryKeys';
 import DavinchiCard from '../ele/DavinchiCard';
 
 const ThrowMine = ({userId,openMine}) => {
-  // const {data} = useQuery([queryKeys.MYINFO], SignAPI.myinfo, {
-  //     staleTime: 30 * 60 * 1000,
-  //     cacheTime: 30 * 60 * 1000,
-  //     onSuccess: (res) => {},
-  //     onError: () => {},
-  // })
-  // const userId = data.data.userId
   const { users } = useSelector((state) => state.gameSlice.gameInfo);
    const [select, setSelect] = useState({index : null, value : null})
   const mine = users.filter(el=>el.userId ===userId)[0]?.hand

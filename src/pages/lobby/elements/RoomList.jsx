@@ -98,7 +98,7 @@ const RoomList = () => {
           </StSelect>
           <StSearchBarStyle type="text" placeholder="방 제목을 입력해주세요." />
           <StRefreshBtn>
-            <img src={ICON.iconRefresh} />
+            <img src={ICON.iconRefresh} alt="새로고침"/>
             새로고침
           </StRefreshBtn>
         </StFuncBack>
