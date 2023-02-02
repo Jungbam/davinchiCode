@@ -17,7 +17,7 @@ const GoStop = ({nextTurn, goingContinue, userId}) => {
         <StBtn width="100px" height="30px" color="#fff" fontSize="14px" onClick={()=>nextTurn()}>넘어가기</StBtn>
         <StBtn width="100px" height="30px" color="#ffdf24" fontSize="14px" onClick={()=>goingContinue()}>지목하기</StBtn>
       </StBtnBox>
-      <Timer/>
+      <Timer timeOver={()=>nextTurn()}/>
     </StWrapper>
   )
   else return <OtherTurn text="상대 지목하기"/>
