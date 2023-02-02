@@ -19,9 +19,18 @@ function DropdownMenu() {
       <AnimatePresence>
         {showMenu && (
           <StMenuList
-            initial={{ y: -60, opacity: 0 }}
-            animate={{ y: 0, opacity: 1, transition: { duration: 0.3 } }}
-            exit={{ opacity: 0, transition: { duration: 0.5 } }}
+            initial={{ y: "-50vh", opacity: 0 }}
+            animate={{
+              y: 0,
+              opacity: 1,
+              transition: {
+                duration: 0.1,
+                ease: "easeInOut",
+                type: "spring",
+                mass: 0.7,
+              },
+            }}
+            exit={{ opacity: 0, y: "-50vh", transition: { duration: 1 } }}
           >
             <StMenu
               bottom="1px"

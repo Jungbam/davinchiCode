@@ -1,7 +1,6 @@
 import React from "react";
 
 import styled from "styled-components";
-import DropdownPlayerCount from "../../../common/elements/DropDownPlayerCount";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { RoomAPI } from "../../../../api/axios";

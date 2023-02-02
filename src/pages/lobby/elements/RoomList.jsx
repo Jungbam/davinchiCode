@@ -64,7 +64,7 @@ const RoomList = () => {
   };
 
   const { mutate: searchRoom } = useMutation(
-    () => RoomAPI.searchRoom({ searchType, search }),
+    () => RoomAPI.searchRoom({ searchType, search, currentPage }),
     {
       onSuccess: ({ data }) => {
         console.log("search룸ㅎㅎ", data);
@@ -160,6 +160,8 @@ const RoomList = () => {
       </StSearchRoom>
       <StRoomList>
         <RoomContents
+          searchType={searchType}
+          search={search}
           currentPage={currentPage}
           handleCheckboxChange={handleCheckboxChange}
           isWaiting={isWaiting}

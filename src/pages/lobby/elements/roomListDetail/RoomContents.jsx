@@ -12,7 +12,14 @@ import { BootStrap } from "../../../BootStrap";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 
-const RoomContents = ({ isWaiting, isPrivate, currentPage, setTotalPage }) => {
+const RoomContents = ({
+  isWaiting,
+  isPrivate,
+  currentPage,
+  setTotalPage,
+  search,
+  searchType,
+}) => {
   const [modal, setModal] = useState(false);
   const [inRoom, setInRoom] = useState(0);
   const [inRoomPrivate, setInRoomPrivate] = useState(false);
@@ -23,7 +30,7 @@ const RoomContents = ({ isWaiting, isPrivate, currentPage, setTotalPage }) => {
 
   const { data, status } = useQuery(
     [queryKeys.ROOM_LIST, currentPage],
-    () => RoomAPI.getRoom(currentPage),
+    () => RoomAPI.searchRoom({ currentPage, search, searchType }),
     {
       keepPreviousData: true,
       onSuccess: (data) => {

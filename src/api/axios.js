@@ -30,10 +30,15 @@ export const SignAPI = {
   auth: () => client.get("/auth/check"),
 };
 export const RoomAPI = {
-  getRoom: (currentPage) => gameClient.get(`/rooms?page=${currentPage}`),
+  // getRoom: (currentPage) =>
+  //   gameClient.get(
+  //     `/rooms?page=${currentPage}&searchType=${searchType}&search=`
+  //   ),
   postRoom: (roomData) => gameClient.post("/rooms", roomData),
   inRoom: (roomId, password) => gameClient.post(`/rooms/${roomId}`, password),
-  searchRoom: ({ searchType, search }) =>
-    gameClient.get(`/rooms?page=1&searchType=${searchType}&search=${search}`),
+  searchRoom: ({ currentPage, searchType = "name", search = "" }) =>
+    gameClient.get(
+      `/rooms?page=${currentPage}&searchType=${searchType}&search=${search}`
+    ),
   quickStart: () => gameClient.get(`/rooms/quick-start`),
 };
