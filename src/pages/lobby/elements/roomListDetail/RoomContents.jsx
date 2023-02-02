@@ -5,7 +5,6 @@ import { queryKeys } from "../../../../helpers/queryKeys";
 import DisabledImage from "../../../../assets/images/lobby_disabled_room.png";
 import { motion } from "framer-motion";
 import { ICON } from "../../../../helpers/Icons";
-import axios from "axios";
 import Modal from "../../../../components/form/modal/Modal";
 import { useState } from "react";
 import { RoomAPI } from "../../../../api/axios";
@@ -20,9 +19,7 @@ const RoomContents = ({ isWaiting, isPrivate, currentPage, setTotalPage }) => {
   const navigate = useNavigate();
   
   const { data, status } = useQuery(
-    [queryKeys.ROOM_LIST, currentPage],
-    async () =>
-      axios.get(`https://game.davinci-code.online/rooms?page=${currentPage}`),
+    [queryKeys.ROOM_LIST, currentPage], ()=>RoomAPI.getRoom(currentPage),
     {
       staleTime: 2000,
       keepPreviousData: true,
@@ -43,10 +40,12 @@ const RoomContents = ({ isWaiting, isPrivate, currentPage, setTotalPage }) => {
   }
   const {mutate} = useMutation(()=>RoomAPI.inRoom(inRoom, password),{
     onSuccess : (data)=>{
-      // navigate(`/game/${inRoom}`)
-      // closeModalHandler()
+      if(data.status===200) navigate(`/game/${inRoom}`)
     },
     onError:(error)=>{
+      // error에 대한 경우 처리
+      alert('방 입장 에러')
+      navigate('/')
     }
   })
   return (

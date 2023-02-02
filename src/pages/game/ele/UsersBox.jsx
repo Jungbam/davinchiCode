@@ -20,7 +20,7 @@ const UsersBox = ({ user, turn, userId }) => {
   <>
     {user?<StOtherUsers url={(gameStart&&gameover)?IMG.otherUserBackgroundgameout:IMG.otherUserBackground}>
       {gameStart&&turn===user?.userId&&<StOnGoingStatus>진행중</StOnGoingStatus>}
-      {(turn===userId&&initBtn) && (
+      {(turn===userId&&initBtn) && !gameover&&(
         <StAbsoluteBtn
           background="#009320"
           onClick={() => dispatch(setIndicater(user.userId))}
