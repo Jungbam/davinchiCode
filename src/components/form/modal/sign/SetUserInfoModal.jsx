@@ -1,11 +1,12 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { SignAPI } from "../../../api/axios";
-import { queryKeys } from "../../../helpers/queryKeys";
 import styled from "styled-components";
+import { SignAPI } from "../../../../api/axios";
+import { queryKeys } from "../../../../helpers/queryKeys";
+import Modal from "../Modal";
 
-const SetUserInfo = ({ closeModal }) => {
+const SetUserInfoModal = ({ modal, closeModal }) => {
   const [profileImg, setProfileImg] = useState(null);
   const [newProfileImg, setNewProfileImg] = useState(null);
   const [userName, setNickName] = useState(null);
@@ -27,35 +28,43 @@ const SetUserInfo = ({ closeModal }) => {
       navigate("/");
     },
   });
+
+  const init = ()=>{
+    setNewProfileImg(null)
+    setProfileImg(data.data.profileImageUrl)
+    setNewNick(null);
+    console.log(imgRef.current.files)
+    imgRef.current.files= new FileList()
+    closeModal();
+  }
+
   const { mutate, isError, isLoading } = useMutation(
     (formData) => SignAPI.updateInfo(formData),
     {
       onSuccess: (res) => {
         queryClient.invalidateQueries(queryKeys.MYINFO);
         alert("프로필 수정 완료");
-        closeModal();
         navigate("/lobby");
+        // window.location.reload()
       },
       onError: (error) => {
         alert(
           "프로필 수정이 정상적으로 되지 않았습니다. 우측 상단 배너에서 프로필을 다시한번 설정해주세요."
-        );
-        closeModal();
-        navigate("/lobby");
+          );
+          navigate("/lobby");
+        // window.location.reload()
       },
     }
   );
-  const init = ()=>{
-    setNewProfileImg(null)
-    setNewNick(null);
-    navigate("/lobby")
-  }
+
   const closeHandler = (e)=>{
     e.preventDefault()
-    closeModal();
+    init()
   }
 
   const onChangeImgHandler = (e) => {
+    console.log(e)
+    console.log(imgRef.current.files)
     const imgSrc = e.target.files[0];
     const file = imgRef.current.files[0];
     const reader = new FileReader();
@@ -77,6 +86,12 @@ const SetUserInfo = ({ closeModal }) => {
   if (isLoading) <p>...loading</p>;
   if (isError) <p>error</p>;
   return (
+    <Modal
+      modal={modal.toString()}
+      closeModal={closeHandler}
+      width="440px"
+      height="428px"
+      >
     <StWrapper>
       <StContainerForm onSubmit={onSubmitHandler}>
         <StTitle htmlFor="profileImg">프로필을 변경 해보세요.</StTitle>
@@ -88,7 +103,7 @@ const SetUserInfo = ({ closeModal }) => {
             height="32px"
             border-radius="50%"
             object-fit="cover"
-          />
+            />
           <StChangePhoto
             id="profileImg"
             ref={imgRef}
@@ -96,7 +111,7 @@ const SetUserInfo = ({ closeModal }) => {
             name="profileImg"
             type="file"
             onChange={onChangeImgHandler}
-          />
+            />
         </StProfileBox>
         <StBox>
           <label>설정 이름</label>
@@ -109,7 +124,7 @@ const SetUserInfo = ({ closeModal }) => {
             value={newNick || ""}
             onChange={(e) => setNewNick(e.target.value)}
             placeholder="변경할 이름을 입력해주세요."
-          />
+            />
         </StBox>
         <StBtnList>
           <StButton type="cancel" onClick={closeHandler}>
@@ -121,11 +136,12 @@ const SetUserInfo = ({ closeModal }) => {
         </StBtnList>
       </StContainerForm>
     </StWrapper>
+</Modal>
   );
 };
-export default SetUserInfo;
+export default SetUserInfoModal;
 
-SetUserInfo.defaultProps = {
+SetUserInfoModal.defaultProps = {
   closeModal: () => {},
 };
 
