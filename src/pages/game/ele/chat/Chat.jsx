@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
+import { useRef } from "react";
 import styled from "styled-components";
 import { eventName } from "../../../../helpers/eventName";
 import { ICON } from "../../../../helpers/Icons";
 import Message from "./Message";
 const Chat = ({ socket, roomId, msgList, setMsgList }) => {
+  const ref = useRef("");
   const [msg, setMsg] = useState("");
 
   const createdAt = new Date().toLocaleString();
@@ -18,14 +21,20 @@ const Chat = ({ socket, roomId, msgList, setMsgList }) => {
       socket?.current.emit(eventName.SEND_MESSAGE, msg, roomId, addMyMessage);
     }
   };
+
   const sendMessageBtn = (e) => {
     if (msg === "") return;
     socket?.current.emit(eventName.SEND_MESSAGE, msg, roomId, addMyMessage);
   };
 
+  useEffect(() => {
+    ref.current.scrollTo(0, ref.current.scrollHeight);
+  }, [msgList]);
+
+  // console.log(ref.current.scrollTop, "aaa", ref.current.scrollHeight);
   return (
     <StWrapper>
-      <StMsgContainer>
+      <StMsgContainer ref={ref}>
         {msgList?.map((el, i) => {
           return <Message key={`comment${i}`} msg={el} />;
         })}
@@ -57,17 +66,17 @@ const StWrapper = styled.div`
   flex-direction: column;
 `;
 const StMsgContainer = styled.div`
-  display: flex;
   width: 100%;
   height: 138px;
-  overflow: auto;
   background-color: white;
   border-radius: 6px 6px 0 0;
-  padding: 9px 0 0 20px;
+  display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   gap: 8px;
   padding: 20px 30px 10px 22px;
+  overflow: scroll;
+  justify-content: ${({ ref }) =>
+    ref?.current.scrollHeight > 138 ? "row" : "flex-end"};
 `;
 
 const StBtnContainer = styled.div`
@@ -91,12 +100,6 @@ const StInput = styled.input`
   &:focus {
     outline: none;
   }
-`;
-const StBtn = styled.button`
-  width: 56px;
-  height: 32px;
-  background: #b5b5b5;
-  border-radius: 3px;
 `;
 
 const StInputBox = styled.div`

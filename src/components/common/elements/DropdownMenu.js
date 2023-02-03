@@ -13,7 +13,12 @@ function DropdownMenu() {
   const [showDelAccount, setShowDelAccount] = useState(false);
   return (
     <StMenuWrapper>
-      <StButtonDesign onClick={() => setShowMenu((prev) => !prev)}>
+      <StButtonDesign
+        initial={{ y: -250 }}
+        animate={{ y: 0 }}
+        transition={{ delay: 0.3, type: "spring", stiffness: 120 }}
+        onClick={() => setShowMenu((prev) => !prev)}
+      >
         마이페이지
       </StButtonDesign>
       <AnimatePresence>
@@ -104,7 +109,7 @@ const StMenuWrapper = styled.div`
   z-index: 1;
 `;
 
-const StButtonDesign = styled.button`
+const StButtonDesign = styled(motion.button)`
   width: 80px;
   height: 26px;
   display: flex;

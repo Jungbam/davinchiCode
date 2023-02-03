@@ -44,6 +44,11 @@ import iconDropDown from "../assets/icons/arrow_dropdown.svg";
 import iconSearch from "../assets/icons/ico_search.svg";
 import iconCheckBoxBlank from "../assets/icons/check_box_blank.svg";
 import iconCheckBoxChecked from "../assets/icons/check_box_checked.svg";
+import iconLobbyLogo from "../assets/icons/logo.png";
+import arrowLeft from "../assets/icons/arrow_left.svg";
+import arrowLeftx2 from "../assets/icons/arrow_left_x2.svg";
+import arrowRight from "../assets/icons/arrow_right.svg";
+import arrowRightx2 from "../assets/icons/arrow_right_x2.svg";
 
 import RankOne from "../assets/images/rank/rankone.png";
 import RankSecond from "../assets/images/rank/ranksecond.png";
@@ -85,6 +90,10 @@ export const ICON = {
   iconMic,
   iconTimer,
   iconSend,
+  arrowLeft,
+  arrowLeftx2,
+  arrowRight,
+  arrowRightx2,
 
   RankOne,
   RankSecond,
@@ -102,4 +111,5 @@ export const ICON = {
   iconSearch,
   iconCheckBoxChecked,
   iconCheckBoxBlank,
+  iconLobbyLogo,
 };
