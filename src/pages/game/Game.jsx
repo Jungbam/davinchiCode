@@ -70,6 +70,7 @@ const Game = () => {
       window.removeEventListener('beforeunload', beforeUnloadHandler)
       window.removeEventListener('popstate', preventGoBack)
       socketRef.current.emit(eventName.ROOMOUT);
+      socketRef.current.disconnect()
       dispatch(setInit())
     };
   }, []);

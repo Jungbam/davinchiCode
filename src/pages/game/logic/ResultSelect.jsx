@@ -13,7 +13,7 @@ const ResultSelect = ({ gameResult, security, result, goStop }) => {
   const timer = useRef(null);
   const setView = useRef(null);
   const dispatch = useDispatch();
-  const [play] = useSound(Sounds.Test);
+  const [play] = useSound(Sounds.Success);
   const { indicated, gameInfo } = useSelector((state) => state.gameSlice);
   const indicatedUser = gameInfo?.users?.filter(
     (el) => el.userId === indicated
@@ -21,12 +21,14 @@ const ResultSelect = ({ gameResult, security, result, goStop }) => {
   const turnUser = gameInfo?.users?.filter((el) => el.userId === gameInfo.turn);
 
   useEffect(() => {
+    if (result) play()
+    else play()
     timer.current = setTimeout(() => {
       dispatch(setUsers(gameResult));
-    }, 3000);
+    }, 2000);
     setView.current = setTimeout(() => {
       goStop(result, security);
-    }, 5000);
+    }, 3000);
     return () => {
       clearTimeout(timer.current);
       clearTimeout(setView.current);
@@ -34,11 +36,7 @@ const ResultSelect = ({ gameResult, security, result, goStop }) => {
   }, []);
 
   useEffect(() => {
-    if (result) {
-      play();
-    } else {
-      play();
-    }
+
   }, [result]);
 
   return (
