@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { ICON } from "../../../../helpers/Icons";
 
 const KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_ID}&redirect_uri=${process.env.REACT_APP_REDIRECT}kakaodel&response_type=code`;
 const DelAccount = ({ closeModal }) => {
@@ -17,12 +18,10 @@ const DelAccount = ({ closeModal }) => {
         아래의 “동의하기” 항목을 체크해주세요.
       </StSubDesc>
       <StMainApproval>
-        <StAgreeBtn>
-          <input
-            type="checkbox"
-            id="agree"
-            checked={isAgree}
-            onChange={() => setisAgree(!isAgree)}
+        <StAgreeBtn onClick={() => setisAgree(!isAgree)}>
+          <img
+            src={isAgree ? ICON.iconCheckBoxChecked : ICON.iconCheckBoxBlank}
+            width={16}
           />
           <label htmlFor="agree">동의하기</label>
         </StAgreeBtn>
@@ -97,7 +96,7 @@ const StMainApproval = styled.div`
   margin-top: 30px;
 `;
 
-const StAgreeBtn = styled.div`
+const StAgreeBtn = styled.button`
   width: 70px;
   height: 19px;
   font-weight: 700;
@@ -105,6 +104,8 @@ const StAgreeBtn = styled.div`
   line-height: 135.5%;
   display: flex;
   align-items: center;
+  border: none;
+  cursor: pointer;
 
   & input[type="checkbox"] {
     width: 12px;
