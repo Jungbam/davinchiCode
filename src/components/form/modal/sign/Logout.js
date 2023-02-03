@@ -10,7 +10,7 @@ const Logout = ({ closeModal }) => {
   const navigate = useNavigate();
   const { mutate } = useMutation(SignAPI.logout, {
     onSuccess: (data) => {
-      navigate("/");
+      navigate("/intro");
     },
     onError: (error) => {
       console.log(error);
