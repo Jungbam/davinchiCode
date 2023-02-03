@@ -23,14 +23,6 @@ const buttonVariants = {
   },
 };
 
-// async function fetchPosts(pageNum = 1) {
-//   console.log("fetchPosts", pageNum);
-//   const response = await axios.get(
-//     `https://game.davinci-code.online/rooms?page=${pageNum}`
-//   );
-//   return response;
-// }
-
 const RoomList = () => {
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
@@ -40,7 +32,6 @@ const RoomList = () => {
   const [searchType, setSearchType] = useState("name");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
-  const [selectedPost, setSelectedPost] = useState(null);
   const [list, setList] = useState([]);
   const [isWaiting, setIsWaiting] = useState(false);
   const [isPrivate, setIsPrivate] = useState(false);
@@ -68,7 +59,6 @@ const RoomList = () => {
     {
       onSuccess: ({ data }) => {
         console.log("search룸ㅎㅎ", data);
-        //dispatch
       },
       onError: (error) => {
         console.log(error);
@@ -266,6 +256,7 @@ const StWrapper = styled.div`
   border: solid 1px #110;
   width: 650px;
   height: 100%;
+  background-color: rgb(48, 48, 48, 0.5);
 `;
 
 const StRoomListHeader = styled.div`
@@ -501,12 +492,8 @@ const StModalOpener = styled.button`
   color: #ffffff;
 
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
-
-  & span {
-    margin-right: 10px;
-  }
 `;
 
 const StSearchModal = styled.div`

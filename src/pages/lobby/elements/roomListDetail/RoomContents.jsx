@@ -38,43 +38,30 @@ const RoomContents = ({
       },
     }
   );
-  const enterInRoomHandler = (roomId, isPrivate)=>{
-    setModal(true)
-    setInRoomPrivate(isPrivate)
-    setInRoom(roomId)
-  }
-  const closeModalHandler = ()=>{
-    setModal(false)
-    setPassword('')
-    setInRoom(0)
-  }
-  const {mutate} = useMutation(()=>RoomAPI.inRoom(inRoom, password),{
-    onSuccess : (data)=>{
-      switch(data.data.code){
-        case 1 : 
-          navigate(`/game/${inRoom}`)
-          break
-        case 101 :
-          alert('방이 없습니다.')
-          break
-        case 102 :
-          alert('방에 입장가능한 인원이 초과하였습니다.')
-          break
-        case 103 :
-          alert('게임이 이미 시작되었습니다.')
-          break
-        case 104 :
-          alert('비밀번호가 일치하지 않습니다.')
-          break
-        default :
-          break
-      } 
-    },
-    onError:(error)=>{
-      alert('방 입장 에러')
-      navigate('/lobby')
+  const enterInRoomHandler = (roomId, isPrivate) => {
+    setModal(true);
+    setInRoomPrivate(isPrivate);
+    setInRoom(roomId);
+  };
+  const closeModalHandler = () => {
+    setModal(false);
+    setPassword("");
+    setInRoom(0);
+  };
+  const { mutate: enterRoom } = useMutation(
+    () => RoomAPI.inRoom(inRoom, password),
+    {
+      onSuccess: (data) => {
+        if (data.status === 200) navigate(`/game/${inRoom}`);
+      },
+      onError: (error) => {
+        // error에 대한 경우 처리
+        alert("방 입장 에러");
+        navigate("/");
+      },
     }
-  });
+  );
+  useEffect(() => {}, [reFetch]);
   return (
     <>
       <StWrapper jus="flex-start" padding="20px 14px">
@@ -194,7 +181,7 @@ const RoomContents = ({
               color="#ffdf24"
               width="100px"
               height="32px"
-              onClick={() => mutate()}
+              onClick={() => enterRoom()}
             >
               확인
             </StBtn>
