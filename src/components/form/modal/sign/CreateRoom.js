@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 import styled from "styled-components";
 import { useState } from "react";
@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { ICON } from "../../../../helpers/Icons";
 
 const CreateRoom = ({ closeModal, modal }) => {
+  const ref = useRef("");
   const navigate = useNavigate();
   const [roomName, setRoomName] = useState("");
   const [maxMembers, setMaxMembers] = useState("4명");
@@ -49,6 +50,12 @@ const CreateRoom = ({ closeModal, modal }) => {
     createRoom(aa);
   };
 
+  useEffect(() => {
+    if (isSecret) {
+      ref.current.focus();
+    }
+  });
+
   return (
     <StWrapper>
       <StHeadText>방 만들기</StHeadText>
@@ -85,13 +92,14 @@ const CreateRoom = ({ closeModal, modal }) => {
         </Sta>
         <Sta mgRight="4px">
           <div>공개설정</div>
-          <StOpen>
+          <StOpen
+            onClick={() => {
+              setIsSecret(!isSecret);
+              setPassword("");
+            }}
+          >
             <img
               src={isSecret ? ICON.iconCheckBoxBlank : ICON.iconCheckBoxChecked}
-              onClick={() => {
-                setIsSecret(!isSecret);
-                setPassword("");
-              }}
               width={16}
             />
             <div>공개</div>
@@ -99,14 +107,21 @@ const CreateRoom = ({ closeModal, modal }) => {
         </Sta>
         <Sta>
           <div style={{ width: "64px", height: "14px" }}></div>
-          <StIsSecret>
+          <StIsSecret
+            onClick={() => {
+              if (isSecret) {
+                setPassword("");
+              }
+              setIsSecret(!isSecret);
+            }}
+          >
             <img
               src={isSecret ? ICON.iconCheckBoxChecked : ICON.iconCheckBoxBlank}
-              onClick={() => setIsSecret(!isSecret)}
               width={16}
             />
-            <div onClick={() => setIsSecret(!isSecret)}>비공개</div>
+            <div>비공개</div>
             <input
+              ref={ref}
               type="text"
               placeholder="0000"
               value={password}
@@ -316,10 +331,7 @@ const StOpen = styled.div`
   justify-content: center;
   align-items: center;
   gap: 2px;
-
-  & img {
-    cursor: pointer;
-  }
+  cursor: pointer;
   & input {
     width: 13px;
     height: 13px;
@@ -349,8 +361,12 @@ const StIsSecret = styled.div`
   margin-left: 5px;
   gap: 2px;
   align-items: center;
+  cursor: pointer;
   & input:focus {
     outline: none;
+  }
+  & input:hover {
+    cursor: text;
   }
   & img {
     cursor: pointer;

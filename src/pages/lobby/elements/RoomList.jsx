@@ -88,25 +88,26 @@ const RoomList = () => {
       <StRoomListHeader>방 리스트</StRoomListHeader>
       <StSearchRoom>
         <StBtnList>
-          <StCheckButton color="#eee">
+          <StCheckButton color="#eee" onClick={() => setIsWaiting(!isWaiting)}>
             <img
               src={
                 isWaiting ? ICON.iconCheckBoxChecked : ICON.iconCheckBoxBlank
               }
               width={16}
-              onClick={() => setIsWaiting(!isWaiting)}
             />
-            <div onClick={() => setIsWaiting(!isWaiting)}>대기방</div>
+            <div>대기방</div>
           </StCheckButton>
-          <StCheckButton color="#00831d">
+          <StCheckButton
+            color="#00831d"
+            onClick={() => setIsPrivate(!isPrivate)}
+          >
             <img
               src={
                 isPrivate ? ICON.iconCheckBoxChecked : ICON.iconCheckBoxBlank
               }
               width={16}
-              onClick={() => setIsPrivate(!isPrivate)}
             />
-            <div onClick={() => setIsPrivate(!isPrivate)}>비공개</div>
+            <div>비공개</div>
           </StCheckButton>
         </StBtnList>
         <StFuncBack>
@@ -171,7 +172,7 @@ const RoomList = () => {
               page="1"
               currentPage={currentPage.toString()}
             >
-              ≪
+              <img src={ICON.arrowLeftx2} />
             </ArrowPageBtn>
             <ArrowPageBtn
               disabled={currentPage <= 1}
@@ -181,15 +182,28 @@ const RoomList = () => {
               page="1"
               currentPage={currentPage.toString()}
             >
-              ﹤
+              <img src={ICON.arrowLeft} />
             </ArrowPageBtn>
             {list.map((el, i) =>
               el === currentPage ? (
-                <PageBtn key={i} color="#fff">
+                <PageBtn
+                  key={i}
+                  color="#fff"
+                  whileHover={{
+                    scale: 1.15,
+                    color: "#f8e112",
+                  }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
                   {el}
                 </PageBtn>
               ) : (
                 <PageBtn
+                  whileHover={{
+                    scale: 1.15,
+                    color: "#f8e112",
+                  }}
+                  transition={{ type: "spring", stiffness: 300 }}
                   key={i}
                   color="rgba(255, 255, 255, 0.2)"
                   onClick={() => {
@@ -208,7 +222,7 @@ const RoomList = () => {
               page={totalPage.toString()}
               currentPage={currentPage.toString()}
             >
-              ﹥
+              <img src={ICON.arrowRight} />
             </ArrowPageBtn>
             <ArrowPageBtn
               disabled={currentPage >= totalPage}
@@ -218,7 +232,7 @@ const RoomList = () => {
               page={totalPage.toString()}
               currentPage={currentPage.toString()}
             >
-              ≫
+              <img src={ICON.arrowRightx2} />
             </ArrowPageBtn>
           </StPages>
         </StPagination>
@@ -417,7 +431,7 @@ const StPages = styled.div`
   }
 `;
 
-const PageBtn = styled.button`
+const PageBtn = styled(motion.button)`
   border: none;
   background-color: #111;
   font-weight: bold;
@@ -427,8 +441,10 @@ const PageBtn = styled.button`
 
 const ArrowPageBtn = styled.button`
   border: none;
-  font-size: 12px;
   background-color: #111;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: ${({ page, currentPage }) => (currentPage === page ? "gray" : "#fff")};
   cursor: ${({ page, currentPage }) =>
     currentPage === page ? "default" : "pointer"};

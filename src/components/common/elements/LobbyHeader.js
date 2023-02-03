@@ -1,14 +1,31 @@
 import { motion } from "framer-motion";
 import React from "react";
 import styled from "styled-components";
+import { ICON } from "../../../helpers/Icons";
 import DropdownMenu from "./DropdownMenu";
 
 const Header = () => {
   return (
     <Navbar>
       <NavbarInside>
-        <StLogoName
-          initial={{ x: "100vw", opacity: 0 }}
+        <StImg
+          width={150}
+          src={ICON.iconLobbyLogo}
+          initial={{ x: -500 }}
+          animate={{ x: 0 }}
+          transition={{ delay: 1.3, type: "spring", stiffness: 120 }}
+          drag
+          dragConstraints={{ left: 0, top: -10, right: 930, bottom: 10 }}
+          dragElastic={2}
+
+          // onClick={() => {
+          //   window.location.replace("/lobby");
+          // }}
+        />
+        {/* initial={{ y: -250 }}
+        animate={{ y: -10 }}
+        transition={{ delay: 0.2, type: "spring", stiffness: 120 }} */}
+        {/* initial={{ x: "-50vw", opacity: 0 }}
           animate={{
             x: 0,
             opacity: 1,
@@ -16,13 +33,7 @@ const Header = () => {
               type: "spring",
               delay: 0.5,
             },
-          }}
-          onClick={() => {
-            window.location.replace("/lobby");
-          }}
-        >
-          DAVINCI CODE
-        </StLogoName>
+          }} */}
 
         <StMenuWrapper>
           <DropdownMenu />
@@ -52,19 +63,12 @@ const NavbarInside = styled.div`
   align-items: center;
 `;
 
-const StLogoName = styled(motion.div)`
-  font-size: 20px;
-  font-weight: 800;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1;
-  letter-spacing: normal;
-  text-align: left;
-  color: #fff;
-
-  cursor: pointer;
-`;
 const StMenuWrapper = styled.div`
   display: flex;
   position: relative;
+`;
+
+const StImg = styled(motion.img)`
+  cursor: pointer;
+  z-index: 10000;
 `;
