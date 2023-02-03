@@ -164,9 +164,6 @@ const RoomList = () => {
       <StRoomListBottom>
         <StPagination>
           <StPages>
-            {/* <img src={ICON.arrowLeft} /> */}
-            {/* <img src={ICON.arrowRight} />
-            <img src={ICON.arrowRightx2} /> */}
             <ArrowPageBtn
               disabled={currentPage <= 1}
               onClick={() => {
@@ -187,13 +184,26 @@ const RoomList = () => {
             >
               <img src={ICON.arrowLeft} />
             </ArrowPageBtn>
-            {list.map((el, i) =>
+            {[1, 2, 3, 4, 5].map((el, i) =>
               el === currentPage ? (
-                <PageBtn key={i} color="#fff">
+                <PageBtn
+                  key={i}
+                  color="#fff"
+                  whileHover={{
+                    scale: 1.15,
+                    color: "#f8e112",
+                  }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
                   {el}
                 </PageBtn>
               ) : (
                 <PageBtn
+                  whileHover={{
+                    scale: 1.15,
+                    color: "#f8e112",
+                  }}
+                  transition={{ type: "spring", stiffness: 300 }}
                   key={i}
                   color="rgba(255, 255, 255, 0.2)"
                   onClick={() => {
@@ -421,7 +431,7 @@ const StPages = styled.div`
   }
 `;
 
-const PageBtn = styled.button`
+const PageBtn = styled(motion.button)`
   border: none;
   background-color: #111;
   font-weight: bold;
