@@ -84,13 +84,11 @@ const JokerPosition = ({ selectedCard, cardPick }) => {
         color="#FFDF24"
         fontSize="14px"
         disabled={picked}
-        onClick={() => {
-          cardPick(mine);
-        }}
+        onClick={() => cardPick(mine)}
       >
         확인
       </StBtn>
-      <Timer />
+      <Timer timeOver={() => cardPick(mine)}/>
     </StWrapper>
   );
 };
