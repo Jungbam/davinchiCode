@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import React from "react";
 import styled from "styled-components";
 import DropdownMenu from "./DropdownMenu";
@@ -6,7 +7,23 @@ const Header = () => {
   return (
     <Navbar>
       <NavbarInside>
-        <StLogoName>DAVINCI CODE</StLogoName>
+        <StLogoName
+          initial={{ x: "100vw", opacity: 0 }}
+          animate={{
+            x: 0,
+            opacity: 1,
+            transition: {
+              type: "spring",
+              delay: 0.5,
+            },
+          }}
+          onClick={() => {
+            window.location.replace("/lobby");
+          }}
+        >
+          DAVINCI CODE
+        </StLogoName>
+
         <StMenuWrapper>
           <DropdownMenu />
         </StMenuWrapper>
@@ -35,7 +52,7 @@ const NavbarInside = styled.div`
   align-items: center;
 `;
 
-const StLogoName = styled.div`
+const StLogoName = styled(motion.div)`
   font-size: 20px;
   font-weight: 800;
   font-stretch: normal;
@@ -44,6 +61,8 @@ const StLogoName = styled.div`
   letter-spacing: normal;
   text-align: left;
   color: #fff;
+
+  cursor: pointer;
 `;
 const StMenuWrapper = styled.div`
   display: flex;

@@ -21,11 +21,10 @@ const CreateRoom = ({ closeModal, modal }) => {
     setRoomModal((prev) => !prev);
   };
 
-  const passwordChecked =
-    (!isSecret || password.length === 4) && roomName !== "";
+  const passwordChecked = !isSecret || password.length === 4;
 
   const { mutate: createRoom } = useMutation(
-    () => RoomAPI.postRoom({ roomName, maxMembers, password }),
+    (aa) => RoomAPI.postRoom({ roomName: aa, maxMembers, password }),
     {
       onSuccess: ({ data }) => {
         navigate(`/game/${data.roomId}`);
@@ -37,7 +36,17 @@ const CreateRoom = ({ closeModal, modal }) => {
   );
 
   const createRoomHandler = () => {
-    createRoom();
+    const aa =
+      roomName === ""
+        ? [
+            "초보자 환영! 같이 배우면서 즐겨요.",
+            "우리 같이 게임해요",
+            "한 수 가르쳐 주실 분?",
+            "모두 덤벼 봐!",
+            "너만 오면 바로 고!",
+          ][Math.floor(Math.random() * 5)]
+        : roomName;
+    createRoom(aa);
   };
 
   return (
@@ -53,8 +62,8 @@ const CreateRoom = ({ closeModal, modal }) => {
         />
       </StRoomName>
       <StSettingRoom>
-        <Sta>
-          <label>인원설정</label>
+        <Sta mgRight="30px">
+          <div>인원설정</div>
           <StModalOpener
             onClick={() => {
               setRoomModal((prev) => !prev);
@@ -74,8 +83,8 @@ const CreateRoom = ({ closeModal, modal }) => {
             ))}
           </StModal>
         </Sta>
-        <Stb>
-          <label>공개설정</label>
+        <Sta mgRight="4px">
+          <div>공개설정</div>
           <StOpen>
             <img
               src={isSecret ? ICON.iconCheckBoxBlank : ICON.iconCheckBoxChecked}
@@ -87,25 +96,28 @@ const CreateRoom = ({ closeModal, modal }) => {
             />
             <div>공개</div>
           </StOpen>
-        </Stb>
-        <StIsSecret>
-          <img
-            src={isSecret ? ICON.iconCheckBoxChecked : ICON.iconCheckBoxBlank}
-            onClick={() => setIsSecret(!isSecret)}
-            width={16}
-          />
-          <div onClick={() => setIsSecret(!isSecret)}>비공개</div>
-          <input
-            type="text"
-            placeholder="0000"
-            value={password}
-            disabled={!isSecret}
-            maxLength={4}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-          />
-        </StIsSecret>
+        </Sta>
+        <Sta>
+          <div style={{ width: "64px", height: "14px" }}></div>
+          <StIsSecret>
+            <img
+              src={isSecret ? ICON.iconCheckBoxChecked : ICON.iconCheckBoxBlank}
+              onClick={() => setIsSecret(!isSecret)}
+              width={16}
+            />
+            <div onClick={() => setIsSecret(!isSecret)}>비공개</div>
+            <input
+              type="text"
+              placeholder="0000"
+              value={password}
+              disabled={!isSecret}
+              maxLength={4}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            />
+          </StIsSecret>
+        </Sta>
       </StSettingRoom>
       <StSecretDesc>비밀번호 숫자 4자리 입력</StSecretDesc>
       <StBtnList>
@@ -228,8 +240,8 @@ const StSettingRoom = styled.div`
 const Sta = styled.div`
   width: 70px;
   height: 60px;
-  margin-right: 30px;
-  & label {
+  margin-right: ${({ mgRight }) => mgRight};
+  & div {
     font-weight: 700;
     font-size: 12px;
     line-height: 14px;
@@ -264,8 +276,8 @@ const StModal = styled.div`
   & button {
     margin-top: 4px;
     width: 100%;
-    height: 35px;
-    border: 1px solid #dddddd;
+    height: 32px;
+    border: 0.3px solid #dddddd;
     border-radius: 2px;
     background-color: #f9f9f9;
 
@@ -283,22 +295,9 @@ const Stb = styled.div`
   width: 70px;
   height: 60px;
   margin-right: 6px;
-  & label {
+  & div {
     font-weight: 700;
     font-size: 12px;
-    line-height: 14px;
-  }
-  & select {
-    margin-top: 4px;
-    width: 100%;
-    height: 40px;
-    border: 1px solid #dddddd;
-    border-radius: 4px;
-    background-color: #f9f9f9;
-    padding-left: 14px;
-
-    font-weight: 500;
-    font-size: 14px;
     line-height: 14px;
   }
 `;
@@ -333,13 +332,14 @@ const StOpen = styled.div`
 `;
 
 const StIsSecret = styled.div`
+  margin-top: 4px;
   width: 140px;
   height: 40px;
   background-color: #f9f9f9;
   border: 1px solid #dddddd;
   border-radius: 4px;
-  margin-top: 23px;
-  padding: 0 14px;
+
+  padding-left: 10px;
   font-weight: 500;
   font-size: 14px;
   line-height: 14px;
@@ -347,14 +347,17 @@ const StIsSecret = styled.div`
   display: flex;
 
   margin-left: 5px;
-
+  gap: 2px;
   align-items: center;
   & input:focus {
     outline: none;
   }
   & img {
-    margin-right: 2px;
     cursor: pointer;
+  }
+  & div {
+    font-size: 14px;
+    font-weight: 500;
   }
   & input[type="text"] {
     width: 52px;
@@ -377,6 +380,6 @@ const StSecretDesc = styled.div`
   display: flex;
   justify-content: flex-end;
   width: 320px;
-  margin-top: 7px;
+
   color: #777;
 `;
