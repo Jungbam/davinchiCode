@@ -184,7 +184,7 @@ const RoomList = () => {
             >
               <img src={ICON.arrowLeft} />
             </ArrowPageBtn>
-            {[1, 2, 3, 4, 5].map((el, i) =>
+            {list.map((el, i) =>
               el === currentPage ? (
                 <PageBtn
                   key={i}
