@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { SignAPI } from "../../../api/axios";
 import { queryKeys } from "../../../helpers/queryKeys";
 import styled from "styled-components";
+import { useEffect } from "react";
 
 const SetUserInfo = ({ closeModal }) => {
   const [profileImg, setProfileImg] = useState(null);
@@ -45,6 +46,15 @@ const SetUserInfo = ({ closeModal }) => {
       },
     }
   );
+  const init = ()=>{
+    setNewProfileImg(null)
+    setNewNick(null);
+    navigate("/lobby")
+  }
+  const closeHandler = (e)=>{
+    e.preventDefault()
+    closeModal();
+  }
 
   const onChangeImgHandler = (e) => {
     const imgSrc = e.target.files[0];
@@ -103,7 +113,7 @@ const SetUserInfo = ({ closeModal }) => {
           />
         </StBox>
         <StBtnList>
-          <StButton type="cancel" onClick={() => navigate("/lobby")}>
+          <StButton type="cancel" onClick={closeHandler}>
             다음에 변경
           </StButton>
           <StButton type="submit" disabled={!newNick && !newProfileImg}>

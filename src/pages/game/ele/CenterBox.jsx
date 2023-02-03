@@ -23,6 +23,7 @@ import GoStop from "../logic/GoStop";
 import { useEffect } from "react";
 import EndingModal from "./EndingModal";
 import ThrowMine from "../logic/ThrowMine";
+import { IMG } from "../../../helpers/image";
 
 const CenterBox = ({ socket, userId }) => {
   const [gameView, setGameView] = useState(
@@ -180,7 +181,8 @@ const StWrapper = styled.div`
   margin-top: 8px;
   border-radius: 6px;
   border: solid 1px #111;
-  background-color: #fff;
+  background-color: whitesmoke;
+  background-image: url(${IMG.gameBackground});
 `;
 const StGameField = styled.div`
   position: relative;
