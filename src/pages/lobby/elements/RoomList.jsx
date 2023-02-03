@@ -256,6 +256,7 @@ const StWrapper = styled.div`
   border: solid 1px #110;
   width: 650px;
   height: 100%;
+  background-color: rgb(48, 48, 48, 0.5);
 `;
 
 const StRoomListHeader = styled.div`

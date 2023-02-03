@@ -14,10 +14,12 @@ const Chat = ({ socket, roomId, msgList, setMsgList }) => {
   };
   const sendMessage = (e) => {
     if (e.keyCode === 13) {
+      if (msg === "") return;
       socket?.current.emit(eventName.SEND_MESSAGE, msg, roomId, addMyMessage);
     }
   };
   const sendMessageBtn = (e) => {
+    if (msg === "") return;
     socket?.current.emit(eventName.SEND_MESSAGE, msg, roomId, addMyMessage);
   };
 
@@ -35,7 +37,7 @@ const Chat = ({ socket, roomId, msgList, setMsgList }) => {
             value={msg}
             onChange={(e) => setMsg(e.target.value)}
             placeholder="채팅을 시작해보세요!"
-            onKeyDown={sendMessage}
+            onKeyUp={sendMessage}
           />
           <img onClick={sendMessageBtn} src={ICON.iconSend} alt="icon" />
         </StInputBox>
@@ -64,7 +66,8 @@ const StMsgContainer = styled.div`
   padding: 9px 0 0 20px;
   flex-direction: column;
   justify-content: flex-end;
-  gap: 10px;
+  gap: 8px;
+  padding: 20px 30px 10px 22px;
 `;
 
 const StBtnContainer = styled.div`
