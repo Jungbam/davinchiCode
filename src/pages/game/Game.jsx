@@ -57,7 +57,9 @@ const Game = () => {
     window.addEventListener('beforeunload',beforeUnloadHandler)
     window.history.pushState(null, "", window.location.href);
     window.addEventListener('popstate', preventGoBack)
-    socketRef.current = io.connect(process.env.REACT_APP_SERVER);
+    socketRef.current = io.connect(process.env.REACT_APP_SERVER,{
+      withCredentials: true
+    });
     socketRef.current.emit(eventName.JOIN, userId, roomId, (usersInRoom) => {
       dispatch(setUsers(usersInRoom));
     });
