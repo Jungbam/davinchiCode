@@ -6,6 +6,14 @@ const initialState = {
   initReady: false,
   trigger: false,
   gameStart: false,
+  roomInfo: {
+    maxMembers: 4,
+    members: 1,
+    isPlaying: false,
+    secret: false,
+    roomId: 0,
+    roomName: "",
+  },
   gameInfo: {
     blackCards: 4,
     whiteCards: 4,
@@ -22,6 +30,9 @@ const gameSlice = createSlice({
   reducers: {
     setUsers: (state, action) => {
       state.gameInfo = action.payload;
+    },
+    setRoom: (state, action) => {
+      state.roomInfo = action.payload;
     },
     setIndicater: (state, action) => {
       state.indicated = action.payload;
@@ -69,5 +80,6 @@ export const {
   setEndingInfo,
   setInitReadyBtn,
   setGameStart,
+  setRoom,
 } = gameSlice.actions;
 export default gameSlice.reducer;

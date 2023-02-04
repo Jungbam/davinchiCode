@@ -22,8 +22,7 @@ from {
 to {
   opacity:1
 }`;
-
-const Modal = ({ children, modal, closeModal, width, height }) => {
+const Modal = ({ children, modal = true, closeModal, width, height }) => {
   const styles = { modal, width, height };
   return (
     <>

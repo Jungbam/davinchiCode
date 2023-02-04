@@ -3,9 +3,9 @@ import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 const SystemMessage = () => {
-  const {gameInfo}=useSelector(state=>state.gameSlice)
+  const {gameInfo,gameStart}=useSelector(state=>state.gameSlice)
   const turnUser = gameInfo.users.filter(el=>el.userId===gameInfo.turn)
-  if(gameInfo.turn===null) return <></>
+  if(!gameStart) return <></>
   return (
     turnUser&&<StOnGoingStatus>{turnUser[0]?.userName}님의 차례입니다.</StOnGoingStatus>
   )

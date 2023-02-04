@@ -1,13 +1,12 @@
 import React from "react";
 import Router from "./share/Router";
-import useSound from "use-sound";
-import { Sounds } from "./helpers/sounds";
 import "./App.css";
+import useSounds from "./hooks/useSounds";
 
 function App() {
-  const [click] = useSound(Sounds.Click);
+  const SoundEffect = useSounds();
   return (
-    <div className="App" onClick={click}>
+    <div className="App" onClick={SoundEffect.Click}>
       <Router />
     </div>
   );

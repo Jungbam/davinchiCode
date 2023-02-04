@@ -1,26 +1,26 @@
+import React,{ useEffect, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router";
+import { io } from "socket.io-client";
+import { useDispatch, useSelector } from "react-redux";
+import { setInit, setRoom, setUsers } from "../../redux/modules/gameSlice";
 import styled from "styled-components";
-import Header from "../../components/common/elements/Header";
+import Header from "./ele/Header";
 import UsersBox from "./ele/UsersBox";
 import CenterBox from "./ele/CenterBox";
 import Chat from "./ele/chat/Chat";
-import { useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router";
-import { io } from "socket.io-client";
-import background from "../../assets/images/background.png";
-import myUserBackground from "../../assets/images/myUserBackground.png";
-import { eventName } from "../../helpers/eventName";
-import { useDispatch, useSelector } from "react-redux";
-import { setInit, setUsers } from "../../redux/modules/gameSlice";
 import MyBox from "./ele/MyBox";
-const userId = Math.floor(Math.random() * 100);
+import { eventName } from "../../helpers/eventName";
+import { IMG } from "../../helpers/image";
 const Game = () => {
   const [msgList, setMsgList] = useState([]);
+  const dispatch = useDispatch();
   const { roomId } = useParams();
   const socketRef = useRef();
+
+  const {userId} = useSelector(state=>state.signSlice.userInfo)
   const { users,turn } = useSelector((state) => state.gameSlice.gameInfo);
   const myInfo = users.filter((user) => user.userId === userId);
   const others = users.filter((user) => user.userId !== userId);
-  const dispatch = useDispatch();
   const navigate = useNavigate()
 
   const initHandler = ()=>{
@@ -60,8 +60,9 @@ const Game = () => {
     socketRef.current = io.connect(process.env.REACT_APP_SERVER,{
       withCredentials: true
     });
-    socketRef.current.emit(eventName.JOIN, userId, roomId, (usersInRoom) => {
+    socketRef.current.emit(eventName.JOIN, roomId, (usersInRoom,roomInfo) => {
       dispatch(setUsers(usersInRoom));
+      dispatch(setRoom(roomInfo))
     });
     socketRef.current.on(eventName.RECEIVE_MESSAGE, (msg) => {
       const myMsg = { msg, mine: false, createdAt };
@@ -106,7 +107,7 @@ const Game = () => {
 export default Game;
 
 const StWrapper = styled.div`
-  background-image: url(${background});
+  background-image: url(${IMG.background});
   background-size: cover;
   height: 100vh;
   background-color: #2b2b2b;
@@ -136,7 +137,7 @@ const StMyBoxContainer = styled.div`
   position: relative;
   height: 100%;
   width: 714px;
-  background-image: url(${myUserBackground});
+  background-image: url(${IMG.myUserBackground});
 
   padding: 40px 20px;
   display: flex;

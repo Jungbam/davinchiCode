@@ -11,6 +11,8 @@ import otherUserBackground from "../assets/images/otherUserBackground.png";
 import gameBackground from "../assets/images/game_background.png";
 import otherUserBackgroundgameout from "../assets/images/otherUserBackground_gameout.png";
 import otherUserBackgroundNone from "../assets/images/otherUserBackgroundNone.png";
+import background from "../assets/images/background.png";
+import myUserBackground from "../assets/images/myUserBackground.png";
 
 export const IMG = {
   GameInfo1,
@@ -26,4 +28,6 @@ export const IMG = {
   otherUserBackgroundgameout,
   otherUserBackgroundNone,
   gameBackground,
+  background,
+  myUserBackground,
 };

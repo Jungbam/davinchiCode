@@ -13,6 +13,7 @@ import {
   setIndicater,
   setInit,
   setInitReadyBtn,
+  setRoom,
   setTrigger,
   setUsers,
 } from "../../../redux/modules/gameSlice";
@@ -24,8 +25,10 @@ import { useEffect } from "react";
 import EndingModal from "./EndingModal";
 import ThrowMine from "../logic/ThrowMine";
 import { IMG } from "../../../helpers/image";
+import useSounds from "../../../hooks/useSounds";
 
 const CenterBox = ({ socket, userId }) => {
+  const SoundEffect = useSounds()
   const [gameView, setGameView] = useState(
     <Ready readyHandler={readyHandler} goSelecetTile={goSelecetTile} />
   );
@@ -33,13 +36,13 @@ const CenterBox = ({ socket, userId }) => {
   const dispatch = useDispatch();
 
   function readyHandler() {
-    socket.current.emit(eventName.READY, userId);
+    socket.current.emit(eventName.READY);
   }
   function goSelecetTile() {
     setGameView(<IntroTile selectTile={selectTile} />);
   }
   function selectTile(black) {
-    socket.current.emit(eventName.FIRST_DRAW, userId, black, (myCards) => {
+    socket.current.emit(eventName.FIRST_DRAW, black, (myCards) => {
       dispatch(setUsers(myCards));
     });
   }
@@ -116,9 +119,10 @@ const CenterBox = ({ socket, userId }) => {
       dispatch(setInitReadyBtn());
       dispatch(setTrigger(true));
     });
-    socket.current?.on(eventName.ADD_READY, (gameInfo) => {
+    socket.current?.on(eventName.ADD_READY, (gameInfo,roomInfo) => {
       dispatch(setInitReadyBtn(true));
       dispatch(setUsers(gameInfo));
+      dispatch(setRoom(roomInfo))
     });
     socket.current?.on(eventName.DRAW_RESULT, (gameInfo) => {
       setGameView(<Turn GameTurn={GameTurn} userId={userId} />);
@@ -132,6 +136,8 @@ const CenterBox = ({ socket, userId }) => {
       dispatch(setUsers(gameInfo));
     });
     socket.current?.on(eventName.RESULT_GUESS, (result, security, gameInfo) => {
+      if(result) SoundEffect.success()
+      else SoundEffect.fail()
       setGameView(
         <ResultSelect
           gameResult={gameInfo}

@@ -45,6 +45,8 @@ import iconSearch from "../assets/icons/ico_search.svg";
 import iconCheckBoxBlank from "../assets/icons/check_box_blank.svg";
 import iconCheckBoxChecked from "../assets/icons/check_box_checked.svg";
 import iconLobbyLogo from "../assets/icons/logo.png";
+import iconLockHeader from "../assets/icons/ico_lock_white.svg";
+import iconSirenHeader from "../assets/icons/ico_siren_white.svg";
 import arrowLeft from "../assets/icons/arrow_left.svg";
 import arrowLeftx2 from "../assets/icons/arrow_left_x2.svg";
 import arrowRight from "../assets/icons/arrow_right.svg";
@@ -112,4 +114,6 @@ export const ICON = {
   iconCheckBoxChecked,
   iconCheckBoxBlank,
   iconLobbyLogo,
+  iconLockHeader,
+  iconSirenHeader,
 };

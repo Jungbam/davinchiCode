@@ -66,40 +66,46 @@ function DropdownMenu() {
           </StMenuList>
         )}
       </AnimatePresence>
-      <Modal
-        modal={showModal.toString()}
-        closeModal={() => {
-          setShowModal((prev) => !prev);
-        }}
-        width="440px"
-        height="428px"
-      >
-        <SetUserInfo
+      {showModal && (
+        <Modal
+          modal={showModal.toString()}
           closeModal={() => {
-            setShowModal(!showModal);
+            setShowModal((prev) => !prev);
           }}
-        />
-      </Modal>
-      <Modal
-        modal={showLogout.toString()}
-        closeModal={() => {
-          setShowLogout((prev) => !prev);
-        }}
-        width="288px"
-        height="160px"
-      >
-        <Logout closeModal={setShowLogout} />
-      </Modal>
-      <Modal
-        modal={showDelAccount.toString()}
-        closeModal={() => {
-          setShowDelAccount((prev) => !prev);
-        }}
-        width="440px"
-        height="338px"
-      >
-        <DelAccount closeModal={setShowDelAccount} />
-      </Modal>
+          width="440px"
+          height="428px"
+        >
+          <SetUserInfo
+            closeModal={() => {
+              setShowModal(!showModal);
+            }}
+          />
+        </Modal>
+      )}
+      {showLogout && (
+        <Modal
+          modal={showLogout.toString()}
+          closeModal={() => {
+            setShowLogout((prev) => !prev);
+          }}
+          width="288px"
+          height="160px"
+        >
+          <Logout closeModal={setShowLogout} />
+        </Modal>
+      )}
+      {showDelAccount && (
+        <Modal
+          modal={showDelAccount.toString()}
+          closeModal={() => {
+            setShowDelAccount((prev) => !prev);
+          }}
+          width="440px"
+          height="338px"
+        >
+          <DelAccount closeModal={setShowDelAccount} />
+        </Modal>
+      )}
     </StMenuWrapper>
   );
 }

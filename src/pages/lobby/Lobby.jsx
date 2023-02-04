@@ -1,18 +1,23 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { SignAPI } from "../../api/axios";
 import LobbyHeader from "../../components/common/elements/LobbyHeader";
 import { queryKeys } from "../../helpers/queryKeys";
+import { setUser } from "../../redux/modules/signSlice";
 import Ranking from "./elements/Ranking";
 import RoomList from "./elements/RoomList";
 
 const Lobby = () => {
+  const dispatch = useDispatch()
   const { data, isLoading, error } = useQuery(
     [queryKeys.MYINFO],
     SignAPI.myinfo,
     {
-      onSuccess: (res) => {},
+      onSuccess: (res) => {
+        dispatch(setUser(res.data))
+      },
       onError: () => {},
       staleTime: 60 * 60 * 1000,
       cacheTime: 60 * 60 * 1000,

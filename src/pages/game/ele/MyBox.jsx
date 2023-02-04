@@ -7,7 +7,7 @@ const MyBox = ({ user }) => {
   return (
     <StBox>
       <StUserProfile>
-        <img src={IMG.userProfile} alt="유저 프로필 사진" width="80" />
+        <StImg src={user?.userProfileImg||IMG.userProfile} alt="유저 프로필 사진" width="80" />
         <div>{user?.userName}</div>
       </StUserProfile>
       <StCardList>
@@ -32,17 +32,13 @@ const StUserProfile = styled.div`
   width: 166px;
   height: 110px;
   margin: 0 10px;
-
   display: flex;
   flex-direction: column;
   align-items: center;
-
   font-weight: 600;
   font-size: 14px;
   line-height: 100%;
-
   color: #111;
-
   & div {
     margin-top: 13px;
   }
@@ -52,13 +48,16 @@ const StCardList = styled.div`
   position: absolute;
   top: 44px;
   right: 20px;
-
   width: 464px;
   height: 48px;
   gap: 3.5px;
   display: flex;
 `;
-const StCard = styled.img``;
+const StImg = styled.img`
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+`;
 
 const StOpen = styled.span`
   text-align: center;

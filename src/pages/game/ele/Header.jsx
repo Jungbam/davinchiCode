@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import iconLock from "../../../assets/icons/ico_lock_white.svg";
-import iconSiren from "../../../assets/icons/ico_siren_white.svg";
 
-import Modal from "../../form/modal/Modal";
-import ComplaintBug from "./complaintbug/ComplaintBug";
+import Modal from "../../../components/form/modal/Modal";
+import ComplaintBug from "../../../components/common/elements/complaintbug/ComplaintBug";
+import { IMG } from "../../../helpers/image";
+import { useSelector } from "react-redux";
+import { ICON } from "../../../helpers/Icons";
 
 const Header = () => {
+  const {roomInfo} = useSelector(state=>state.gameSlice)
   const [modal, setModal] = useState(false);
   const setModalHandler = () => {
     setModal((prev) => !prev);
@@ -25,21 +27,20 @@ const Header = () => {
       <NavbarInside>
         <NavbarStatus>
           <RoomStauts>
-            <RoundStatus>1/4</RoundStatus>
-            <RoundStatus>진행</RoundStatus>
-            <img src={iconLock} alt='잠금'/>
+            <RoundStatus>{roomInfo?.members}/{roomInfo?.maxMembers}</RoundStatus>
+            <RoundStatus>{roomInfo?.isPlaying?'진행':'대기'}</RoundStatus>
+            <img src={roomInfo?.sercet?ICON.iconLock:IMG.iconUnlock} alt='잠금'/>
           </RoomStauts>
           <SideBar>|</SideBar>
-          <div>1234566</div>
+          <div>{roomInfo?.roomId}</div>
           <SideBar>|</SideBar>
           <RoomName>
-            초보자 환영! 같이 배우면서 즐겨요. 상대방의 비밀 암호를 추리해
-            블럭을 맞춰보세요!
+            {roomInfo?.roomName}
           </RoomName>
         </NavbarStatus>
 
         <ReportButton onClick={setModalHandler}>
-          <img src={iconSiren} alt='버그 신고' />
+          <img src={IMG.iconSirenHeader} alt='버그 신고' />
           <div>버그신고</div>
         </ReportButton>
       </NavbarInside>
