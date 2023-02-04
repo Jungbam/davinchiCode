@@ -51,7 +51,6 @@ const Game = () => {
       }else return
     }
   }
-  const createdAt = new Date().toLocaleString();
   useEffect(() => {
     document.onkeydown=preventReloadHandler
     window.addEventListener('beforeunload',beforeUnloadHandler)
@@ -64,8 +63,8 @@ const Game = () => {
       dispatch(setUsers(usersInRoom));
       dispatch(setRoom(roomInfo))
     });
-    socketRef.current.on(eventName.RECEIVE_MESSAGE, (msg) => {
-      const myMsg = { msg, mine: false, createdAt };
+    socketRef.current.on(eventName.RECEIVE_MESSAGE, (msg, nickName) => {
+      const myMsg = { msg, mine: false, nickName };
       setMsgList((prev) => [...prev, myMsg]);
     });
     return () => {

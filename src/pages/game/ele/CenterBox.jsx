@@ -108,7 +108,6 @@ const CenterBox = ({ socket, userId }) => {
     setGameView(<Turn GameTurn={GameTurn} userId={userId} />);
   }
   function endingHandler() {
-    dispatch(setInit());
     setEnding(false);
     setGameView(<Ready readyHandler={readyHandler} goSelecetTile={goSelecetTile} />);
   }
@@ -152,6 +151,7 @@ const CenterBox = ({ socket, userId }) => {
       setGameView(<Turn GameTurn={GameTurn} userId={userId} />);
     });
     socket.current?.on(eventName.GAMEOVER, (endingInfo, gameInfo) => {
+      dispatch(setInit());
       dispatch(setEndingInfo(endingInfo));
       dispatch(setUsers(gameInfo));
       dispatch(setTrigger(false));
