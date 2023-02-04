@@ -6,11 +6,15 @@ import GameInfo5 from "../assets/images/explain/5_modal_game-info.png";
 import GameInfo6 from "../assets/images/explain/6_modal_game-info.png";
 import GameInfo7 from "../assets/images/explain/7_modal_game-info.png";
 import GameLoading from "../assets/images/main_loading.gif";
+import GameIntro from "../assets/images/game_intro.gif";
 import userProfile from "../assets/images/user-profile.png";
 import otherUserBackground from "../assets/images/otherUserBackground.png";
+import gameError from "../assets/images/game_error.png";
 import gameBackground from "../assets/images/game_background.png";
 import otherUserBackgroundgameout from "../assets/images/otherUserBackground_gameout.png";
 import otherUserBackgroundNone from "../assets/images/otherUserBackgroundNone.png";
+import background from "../assets/images/background.png";
+import myUserBackground from "../assets/images/myUserBackground.png";
 
 export const IMG = {
   GameInfo1,
@@ -20,10 +24,14 @@ export const IMG = {
   GameInfo5,
   GameInfo6,
   GameInfo7,
+  GameIntro,
   GameLoading,
   userProfile,
   otherUserBackground,
   otherUserBackgroundgameout,
   otherUserBackgroundNone,
   gameBackground,
+  background,
+  myUserBackground,
+  gameError,
 };

@@ -13,6 +13,7 @@ import {
   setIndicater,
   setInit,
   setInitReadyBtn,
+  setRoom,
   setTrigger,
   setUsers,
 } from "../../../redux/modules/gameSlice";
@@ -24,8 +25,10 @@ import { useEffect } from "react";
 import EndingModal from "./EndingModal";
 import ThrowMine from "../logic/ThrowMine";
 import { IMG } from "../../../helpers/image";
+import useSounds from "../../../hooks/useSounds";
 
 const CenterBox = ({ socket, userId }) => {
+  const SoundEffect = useSounds()
   const [gameView, setGameView] = useState(
     <Ready readyHandler={readyHandler} goSelecetTile={goSelecetTile} />
   );
@@ -33,20 +36,19 @@ const CenterBox = ({ socket, userId }) => {
   const dispatch = useDispatch();
 
   function readyHandler() {
-    socket.current.emit(eventName.READY, userId);
+    socket.current.emit(eventName.READY);
   }
   function goSelecetTile() {
     setGameView(<IntroTile selectTile={selectTile} />);
   }
   function selectTile(black) {
-    socket.current.emit(eventName.FIRST_DRAW, userId, black, (myCards) => {
+    socket.current.emit(eventName.FIRST_DRAW, black, (myCards) => {
       dispatch(setUsers(myCards));
     });
   }
   function GameTurn(selectedColor) {
     socket.current.emit(
       eventName.COLOR_SELECTED,
-      userId,
       selectedColor,
       (card) => {
         setGameView(
@@ -60,7 +62,7 @@ const CenterBox = ({ socket, userId }) => {
     );
   }
   function cardPick(resultArray = null) {
-    socket.current.emit(eventName.PLACE_JOKER, userId, resultArray);
+    socket.current.emit(eventName.PLACE_JOKER, resultArray);
   }
   function selectIndicaterCard(indicatedUser) {
     setGameView(
@@ -106,19 +108,20 @@ const CenterBox = ({ socket, userId }) => {
     setGameView(<Turn GameTurn={GameTurn} userId={userId} />);
   }
   function endingHandler() {
-    dispatch(setInit());
     setEnding(false);
     setGameView(<Ready readyHandler={readyHandler} goSelecetTile={goSelecetTile} />);
   }
 
   useEffect(() => {
-    socket.current?.on(eventName.GAME_START, () => {
+    socket.current?.on(eventName.GAME_START, (roomInfo) => {
       dispatch(setInitReadyBtn());
       dispatch(setTrigger(true));
+      dispatch(setRoom(roomInfo))
     });
-    socket.current?.on(eventName.ADD_READY, (gameInfo) => {
+    socket.current?.on(eventName.ADD_READY, (gameInfo,roomInfo) => {
       dispatch(setInitReadyBtn(true));
       dispatch(setUsers(gameInfo));
+      dispatch(setRoom(roomInfo))
     });
     socket.current?.on(eventName.DRAW_RESULT, (gameInfo) => {
       setGameView(<Turn GameTurn={GameTurn} userId={userId} />);
@@ -132,6 +135,8 @@ const CenterBox = ({ socket, userId }) => {
       dispatch(setUsers(gameInfo));
     });
     socket.current?.on(eventName.RESULT_GUESS, (result, security, gameInfo) => {
+      if(result) SoundEffect.success()
+      else SoundEffect.fail()
       setGameView(
         <ResultSelect
           gameResult={gameInfo}
@@ -146,13 +151,15 @@ const CenterBox = ({ socket, userId }) => {
       setGameView(<Turn GameTurn={GameTurn} userId={userId} />);
     });
     socket.current?.on(eventName.GAMEOVER, (endingInfo, gameInfo) => {
+      dispatch(setInit());
       dispatch(setEndingInfo(endingInfo));
       dispatch(setUsers(gameInfo));
       dispatch(setTrigger(false));
       setEnding(true);
     });
-    socket.current?.on(eventName.LEAVE_USER, (gameInfo)=>{
+    socket.current?.on(eventName.LEAVE_USER, (gameInfo,roomInfo)=>{
       dispatch(setUsers(gameInfo))
+      dispatch(setRoom(roomInfo))
     })
     return () => {
     };

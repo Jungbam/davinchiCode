@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { AnimatePresence, motion } from "framer-motion";
 import Modal from "../../form/modal/Modal";
 import SetUserInfo from "../../../pages/intro/kakao/SetUserInfo";
-import Logout from "../../form/modal/sign/Logout";
-import DelAccount from "../../form/modal/sign/DelAccount";
+import Logout from "../../form/sign/Logout";
+import DelAccount from "../../form/sign/DelAccount";
 import Moddal from "../../form/modal/Moddal";
 
 function DropdownMenu() {

@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import React from "react";
 import ReactDOM from "react-dom";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import exitModal from "../../../assets/icons/ico_modal_cancle.svg";
 
 const buttonVariants = {
@@ -15,7 +15,7 @@ const buttonVariants = {
   },
 };
 
-const Modal = ({ children, modal, closeModal, width, height }) => {
+const Modal = ({ children, modal = true, closeModal, width, height }) => {
   const styles = { modal, width, height };
   return (
     <>

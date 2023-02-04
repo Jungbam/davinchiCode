@@ -9,9 +9,8 @@ const Chat = ({ socket, roomId, msgList, setMsgList }) => {
   const ref = useRef("");
   const [msg, setMsg] = useState("");
 
-  const createdAt = new Date().toLocaleString();
   const addMyMessage = (msg) => {
-    const myMsg = { msg, mine: true, createdAt };
+    const myMsg = { msg, mine: true };
     setMsgList((prev) => [...prev, myMsg]);
     setMsg("");
   };
@@ -31,7 +30,6 @@ const Chat = ({ socket, roomId, msgList, setMsgList }) => {
     ref.current.scrollTo(0, ref.current.scrollHeight);
   }, [msgList]);
 
-  // console.log(ref.current.scrollTop, "aaa", ref.current.scrollHeight);
   return (
     <StWrapper>
       <StMsgContainer ref={ref}>

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Modal from "../../components/form/modal/Modal";
+import { IMG } from "../../helpers/image";
 import GameInfo from "./kakao/ele/GameInfo";
-import IntroPic from "../../assets/images/davincicode_main.png";
 
 
 const KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_ID}&redirect_uri=${process.env.REACT_APP_REDIRECT}kakao&response_type=code`;
@@ -20,7 +20,7 @@ const Intro = () => {
         <GameInfo closeModal={setModalHandler} />
       </Modal>
       <StContainer>
-        <img src={IntroPic} width="900" alt='인트로 이미지'/>
+        <img src={IMG.GameIntro} width="900" alt='인트로 이미지'/>
         <StBtnBox>
           <StBtn onClick={setModalHandler} color="#fff">
             게임 설명보기

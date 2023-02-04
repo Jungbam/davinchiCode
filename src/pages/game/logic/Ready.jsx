@@ -11,6 +11,7 @@ const Ready = ({ readyHandler, goSelecetTile }) => {
   const [ready, setReady] = useState(false);
   const [second, setSecond] = useState(String(5));
   const { gameInfo, trigger } = useSelector((state) => state.gameSlice);
+  const {roomInfo} = useSelector(state=>state.gameSlice)
   const readyMembers = gameInfo?.users.filter((el) => el.isReady === true);
   const gameStart = useRef(null);
   const interval = useRef(null);
@@ -48,7 +49,7 @@ const Ready = ({ readyHandler, goSelecetTile }) => {
       {trigger ? (
         <StReady>{second}초 후 게임이 시작됩니다.</StReady>
       ) : (
-        <StReady>준비완료 ({readyMembers.length}/4)</StReady>
+        <StReady>준비완료 ({readyMembers?.length}/{roomInfo?.maxMembers})</StReady>
       )}
       <StBtnList>
         <StBtn color="#ffdf24" onClick={onReadyHandler} disabled={trigger}>

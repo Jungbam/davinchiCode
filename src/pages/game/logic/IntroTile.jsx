@@ -6,6 +6,7 @@ import Timer from "../ele/Timer";
 
 const IntroTile = ({ selectTile }) => {
   const [black, setBlack] = useState(0);
+  const [select, setSelect] = useState(false)
   const countBlackBtn = [0, 1, 2, 3];
   const { StTitle, StText } = BootStrap;
 
@@ -43,11 +44,13 @@ const IntroTile = ({ selectTile }) => {
         ))}
       </StRoundBtns>
       <StConfirmBtn
-        onClick={() => selectTile(black)}
+        onClick={() => {
+          setSelect(false)
+          selectTile(black)}}
       >
         확인
       </StConfirmBtn>
-      <Timer timeOver={() => selectTile(black)}/>
+      {select&&<Timer timeOver={() => selectTile(black)}/>}
     </StWrapper>
   );
 };
