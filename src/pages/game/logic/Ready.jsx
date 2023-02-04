@@ -49,7 +49,7 @@ const Ready = ({ readyHandler, goSelecetTile }) => {
       {trigger ? (
         <StReady>{second}초 후 게임이 시작됩니다.</StReady>
       ) : (
-        <StReady>준비완료 ({readyMembers.length}/{roomInfo.maxMembers})</StReady>
+        <StReady>준비완료 ({readyMembers?.length}/{roomInfo?.maxMembers})</StReady>
       )}
       <StBtnList>
         <StBtn color="#ffdf24" onClick={onReadyHandler} disabled={trigger}>
