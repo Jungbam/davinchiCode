@@ -51,6 +51,10 @@ import arrowLeft from "../assets/icons/arrow_left.svg";
 import arrowLeftx2 from "../assets/icons/arrow_left_x2.svg";
 import arrowRight from "../assets/icons/arrow_right.svg";
 import arrowRightx2 from "../assets/icons/arrow_right_x2.svg";
+import arrowLeftDark from "../assets/icons/arrow_left_dark.svg";
+import arrowLeftx2Dark from "../assets/icons/arrow_left_x2_dark.svg";
+import arrowRightDark from "../assets/icons/arrow_right_dark.svg";
+import arrowRightx2Dark from "../assets/icons/arrow_right_x2_dark.svg";
 
 import RankOne from "../assets/images/rank/rankone.png";
 import RankSecond from "../assets/images/rank/ranksecond.png";
@@ -96,6 +100,10 @@ export const ICON = {
   arrowLeftx2,
   arrowRight,
   arrowRightx2,
+  arrowLeftDark,
+  arrowLeftx2Dark,
+  arrowRightDark,
+  arrowRightx2Dark,
 
   RankOne,
   RankSecond,

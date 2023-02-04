@@ -5,6 +5,7 @@ import Modal from "../../form/modal/Modal";
 import SetUserInfo from "../../../pages/intro/kakao/SetUserInfo";
 import Logout from "../../form/sign/Logout";
 import DelAccount from "../../form/sign/DelAccount";
+import Moddal from "../../form/modal/Moddal";
 
 function DropdownMenu() {
   const [showMenu, setShowMenu] = useState(false);
@@ -67,8 +68,8 @@ function DropdownMenu() {
         )}
       </AnimatePresence>
       {showModal && (
-        <Modal
-          modal={showModal.toString()}
+        <Moddal
+          modal={showModal}
           closeModal={() => {
             setShowModal((prev) => !prev);
           }}
@@ -77,34 +78,38 @@ function DropdownMenu() {
         >
           <SetUserInfo
             closeModal={() => {
-              setShowModal(!showModal);
+              setShowModal((prev) => !prev);
             }}
           />
-        </Modal>
+        </Moddal>
       )}
       {showLogout && (
-        <Modal
-          modal={showLogout.toString()}
+        <Moddal
+          modal={showLogout}
           closeModal={() => {
             setShowLogout((prev) => !prev);
           }}
           width="288px"
           height="160px"
         >
-          <Logout closeModal={setShowLogout} />
-        </Modal>
+          <Logout closeModal={() => setShowLogout((prev) => !prev)} />
+        </Moddal>
       )}
       {showDelAccount && (
-        <Modal
-          modal={showDelAccount.toString()}
+        <Moddal
+          modal={showDelAccount}
           closeModal={() => {
             setShowDelAccount((prev) => !prev);
           }}
           width="440px"
           height="338px"
         >
-          <DelAccount closeModal={setShowDelAccount} />
-        </Modal>
+          <DelAccount
+            closeModal={() => {
+              setShowDelAccount((prev) => !prev);
+            }}
+          />
+        </Moddal>
       )}
     </StMenuWrapper>
   );

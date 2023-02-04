@@ -1,4 +1,4 @@
-import React,{ useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { io } from "socket.io-client";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,63 +17,64 @@ const Game = () => {
   const { roomId } = useParams();
   const socketRef = useRef();
 
-  const {userId} = useSelector(state=>state.signSlice.userInfo)
-  const { users,turn } = useSelector((state) => state.gameSlice.gameInfo);
+  const { userId } = useSelector((state) => state.signSlice.userInfo);
+  const { users, turn } = useSelector((state) => state.gameSlice.gameInfo);
   const myInfo = users.filter((user) => user.userId === userId);
   const others = users.filter((user) => user.userId !== userId);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const initHandler = ()=>{
-    dispatch(setInit())
-    socketRef.current.emit(eventName.ROOMOUT)
-    navigate('/lobby')
-  }
-  const preventGoBack = (e)=>{
-    e.preventDefault()
+  const initHandler = () => {
+    dispatch(setInit());
+    socketRef.current.emit(eventName.ROOMOUT);
+    navigate("/lobby");
+  };
+  const preventGoBack = (e) => {
+    e.preventDefault();
     const answer = window.confirm(
       "로비로 돌아가면 패배한 것으로 처리됩니다. 그래도 진행하시겠습니까?"
-      );
-      if (answer){
-        initHandler()
-      }
-      else window.history.pushState(null, "", window.location.href);
-    }
+    );
+    if (answer) {
+      initHandler();
+    } else window.history.pushState(null, "", window.location.href);
+  };
   const beforeUnloadHandler = (e) => {
     e.preventDefault();
-    initHandler()
+    initHandler();
   };
-  const preventReloadHandler = (e)=>{
-    if(e.keyCode===116||(e.keyCode===82&&(e.ctrlKey||e.metaKey))){
-      e.preventDefault()
-      const answer = window.confirm('새로고침을 진행하면 패배처리되며 로비로 이동됩니다. 진행하시겠습니까?')
-      if(answer){
-        initHandler()
-      }else return
+  const preventReloadHandler = (e) => {
+    if (e.keyCode === 116 || (e.keyCode === 82 && (e.ctrlKey || e.metaKey))) {
+      e.preventDefault();
+      const answer = window.confirm(
+        "새로고침을 진행하면 패배처리되며 로비로 이동됩니다. 진행하시겠습니까?"
+      );
+      if (answer) {
+        initHandler();
+      } else return;
     }
-  }
+  };
   useEffect(() => {
-    document.onkeydown=preventReloadHandler
-    window.addEventListener('beforeunload',beforeUnloadHandler)
+    document.onkeydown = preventReloadHandler;
+    window.addEventListener("beforeunload", beforeUnloadHandler);
     window.history.pushState(null, "", window.location.href);
-    window.addEventListener('popstate', preventGoBack)
-    socketRef.current = io.connect(process.env.REACT_APP_SERVER,{
-      withCredentials: true
+    window.addEventListener("popstate", preventGoBack);
+    socketRef.current = io.connect(process.env.REACT_APP_SERVER, {
+      withCredentials: true,
     });
-    socketRef.current.emit(eventName.JOIN, roomId, (usersInRoom,roomInfo) => {
+    socketRef.current.emit(eventName.JOIN, roomId, (usersInRoom, roomInfo) => {
       dispatch(setUsers(usersInRoom));
-      dispatch(setRoom(roomInfo))
+      dispatch(setRoom(roomInfo));
     });
     socketRef.current.on(eventName.RECEIVE_MESSAGE, (msg, nickName) => {
       const myMsg = { msg, mine: false, nickName };
       setMsgList((prev) => [...prev, myMsg]);
     });
     return () => {
-      document.onkeydown=null
-      window.removeEventListener('beforeunload', beforeUnloadHandler)
-      window.removeEventListener('popstate', preventGoBack)
+      document.onkeydown = null;
+      window.removeEventListener("beforeunload", beforeUnloadHandler);
+      window.removeEventListener("popstate", preventGoBack);
       socketRef.current.emit(eventName.ROOMOUT);
-      socketRef.current.disconnect()
-      dispatch(setInit())
+      socketRef.current.disconnect();
+      dispatch(setInit());
     };
   }, []);
 
@@ -82,9 +83,21 @@ const Game = () => {
       <Header />
       <StContainer>
         <StPeerWrapper>
-          <UsersBox user={others[0] ? others[0] : null} turn={turn} userId={userId}/>
-          <UsersBox user={others[1] ? others[1] : null} turn={turn} userId={userId}/>
-          <UsersBox user={others[2] ? others[2] : null} turn={turn} userId={userId}/>
+          <UsersBox
+            user={others[0] ? others[0] : null}
+            turn={turn}
+            userId={userId}
+          />
+          <UsersBox
+            user={others[1] ? others[1] : null}
+            turn={turn}
+            userId={userId}
+          />
+          <UsersBox
+            user={others[2] ? others[2] : null}
+            turn={turn}
+            userId={userId}
+          />
         </StPeerWrapper>
         <CenterBox roomId={roomId} socket={socketRef} userId={userId} />
         <StMyBoxWrapper>

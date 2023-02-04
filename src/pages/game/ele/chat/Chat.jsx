@@ -44,7 +44,7 @@ const Chat = ({ socket, roomId, msgList, setMsgList }) => {
             value={msg}
             onChange={(e) => setMsg(e.target.value)}
             placeholder="채팅을 시작해보세요!"
-            onKeyUp={sendMessage}
+            onKeyDown={sendMessage}
           />
           <img onClick={sendMessageBtn} src={ICON.iconSend} alt="icon" />
         </StInputBox>

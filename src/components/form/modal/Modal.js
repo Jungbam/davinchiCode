@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import React from "react";
 import ReactDOM from "react-dom";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import exitModal from "../../../assets/icons/ico_modal_cancle.svg";
 
 const buttonVariants = {
@@ -15,13 +15,6 @@ const buttonVariants = {
   },
 };
 
-const fadein = keyframes`
-from {
-  opacity:0
-}
-to {
-  opacity:1
-}`;
 const Modal = ({ children, modal = true, closeModal, width, height }) => {
   const styles = { modal, width, height };
   return (
@@ -79,21 +72,6 @@ const StBackDrop = styled.div`
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
-
-  animation-name: ${fadein};
-  animation-duration: 2;
-  animation-timing-function: ease-out;
-  @keyframes fadein {
-    from {
-      margin-left: 100%;
-      width: 300%;
-    }
-
-    to {
-      margin-left: 0%;
-      width: 100%;
-    }
-  }
 `;
 
 const StExitBtn = styled(motion.img)`

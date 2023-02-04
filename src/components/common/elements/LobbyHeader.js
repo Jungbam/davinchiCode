@@ -1,10 +1,12 @@
 import { motion } from "framer-motion";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { ICON } from "../../../helpers/Icons";
 import DropdownMenu from "./DropdownMenu";
 
 const Header = () => {
+  const navigate = useNavigate();
   return (
     <Navbar>
       <NavbarInside>
@@ -14,9 +16,7 @@ const Header = () => {
           initial={{ x: -500 }}
           animate={{ x: 0 }}
           transition={{ delay: 1.3, type: "spring", stiffness: 120 }}
-          drag
-          dragConstraints={{ left: 0, top: -10, right: 930, bottom: 10 }}
-          dragElastic={2}
+          onClick={() => navigate("/")}
         />
         <StMenuWrapper>
           <DropdownMenu />

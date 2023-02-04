@@ -18,7 +18,11 @@ const DelAccount = ({ closeModal }) => {
         아래의 “동의하기” 항목을 체크해주세요.
       </StSubDesc>
       <StMainApproval>
-        <StAgreeBtn onClick={() => setisAgree(!isAgree)}>
+        <StAgreeBtn
+          onClick={() => {
+            setisAgree(!isAgree);
+          }}
+        >
           <img
             src={isAgree ? ICON.iconCheckBoxChecked : ICON.iconCheckBoxBlank}
             width={16}

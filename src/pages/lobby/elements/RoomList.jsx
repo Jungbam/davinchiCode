@@ -6,10 +6,11 @@ import { motion } from "framer-motion";
 import QuickStart from "./roomListDetail/RoomQuickStart";
 import { useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
-import Modal from "../../../components/form/modal/Modal";
 import CreateRoom from "../../../components/form/sign/CreateRoom";
 import { ICON } from "../../../helpers/Icons";
 import { RoomAPI } from "../../../api/axios";
+
+import Moddal from "../../../components/form/modal/Moddal";
 
 const buttonVariants = {
   hover: {
@@ -24,6 +25,8 @@ const buttonVariants = {
 
 const RoomList = () => {
   const [search, setSearch] = useState("");
+  const [roomsData, setRoomsData] = useState([]);
+
   const [searchRoomModal, setSearchRoomModal] = useState(null);
   const [searchType, setSearchType] = useState("name");
   const [currentPage, setCurrentPage] = useState(1);
@@ -54,7 +57,7 @@ const RoomList = () => {
     () => RoomAPI.searchRoom({ searchType, search, currentPage }),
     {
       onSuccess: ({ data }) => {
-        console.log("search룸ㅎㅎ", data);
+        setRoomsData(data.rooms);
       },
       onError: (error) => {
         console.log(error);
@@ -69,6 +72,12 @@ const RoomList = () => {
   const searchRoomHandler = (type) => {
     setSearchType(type);
     setSearchRoomModal((prev) => !prev);
+  };
+
+  const searchByEnter = (e) => {
+    if (e.keyCode === 13) {
+      searchRoom();
+    }
   };
 
   useEffect(() => {
@@ -89,7 +98,8 @@ const RoomList = () => {
               src={
                 isWaiting ? ICON.iconCheckBoxChecked : ICON.iconCheckBoxBlank
               }
-              width={16} alt="진행여부"
+              width={16}
+              alt="진행여부"
             />
             <div>대기방</div>
           </StCheckButton>
@@ -101,7 +111,8 @@ const RoomList = () => {
               src={
                 isPrivate ? ICON.iconCheckBoxChecked : ICON.iconCheckBoxBlank
               }
-              width={16} alt="체크박스"
+              width={16}
+              alt="체크박스"
             />
             <div>비공개</div>
           </StCheckButton>
@@ -115,7 +126,7 @@ const RoomList = () => {
             >
               {}
               <span>{searchType === "number" ? "방 번호" : "방 제목"}</span>
-              <img src={ICON.iconDropDown} alt="드롭다운"/>
+              <img src={ICON.iconDropDown} alt="드롭다운" />
             </StModalOpener>
             <StSearchModal searchRoomModal={searchRoomModal}>
               {["name", "number"].map((el, i) => (
@@ -136,17 +147,20 @@ const RoomList = () => {
               placeholder="방 제목을 입력해주세요."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
+              onKeyDown={searchByEnter}
             />
-            <img onClick={searchHandler} src={ICON.iconSearch} alt="검색"/>
+            <img onClick={searchHandler} src={ICON.iconSearch} alt="검색" />
           </StSearchBar>
           <StRefreshBtn>
-            <img src={ICON.iconRefresh} alt="새로고침" />
+            <img src={ICON.iconRefresh} alt="새로고침" onClick={() => {}} />
             새로고침
           </StRefreshBtn>
         </StFuncBack>
       </StSearchRoom>
       <StRoomList>
         <RoomContents
+          roomsData={roomsData}
+          setRoomsData={setRoomsData}
           searchType={searchType}
           search={search}
           currentPage={currentPage}
@@ -168,7 +182,12 @@ const RoomList = () => {
               page="1"
               currentPage={currentPage.toString()}
             >
-              <img src={ICON.arrowLeftx2} alt="처음 페이지"/>
+              <img
+                src={
+                  currentPage === 1 ? ICON.arrowLeftx2Dark : ICON.arrowLeftx2
+                }
+                alt="처음 페이지"
+              />
             </ArrowPageBtn>
             <ArrowPageBtn
               disabled={currentPage <= 1}
@@ -178,28 +197,18 @@ const RoomList = () => {
               page="1"
               currentPage={currentPage.toString()}
             >
-              <img src={ICON.arrowLeft} alt="이전 페이지"/>
+              <img
+                src={currentPage === 1 ? ICON.arrowLeftDark : ICON.arrowLeft}
+                alt="이전 페이지"
+              />
             </ArrowPageBtn>
             {list.map((el, i) =>
               el === currentPage ? (
-                <PageBtn
-                  key={i}
-                  color="#fff"
-                  whileHover={{
-                    scale: 1.15,
-                    color: "#f8e112",
-                  }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
+                <PageBtn key={i} color="#fff">
                   {el}
                 </PageBtn>
               ) : (
                 <PageBtn
-                  whileHover={{
-                    scale: 1.15,
-                    color: "#f8e112",
-                  }}
-                  transition={{ type: "spring", stiffness: 300 }}
                   key={i}
                   color="rgba(255, 255, 255, 0.2)"
                   onClick={() => {
@@ -218,7 +227,14 @@ const RoomList = () => {
               page={totalPage.toString()}
               currentPage={currentPage.toString()}
             >
-              <img src={ICON.arrowRight} alt="다음 페이지"/>
+              <img
+                src={
+                  currentPage === totalPage
+                    ? ICON.arrowRightDark
+                    : ICON.arrowRight
+                }
+                alt="다음 페이지"
+              />
             </ArrowPageBtn>
             <ArrowPageBtn
               disabled={currentPage >= totalPage}
@@ -228,7 +244,14 @@ const RoomList = () => {
               page={totalPage.toString()}
               currentPage={currentPage.toString()}
             >
-              <img src={ICON.arrowRightx2} alt="마지막 페이지"/>
+              <img
+                src={
+                  currentPage === totalPage
+                    ? ICON.arrowRightx2Dark
+                    : ICON.arrowRightx2
+                }
+                alt="마지막 페이지"
+              />
             </ArrowPageBtn>
           </StPages>
         </StPagination>
@@ -242,16 +265,16 @@ const RoomList = () => {
           방 만들기
         </StButton>
         {showCreateRoom && (
-          <Modal
+          <Moddal
             modal={showCreateRoom.toString()}
             closeModal={() => {
-              setShowCreateRoom(!showCreateRoom);
+              setShowCreateRoom((prev) => !prev);
             }}
             width="440px"
             height="327px"
           >
-            <CreateRoom closeModal={setShowCreateRoom} />
-          </Modal>
+            <CreateRoom closeModal={() => setShowCreateRoom((prev) => !prev)} />
+          </Moddal>
         )}
         <QuickStart>바로시작</QuickStart>
       </StRoomListBottom>
@@ -427,7 +450,7 @@ const StPages = styled.div`
   }
 `;
 
-const PageBtn = styled(motion.button)`
+const PageBtn = styled.button`
   border: none;
   background-color: #111;
   font-weight: bold;
@@ -452,11 +475,12 @@ const StModal = styled.div`
 `;
 
 const StSearchBar = styled.div`
+  position: relative;
   width: 284px;
   height: 26px;
 
   border-radius: 4px;
-  border: solid 1px #000;
+  border: none;
   background-color: #333;
 
   color: #888;
@@ -464,6 +488,9 @@ const StSearchBar = styled.div`
   display: flex;
   align-items: center;
   & img {
+    position: absolute;
+    right: 0;
+
     width: 30px;
     height: 30px;
     padding: 9px;
@@ -472,7 +499,11 @@ const StSearchBar = styled.div`
 `;
 
 const StSearchBarInput = styled.input`
-  padding: 0 14px;
+  padding: 0 22px 0 14px;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+
   font-size: 12px;
   font-weight: 500;
   font-stretch: normal;
@@ -480,13 +511,13 @@ const StSearchBarInput = styled.input`
   line-height: 1;
   letter-spacing: normal;
   text-align: left;
-  width: 255px;
 
   color: #fff;
   background-color: #333;
-  border: 1px solid #333;
+  border: 1px solid #000;
   &:focus {
     outline: none;
+    border: 1px solid #fff;
   }
 `;
 

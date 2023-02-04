@@ -11,6 +11,7 @@ import { RoomAPI } from "../../../../api/axios";
 import { BootStrap } from "../../../BootStrap";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import Moddal from "../../../../components/form/modal/Moddal";
 
 const RoomContents = ({
   isWaiting,
@@ -19,6 +20,8 @@ const RoomContents = ({
   setTotalPage,
   search,
   searchType,
+  roomsData,
+  setRoomsData,
 }) => {
   const [modal, setModal] = useState(false);
   const [inRoom, setInRoom] = useState(0);
@@ -35,6 +38,7 @@ const RoomContents = ({
       keepPreviousData: true,
       onSuccess: (data) => {
         setTotalPage((prev) => data.data.totalPage);
+        setRoomsData(data.data.rooms);
       },
     }
   );
@@ -48,33 +52,36 @@ const RoomContents = ({
     setPassword("");
     setInRoom(0);
   };
-  const {mutate:enterRoom} = useMutation(()=>RoomAPI.inRoom(inRoom, password),{
-    onSuccess : (data)=>{
-      switch(data.data.code){
-        case 1 : 
-          navigate(`/game/${inRoom}`)
-          break
-        case 101 :
-          alert('방이 없습니다.')
-          break
-        case 102 :
-          alert('방에 입장가능한 인원이 초과하였습니다.')
-          break
-        case 103 :
-          alert('게임이 이미 시작되었습니다.')
-          break
-        case 104 :
-          alert('비밀번호가 일치하지 않습니다.')
-          break
-        default :
-          break
-      } 
-    },
-    onError:(error)=>{
-      alert('방 입장 에러')
-      navigate('/lobby')
+  const { mutate: enterRoom } = useMutation(
+    () => RoomAPI.inRoom(inRoom, password),
+    {
+      onSuccess: (data) => {
+        switch (data.data.code) {
+          case 1:
+            navigate(`/game/${inRoom}`);
+            break;
+          case 101:
+            alert("방이 없습니다.");
+            break;
+          case 102:
+            alert("방에 입장가능한 인원이 초과하였습니다.");
+            break;
+          case 103:
+            alert("게임이 이미 시작되었습니다.");
+            break;
+          case 104:
+            alert("비밀번호가 일치하지 않습니다.");
+            break;
+          default:
+            break;
+        }
+      },
+      onError: (error) => {
+        alert("방 입장 에러");
+        navigate("/lobby");
+      },
     }
-  });
+  );
   useEffect(() => {}, [reFetch]);
   return (
     <>
@@ -82,8 +89,8 @@ const RoomContents = ({
         {status === "loading" && <div>Loading...</div>}
         {status === "success" && (
           <>
-            {data?.data.rooms
-              .filter(
+            {roomsData
+              ?.filter(
                 (room) =>
                   (!isWaiting || !room.isPlaying) &&
                   (!isPrivate || room.isPrivate)
@@ -127,7 +134,12 @@ const RoomContents = ({
                     }
                   >
                     <StRoomNum>{room.roomId}</StRoomNum>
-                    <StRoomName>{room.roomName}</StRoomName>
+                    <StRoomName>
+                      {" "}
+                      {room.roomName.length > 21
+                        ? room.roomName.substring(0, 21) + "..."
+                        : room.roomName}
+                    </StRoomName>
                   </StMiddle>
 
                   {!(
@@ -173,43 +185,74 @@ const RoomContents = ({
           </>
         )}
       </StWrapper>
-      <Modal
-        width="288px"
-        height="180px"
-        modal={modal.toString()}
-        closeModal={closeModalHandler}
-      >
-        <StWrapper jus="center" padding="10px">
-          <p>{inRoom}번 방에 입장하시겠습니까?</p>
-          {inRoomPrivate && (
+      {inRoomPrivate ? (
+        <Moddal
+          width="288px"
+          height="200px"
+          closeModal={closeModalHandler}
+          modal={modal}
+        >
+          <StWrapper>
+            <StDiv>게임방에 입장하시겠습니까?</StDiv>
+            <StInputPass
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <StDesc>비밀번호 숫자 4자리 입력</StDesc>
             <StBtnBox>
-              <label>비밀번호</label>
-              <StInputPass
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              ></StInputPass>
+              <StBtn
+                color="#fff"
+                width="100px"
+                height="32px"
+                fontSize="14px"
+                onClick={closeModalHandler}
+              >
+                취소
+              </StBtn>
+              <StBtn
+                color="#ffdf24"
+                width="100px"
+                height="32px"
+                fontSize="14px"
+                onClick={() => enterRoom()}
+              >
+                확인
+              </StBtn>
             </StBtnBox>
-          )}
-          <StBtnBox>
-            <StBtn
-              color="#ffdf24"
-              width="100px"
-              height="32px"
-              onClick={() => enterRoom()}
-            >
-              확인
-            </StBtn>
-            <StBtn
-              color="#fff"
-              width="100px"
-              height="32px"
-              onClick={closeModalHandler}
-            >
-              취소
-            </StBtn>
-          </StBtnBox>
-        </StWrapper>
-      </Modal>
+          </StWrapper>
+        </Moddal>
+      ) : (
+        <Moddal
+          width="288px"
+          height="160px"
+          closeModal={closeModalHandler}
+          modal={modal}
+        >
+          <StWrapper>
+            <StDiv mgTop="45px">게임방에 입장하시겠습니까?</StDiv>
+            <StBtnBox mgTop="27px">
+              <StBtn
+                color="#fff"
+                width="100px"
+                height="32px"
+                fontSize="14px"
+                onClick={closeModalHandler}
+              >
+                취소
+              </StBtn>
+              <StBtn
+                color="#ffdf24"
+                width="100px"
+                height="32px"
+                fontSize="14px"
+                onClick={() => enterRoom()}
+              >
+                확인
+              </StBtn>
+            </StBtnBox>
+          </StWrapper>
+        </Moddal>
+      )}
     </>
   );
 };
@@ -291,12 +334,20 @@ const StRoomNum = styled.div`
 `;
 
 const StInputPass = styled.input`
-  width: 60%;
-  height: 30px;
+  width: 140px;
+  height: 40px;
   border-radius: 4px;
-  padding: 12px 14px;
   border: solid 1px #ddd;
   background-color: #f9f9f9;
+  font-size: 16px;
+  font-weight: 500;
+  color: #000;
+  display: flex;
+  text-align: center;
+  margin-top: 4px;
+  &:focus {
+    outline: none;
+  }
 `;
 
 const StBtnBox = styled.div`
@@ -304,6 +355,7 @@ const StBtnBox = styled.div`
   justify-content: center;
   align-items: center;
   gap: 6px;
+  margin-top: ${({ mgTop }) => mgTop || "29px"};
 `;
 
 const StRoomName = styled.div`
@@ -311,4 +363,22 @@ const StRoomName = styled.div`
   height: 16px;
 `;
 
+const StDiv = styled.div`
+  font-size: 16px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  margin-top: ${({ mgTop }) => mgTop || "25px"};
+`;
+
+const StDesc = styled.div`
+  font-size: 12px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.17;
+  letter-spacing: normal;
+  text-align: left;
+  color: #777;
+`;
 export default RoomContents;
