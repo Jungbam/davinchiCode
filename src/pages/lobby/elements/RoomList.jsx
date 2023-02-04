@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import QuickStart from "./roomListDetail/RoomQuickStart";
 import { useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
-import Modal from "../../../components/form/modal/Modal";
 import CreateRoom from "../../../components/form/sign/CreateRoom";
 import { ICON } from "../../../helpers/Icons";
 import { RoomAPI } from "../../../api/axios";
@@ -148,7 +147,7 @@ const RoomList = () => {
               placeholder="방 제목을 입력해주세요."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              onKeyUp={searchByEnter}
+              onKeyDown={searchByEnter}
             />
             <img onClick={searchHandler} src={ICON.iconSearch} alt="검색" />
           </StSearchBar>
@@ -183,7 +182,12 @@ const RoomList = () => {
               page="1"
               currentPage={currentPage.toString()}
             >
-              <img src={ICON.arrowLeftx2} alt="처음 페이지" />
+              <img
+                src={
+                  currentPage === 1 ? ICON.arrowLeftx2Dark : ICON.arrowLeftx2
+                }
+                alt="처음 페이지"
+              />
             </ArrowPageBtn>
             <ArrowPageBtn
               disabled={currentPage <= 1}
@@ -193,7 +197,10 @@ const RoomList = () => {
               page="1"
               currentPage={currentPage.toString()}
             >
-              <img src={ICON.arrowLeft} alt="이전 페이지" />
+              <img
+                src={currentPage === 1 ? ICON.arrowLeftDark : ICON.arrowLeft}
+                alt="이전 페이지"
+              />
             </ArrowPageBtn>
             {list.map((el, i) =>
               el === currentPage ? (
@@ -220,7 +227,14 @@ const RoomList = () => {
               page={totalPage.toString()}
               currentPage={currentPage.toString()}
             >
-              <img src={ICON.arrowRight} alt="다음 페이지" />
+              <img
+                src={
+                  currentPage === totalPage
+                    ? ICON.arrowRightDark
+                    : ICON.arrowRight
+                }
+                alt="다음 페이지"
+              />
             </ArrowPageBtn>
             <ArrowPageBtn
               disabled={currentPage >= totalPage}
@@ -230,7 +244,14 @@ const RoomList = () => {
               page={totalPage.toString()}
               currentPage={currentPage.toString()}
             >
-              <img src={ICON.arrowRightx2} alt="마지막 페이지" />
+              <img
+                src={
+                  currentPage === totalPage
+                    ? ICON.arrowRightx2Dark
+                    : ICON.arrowRightx2
+                }
+                alt="마지막 페이지"
+              />
             </ArrowPageBtn>
           </StPages>
         </StPagination>
