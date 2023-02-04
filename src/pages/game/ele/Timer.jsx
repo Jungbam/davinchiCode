@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import useSound from "use-sound";
 import Modal from "../../../components/form/modal/Modal";
-import GameOver from "../../../components/form/modal/sign/GameOver";
+import GameOver from "../../../components/form/sign/GameOver";
 import { ICON } from "../../../helpers/Icons";
 import { Sounds } from "../../../helpers/sounds";
 const Timer = ({timeOver}) => {

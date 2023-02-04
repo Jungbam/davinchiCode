@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 import Modal from "../../../components/form/modal/Modal";
 import ComplaintBug from "../../../components/common/elements/complaintbug/ComplaintBug";
-import { IMG } from "../../../helpers/image";
 import { useSelector } from "react-redux";
 import { ICON } from "../../../helpers/Icons";
 

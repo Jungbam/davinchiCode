@@ -2,9 +2,9 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { SignAPI } from "../../../../api/axios";
-import { queryKeys } from "../../../../helpers/queryKeys";
-import Modal from "../Modal";
+import { SignAPI } from "../../../api/axios";
+import { queryKeys } from "../../../helpers/queryKeys";
+import Modal from "../modal/Modal";
 
 const SetUserInfoModal = ({ modal, closeModal }) => {
   const [profileImg, setProfileImg] = useState(null);

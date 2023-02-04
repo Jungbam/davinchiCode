@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { ICON } from "../../../../helpers/Icons";
+import { ICON } from "../../../helpers/Icons";
 
 const KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_ID}&redirect_uri=${process.env.REACT_APP_REDIRECT}kakaodel&response_type=code`;
 const DelAccount = ({ closeModal }) => {
@@ -22,6 +22,7 @@ const DelAccount = ({ closeModal }) => {
           <img
             src={isAgree ? ICON.iconCheckBoxChecked : ICON.iconCheckBoxBlank}
             width={16}
+            alt="동의"
           />
           <label htmlFor="agree">동의하기</label>
         </StAgreeBtn>

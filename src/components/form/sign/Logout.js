@@ -3,8 +3,8 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { SignAPI } from "../../../../api/axios";
-import { logout } from "../../../../redux/modules/signSlice";
+import { SignAPI } from "../../../api/axios";
+import { logout } from "../../../redux/modules/signSlice";
 
 const Logout = ({ closeModal }) => {
   const navigate = useNavigate();

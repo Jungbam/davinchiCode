@@ -5,12 +5,11 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import QuickStart from "./roomListDetail/RoomQuickStart";
 import { useEffect } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import Modal from "../../../components/form/modal/Modal";
-import CreateRoom from "../../../components/form/modal/sign/CreateRoom";
+import CreateRoom from "../../../components/form/sign/CreateRoom";
 import { ICON } from "../../../helpers/Icons";
 import { RoomAPI } from "../../../api/axios";
-import { useDispatch } from "react-redux";
 
 const buttonVariants = {
   hover: {
@@ -24,9 +23,6 @@ const buttonVariants = {
 };
 
 const RoomList = () => {
-  const dispatch = useDispatch();
-  const queryClient = useQueryClient();
-
   const [search, setSearch] = useState("");
   const [searchRoomModal, setSearchRoomModal] = useState(null);
   const [searchType, setSearchType] = useState("name");
@@ -93,7 +89,7 @@ const RoomList = () => {
               src={
                 isWaiting ? ICON.iconCheckBoxChecked : ICON.iconCheckBoxBlank
               }
-              width={16}
+              width={16} alt="진행여부"
             />
             <div>대기방</div>
           </StCheckButton>
@@ -105,7 +101,7 @@ const RoomList = () => {
               src={
                 isPrivate ? ICON.iconCheckBoxChecked : ICON.iconCheckBoxBlank
               }
-              width={16}
+              width={16} alt="체크박스"
             />
             <div>비공개</div>
           </StCheckButton>
@@ -119,7 +115,7 @@ const RoomList = () => {
             >
               {}
               <span>{searchType === "number" ? "방 번호" : "방 제목"}</span>
-              <img src={ICON.iconDropDown} />
+              <img src={ICON.iconDropDown} alt="드롭다운"/>
             </StModalOpener>
             <StSearchModal searchRoomModal={searchRoomModal}>
               {["name", "number"].map((el, i) => (
@@ -141,7 +137,7 @@ const RoomList = () => {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
-            <img onClick={searchHandler} src={ICON.iconSearch} />
+            <img onClick={searchHandler} src={ICON.iconSearch} alt="검색"/>
           </StSearchBar>
           <StRefreshBtn>
             <img src={ICON.iconRefresh} alt="새로고침" />
@@ -172,7 +168,7 @@ const RoomList = () => {
               page="1"
               currentPage={currentPage.toString()}
             >
-              <img src={ICON.arrowLeftx2} />
+              <img src={ICON.arrowLeftx2} alt="처음 페이지"/>
             </ArrowPageBtn>
             <ArrowPageBtn
               disabled={currentPage <= 1}
@@ -182,7 +178,7 @@ const RoomList = () => {
               page="1"
               currentPage={currentPage.toString()}
             >
-              <img src={ICON.arrowLeft} />
+              <img src={ICON.arrowLeft} alt="이전 페이지"/>
             </ArrowPageBtn>
             {list.map((el, i) =>
               el === currentPage ? (
@@ -222,7 +218,7 @@ const RoomList = () => {
               page={totalPage.toString()}
               currentPage={currentPage.toString()}
             >
-              <img src={ICON.arrowRight} />
+              <img src={ICON.arrowRight} alt="다음 페이지"/>
             </ArrowPageBtn>
             <ArrowPageBtn
               disabled={currentPage >= totalPage}
@@ -232,7 +228,7 @@ const RoomList = () => {
               page={totalPage.toString()}
               currentPage={currentPage.toString()}
             >
-              <img src={ICON.arrowRightx2} />
+              <img src={ICON.arrowRightx2} alt="마지막 페이지"/>
             </ArrowPageBtn>
           </StPages>
         </StPagination>

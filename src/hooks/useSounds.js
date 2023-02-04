@@ -1,4 +1,3 @@
-import React from "react";
 import useSound from "use-sound";
 import { Sounds } from "../helpers/sounds";
 

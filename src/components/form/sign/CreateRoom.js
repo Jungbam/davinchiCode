@@ -3,10 +3,10 @@ import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { RoomAPI } from "../../../../api/axios";
+import { RoomAPI } from "../../../api/axios";
 
 import { useNavigate } from "react-router-dom";
-import { ICON } from "../../../../helpers/Icons";
+import { ICON } from "../../../helpers/Icons";
 
 const CreateRoom = ({ closeModal, modal }) => {
   const ref = useRef("");
@@ -77,7 +77,7 @@ const CreateRoom = ({ closeModal, modal }) => {
             }}
           >
             <span>{maxMembers}</span>
-            <img src={ICON.iconDropDown} />
+            <img src={ICON.iconDropDown} alt="드롭다운" />
           </StModalOpener>
           <StModal roomModal={roomModal}>
             {["2명", "3명", "4명"].map((el, i) => (
@@ -101,6 +101,7 @@ const CreateRoom = ({ closeModal, modal }) => {
             <img
               src={isSecret ? ICON.iconCheckBoxBlank : ICON.iconCheckBoxChecked}
               width={16}
+              alt="체크박스"
             />
             <div>공개</div>
           </StOpen>
@@ -118,6 +119,7 @@ const CreateRoom = ({ closeModal, modal }) => {
             <img
               src={isSecret ? ICON.iconCheckBoxChecked : ICON.iconCheckBoxBlank}
               width={16}
+              alt="체크박스"
             />
             <div>비공개</div>
             <input
@@ -303,17 +305,6 @@ const StModal = styled.div`
     margin: 0;
     display: flex;
     align-items: center;
-  }
-`;
-
-const Stb = styled.div`
-  width: 70px;
-  height: 60px;
-  margin-right: 6px;
-  & div {
-    font-weight: 700;
-    font-size: 12px;
-    line-height: 14px;
   }
 `;
 
