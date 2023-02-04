@@ -114,9 +114,10 @@ const CenterBox = ({ socket, userId }) => {
   }
 
   useEffect(() => {
-    socket.current?.on(eventName.GAME_START, () => {
+    socket.current?.on(eventName.GAME_START, (roomInfo) => {
       dispatch(setInitReadyBtn());
       dispatch(setTrigger(true));
+      dispatch(setRoom(roomInfo))
     });
     socket.current?.on(eventName.ADD_READY, (gameInfo,roomInfo) => {
       dispatch(setInitReadyBtn(true));
@@ -156,8 +157,9 @@ const CenterBox = ({ socket, userId }) => {
       dispatch(setTrigger(false));
       setEnding(true);
     });
-    socket.current?.on(eventName.LEAVE_USER, (gameInfo)=>{
+    socket.current?.on(eventName.LEAVE_USER, (gameInfo,roomInfo)=>{
       dispatch(setUsers(gameInfo))
+      dispatch(setRoom(roomInfo))
     })
     return () => {
     };
