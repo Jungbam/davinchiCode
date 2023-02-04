@@ -179,15 +179,6 @@ const RoomContents = ({
             <StDesc>비밀번호 숫자 4자리 입력</StDesc>
             <StBtnBox>
               <StBtn
-                color="#ffdf24"
-                width="100px"
-                height="32px"
-                fontSize="14px"
-                onClick={() => enterRoom()}
-              >
-                확인
-              </StBtn>
-              <StBtn
                 color="#fff"
                 width="100px"
                 height="32px"
@@ -195,6 +186,15 @@ const RoomContents = ({
                 onClick={closeModalHandler}
               >
                 취소
+              </StBtn>
+              <StBtn
+                color="#ffdf24"
+                width="100px"
+                height="32px"
+                fontSize="14px"
+                onClick={() => enterRoom()}
+              >
+                확인
               </StBtn>
             </StBtnBox>
           </StWrapper>
@@ -210,15 +210,6 @@ const RoomContents = ({
             <StDiv mgTop="45px">게임방에 입장하시겠습니까?</StDiv>
             <StBtnBox mgTop="27px">
               <StBtn
-                color="#ffdf24"
-                width="100px"
-                height="32px"
-                fontSize="14px"
-                onClick={() => enterRoom()}
-              >
-                확인
-              </StBtn>
-              <StBtn
                 color="#fff"
                 width="100px"
                 height="32px"
@@ -226,6 +217,15 @@ const RoomContents = ({
                 onClick={closeModalHandler}
               >
                 취소
+              </StBtn>
+              <StBtn
+                color="#ffdf24"
+                width="100px"
+                height="32px"
+                fontSize="14px"
+                onClick={() => enterRoom()}
+              >
+                확인
               </StBtn>
             </StBtnBox>
           </StWrapper>
