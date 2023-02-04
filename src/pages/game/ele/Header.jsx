@@ -29,7 +29,7 @@ const Header = () => {
           <RoomStauts>
             <RoundStatus>{roomInfo?.members}/{roomInfo?.maxMembers}</RoundStatus>
             <RoundStatus>{roomInfo?.isPlaying?'진행':'대기'}</RoundStatus>
-            <img src={roomInfo?.sercet?ICON.iconLock:IMG.iconUnlock} alt='잠금'/>
+            {roomInfo?.sercet?<img src={ICON.iconLock} alt='잠금'/>:<img src={ICON.iconUnlock} alt='공개방'/>}
           </RoomStauts>
           <SideBar>|</SideBar>
           <div>{roomInfo?.roomId}</div>
