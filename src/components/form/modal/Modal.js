@@ -82,9 +82,9 @@ const StBackDrop = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
 
   animation-name: ${fadein};
-  animation-duration: 2;
+  animation-duration: 0.4s;
   animation-timing-function: ease-out;
-  @keyframes fadein {
+  /* @keyframes fadein {
     from {
       margin-left: 100%;
       width: 300%;
@@ -94,7 +94,7 @@ const StBackDrop = styled.div`
       margin-left: 0%;
       width: 100%;
     }
-  }
+  } */
 `;
 
 const StExitBtn = styled(motion.img)`

@@ -10,7 +10,9 @@ import Modal from "../../../components/form/modal/Modal";
 import CreateRoom from "../../../components/form/modal/sign/CreateRoom";
 import { ICON } from "../../../helpers/Icons";
 import { RoomAPI } from "../../../api/axios";
+
 import { useDispatch } from "react-redux";
+import Moddal from "../../../components/form/modal/Moddal";
 
 const buttonVariants = {
   hover: {
@@ -246,16 +248,16 @@ const RoomList = () => {
           방 만들기
         </StButton>
         {showCreateRoom && (
-          <Modal
+          <Moddal
             modal={showCreateRoom.toString()}
             closeModal={() => {
-              setShowCreateRoom(!showCreateRoom);
+              setShowCreateRoom((prev) => !prev);
             }}
             width="440px"
             height="327px"
           >
-            <CreateRoom closeModal={setShowCreateRoom} />
-          </Modal>
+            <CreateRoom closeModal={() => setShowCreateRoom((prev) => !prev)} />
+          </Moddal>
         )}
         <QuickStart>바로시작</QuickStart>
       </StRoomListBottom>

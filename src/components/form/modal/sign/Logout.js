@@ -45,6 +45,7 @@ const StWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  color: #111;
 `;
 
 const StLogoutComment = styled.div`

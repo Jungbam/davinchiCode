@@ -1,10 +1,13 @@
 import { motion } from "framer-motion";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { ICON } from "../../../helpers/Icons";
+import Moddal from "../../form/modal/Moddal";
+import Logout from "../../form/modal/sign/Logout";
 import DropdownMenu from "./DropdownMenu";
 
 const Header = () => {
+  const [showModal, setShowModal] = useState(false);
   return (
     <Navbar>
       <NavbarInside>
@@ -17,23 +20,7 @@ const Header = () => {
           drag
           dragConstraints={{ left: 0, top: -10, right: 930, bottom: 10 }}
           dragElastic={2}
-
-          // onClick={() => {
-          //   window.location.replace("/lobby");
-          // }}
         />
-        {/* initial={{ y: -250 }}
-        animate={{ y: -10 }}
-        transition={{ delay: 0.2, type: "spring", stiffness: 120 }} */}
-        {/* initial={{ x: "-50vw", opacity: 0 }}
-          animate={{
-            x: 0,
-            opacity: 1,
-            transition: {
-              type: "spring",
-              delay: 0.5,
-            },
-          }} */}
 
         <StMenuWrapper>
           <DropdownMenu />

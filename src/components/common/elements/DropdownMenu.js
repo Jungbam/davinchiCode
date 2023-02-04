@@ -5,6 +5,7 @@ import Modal from "../../form/modal/Modal";
 import SetUserInfo from "../../../pages/intro/kakao/SetUserInfo";
 import Logout from "../../form/modal/sign/Logout";
 import DelAccount from "../../form/modal/sign/DelAccount";
+import Moddal from "../../form/modal/Moddal";
 
 function DropdownMenu() {
   const [showMenu, setShowMenu] = useState(false);
@@ -80,26 +81,30 @@ function DropdownMenu() {
           }}
         />
       </Modal>
-      <Modal
-        modal={showLogout.toString()}
+      <Moddal
+        modal={showLogout}
         closeModal={() => {
           setShowLogout((prev) => !prev);
         }}
         width="288px"
         height="160px"
       >
-        <Logout closeModal={setShowLogout} />
-      </Modal>
-      <Modal
-        modal={showDelAccount.toString()}
+        <Logout closeModal={() => setShowLogout((prev) => !prev)} />
+      </Moddal>
+      <Moddal
+        modal={showDelAccount}
         closeModal={() => {
           setShowDelAccount((prev) => !prev);
         }}
         width="440px"
         height="338px"
       >
-        <DelAccount closeModal={setShowDelAccount} />
-      </Modal>
+        <DelAccount
+          closeModal={() => {
+            setShowDelAccount((prev) => !prev);
+          }}
+        />
+      </Moddal>
     </StMenuWrapper>
   );
 }

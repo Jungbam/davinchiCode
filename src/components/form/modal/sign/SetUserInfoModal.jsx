@@ -29,14 +29,14 @@ const SetUserInfoModal = ({ modal, closeModal }) => {
     },
   });
 
-  const init = ()=>{
-    setNewProfileImg(null)
-    setProfileImg(data.data.profileImageUrl)
+  const init = () => {
+    setNewProfileImg(null);
+    setProfileImg(data.data.profileImageUrl);
     setNewNick(null);
-    console.log(imgRef.current.files)
-    imgRef.current.files= new FileList()
+    console.log(imgRef.current.files);
+    imgRef.current.files = new FileList();
     closeModal();
-  }
+  };
 
   const { mutate, isError, isLoading } = useMutation(
     (formData) => SignAPI.updateInfo(formData),
@@ -50,21 +50,21 @@ const SetUserInfoModal = ({ modal, closeModal }) => {
       onError: (error) => {
         alert(
           "프로필 수정이 정상적으로 되지 않았습니다. 우측 상단 배너에서 프로필을 다시한번 설정해주세요."
-          );
-          navigate("/lobby");
+        );
+        navigate("/lobby");
         // window.location.reload()
       },
     }
   );
 
-  const closeHandler = (e)=>{
-    e.preventDefault()
-    init()
-  }
+  const closeHandler = (e) => {
+    e.preventDefault();
+    init();
+  };
 
   const onChangeImgHandler = (e) => {
-    console.log(e)
-    console.log(imgRef.current.files)
+    console.log(e);
+    console.log(imgRef.current.files);
     const imgSrc = e.target.files[0];
     const file = imgRef.current.files[0];
     const reader = new FileReader();
@@ -91,52 +91,52 @@ const SetUserInfoModal = ({ modal, closeModal }) => {
       closeModal={closeHandler}
       width="440px"
       height="428px"
-      >
-    <StWrapper>
-      <StContainerForm onSubmit={onSubmitHandler}>
-        <StTitle htmlFor="profileImg">프로필을 변경 해보세요.</StTitle>
-        <StProfileBox>
-          <StProfile
-            alt="profile"
-            src={newProfileImg ? newProfileImg : profileImg}
-            width="32px"
-            height="32px"
-            border-radius="50%"
-            object-fit="cover"
+    >
+      <StWrapper>
+        <StContainerForm onSubmit={onSubmitHandler}>
+          <StTitle htmlFor="profileImg">프로필을 변경 해보세요.</StTitle>
+          <StProfileBox>
+            <StProfile
+              alt="profile"
+              src={newProfileImg ? newProfileImg : profileImg}
+              width="32px"
+              height="32px"
+              border-radius="50%"
+              object-fit="cover"
             />
-          <StChangePhoto
-            id="profileImg"
-            ref={imgRef}
-            accept="image/*"
-            name="profileImg"
-            type="file"
-            onChange={onChangeImgHandler}
+            <StChangePhoto
+              id="profileImg"
+              ref={imgRef}
+              accept="image/*"
+              name="profileImg"
+              type="file"
+              onChange={onChangeImgHandler}
             />
-        </StProfileBox>
-        <StBox>
-          <label>설정 이름</label>
-          <input type="text" value={userName || ""} disabled readOnly />
-        </StBox>
-        <StBox>
-          <label>설정 이름 변경</label>
-          <input
-            type="text"
-            value={newNick || ""}
-            onChange={(e) => setNewNick(e.target.value)}
-            placeholder="변경할 이름을 입력해주세요."
+          </StProfileBox>
+          <StBox>
+            <label>설정 이름</label>
+            <input type="text" value={userName || ""} disabled readOnly />
+          </StBox>
+          <StBox>
+            <label>설정 이름 변경</label>
+            <input
+              type="text"
+              value={newNick || ""}
+              onChange={(e) => setNewNick(e.target.value)}
+              placeholder="변경할 이름을 입력해주세요."
             />
-        </StBox>
-        <StBtnList>
-          <StButton type="cancel" onClick={closeHandler}>
-            다음에 변경
-          </StButton>
-          <StButton type="submit" disabled={!newNick && !newProfileImg}>
-            변경하기
-          </StButton>
-        </StBtnList>
-      </StContainerForm>
-    </StWrapper>
-</Modal>
+          </StBox>
+          <StBtnList>
+            <StButton type="cancel" onClick={closeHandler}>
+              다음에 변경
+            </StButton>
+            <StButton type="submit" disabled={!newNick && !newProfileImg}>
+              변경하기
+            </StButton>
+          </StBtnList>
+        </StContainerForm>
+      </StWrapper>
+    </Modal>
   );
 };
 export default SetUserInfoModal;
