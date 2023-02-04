@@ -30,6 +30,7 @@ const RoomList = () => {
   const queryClient = useQueryClient();
 
   const [search, setSearch] = useState("");
+  const [barFocus, setBarFocus] = useState(false);
   const [searchRoomModal, setSearchRoomModal] = useState(null);
   const [searchType, setSearchType] = useState("name");
   const [currentPage, setCurrentPage] = useState(1);
@@ -70,6 +71,7 @@ const RoomList = () => {
 
   const searchHandler = () => {
     searchRoom();
+    setSearch("");
   };
 
   const searchRoomHandler = (type) => {
@@ -458,11 +460,12 @@ const StModal = styled.div`
 `;
 
 const StSearchBar = styled.div`
+  position: relative;
   width: 284px;
   height: 26px;
 
   border-radius: 4px;
-  border: solid 1px #000;
+  border: none;
   background-color: #333;
 
   color: #888;
@@ -470,6 +473,9 @@ const StSearchBar = styled.div`
   display: flex;
   align-items: center;
   & img {
+    position: absolute;
+    right: 0;
+
     width: 30px;
     height: 30px;
     padding: 9px;
@@ -479,6 +485,10 @@ const StSearchBar = styled.div`
 
 const StSearchBarInput = styled.input`
   padding: 0 14px;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+
   font-size: 12px;
   font-weight: 500;
   font-stretch: normal;
@@ -486,13 +496,13 @@ const StSearchBarInput = styled.input`
   line-height: 1;
   letter-spacing: normal;
   text-align: left;
-  width: 255px;
 
   color: #fff;
   background-color: #333;
-  border: 1px solid #333;
+  border: 1px solid #000;
   &:focus {
     outline: none;
+    border: 1px solid #fff;
   }
 `;
 

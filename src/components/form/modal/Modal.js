@@ -15,14 +15,6 @@ const buttonVariants = {
   },
 };
 
-const fadein = keyframes`
-from {
-  opacity:0
-}
-to {
-  opacity:1
-}`;
-
 const Modal = ({ children, modal, closeModal, width, height }) => {
   const styles = { modal, width, height };
   return (
@@ -80,21 +72,6 @@ const StBackDrop = styled.div`
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
-
-  animation-name: ${fadein};
-  animation-duration: 0.4s;
-  animation-timing-function: ease-out;
-  /* @keyframes fadein {
-    from {
-      margin-left: 100%;
-      width: 300%;
-    }
-
-    to {
-      margin-left: 0%;
-      width: 100%;
-    }
-  } */
 `;
 
 const StExitBtn = styled(motion.img)`
