@@ -40,7 +40,7 @@ const Header = () => {
         </NavbarStatus>
 
         <ReportButton onClick={setModalHandler}>
-          <img src={IMG.iconSirenHeader} alt='버그 신고' />
+          <img src={ICON.iconSirenHeader} alt='버그 신고' />
           <div>버그신고</div>
         </ReportButton>
       </NavbarInside>

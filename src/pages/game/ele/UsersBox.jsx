@@ -29,7 +29,7 @@ const UsersBox = ({ user, turn, userId }) => {
         </StAbsoluteBtn>
       )}
       <StUserProfile>
-        <img
+        <StImg
           src={user?.userProfileImg}
           width="80"
           alt="유저 프로필 사진"
@@ -85,8 +85,6 @@ const StAbsoluteBtn = styled.button`
   border: 1px solid #000000;
   box-shadow: 0px 3px 0px ${({ color }) => color || "#000"};
   border-radius: 6px;
-
-  //
   font-family: Pretendard;
   font-size: 14px;
   font-weight: bold;
@@ -96,6 +94,12 @@ const StAbsoluteBtn = styled.button`
   letter-spacing: normal;
   color: ${({ color }) => color || "#000"};
 `;
+
+const StImg = styled.img`
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+`
 
 const StCardArea = styled.div`
   width: 100%;

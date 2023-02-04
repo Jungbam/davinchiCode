@@ -49,7 +49,6 @@ const CenterBox = ({ socket, userId }) => {
   function GameTurn(selectedColor) {
     socket.current.emit(
       eventName.COLOR_SELECTED,
-      userId,
       selectedColor,
       (card) => {
         setGameView(
@@ -63,7 +62,7 @@ const CenterBox = ({ socket, userId }) => {
     );
   }
   function cardPick(resultArray = null) {
-    socket.current.emit(eventName.PLACE_JOKER, userId, resultArray);
+    socket.current.emit(eventName.PLACE_JOKER, resultArray);
   }
   function selectIndicaterCard(indicatedUser) {
     setGameView(
@@ -105,7 +104,7 @@ const CenterBox = ({ socket, userId }) => {
   }
   function openMine(userId, select) {
     const openMine = { ...select };
-    socket.current.emit(eventName.GUESS, userId, openMine);
+    socket.current.emit(eventName.GUESS, openMine);
     setGameView(<Turn GameTurn={GameTurn} userId={userId} />);
   }
   function endingHandler() {
