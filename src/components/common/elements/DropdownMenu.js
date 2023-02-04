@@ -77,7 +77,7 @@ function DropdownMenu() {
       >
         <SetUserInfo
           closeModal={() => {
-            setShowModal(!showModal);
+            setShowModal((prev) => !prev);
           }}
         />
       </Modal>

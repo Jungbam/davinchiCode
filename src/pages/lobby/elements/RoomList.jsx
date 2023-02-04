@@ -30,7 +30,8 @@ const RoomList = () => {
   const queryClient = useQueryClient();
 
   const [search, setSearch] = useState("");
-  const [barFocus, setBarFocus] = useState(false);
+  const [roomsData, setRoomsData] = useState([]);
+
   const [searchRoomModal, setSearchRoomModal] = useState(null);
   const [searchType, setSearchType] = useState("name");
   const [currentPage, setCurrentPage] = useState(1);
@@ -61,7 +62,7 @@ const RoomList = () => {
     () => RoomAPI.searchRoom({ searchType, search, currentPage }),
     {
       onSuccess: ({ data }) => {
-        console.log("search룸ㅎㅎ", data);
+        setRoomsData(data.rooms);
       },
       onError: (error) => {
         console.log(error);
@@ -71,12 +72,17 @@ const RoomList = () => {
 
   const searchHandler = () => {
     searchRoom();
-    setSearch("");
   };
 
   const searchRoomHandler = (type) => {
     setSearchType(type);
     setSearchRoomModal((prev) => !prev);
+  };
+
+  const searchByEnter = (e) => {
+    if (e.keyCode === 13) {
+      searchRoom();
+    }
   };
 
   useEffect(() => {
@@ -144,17 +150,20 @@ const RoomList = () => {
               placeholder="방 제목을 입력해주세요."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
+              onKeyUp={searchByEnter}
             />
             <img onClick={searchHandler} src={ICON.iconSearch} />
           </StSearchBar>
           <StRefreshBtn>
-            <img src={ICON.iconRefresh} alt="새로고침" />
+            <img src={ICON.iconRefresh} alt="새로고침" onClick={() => {}} />
             새로고침
           </StRefreshBtn>
         </StFuncBack>
       </StSearchRoom>
       <StRoomList>
         <RoomContents
+          roomsData={roomsData}
+          setRoomsData={setRoomsData}
           searchType={searchType}
           search={search}
           currentPage={currentPage}
@@ -484,7 +493,7 @@ const StSearchBar = styled.div`
 `;
 
 const StSearchBarInput = styled.input`
-  padding: 0 14px;
+  padding: 0 22px 0 14px;
   width: 100%;
   height: 100%;
   border-radius: 4px;

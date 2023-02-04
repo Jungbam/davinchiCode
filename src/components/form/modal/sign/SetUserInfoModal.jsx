@@ -130,9 +130,15 @@ const SetUserInfoModal = ({ modal, closeModal }) => {
             <StButton type="cancel" onClick={closeHandler}>
               다음에 변경
             </StButton>
-            <StButton type="submit" disabled={!newNick && !newProfileImg}>
-              변경하기
-            </StButton>
+            {!newNick && !newProfileImg ? (
+              <StButton type="submit" disabled>
+                변경하기
+              </StButton>
+            ) : (
+              <StButton type="submit" color="#FFDF24">
+                변경하기
+              </StButton>
+            )}
           </StBtnList>
         </StContainerForm>
       </StWrapper>

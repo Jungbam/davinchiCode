@@ -45,15 +45,15 @@ const SetUserInfo = ({ closeModal }) => {
       },
     }
   );
-  const init = ()=>{
-    setNewProfileImg(null)
+  const init = () => {
+    setNewProfileImg(null);
     setNewNick(null);
-    navigate("/lobby")
-  }
-  const closeHandler = (e)=>{
-    e.preventDefault()
+    navigate("/lobby");
+  };
+  const closeHandler = (e) => {
+    e.preventDefault();
     closeModal();
-  }
+  };
 
   const onChangeImgHandler = (e) => {
     const imgSrc = e.target.files[0];
@@ -115,9 +115,15 @@ const SetUserInfo = ({ closeModal }) => {
           <StButton type="cancel" onClick={closeHandler}>
             다음에 변경
           </StButton>
-          <StButton type="submit" disabled={!newNick && !newProfileImg}>
-            변경하기
-          </StButton>
+          {!newNick && !newProfileImg ? (
+            <StButton type="submit" disabled>
+              변경하기
+            </StButton>
+          ) : (
+            <StButton type="submit" color="#FFDF24">
+              변경하기
+            </StButton>
+          )}
         </StBtnList>
       </StContainerForm>
     </StWrapper>
@@ -130,11 +136,12 @@ SetUserInfo.defaultProps = {
 };
 
 const StWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 100%;
-  height: 100vh;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #111;
 `;
 const StContainerForm = styled.form`
   display: flex;
