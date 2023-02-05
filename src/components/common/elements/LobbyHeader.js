@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import React from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { ICON } from "../../../helpers/Icons";
@@ -7,6 +8,7 @@ import DropdownMenu from "./DropdownMenu";
 
 const Header = () => {
   const navigate = useNavigate();
+  const { userInfo } = useSelector((state) => state.signSlice);
   return (
     <Navbar>
       <NavbarInside>
@@ -19,7 +21,7 @@ const Header = () => {
           onClick={() => navigate("/")}
         />
         <StMenuWrapper>
-          <DropdownMenu />
+          <DropdownMenu userInfo={userInfo} />
         </StMenuWrapper>
       </NavbarInside>
     </Navbar>

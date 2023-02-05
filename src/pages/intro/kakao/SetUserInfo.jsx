@@ -1,32 +1,18 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React, { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { SignAPI } from "../../../api/axios";
 import { queryKeys } from "../../../helpers/queryKeys";
 import styled from "styled-components";
 
-const SetUserInfo = ({ closeModal }) => {
-  const [profileImg, setProfileImg] = useState(null);
+const SetUserInfo = ({ closeModal,userInfo }) => {
+  const [profileImg, setProfileImg] = useState(userInfo?.profileImageUrl);
   const [newProfileImg, setNewProfileImg] = useState(null);
-  const [userName, setNickName] = useState(null);
+  const [userName, setNickName] = useState(userInfo?.username);
   const [newNick, setNewNick] = useState(null);
 
   const imgRef = useRef();
-  const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  const { data } = useQuery([queryKeys.MYINFO], SignAPI.myinfo, {
-    staleTime: 6000,
-    cacheTime: 60 * 60 * 1000,
-    onSuccess: (res) => {
-      setNickName(res?.data?.username);
-      setProfileImg(res?.data?.profileImageUrl);
-    },
-    onError: (error) => {
-      alert(error.message);
-      navigate("/");
-    },
-  });
   const { mutate, isError, isLoading } = useMutation(
     (formData) => SignAPI.updateInfo(formData),
     {
@@ -34,22 +20,15 @@ const SetUserInfo = ({ closeModal }) => {
         queryClient.invalidateQueries(queryKeys.MYINFO);
         alert("프로필 수정 완료");
         closeModal();
-        navigate("/lobby");
       },
       onError: (error) => {
         alert(
           "프로필 수정이 정상적으로 되지 않았습니다. 우측 상단 배너에서 프로필을 다시한번 설정해주세요."
         );
         closeModal();
-        navigate("/lobby");
       },
     }
   );
-  const init = () => {
-    setNewProfileImg(null);
-    setNewNick(null);
-    navigate("/lobby");
-  };
   const closeHandler = (e) => {
     e.preventDefault();
     closeModal();

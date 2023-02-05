@@ -7,7 +7,7 @@ import Logout from "../../form/sign/Logout";
 import DelAccount from "../../form/sign/DelAccount";
 import Moddal from "../../form/modal/Moddal";
 
-function DropdownMenu() {
+function DropdownMenu({ userInfo }) {
   const [showMenu, setShowMenu] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showLogout, setShowLogout] = useState(false);
@@ -80,6 +80,7 @@ function DropdownMenu() {
             closeModal={() => {
               setShowModal((prev) => !prev);
             }}
+            userInfo={userInfo}
           />
         </Moddal>
       )}

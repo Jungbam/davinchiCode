@@ -31,6 +31,7 @@ const ComplaintBug = ({ closeModal }) => {
       .then(
         (result) => {
           alert("정상적으로 버그가 신고되었습니다.");
+          setSending(false)
           closeModalHandler();
         },
         (error) => {
@@ -39,49 +40,45 @@ const ComplaintBug = ({ closeModal }) => {
         }
       );
   };
-
+  
   return (
     <StWrapper>
       <Absolute>
         <StExitBtn onClick={closeModalHandler} src={exitModal} />
       </Absolute>
-      {sending ? (
-        <StSending>신고메일 보내는 중</StSending>
-      ) : (
-        <StContainer ref={complainForm}>
-          <StBugHeader>버그신고</StBugHeader>
-          <StInput
-            type="text"
-            name="name"
-            placeholder="제목을 입력해주세요. (20자 이내)"
-            value={input.name}
-            onChange={onChangeHandler}
-          />
-          <StTextArea
-            type="text"
-            name="message"
-            placeholder="내용을 입력해주세요. (100자 이내)"
-            height="142px"
-            value={input.message}
-            onChange={onChangeHandler}
-          />
-          <StInput
-            placeholder="답변 받을 이메일 주소"
-            type="text"
-            name="reply_to"
-            value={input.reply_to}
-            onChange={onChangeHandler}
-          />
-          <StBtnArea>
-            <StBtn type="cancel" onClick={closeModal}>
-              취소
-            </StBtn>
-            <StBtn type="submit" color="#ffdf24" onClick={sendEmailHandler}>
-              신고하기
-            </StBtn>
-          </StBtnArea>
-        </StContainer>
-      )}
+      {sending? <StSending>신고메일 보내는 중</StSending>:
+      <StContainer ref={complainForm}>
+        <StBugHeader>버그신고</StBugHeader>
+        <StInput
+          type="text"
+          name="name"
+          placeholder="제목을 입력해주세요. (20자 이내)"
+          value={input.name}
+          onChange={onChangeHandler}
+          maxLength={20}
+        />
+        <StTextArea
+          type="text"
+          name="message"
+          placeholder="내용을 입력해주세요. (100자 이내)"
+          height="142px"
+          value={input.message}
+          onChange={onChangeHandler}
+          maxLength={100}
+        />
+        <StInput
+          placeholder="답변 받을 이메일 주소"
+          type="text"
+          name="reply_to"
+          value={input.reply_to}
+          onChange={onChangeHandler}
+        />
+        {input.name.length&&input.message.length&&input.reply_to.includes('@')?<StVali></StVali>:<StVali>입력되지 않은 항목이 존재합니다.(e-mail 형식 준수)</StVali>}
+        <StBtnArea>
+          <StBtn type="cancel" onClick={closeModal}>취소</StBtn>
+          <StBtn type="submit" color="#ffdf24" onClick={sendEmailHandler} disabled={!(input.name.length&&input.message.length&&input.reply_to.includes('@'))}>신고하기</StBtn>
+        </StBtnArea>
+      </StContainer>}
     </StWrapper>
   );
 };
@@ -131,18 +128,13 @@ const StInput = styled.input`
   background-color: #ebebeb;
   border-radius: 4px;
   text-align: left;
-  border: none;
+  border:none;
   &:focus {
     outline: none;
   }
-
-  flex-grow: 0;
   font-size: 14px;
   font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
   line-height: 1;
-  letter-spacing: normal;
   color: #777;
 `;
 
@@ -157,15 +149,11 @@ const StTextArea = styled.textarea`
   &:focus {
     outline: none;
   }
-
-  flex-grow: 0;
   font-size: 14px;
   font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
   line-height: 1;
-  letter-spacing: normal;
   color: #777;
+  resize: none;
 `;
 
 const StBtnArea = styled.div`
@@ -182,18 +170,12 @@ const StBtn = styled.button`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-
   border-radius: 6px;
   box-shadow: 0 3px 0 0 #000;
   border: solid 1px #000;
-  background-color: ${({ color }) => color || "#fff"};
-
+  background-color: ${({ color, disabled }) => disabled? "grey":color || "#fff"};
   font-size: 14px;
   font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1;
-  letter-spacing: normal;
   text-align: center;
   color: #000;
 `;
@@ -202,3 +184,10 @@ const Absolute = styled.div`
   position: absolute;
   right: 16px;
 `;
+
+const StVali = styled.p`
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+  color: #FF601C;
+`
