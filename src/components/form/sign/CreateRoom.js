@@ -12,7 +12,7 @@ const CreateRoom = ({ closeModal, modal }) => {
   const ref = useRef("");
   const navigate = useNavigate();
   const [roomName, setRoomName] = useState("");
-  const [maxMembers, setMaxMembers] = useState("4명");
+  const [maxMembers, setMaxMembers] = useState(4);
   const [isSecret, setIsSecret] = useState(false);
   const [password, setPassword] = useState("");
   const [roomModal, setRoomModal] = useState(false);
@@ -80,7 +80,7 @@ const CreateRoom = ({ closeModal, modal }) => {
             <img src={ICON.iconDropDown} alt="드롭다운" />
           </StModalOpener>
           <StModal roomModal={roomModal}>
-            {["2명", "3명", "4명"].map((el, i) => (
+            {[2, 3, 4].map((el, i) => (
               <button
                 key={`roomMembers${i}`}
                 onClick={() => roomMembersHandler(el)}
