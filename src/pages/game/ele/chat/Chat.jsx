@@ -94,7 +94,7 @@ const StInput = styled.input`
   font-size: 14px;
   font-weight: 500;
   width: 270px;
-  color: #7a7a7a;
+  color: #111;
   &:focus {
     outline: none;
   }

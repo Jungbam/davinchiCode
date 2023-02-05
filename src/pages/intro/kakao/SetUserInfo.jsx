@@ -100,7 +100,17 @@ const SetUserInfo = ({ closeModal }) => {
         </StProfileBox>
         <StBox>
           <label>설정 이름</label>
-          <input type="text" value={userName || ""} disabled readOnly />
+          <input
+            style={{
+              backgroundColor: "#ebebeb",
+              border: "solid 1px #ebebeb",
+              color: "#999",
+            }}
+            type="text"
+            value={userName || ""}
+            disabled
+            readOnly
+          />
         </StBox>
         <StBox>
           <label>설정 이름 변경</label>
@@ -117,11 +127,11 @@ const SetUserInfo = ({ closeModal }) => {
           </StButton>
           {!newNick && !newProfileImg ? (
             <StButton color="#ddd" type="submit" disabled>
-              변경하기
+              변경
             </StButton>
           ) : (
             <StButton type="submit" color="#FFDF24">
-              변경하기
+              변경
             </StButton>
           )}
         </StBtnList>

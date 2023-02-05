@@ -38,4 +38,6 @@ export const RoomAPI = {
       `/rooms?page=${currentPage}&searchType=${searchType}&search=${search}`
     ),
   quickStart: () => gameClient.get(`/rooms/quick-start`),
+  showRanking: () => client.get("/users"),
+  showMyRanking: () => client.get("/users/me"),
 };

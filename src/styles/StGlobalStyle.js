@@ -1,5 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 import normalize from "styled-normalize";
+import "../Fonts/pretendard.css";
 
 const StGlobalStyle = createGlobalStyle`
   ${normalize}
@@ -10,12 +11,15 @@ const StGlobalStyle = createGlobalStyle`
 
   * {
     margin: 0;
-    padding: 0;  
-    font-family: Roboto, Arial ,sans-serif;   
+    padding: 0;     
+    font-family:'Pretendard'
   }
 
   body {
     background-image: url('/images/background.png');
+  background-size: cover;
+  height: 100vh;
+  background-color: #2b2b2b;
   }
 
   button{

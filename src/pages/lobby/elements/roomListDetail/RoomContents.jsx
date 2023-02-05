@@ -85,7 +85,7 @@ const RoomContents = ({
   useEffect(() => {}, [reFetch]);
   return (
     <>
-      <StWrapper jus="flex-start" padding="20px 14px">
+      <StWrapper jus="flex-start" padding="7px 0">
         {status === "loading" && <div>Loading...</div>}
         {status === "success" && (
           <>
@@ -134,12 +134,7 @@ const RoomContents = ({
                     }
                   >
                     <StRoomNum>{room.roomId}</StRoomNum>
-                    <StRoomName>
-                      {" "}
-                      {room.roomName.length > 21
-                        ? room.roomName.substring(0, 21) + "..."
-                        : room.roomName}
-                    </StRoomName>
+                    <StRoomName> {room.roomName}</StRoomName>
                   </StMiddle>
 
                   {!(
@@ -361,6 +356,8 @@ const StBtnBox = styled.div`
 const StRoomName = styled.div`
   width: 270px;
   height: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const StDiv = styled.div`
