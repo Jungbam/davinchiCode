@@ -2,10 +2,10 @@ import React from "react";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import IndividualRanking from "./rankingDetail/IndividualRanking";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import mockDataMy from "./roomListDetail/MockDataMy";
-import {  motion } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
+import { motion } from "framer-motion";
 import { ICON } from "../../../helpers/Icons";
+import { RoomAPI } from "../../../api/axios";
 
 const TextVariants = {
   hidden: {
@@ -25,10 +25,16 @@ const TextVariants = {
   },
 };
 
+const a = (num) => {
+  if (num > 0) return ICON.iconScorePlus;
+  if (num < 0) return ICON.iconScoreMinus;
+  if (!num) return ICON.iconScoreStable;
+};
+
 const Ranking = () => {
   const [textIndex, setTextIndex] = useState(false);
 
-  function numberWithCommas(x) {
+  function numberWithCommas(x = 0) {
     return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
   }
   const handleInterval = () => {
@@ -41,23 +47,41 @@ const Ranking = () => {
     handleInterval();
   }, [textIndex]);
 
-  const { data, status } = useQuery(["PERSONAL_RANKING"], () => mockDataMy);
+  const { data } = useQuery(["PERSONAL_RANKING"], () => RoomAPI.showRanking(), {
+    onSuccess: (data) => {},
+  });
+
+  const myData = useQuery(["MY_RANKING"], () => RoomAPI.showMyRanking(), {
+    onSuccess: (data) => {},
+  });
 
   return (
     <StRankingWrapper>
       <StRankingHeader>게임순위</StRankingHeader>
       <StIndividualWrapper>
-        <IndividualRanking />
+        <IndividualRanking users={data?.data} />
       </StIndividualWrapper>
       <StWrapper color="#efffec">
         <StRank>
-          <StPlayerRanking>{mockDataMy.ranking}</StPlayerRanking>
-          <StPlayerRankingActive>◀ {mockDataMy.change}</StPlayerRankingActive>
+          <StPlayerRanking>{myData?.data?.data.ranking}</StPlayerRanking>
+          <StPlayerRankingActive>
+            <img
+              src={a(
+                myData?.data?.data.ranking - myData?.data?.data.prevRanking
+              )}
+              alt="순위"
+            />{" "}
+            {Math.abs(
+              myData?.data?.data.ranking - myData?.data?.data.prevRanking
+            )}
+          </StPlayerRankingActive>
         </StRank>
         <StRankDetail>
-          <StUserProfile src={mockDataMy.profileImageUrl} />
-          <StUserName>{mockDataMy.username}</StUserName>
-          <StUserScore>{numberWithCommas(mockDataMy.score)}</StUserScore>
+          <StUserProfile src={myData?.data?.data.profileImageUrl} />
+          <StUserName>{myData?.data?.data.username}</StUserName>
+          <StUserScore>
+            {numberWithCommas(myData?.data?.data.score)}
+          </StUserScore>
         </StRankDetail>
       </StWrapper>
 
@@ -70,7 +94,7 @@ const Ranking = () => {
             animate="visible"
             exit="exit"
           >
-            <img src={ICON.iconAlert} alt="게임이용"/>
+            <img src={ICON.iconAlert} alt="게임이용" />
             장시간의 게임은 건강에 해롭습니다
           </StText>
         ) : (
@@ -81,7 +105,7 @@ const Ranking = () => {
             animate="visible"
             exit="exit"
           >
-            <img src={ICON.iconAlert} alt="랭킹갱신"/>
+            <img src={ICON.iconAlert} alt="랭킹갱신" />
             게임 순위는 1시간마다 업데이트됩니다
           </StText>
         )}

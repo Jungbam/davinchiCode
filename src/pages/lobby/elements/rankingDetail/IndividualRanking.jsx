@@ -1,11 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import mockDataLead from "../roomListDetail/MockDataLeader";
-import { queryKeys } from "../../../../helpers/queryKeys";
-import { useQuery } from "@tanstack/react-query";
 import { ICON } from "../../../../helpers/Icons";
 
-const IndividualRanking = () => {
+const IndividualRanking = ({ users }) => {
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
   }
@@ -15,37 +12,29 @@ const IndividualRanking = () => {
     if (num < 0) return ICON.iconScoreMinus;
     if (!num) return ICON.iconScoreStable;
   };
-  const { data, status, error } = useQuery(["userRanking"], () => mockDataLead);
 
-  if (status === "loading") {
-    return <div>Loading...</div>;
-  }
-
-  if (status === "error") {
-    return <div>An error occurred: {error.message}</div>;
-  }
-  if (status === "success") {
-    return (
-      <>
-        {mockDataLead.map((el, i) => (
-          <StWrapper key={`individualRanking${i}`}>
-            <StRank>
-              <StPlayerRanking>{el.ranking}</StPlayerRanking>
-              <StPlayerRankingActive>
-                <img src={a(el.change)} alt="순위"/> {Math.abs(el.change)}
-              </StPlayerRankingActive>
-            </StRank>
-            <StRankDetail>
-              <StUserProfile src={el.profileImageUrl} />
-              <StUserName>{el.username}</StUserName>
-              <StUserScore>{numberWithCommas(el.score)}</StUserScore>
-            </StRankDetail>
-          </StWrapper>
-        ))}
-      </>
-    );
-  }
+  return (
+    <>
+      {users?.map((el, i) => (
+        <StWrapper key={`individualRanking${i}`}>
+          <StRank>
+            <StPlayerRanking>{el.ranking}</StPlayerRanking>
+            <StPlayerRankingActive color={el.ranking - el.prevRanking}>
+              <img src={a(el.ranking - el.prevRanking)} alt="순위" />{" "}
+              {Math.abs(el.ranking - el.prevRanking)}
+            </StPlayerRankingActive>
+          </StRank>
+          <StRankDetail>
+            <StUserProfile src={el.profileImageUrl} />
+            <StUserName>{el.username}</StUserName>
+            <StUserScore>{numberWithCommas(el.score)}</StUserScore>
+          </StRankDetail>
+        </StWrapper>
+      ))}
+    </>
+  );
 };
+// };
 
 const StWrapper = styled.div`
   background-color: ${({ color }) => color || "#fff"};
@@ -55,13 +44,12 @@ const StWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0 30px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #111;
 `;
 
 const StRank = styled.div`
   width: 40px;
   height: 34px;
-  /* border: 1px solid green; */
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -128,7 +116,8 @@ const StPlayerRankingActive = styled.div`
   line-height: 1;
   letter-spacing: normal;
   text-align: left;
-  color: #ff601c;
+  color: ${({ color }) =>
+    color > 0 ? "#ff601c" : color === 0 ? "#555" : "#00831d"};
 `;
 
 export default IndividualRanking;

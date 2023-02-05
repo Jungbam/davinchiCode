@@ -15,9 +15,9 @@ function DropdownMenu() {
   return (
     <StMenuWrapper>
       <StButtonDesign
-        initial={{ y: -250 }}
+        initial={{ y: -100 }}
         animate={{ y: 0 }}
-        transition={{ delay: 0.3, type: "spring", stiffness: 120 }}
+        transition={{ delay: 1.3, type: "spring", stiffness: 200 }}
         onClick={() => setShowMenu((prev) => !prev)}
       >
         마이페이지
