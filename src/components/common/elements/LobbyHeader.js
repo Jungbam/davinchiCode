@@ -53,5 +53,5 @@ const StMenuWrapper = styled.div`
 
 const StImg = styled(motion.img)`
   cursor: pointer;
-  z-index: 10000;
+  z-index: 1000;
 `;

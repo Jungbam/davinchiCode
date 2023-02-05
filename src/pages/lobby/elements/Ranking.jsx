@@ -49,10 +49,16 @@ const Ranking = () => {
 
   const { data } = useQuery(["PERSONAL_RANKING"], () => RoomAPI.showRanking(), {
     onSuccess: (data) => {},
+    onError: (err) => {
+      console.log(err);
+    },
   });
 
   const myData = useQuery(["MY_RANKING"], () => RoomAPI.showMyRanking(), {
     onSuccess: (data) => {},
+    onError: (err) => {
+      console.log(err);
+    },
   });
 
   return (

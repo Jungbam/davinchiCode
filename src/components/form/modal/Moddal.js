@@ -85,7 +85,7 @@ const StBackDrop = styled(motion.div)`
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 1;
+  z-index: 10000;
   display: flex;
   justify-content: center;
   padding-top: ${({ xnumber }) => 432 - xnumber / 2 + "px"};
@@ -99,7 +99,7 @@ const StModal = styled(motion.div)`
   background-color: #fff;
   flex-direction: column;
   align-content: center;
-  z-index: 2;
+  z-index: 10001;
   color: #111;
 `;
 

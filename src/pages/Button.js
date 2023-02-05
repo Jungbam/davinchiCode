@@ -5,35 +5,35 @@ export const StButton = styled.div`
   width: ${({ size }) => {
     switch (size) {
       case "lg":
-        return "130px";
+        return "252px";
       case "md":
-        return "69px";
+        return "130px";
       case "sm":
-        return "62px";
+        return "80px";
       default:
-        return "127px";
+        return "100px";
     }
   }};
   height: ${({ size }) => {
     switch (size) {
       case "lg":
-        return "44px";
+        return "48px";
       case "md":
-        return "32px";
+        return "44px";
       case "sm":
         return "26px";
       default:
-        return "48px";
+        return "32px";
     }
   }};
   font-size: ${({ size }) => {
     switch (size) {
       case "md":
-        return "14px";
+        return "18px";
       case "sm":
         return "12px";
       default:
-        return "18px";
+        return "14px";
     }
   }};
   color: ${({ variant }) => {

@@ -288,7 +288,7 @@ const StModalOpener = styled.button`
 const StModal = styled.div`
   display: ${({ roomModal }) => (roomModal ? "flex" : "none")};
   flex-direction: column;
-  z-index: 100000;
+  z-index: 1000;
   position: relative;
   & button {
     margin-top: 4px;
