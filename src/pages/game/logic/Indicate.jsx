@@ -27,7 +27,7 @@ const Indicate = ({ selectIndicaterCard, userId }) => {
           지목할 상대를 선택해주세요!
         </StTitle>
         <StText mgTop="12px">
-          다른 참여자의 화면에 있는 ‘지목하기’ 버튼을 클릭하세요
+          다른 참여자의 화면에 있는 ‘지목하기’ 버튼을 클릭하세요.
         </StText>
         {indicated && (
           <>
@@ -55,7 +55,7 @@ const Indicate = ({ selectIndicaterCard, userId }) => {
             </StBtnList>
           </>
         )}
-        <Timer timeOver={() => selectIndicaterCard(others)}/>
+        <Timer timeOver={() => selectIndicaterCard(others)} />
       </StWrapper>
     );
   else return <OtherTurn text="타일 뽑기" />;

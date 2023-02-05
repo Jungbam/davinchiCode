@@ -8,11 +8,17 @@ const StTitle = styled.div`
 
   width: ${({ width }) => width || "388px"};
   height: 32px;
+  background-color: #fff;
+  border: 1px solid #111;
+  border-bottom: 3px double #111111;
 
-  border: 1px solid #111111;
-  box-shadow: 0px 3px 0px #111;
   border-radius: 6px;
-  font-weight: 700;
+  font-size: 16px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
   margin-top: ${({ mgTop }) => mgTop || "100px"};
 `;
 
@@ -74,10 +80,15 @@ const StWrapper = styled.div`
 
 const StCardArea = styled.div`
   height: ${({ height }) => height || "62px"};
+  width: 100%;
+  justify-content: center;
   gap: ${({ gap }) => gap || "4px"};
   display: flex;
   margin-top: ${({ mgTop }) => mgTop || "20px"};
   margin-left: ${({ mgLeft }) => mgLeft || "20px"};
+  & img {
+    width: ${({ childwidth }) => childwidth};
+  }
 `;
 
 export const BootStrap = {

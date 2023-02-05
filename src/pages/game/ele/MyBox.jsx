@@ -7,14 +7,18 @@ const MyBox = ({ user }) => {
   return (
     <StBox>
       <StUserProfile>
-        <StImg src={user?.userProfileImg||IMG.userProfile} alt="유저 프로필 사진" width="80" />
+        <StImg
+          src={user?.userProfileImg || IMG.userProfile}
+          alt="유저 프로필 사진"
+          width="80"
+        />
         <div>{user?.userName}</div>
       </StUserProfile>
       <StCardList>
         {user?.hand?.map((card, i) => (
           <StCardBox key={`${user.userName}${i}`}>
             <DavinchiCard card={card} />
-            {card.isOpen ? <StOpen>Out</StOpen> : <StOpenNull></StOpenNull>}
+            {card.isOpen ? <StOpen>OUT</StOpen> : <StOpenNull></StOpenNull>}
           </StCardBox>
         ))}
       </StCardList>
@@ -60,11 +64,16 @@ const StImg = styled.img`
 `;
 
 const StOpen = styled.span`
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 32px;
   height: 20px;
   border-radius: 4px;
   background: #ffdf24;
+  font-size: 10px;
+  font-weight: bold;
+  font-stretch: normal;
   border: 1px solid #111111;
 `;
 const StOpenNull = styled.span`

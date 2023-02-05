@@ -2,12 +2,18 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { ICON } from "../../../helpers/Icons";
 import { BootStrap } from "../../BootStrap";
+import { StButton } from "../../Button";
 import Timer from "../ele/Timer";
 
 const IntroTile = ({ selectTile }) => {
   const [black, setBlack] = useState(0);
-  const [select, setSelect] = useState(false)
-  const countBlackBtn = [0, 1, 2, 3];
+  const [select, setSelect] = useState(false);
+  const countBlackBtn = [
+    { value: 0, color: "#f5f6fa" },
+    { value: 1, color: "#dcdde1" },
+    { value: 2, color: "#535c68" },
+    { value: 3, color: "#2f3640" },
+  ];
   const { StTitle, StText } = BootStrap;
 
   return (
@@ -16,41 +22,45 @@ const IntroTile = ({ selectTile }) => {
         가져올 타일을 정해주세요!
       </StTitle>
       <StText mgTop="16px">
-        처음 주어지는 타일은 3개입니다. 아래의 슬라이더를 이동시켜 원하는 색상의
+        처음 주어지는 타일은 3개입니다. 아래의 버튼을 클릭하여 원하는 색상의
         타일을 획득하세요.
       </StText>
       <StCardArea>
-        {new Array(black).fill("_").map((_, i) => (
-          <img key={`whiteCenter${i}`} src={ICON.blackBack} alt="card" />
-        ))}
         {new Array(3 - black).fill("_").map((_, i) => (
           <img key={`blackCenter${i}`} src={ICON.whiteBack} alt="card" />
+        ))}
+        {new Array(black).fill("_").map((_, i) => (
+          <img key={`whiteCenter${i}`} src={ICON.blackBack} alt="card" />
         ))}
       </StCardArea>
       <StTileNumber>
         <div>
-          검은색 타일 <span>{black}개</span>
+          흰색 타일 <span>{3 - black}개</span>
         </div>
         <div>
-          흰색 타일 <span>{3 - black}개</span>
+          검은색 타일 <span>{black}개</span>
         </div>
       </StTileNumber>
       <StRoundBtns>
         {countBlackBtn.map((el, i) => (
           <StRoundBtn
             key={`countBlackBtn ${i}`}
-            onClick={() => setBlack(el)}
+            onClick={() => setBlack(el.value)}
+            color={el.color}
           ></StRoundBtn>
         ))}
       </StRoundBtns>
-      <StConfirmBtn
+      <StButton
+        variant="primary"
+        mgTop="14px"
         onClick={() => {
-          setSelect(false)
-          selectTile(black)}}
+          setSelect(false);
+          selectTile(black);
+        }}
       >
         확인
-      </StConfirmBtn>
-      {select&&<Timer timeOver={() => selectTile(black)}/>}
+      </StButton>
+      {select && <Timer timeOver={() => selectTile(black)} />}
     </StWrapper>
   );
 };
@@ -91,26 +101,6 @@ const StTileNumber = styled.div`
   }
 `;
 
-const StConfirmBtn = styled.button`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 100px;
-  height: 32px;
-  background: #ffdf24;
-  border: 1px solid #000000;
-  box-shadow: 0px 3px 0px #000000;
-  border-radius: 6px;
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 100%;
-
-  margin-top: 14px;
-`;
-
-const StCard = styled.img``;
-
 const StRoundBtns = styled.div`
   gap: 15px;
   display: flex;
@@ -119,7 +109,7 @@ const StRoundBtns = styled.div`
 const StRoundBtn = styled.button`
   width: 20px;
   height: 20px;
-  background: #ff601c;
+  background: ${({ color }) => color};
   border: 1px solid #000000;
   border-radius: 999px;
 

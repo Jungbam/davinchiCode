@@ -12,7 +12,7 @@ const CreateRoom = ({ closeModal, modal }) => {
   const ref = useRef("");
   const navigate = useNavigate();
   const [roomName, setRoomName] = useState("");
-  const [maxMembers, setMaxMembers] = useState("4명");
+  const [maxMembers, setMaxMembers] = useState(4);
   const [isSecret, setIsSecret] = useState(false);
   const [password, setPassword] = useState("");
   const [roomModal, setRoomModal] = useState(false);
@@ -76,16 +76,16 @@ const CreateRoom = ({ closeModal, modal }) => {
               setRoomModal((prev) => !prev);
             }}
           >
-            <span>{maxMembers}</span>
+            <span>{maxMembers}명</span>
             <img src={ICON.iconDropDown} alt="드롭다운" />
           </StModalOpener>
           <StModal roomModal={roomModal}>
-            {["2명", "3명", "4명"].map((el, i) => (
+            {[2, 3, 4].map((el, i) => (
               <button
                 key={`roomMembers${i}`}
                 onClick={() => roomMembersHandler(el)}
               >
-                <span>{el}</span>
+                <span>{el}명</span>
               </button>
             ))}
           </StModal>
@@ -288,7 +288,7 @@ const StModalOpener = styled.button`
 const StModal = styled.div`
   display: ${({ roomModal }) => (roomModal ? "flex" : "none")};
   flex-direction: column;
-  z-index: 1000;
+  z-index: 100000;
   position: relative;
   & button {
     margin-top: 4px;

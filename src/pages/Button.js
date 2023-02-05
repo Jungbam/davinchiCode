@@ -2,6 +2,14 @@ import React from "react";
 import styled from "styled-components";
 
 export const StButton = styled.div`
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+
+  margin-top: ${({ mgTop }) => mgTop || "0px"};
+
   width: ${({ size }) => {
     switch (size) {
       case "lg":
@@ -86,4 +94,5 @@ export const StButton = styled.div`
   letter-spacing: normal;
   text-align: center;
   border-radius: 6px;
+  cursor: ${({ variant }) => (variant === "gray" ? "default" : "pointer")};
 `;
