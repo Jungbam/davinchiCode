@@ -5,7 +5,7 @@ import Modal from "../../../components/form/modal/Modal";
 import GameOver from "../../../components/form/sign/GameOver";
 import { ICON } from "../../../helpers/Icons";
 import { Sounds } from "../../../helpers/sounds";
-const Timer = ({timeOver}) => {
+const Timer = ({ timeOver }) => {
   const [gameOver, setGameOver] = useState(false);
   const [second, setSecond] = useState(String(30));
   const count = useRef(30);
@@ -54,9 +54,11 @@ const Timer = ({timeOver}) => {
     </StTimer>
   );
 };
-Timer.defaultProps ={
-  timeOver : ()=>{alert('시간오버')}
-}
+Timer.defaultProps = {
+  timeOver: () => {
+    alert("시간오버");
+  },
+};
 export default Timer;
 const StTimer = styled.div`
   position: absolute;
@@ -71,7 +73,6 @@ const StTimer = styled.div`
   justify-content: center;
   align-items: center;
   gap: 5px;
-  font-family: Pretendard;
   font-size: 10px;
   font-weight: bold;
   font-stretch: normal;

@@ -375,7 +375,6 @@ const StIsSecret = styled.div`
     padding-left: 5px;
     border: none;
     background-color: #f9f9f9;
-    font-family: "Pretendard Variable";
     font-style: normal;
   }
 `;

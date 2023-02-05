@@ -41,7 +41,6 @@ const StImg = styled.img`
   height: 80px;
 `;
 const StP = styled.p`
-  font-family: PretendardVariable;
   font-size: 14px;
   font-weight: 500;
 `;

@@ -47,19 +47,11 @@ const Ranking = () => {
     handleInterval();
   }, [textIndex]);
 
-  const { data } = useQuery(["PERSONAL_RANKING"], () => RoomAPI.showRanking(), {
-    onSuccess: (data) => {},
-    onError: (err) => {
-      console.log(err);
-    },
-  });
+  const { data } = useQuery(["PERSONAL_RANKING"], () => RoomAPI.showRanking());
 
-  const myData = useQuery(["MY_RANKING"], () => RoomAPI.showMyRanking(), {
-    onSuccess: (data) => {},
-    onError: (err) => {
-      console.log(err);
-    },
-  });
+  const { data: myData } = useQuery(["MY_RANKING"], () =>
+    RoomAPI.showMyRanking()
+  );
 
   return (
     <StRankingWrapper>
@@ -69,25 +61,19 @@ const Ranking = () => {
       </StIndividualWrapper>
       <StWrapper color="#efffec">
         <StRank>
-          <StPlayerRanking>{myData?.data?.data.ranking}</StPlayerRanking>
+          <StPlayerRanking>{myData?.data.ranking}</StPlayerRanking>
           <StPlayerRankingActive>
             <img
-              src={a(
-                myData?.data?.data.ranking - myData?.data?.data.prevRanking
-              )}
+              src={a(myData?.data.ranking - myData?.data.prevRanking)}
               alt="순위"
             />{" "}
-            {Math.abs(
-              myData?.data?.data.ranking - myData?.data?.data.prevRanking
-            )}
+            {Math.abs(myData?.data.ranking - myData?.data.prevRanking)}
           </StPlayerRankingActive>
         </StRank>
         <StRankDetail>
-          <StUserProfile src={myData?.data?.data.profileImageUrl} />
-          <StUserName>{myData?.data?.data.username}</StUserName>
-          <StUserScore>
-            {numberWithCommas(myData?.data?.data.score)}
-          </StUserScore>
+          <StUserProfile src={myData?.data.profileImageUrl} />
+          <StUserName>{myData?.data.username}</StUserName>
+          <StUserScore>{numberWithCommas(myData?.data.score)}</StUserScore>
         </StRankDetail>
       </StWrapper>
 

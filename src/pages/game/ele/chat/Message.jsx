@@ -7,12 +7,12 @@ const Message = ({ msg }) => {
       {msg.mine ? (
         <StMyMsg>
           <div style={{ fontWeight: 700 }}>나</div>
-          <p>{msg.msg}</p>
+          <p>&nbsp;&nbsp;&nbsp;{msg.msg}</p>
         </StMyMsg>
       ) : (
         <StComment>
           <div style={{ fontWeight: 700 }}>{msg.nickName}</div>
-          <p>{msg.msg}</p>
+          <p>&nbsp;&nbsp;&nbsp;{msg.msg}</p>
         </StComment>
       )}
     </>

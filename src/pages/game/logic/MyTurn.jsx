@@ -89,7 +89,6 @@ const StCard = styled.img`
 const StSelect = styled.button`
   width: 34px;
   height: 20px;
-  font-family: PretendardVariable;
   font-size: 10px;
   font-weight: 600;
   border-radius: 999px;

@@ -66,13 +66,13 @@ const RoomContents = ({
             navigate(`/game/${inRoom}`);
             break;
           case 101:
-            setPassword("방이 없습니다.");
+            setPasswordError("방이 없습니다.");
             break;
           case 102:
-            setPassword("방의 인원이 꽉 차 입장이 불가합니다.");
+            setPasswordError("방의 인원이 꽉 차 입장이 불가합니다.");
             break;
           case 103:
-            setPassword("게임이 이미 시작되었습니다.");
+            setPasswordError("게임이 이미 시작되었습니다.");
             break;
           case 104:
             setPasswordError("비밀번호가 일치하지 않습니다.");
@@ -272,7 +272,10 @@ const RoomContents = ({
                 width="100px"
                 height="32px"
                 fontSize="14px"
-                onClick={() => enterRoom()}
+                onClick={() => {
+                  setPasswordError("");
+                  enterRoom();
+                }}
               >
                 확인
               </StBtn>

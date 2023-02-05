@@ -45,36 +45,43 @@ const ComplaintBug = ({ closeModal }) => {
       <Absolute>
         <StExitBtn onClick={closeModalHandler} src={exitModal} />
       </Absolute>
-       {sending? <StSending>신고메일 보내는 중</StSending>:
-      <StContainer ref={complainForm}>
-        <StBugHeader>버그신고</StBugHeader>
-        <StInput
-          type="text"
-          name="name"
-          placeholder="제목을 입력해주세요. (20자 이내)"
-          value={input.name}
-          onChange={onChangeHandler}
-        />
-        <StTextArea
-          type="text"
-          name="message"
-          placeholder="내용을 입력해주세요. (100자 이내)"
-          height="142px"
-          value={input.message}
-          onChange={onChangeHandler}
-        />
-        <StInput
-          placeholder="답변 받을 이메일 주소"
-          type="text"
-          name="reply_to"
-          value={input.reply_to}
-          onChange={onChangeHandler}
-        />
-        <StBtnArea>
-          <StBtn type="cancel" onClick={closeModal}>취소</StBtn>
-          <StBtn type="submit" color="#ffdf24" onClick={sendEmailHandler}>신고하기</StBtn>
-        </StBtnArea>
-      </StContainer>}
+      {sending ? (
+        <StSending>신고메일 보내는 중</StSending>
+      ) : (
+        <StContainer ref={complainForm}>
+          <StBugHeader>버그신고</StBugHeader>
+          <StInput
+            type="text"
+            name="name"
+            placeholder="제목을 입력해주세요. (20자 이내)"
+            value={input.name}
+            onChange={onChangeHandler}
+          />
+          <StTextArea
+            type="text"
+            name="message"
+            placeholder="내용을 입력해주세요. (100자 이내)"
+            height="142px"
+            value={input.message}
+            onChange={onChangeHandler}
+          />
+          <StInput
+            placeholder="답변 받을 이메일 주소"
+            type="text"
+            name="reply_to"
+            value={input.reply_to}
+            onChange={onChangeHandler}
+          />
+          <StBtnArea>
+            <StBtn type="cancel" onClick={closeModal}>
+              취소
+            </StBtn>
+            <StBtn type="submit" color="#ffdf24" onClick={sendEmailHandler}>
+              신고하기
+            </StBtn>
+          </StBtnArea>
+        </StContainer>
+      )}
     </StWrapper>
   );
 };
@@ -106,7 +113,7 @@ const StExitBtn = styled.img`
 `;
 const StSending = styled.h1`
   text-align: center;
-`
+`;
 const StContainer = styled.form`
   width: 320px;
   height: 100%;
@@ -130,7 +137,6 @@ const StInput = styled.input`
   }
 
   flex-grow: 0;
-  font-family: Pretendard;
   font-size: 14px;
   font-weight: 500;
   font-stretch: normal;
@@ -153,7 +159,6 @@ const StTextArea = styled.textarea`
   }
 
   flex-grow: 0;
-  font-family: Pretendard;
   font-size: 14px;
   font-weight: 500;
   font-stretch: normal;
@@ -183,7 +188,6 @@ const StBtn = styled.button`
   border: solid 1px #000;
   background-color: ${({ color }) => color || "#fff"};
 
-  font-family: Pretendard;
   font-size: 14px;
   font-weight: bold;
   font-stretch: normal;
