@@ -37,11 +37,13 @@ const modalVariants = {
 
 const Moddal = ({ modal, width, height, closeModal, children }) => {
   const styles = { width, height };
+  const xNumber = Number(height.replace("px", ""));
   const [click] = useSound(Sounds.Click);
   return (
     <AnimatePresence>
       {modal && (
         <StBackDrop
+          xNumber={xNumber}
           variants={backdrop}
           initial="hidden"
           animate="visible"
@@ -86,7 +88,7 @@ const StBackDrop = styled(motion.div)`
   z-index: 1;
   display: flex;
   justify-content: center;
-  align-items: center;
+  padding-top: ${({ xNumber }) => 432 - xNumber / 2 + "px"};
 `;
 
 const StModal = styled(motion.div)`
