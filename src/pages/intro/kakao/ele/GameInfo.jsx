@@ -43,8 +43,6 @@ const GameInfo = ({ closeModal }) => {
       ></div>
     ),
   };
-
-  //magic slider dots
   return (
     <StWrapper>
         <StExitBtn

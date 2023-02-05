@@ -21,5 +21,6 @@ const StWrapper = styled.div`
   flex-direction: column;
 `;
 const StLoding = styled.img`
-  width: 50vw;
+  width: 570px;
+  height: 436px;
 `

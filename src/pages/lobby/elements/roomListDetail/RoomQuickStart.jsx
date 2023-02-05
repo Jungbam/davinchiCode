@@ -1,9 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import mockData from "./MockDataRoom";
+import { useMutation } from "@tanstack/react-query";
 import styled from "styled-components";
-import { queryKeys } from "../../../../helpers/queryKeys";
 import { motion } from "framer-motion";
 import { RoomAPI } from "../../../../api/axios";
 

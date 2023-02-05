@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { ICON } from "../../../helpers/Icons";
 import { RoomAPI } from "../../../api/axios";
+import { useNavigate } from "react-router-dom";
 
 const TextVariants = {
   hidden: {
@@ -33,7 +34,7 @@ const a = (num) => {
 
 const Ranking = () => {
   const [textIndex, setTextIndex] = useState(false);
-
+  const navigate = useNavigate()
   function numberWithCommas(x = 0) {
     return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
   }
@@ -47,11 +48,14 @@ const Ranking = () => {
     handleInterval();
   }, [textIndex]);
 
-  const { data } = useQuery(["PERSONAL_RANKING"], () => RoomAPI.showRanking());
+  const { data } = useQuery(["PERSONAL_RANKING"], () => RoomAPI.showRanking(),{
+    onError:()=>navigate('/error')
+  });
 
   const { data: myData } = useQuery(["MY_RANKING"], () =>
-    RoomAPI.showMyRanking()
-  );
+    RoomAPI.showMyRanking(),{
+    onError:()=>navigate('/error')
+  });
 
   return (
     <StRankingWrapper>

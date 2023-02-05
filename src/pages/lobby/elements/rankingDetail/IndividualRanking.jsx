@@ -34,7 +34,6 @@ const IndividualRanking = ({ users }) => {
     </>
   );
 };
-// };
 
 const StWrapper = styled.div`
   background-color: ${({ color }) => color || "#fff"};

@@ -5,7 +5,6 @@ import { queryKeys } from "../../../../helpers/queryKeys";
 import DisabledImage from "../../../../assets/images/lobby_disabled_room.png";
 import { motion } from "framer-motion";
 import { ICON } from "../../../../helpers/Icons";
-import Modal from "../../../../components/form/modal/Modal";
 import { useState } from "react";
 import { RoomAPI } from "../../../../api/axios";
 import { BootStrap } from "../../../BootStrap";
@@ -32,7 +31,7 @@ const RoomContents = ({
   const { StBtn, StWrapper } = BootStrap;
   const navigate = useNavigate();
 
-  const { data, status } = useQuery(
+  const { status } = useQuery(
     [queryKeys.ROOM_LIST, currentPage],
     () => RoomAPI.searchRoom({ currentPage, search, searchType }),
     {
@@ -41,9 +40,7 @@ const RoomContents = ({
         setTotalPage((prev) => data.data.totalPage);
         setRoomsData(data.data.rooms);
       },
-      onError: (err) => {
-        console.log(err);
-      },
+      onError: ()=>navigate('/error')
     }
   );
   const enterInRoomHandler = (roomId, isPrivate) => {

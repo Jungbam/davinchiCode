@@ -82,10 +82,6 @@ const RoomList = () => {
 
   useEffect(() => {
     setList(arrLoop(currentPage));
-    // if (currentPage < totalPage) {
-    //   const nextPage = currentPage + 1;
-    //   queryClient.prefetchQuery(["posts", nextPage], () => axios.get());
-    // }
   }, [currentPage, totalPage, search]);
 
   return (

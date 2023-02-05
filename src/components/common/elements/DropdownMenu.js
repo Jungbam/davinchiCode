@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { AnimatePresence, motion } from "framer-motion";
-import Modal from "../../form/modal/Modal";
 import SetUserInfo from "../../../pages/intro/kakao/SetUserInfo";
 import Logout from "../../form/sign/Logout";
 import DelAccount from "../../form/sign/DelAccount";

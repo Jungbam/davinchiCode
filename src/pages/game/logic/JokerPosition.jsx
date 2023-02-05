@@ -29,8 +29,6 @@ const JokerPosition = ({ selectedCard, cardPick }) => {
     setVali(false);
     setPicked(false);
   };
-
-  // 해결 : 렌더링에서 useEffect가 왜 두번 실행되었는지?
   useEffect(() => {
     setMine([...mine, selectedCard]);
   }, []);
