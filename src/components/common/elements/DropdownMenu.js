@@ -17,7 +17,7 @@ function DropdownMenu() {
       <StButtonDesign
         initial={{ y: -250 }}
         animate={{ y: 0 }}
-        transition={{ delay: 0.3, type: "spring", stiffness: 120 }}
+        transition={{ delay: 1.3, type: "spring", stiffness: 120 }}
         onClick={() => setShowMenu((prev) => !prev)}
       >
         마이페이지

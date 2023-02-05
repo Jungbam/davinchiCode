@@ -1,13 +1,13 @@
 import { AnimatePresence, motion } from "framer-motion";
 import React from "react";
 import styled from "styled-components";
-import exitModal from "../../../assets/icons/ico_modal_cancle.svg";
+import exitModal from "../../../assets/icons/ico_modal_cancle.png";
 import useSound from "use-sound";
 import { Sounds } from "../../../helpers/sounds";
 
 const buttonVariants = {
   hover: {
-    scale: 1.1,
+    scale: 1.25,
     textShadow: "0px 0px 8px rgb(255,255,255)",
     boxShadow: "0px 0px 8px rgb(255,255,255)",
     transition: {
@@ -43,7 +43,7 @@ const Moddal = ({ modal, width, height, closeModal, children }) => {
     <AnimatePresence>
       {modal && (
         <StBackDrop
-          xNumber={xNumber}
+          xnumber={xNumber}
           variants={backdrop}
           initial="hidden"
           animate="visible"
@@ -88,7 +88,7 @@ const StBackDrop = styled(motion.div)`
   z-index: 1;
   display: flex;
   justify-content: center;
-  padding-top: ${({ xNumber }) => 432 - xNumber / 2 + "px"};
+  padding-top: ${({ xnumber }) => 432 - xnumber / 2 + "px"};
 `;
 
 const StModal = styled(motion.div)`
@@ -104,6 +104,8 @@ const StModal = styled(motion.div)`
 `;
 
 const StExitBtn = styled(motion.img)`
+  width: 30px;
+  height: 30px;
   display: absolute;
   cursor: pointer;
 `;

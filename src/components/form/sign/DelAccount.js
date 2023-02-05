@@ -74,7 +74,7 @@ const StMainDesc = styled.div`
   width: 270px;
   height: 38px;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 135.5%;
   margin-top: 24px;
 `;
@@ -83,7 +83,7 @@ const StSubDesc = styled.div`
   width: 189px;
   height: 32px;
   font-weight: 500;
-  font-size: 12px;
+  font-size: 11px;
   line-height: 135.5%;
   color: #444;
 
@@ -97,18 +97,19 @@ const StMainApproval = styled.div`
   border: 1px solid #dddddd;
   border-radius: 6px;
   display: flex;
+  justify-content: space-between;
   padding: 16px;
   margin-top: 30px;
 `;
 
 const StAgreeBtn = styled.button`
-  width: 70px;
   height: 19px;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 12px;
   line-height: 135.5%;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   border: none;
   cursor: pointer;
 

@@ -15,7 +15,7 @@ const Header = () => {
           src={ICON.iconLobbyLogo}
           initial={{ x: -500 }}
           animate={{ x: 0 }}
-          transition={{ delay: 1.3, type: "spring", stiffness: 120 }}
+          transition={{ delay: 0.3, type: "spring", stiffness: 120 }}
           onClick={() => navigate("/")}
         />
         <StMenuWrapper>
