@@ -19,7 +19,7 @@ const IndividualRanking = ({ users }) => {
         <StWrapper key={`individualRanking${i}`}>
           <StRank>
             <StPlayerRanking>{el.ranking}</StPlayerRanking>
-            <StPlayerRankingActive>
+            <StPlayerRankingActive color={el.ranking - el.prevRanking}>
               <img src={a(el.ranking - el.prevRanking)} alt="순위" />{" "}
               {Math.abs(el.ranking - el.prevRanking)}
             </StPlayerRankingActive>
@@ -44,7 +44,7 @@ const StWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0 30px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #111;
 `;
 
 const StRank = styled.div`
@@ -116,7 +116,8 @@ const StPlayerRankingActive = styled.div`
   line-height: 1;
   letter-spacing: normal;
   text-align: left;
-  color: #ff601c;
+  color: ${({ color }) =>
+    color > 0 ? "#ff601c" : color === 0 ? "#555" : "#00831d"};
 `;
 
 export default IndividualRanking;
