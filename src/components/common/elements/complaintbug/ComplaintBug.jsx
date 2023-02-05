@@ -31,6 +31,7 @@ const ComplaintBug = ({ closeModal }) => {
       .then(
         (result) => {
           alert("정상적으로 버그가 신고되었습니다.");
+          setSending(false)
           closeModalHandler();
         },
         (error) => {

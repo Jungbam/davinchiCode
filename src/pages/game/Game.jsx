@@ -26,7 +26,6 @@ const Game = () => {
   const initHandler = () => {
     dispatch(setInit());
     socketRef.current.emit(eventName.ROOMOUT);
-    navigate("/lobby");
   };
   const preventGoBack = (e) => {
     e.preventDefault();
@@ -34,7 +33,7 @@ const Game = () => {
       "로비로 돌아가면 패배한 것으로 처리됩니다. 그래도 진행하시겠습니까?"
     );
     if (answer) {
-      initHandler();
+      navigate("/lobby");
     } else window.history.pushState(null, "", window.location.href);
   };
   const beforeUnloadHandler = (e) => {
@@ -48,7 +47,7 @@ const Game = () => {
         "새로고침을 진행하면 패배처리되며 로비로 이동됩니다. 진행하시겠습니까?"
       );
       if (answer) {
-        initHandler();
+        navigate("/lobby");
       } else return;
     }
   };
@@ -72,7 +71,7 @@ const Game = () => {
       document.onkeydown = null;
       window.removeEventListener("beforeunload", beforeUnloadHandler);
       window.removeEventListener("popstate", preventGoBack);
-      socketRef.current.emit(eventName.ROOMOUT);
+      initHandler();
       socketRef.current.disconnect();
       dispatch(setInit());
     };
