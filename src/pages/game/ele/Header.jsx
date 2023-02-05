@@ -21,7 +21,7 @@ const Header = () => {
         width="440px"
         height="396px"
       >
-        <ComplaintBug closeModal={setModalHandler} />
+        {modal&&<ComplaintBug closeModal={setModalHandler} />}
       </Modal>
       <NavbarInside>
         <NavbarStatus>
