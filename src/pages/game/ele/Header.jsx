@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { ICON } from "../../../helpers/Icons";
 
 const Header = () => {
-  const {roomInfo} = useSelector(state=>state.gameSlice)
+  const { roomInfo } = useSelector((state) => state.gameSlice);
   const [modal, setModal] = useState(false);
   const setModalHandler = () => {
     setModal((prev) => !prev);
@@ -26,20 +26,24 @@ const Header = () => {
       <NavbarInside>
         <NavbarStatus>
           <RoomStauts>
-            <RoundStatus>{roomInfo?.members}/{roomInfo?.maxMembers}</RoundStatus>
-            <RoundStatus>{roomInfo?.isPlaying?'진행':'대기'}</RoundStatus>
-            {roomInfo?.sercet?<img src={ICON.iconLock} alt='잠금'/>:<img src={ICON.iconUnlock} alt='공개방'/>}
+            <RoundStatus>
+              {roomInfo?.members}/{roomInfo?.maxMembers}
+            </RoundStatus>
+            <RoundStatus>{roomInfo?.isPlaying ? "진행" : "대기"}</RoundStatus>
+            {roomInfo?.sercet ? (
+              <img src={ICON.iconLock} alt="잠금" />
+            ) : (
+              <img src={ICON.iconUnlock} alt="공개방" />
+            )}
           </RoomStauts>
           <SideBar>|</SideBar>
           <div>{roomInfo?.roomId}</div>
           <SideBar>|</SideBar>
-          <RoomName>
-            {roomInfo?.roomName}
-          </RoomName>
+          <RoomName>{roomInfo?.roomName}</RoomName>
         </NavbarStatus>
 
         <ReportButton onClick={setModalHandler}>
-          <img src={ICON.iconSirenHeader} alt='버그 신고' />
+          <img src={ICON.iconSirenHeader} alt="버그 신고" />
           <div>버그신고</div>
         </ReportButton>
       </NavbarInside>
@@ -68,7 +72,6 @@ const NavbarInside = styled.div`
 `;
 
 const RoomName = styled.div`
-  font-family: Pretendard;
   color: #ffffff;
   font-size: 14px;
   font-weight: 500;
@@ -98,7 +101,6 @@ const ReportButton = styled.div`
   border-radius: 5px;
   color: #ccc;
 
-  font-family: "Pretendard";
   font-style: normal;
   font-weight: bold;
   gap: 2px;

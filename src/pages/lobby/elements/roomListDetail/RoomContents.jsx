@@ -25,6 +25,7 @@ const RoomContents = ({
 }) => {
   const [modal, setModal] = useState(false);
   const [inRoom, setInRoom] = useState(0);
+  const [passwordError, setPasswordError] = useState("");
   const [inRoomPrivate, setInRoomPrivate] = useState(false);
   const [password, setPassword] = useState("");
   const { reFetch } = useSelector((state) => state.signSlice);
@@ -40,6 +41,9 @@ const RoomContents = ({
         setTotalPage((prev) => data.data.totalPage);
         setRoomsData(data.data.rooms);
       },
+      onError: (err) => {
+        console.log(err);
+      },
     }
   );
   const enterInRoomHandler = (roomId, isPrivate) => {
@@ -51,6 +55,7 @@ const RoomContents = ({
     setModal(false);
     setPassword("");
     setInRoom(0);
+    setPasswordError("");
   };
   const { mutate: enterRoom } = useMutation(
     () => RoomAPI.inRoom(inRoom, password),
@@ -61,16 +66,16 @@ const RoomContents = ({
             navigate(`/game/${inRoom}`);
             break;
           case 101:
-            alert("방이 없습니다.");
+            setPasswordError("방이 없습니다.");
             break;
           case 102:
-            alert("방에 입장가능한 인원이 초과하였습니다.");
+            setPasswordError("방의 인원이 꽉 차 입장이 불가합니다.");
             break;
           case 103:
-            alert("게임이 이미 시작되었습니다.");
+            setPasswordError("게임이 이미 시작되었습니다.");
             break;
           case 104:
-            alert("비밀번호가 일치하지 않습니다.");
+            setPasswordError("비밀번호가 일치하지 않습니다.");
             break;
           default:
             break;
@@ -194,6 +199,18 @@ const RoomContents = ({
               onChange={(e) => setPassword(e.target.value)}
             />
             <StDesc>비밀번호 숫자 4자리 입력</StDesc>
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                height: "18px",
+                color: "#bd1010",
+                fontSize: "12px",
+              }}
+            >
+              {passwordError}
+            </div>
             <StBtnBox>
               <StBtn
                 color="#fff"
@@ -209,7 +226,10 @@ const RoomContents = ({
                 width="100px"
                 height="32px"
                 fontSize="14px"
-                onClick={() => enterRoom()}
+                onClick={() => {
+                  setPasswordError("");
+                  enterRoom();
+                }}
               >
                 확인
               </StBtn>
@@ -225,7 +245,19 @@ const RoomContents = ({
         >
           <StWrapper>
             <StDiv mgTop="45px">게임방에 입장하시겠습니까?</StDiv>
-            <StBtnBox mgTop="27px">
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                height: "18px",
+                color: "#bd1010",
+                fontSize: "12px",
+              }}
+            >
+              {passwordError}
+            </div>
+            <StBtnBox mgTop="6px">
               <StBtn
                 color="#fff"
                 width="100px"
@@ -240,7 +272,10 @@ const RoomContents = ({
                 width="100px"
                 height="32px"
                 fontSize="14px"
-                onClick={() => enterRoom()}
+                onClick={() => {
+                  setPasswordError("");
+                  enterRoom();
+                }}
               >
                 확인
               </StBtn>
@@ -350,7 +385,7 @@ const StBtnBox = styled.div`
   justify-content: center;
   align-items: center;
   gap: 6px;
-  margin-top: ${({ mgTop }) => mgTop || "29px"};
+  margin-top: ${({ mgTop }) => mgTop || "18px"};
 `;
 
 const StRoomName = styled.div`

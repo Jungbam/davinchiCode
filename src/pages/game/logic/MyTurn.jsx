@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { ICON } from "../../../helpers/Icons";
 import { BootStrap } from "../../BootStrap";
+import { StButton } from "../../Button";
 import Timer from "../ele/Timer";
 
 const MyTurn = ({ GameTurn }) => {
@@ -14,18 +15,18 @@ const MyTurn = ({ GameTurn }) => {
       <StTitle mgTop="30px" width="270px">
         가져올 타일의 색상을 정해주세요!
       </StTitle>
-      <StLeftTyle>
+      <StTileNumber>
         {gameInfo.blackCards && (
-          <StText width="128px" fontSize="14px" color=" #888888" mgTop="10px" dir="column">
-            <p>남은 검은색 타일</p><p>{gameInfo.blackCards}개</p>
-          </StText>
+          <div>
+            남은 검은색 타일 <span>{gameInfo.blackCards}개</span>
+          </div>
         )}
-        {gameInfo.blackCards && (
-          <StText width="128px" fontSize="14px" color=" #888888" mgTop="10px" dir="column">
-            <p>남은 흰색 타일</p><p>{gameInfo.whiteCards}개</p>
-          </StText>
+        {gameInfo.whiteCards && (
+          <div>
+            남은 흰색 타일 <span>{gameInfo.whiteCards}개</span>
+          </div>
         )}
-      </StLeftTyle>
+      </StTileNumber>
       <StCardContainer>
         <StCardBox>
           <div>검은색 타일</div>
@@ -50,16 +51,15 @@ const MyTurn = ({ GameTurn }) => {
           {select === "white" ? <StSelect>선택</StSelect> : <StSelectNull />}
         </StCardBox>
       </StCardContainer>
-      <StBtn
-        width="100px"
-        height="32px"
-        fontSize="14px"
-        color="#FFDF24"
+      <StButton
+        variant={select ? "primary" : "gray"}
         onClick={() => GameTurn(select)}
       >
         확인
-      </StBtn>
-      <Timer timeOver={()=>GameTurn(gameInfo.whiteCards?"white":"black")}/>
+      </StButton>
+      <Timer
+        timeOver={() => GameTurn(gameInfo.whiteCards ? "white" : "black")}
+      />
     </StWrapper>
   );
 };
@@ -89,7 +89,6 @@ const StCard = styled.img`
 const StSelect = styled.button`
   width: 34px;
   height: 20px;
-  font-family: PretendardVariable;
   font-size: 10px;
   font-weight: 600;
   border-radius: 999px;
@@ -106,8 +105,17 @@ const StSelectNull = styled.span`
   background-color: none;
   border: none;
 `;
-const StLeftTyle = styled.div`
+const StTileNumber = styled.div`
+  margin-top: 5px;
   display: flex;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+  color: #888888;
   gap: 10px;
-  text-align: center;
+  margin-bottom: 10px;
+  & span {
+    font-weight: bold;
+    color: #222;
+  }
 `;

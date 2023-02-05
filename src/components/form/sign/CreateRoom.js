@@ -76,7 +76,7 @@ const CreateRoom = ({ closeModal, modal }) => {
               setRoomModal((prev) => !prev);
             }}
           >
-            <span>{maxMembers}</span>
+            <span>{maxMembers}명</span>
             <img src={ICON.iconDropDown} alt="드롭다운" />
           </StModalOpener>
           <StModal roomModal={roomModal}>
@@ -85,7 +85,7 @@ const CreateRoom = ({ closeModal, modal }) => {
                 key={`roomMembers${i}`}
                 onClick={() => roomMembersHandler(el)}
               >
-                <span>{el}</span>
+                <span>{el}명</span>
               </button>
             ))}
           </StModal>
@@ -375,7 +375,6 @@ const StIsSecret = styled.div`
     padding-left: 5px;
     border: none;
     background-color: #f9f9f9;
-    font-family: "Pretendard Variable";
     font-style: normal;
   }
 `;

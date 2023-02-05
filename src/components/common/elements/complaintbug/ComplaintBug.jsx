@@ -110,7 +110,7 @@ const StExitBtn = styled.img`
 `;
 const StSending = styled.h1`
   text-align: center;
-`
+`;
 const StContainer = styled.form`
   width: 320px;
   height: 100%;

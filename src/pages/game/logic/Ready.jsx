@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRef } from "react";
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { BootStrap } from "../../BootStrap";
+import { StButton } from "../../Button";
 
 const Ready = ({ readyHandler, goSelecetTile }) => {
-  const { StTitle, StBtn, StBtnList } = BootStrap;
+  const { StTitle, StBtnList } = BootStrap;
   const [ready, setReady] = useState(false);
   const [second, setSecond] = useState(String(5));
   const { gameInfo, trigger } = useSelector((state) => state.gameSlice);
@@ -47,25 +47,29 @@ const Ready = ({ readyHandler, goSelecetTile }) => {
     <StWrapper>
       <StTitle>참여자가 모두 준비완료를 누르면 게임이 시작됩니다.</StTitle>
       {trigger ? (
-        <StReady>{second}초 후 게임이 시작됩니다.</StReady>
+        <StReady>게임이 시작됩니다. 남은시간 {second}초</StReady>
       ) : (
         <StReady>
           준비완료 ({readyMembers?.length}/{roomInfo?.maxMembers})
         </StReady>
       )}
       <StBtnList>
-        {ready ? (
-          <StBtn color="#009320" onClick={onReadyHandler} disabled={trigger}>
+        {trigger ? (
+          <StButton variant="gray" size="md" disabled>
             준비취소
-          </StBtn>
+          </StButton>
+        ) : ready ? (
+          <StButton variant="secondary" size="md" onClick={onReadyHandler}>
+            준비취소
+          </StButton>
         ) : (
-          <StBtn color="#ffdf24" onClick={onReadyHandler} disabled={trigger}>
+          <StButton variant="primary" size="md" onClick={onReadyHandler}>
             준비완료
-          </StBtn>
+          </StButton>
         )}
-        <StBtn color="#fff" onClick={goBackHandler}>
+        <StButton size="md" onClick={goBackHandler}>
           방 나가기
-        </StBtn>
+        </StButton>
       </StBtnList>
     </StWrapper>
   );

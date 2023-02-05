@@ -86,7 +86,7 @@ const RoomList = () => {
     //   const nextPage = currentPage + 1;
     //   queryClient.prefetchQuery(["posts", nextPage], () => axios.get());
     // }
-  }, [currentPage, totalPage]);
+  }, [currentPage, totalPage, search]);
 
   return (
     <StWrapper>
@@ -124,7 +124,6 @@ const RoomList = () => {
                 setSearchRoomModal((prev) => !prev);
               }}
             >
-              {}
               <span>{searchType === "number" ? "방 번호" : "방 제목"}</span>
               <img src={ICON.iconDropDown} alt="드롭다운" />
             </StModalOpener>
