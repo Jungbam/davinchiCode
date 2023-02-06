@@ -7,9 +7,10 @@ import useSound from "use-sound";
 import { Sounds } from "../../../helpers/sounds";
 import { setUsers } from "../../../redux/modules/gameSlice";
 import { BootStrap } from "../../BootStrap";
+import DavinchiCard from "../ele/DavinchiCard";
 
 const ResultSelect = ({ gameResult, security, result, goStop }) => {
-  const { StWrapper } = BootStrap;
+  const { StWrapper, StCardArea } = BootStrap;
   const timer = useRef(null);
   const setView = useRef(null);
   const dispatch = useDispatch();
@@ -21,8 +22,8 @@ const ResultSelect = ({ gameResult, security, result, goStop }) => {
   const turnUser = gameInfo?.users?.filter((el) => el.userId === gameInfo.turn);
 
   useEffect(() => {
-    if (result) play()
-    else play()
+    if (result) play();
+    else play();
     timer.current = setTimeout(() => {
       dispatch(setUsers(gameResult));
     }, 2000);
@@ -35,9 +36,7 @@ const ResultSelect = ({ gameResult, security, result, goStop }) => {
     };
   }, []);
 
-  useEffect(() => {
-
-  }, [result]);
+  useEffect(() => {}, [result]);
 
   return (
     <StWrapper>
@@ -56,6 +55,10 @@ const ResultSelect = ({ gameResult, security, result, goStop }) => {
         </span>
         님의 타일이 공개됩니다.
       </StP>
+      <StCardArea childwidth="56px" height="80px">
+        <DavinchiCard card={{ value: "Back", color: "white" }} />
+        <DavinchiCard card={{ value: "Back", color: "black" }} />
+      </StCardArea>
     </StWrapper>
   );
 };

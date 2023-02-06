@@ -6,7 +6,9 @@ const IndividualRanking = ({ users }) => {
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
   }
-  const usersRanking = users?.filter(el=>el.ranking!==null).filter((el,i)=>i<10)
+  const usersRanking = users
+    ?.filter((el) => el.ranking !== null)
+    .filter((el, i) => i < 10);
   const a = (num) => {
     if (num > 0) return ICON.iconScorePlus;
     if (num < 0) return ICON.iconScoreMinus;
@@ -19,7 +21,9 @@ const IndividualRanking = ({ users }) => {
         <StWrapper key={`individualRanking${i}`}>
           <StRank>
             <StPlayerRanking>{el.ranking}</StPlayerRanking>
-            <StPlayerRankingActive color={el.ranking - el.prevRanking}>
+            <StPlayerRankingActive
+              color={(el.ranking - el.prevRanking).toString()}
+            >
               <img src={a(el.ranking - el.prevRanking)} alt="순위" />{" "}
               {Math.abs(el.ranking - el.prevRanking)}
             </StPlayerRankingActive>
@@ -116,7 +120,7 @@ const StPlayerRankingActive = styled.div`
   letter-spacing: normal;
   text-align: left;
   color: ${({ color }) =>
-    color > 0 ? "#ff601c" : color === 0 ? "#555" : "#00831d"};
+    Number(color) > 0 ? "#ff601c" : Number(color) === 0 ? "#555" : "#00831d"};
 `;
 
 export default IndividualRanking;

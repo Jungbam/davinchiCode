@@ -75,12 +75,14 @@ const StOpen = styled.span`
   font-weight: bold;
   font-stretch: normal;
   border: 1px solid #111111;
+  margin-top: 5px;
 `;
 const StOpenNull = styled.span`
   width: 32px;
   height: 20px;
   background: none;
   border: none;
+  margin-top: 5px;
 `;
 
 const StCardBox = styled.div`
