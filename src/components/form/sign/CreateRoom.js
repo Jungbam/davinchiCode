@@ -55,7 +55,7 @@ const CreateRoom = ({ closeModal, modal }) => {
     if (isSecret) {
       ref.current.focus();
     }
-  });
+  }, [isSecret]);
 
   return (
     <StWrapper>
@@ -109,20 +109,24 @@ const CreateRoom = ({ closeModal, modal }) => {
         </Sta>
         <Sta>
           <div style={{ width: "64px", height: "14px" }}></div>
-          <StIsSecret
-            onClick={() => {
-              if (isSecret) {
-                setPassword("");
-              }
-              setIsSecret(!isSecret);
-            }}
-          >
-            <img
-              src={isSecret ? ICON.iconCheckBoxChecked : ICON.iconCheckBoxBlank}
-              width={16}
-              alt="체크박스"
-            />
-            <div>비공개</div>
+          <StIsSecret>
+            <div
+              onClick={() => {
+                if (isSecret) {
+                  setPassword("");
+                }
+                setIsSecret(!isSecret);
+              }}
+            >
+              <img
+                src={
+                  isSecret ? ICON.iconCheckBoxChecked : ICON.iconCheckBoxBlank
+                }
+                width={16}
+                alt="체크박스"
+              />
+              <div>비공개</div>
+            </div>
             <input
               ref={ref}
               type="text"
@@ -366,6 +370,9 @@ const StIsSecret = styled.div`
   & div {
     font-size: 14px;
     font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 2px;
   }
   & input[type="text"] {
     width: 52px;

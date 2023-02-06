@@ -7,48 +7,57 @@ import { StButton } from "../../Button";
 import Timer from "../ele/Timer";
 
 const MyTurn = ({ GameTurn }) => {
-  const { StTitle, StBtn, StText, StWrapper } = BootStrap;
+  const { StTitle, StWrapper } = BootStrap;
   const { gameInfo } = useSelector((state) => state.gameSlice);
   const [select, setSelect] = useState(null);
+  console.log(gameInfo.blackCards);
   return (
     <StWrapper gap="4px">
       <StTitle mgTop="30px" width="270px">
         가져올 타일의 색상을 정해주세요!
       </StTitle>
       <StTileNumber>
-        {gameInfo.blackCards && (
-          <div>
-            남은 검은색 타일 <span>{gameInfo.blackCards}개</span>
-          </div>
-        )}
-        {gameInfo.whiteCards && (
-          <div>
-            남은 흰색 타일 <span>{gameInfo.whiteCards}개</span>
-          </div>
-        )}
+        <div>
+          남은 검은색 타일 <span>{gameInfo.blackCards}개</span>
+        </div>
+
+        <div>
+          남은 흰색 타일 <span>{gameInfo.whiteCards}개</span>
+        </div>
       </StTileNumber>
       <StCardContainer>
         <StCardBox>
           <div>검은색 타일</div>
-          {gameInfo.blackCards && (
-            <StCard
-              src={ICON.blackBack}
-              alt="검은색"
-              onClick={() => setSelect("black")}
-            />
-          )}
-          {select === "black" ? <StSelect>선택</StSelect> : <StSelectNull />}{" "}
+          <StCard
+            src={ICON.blackBack}
+            alt="검은색"
+            onClick={() => setSelect("black")}
+          />
+          {gameInfo.blackCards === 0 ? (
+            <StDiv>남아있는 타일이 없습니다</StDiv>
+          ) : select === "black" ? (
+            <StSelect>선택</StSelect>
+          ) : (
+            <StSelectNull />
+          )}{" "}
         </StCardBox>
+        <StLine></StLine>
         <StCardBox>
           <div>흰색 타일</div>
-          {gameInfo.whiteCards && (
-            <StCard
-              src={ICON.whiteBack}
-              alt="흰색"
-              onClick={() => setSelect("white")}
-            />
+
+          <StCard
+            src={ICON.whiteBack}
+            alt="흰색"
+            onClick={() => setSelect("white")}
+          />
+
+          {gameInfo.whiteCards === 0 ? (
+            <StDiv>남아있는 타일이 없습니다</StDiv>
+          ) : select === "white" ? (
+            <StSelect>선택</StSelect>
+          ) : (
+            <StSelectNull />
           )}
-          {select === "white" ? <StSelect>선택</StSelect> : <StSelectNull />}
         </StCardBox>
       </StCardContainer>
       <StButton
@@ -68,6 +77,7 @@ export default MyTurn;
 
 const StCardContainer = styled.div`
   display: flex;
+  gap: 25px;
 `;
 const StCardBox = styled.div`
   display: flex;
@@ -118,4 +128,25 @@ const StTileNumber = styled.div`
     font-weight: bold;
     color: #222;
   }
+`;
+
+const StLine = styled.div`
+  background-color: #ddd;
+  width: 1px;
+  height: 79px;
+  margin-top: 24px;
+`;
+
+const StDiv = styled.div`
+  width: 130px;
+  height: 12px;
+  font-size: 10px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #888;
+  display: flex;
+  justify-content: center;
 `;
