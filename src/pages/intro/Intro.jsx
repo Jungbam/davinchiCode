@@ -72,11 +72,9 @@ const StBtn = styled.button`
   border: solid 1px #000;
   background-color: ${(props) => props.color};
   border-radius: 6px;
-
   font-weight: 700;
   font-size: 18px;
   line-height: 100%;
-
   text-align: center;
   color: #000;
   box-shadow: 0 3px 0 0 #000;
