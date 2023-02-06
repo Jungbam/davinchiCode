@@ -34,8 +34,8 @@ const JokerPosition = ({ selectedCard, cardPick }) => {
   }, []);
   return (
     <StWrapper>
-      <StTitle mgTop="30px">조커 타일 획득!</StTitle>
-      <StText mgTop="10px">
+      <StTitle mgtop="30px">조커 타일 획득!</StTitle>
+      <StText mgtop="10px">
         조커 블록을 마우스로 끌어 원하는 자리로 이동시켜 주세요.
       </StText>
       <StAllCard>
@@ -76,7 +76,7 @@ const JokerPosition = ({ selectedCard, cardPick }) => {
       </StAllCard>
       {vali && <StVali>조커 외에 타일은 움직이지 않습니다.</StVali>}
       <StBtn
-        mgTop="38px"
+        mgtop="38px"
         width="100px"
         height="32px"
         color="#FFDF24"
