@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
-export const StButton = styled.div`
+export const StButton = styled(motion.button)`
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;

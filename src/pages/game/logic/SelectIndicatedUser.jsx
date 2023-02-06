@@ -46,7 +46,7 @@ const SelectIndicatedUser = ({ indicatedUser, guessCard }) => {
         ))}
       </StValueContainer>
       <StRow>
-        {select.index && select.value ? (
+        {select.index !== null && select.value !== null ? (
           <StButton
             mgTop="10px"
             variant="primary"

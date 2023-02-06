@@ -24,8 +24,9 @@ const CreateRoom = ({ closeModal, modal }) => {
 
   const passwordChecked = !isSecret || password.length === 4;
 
-  const { mutate: createRoom } = useMutation(
-    (aa) => RoomAPI.postRoom({ roomName: aa, maxMembers, password }),
+  const { mutate: createRoom, isLoading } = useMutation(
+    (realRoomName) =>
+      RoomAPI.postRoom({ roomName: realRoomName, maxMembers, password }),
     {
       onSuccess: ({ data }) => {
         navigate(`/game/${data.roomId}`);
@@ -37,7 +38,7 @@ const CreateRoom = ({ closeModal, modal }) => {
   );
 
   const createRoomHandler = () => {
-    const aa =
+    const realRoomName =
       roomName === ""
         ? [
             "초보자 환영! 같이 배우면서 즐겨요.",
@@ -47,7 +48,7 @@ const CreateRoom = ({ closeModal, modal }) => {
             "너만 오면 바로 고!",
           ][Math.floor(Math.random() * 5)]
         : roomName;
-    createRoom(aa);
+    createRoom(realRoomName);
   };
 
   useEffect(() => {
@@ -142,7 +143,7 @@ const CreateRoom = ({ closeModal, modal }) => {
           취소
         </StButton>
         <StCheckBtn
-          disabled={!passwordChecked}
+          disabled={!passwordChecked || isLoading}
           passwordChecked={passwordChecked.toString()}
           onClick={createRoomHandler}
         >

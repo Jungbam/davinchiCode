@@ -40,7 +40,7 @@ const RoomContents = ({
         setTotalPage((prev) => data.data.totalPage);
         setRoomsData(data.data.rooms);
       },
-      onError: ()=>navigate('/error')
+      onError: () => navigate("/error"),
     }
   );
   const enterInRoomHandler = (roomId, isPrivate) => {
@@ -382,7 +382,7 @@ const StBtnBox = styled.div`
   justify-content: center;
   align-items: center;
   gap: 6px;
-  margin-top: ${({ mgTop }) => mgTop || "18px"};
+  margin-top: ${({ mgTop }) => mgTop || "10px"};
 `;
 
 const StRoomName = styled.div`

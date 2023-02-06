@@ -55,15 +55,33 @@ const Ready = ({ readyHandler, goSelecetTile }) => {
       )}
       <StBtnList>
         {trigger ? (
-          <StButton variant="gray" size="md" disabled>
+          <StButton
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 300 }}
+            variant="gray"
+            size="md"
+            disabled
+          >
             준비취소
           </StButton>
         ) : ready ? (
-          <StButton variant="secondary" size="md" onClick={onReadyHandler}>
+          <StButton
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 300 }}
+            variant="secondary"
+            size="md"
+            onClick={onReadyHandler}
+          >
             준비취소
           </StButton>
         ) : (
-          <StButton variant="primary" size="md" onClick={onReadyHandler}>
+          <StButton
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 300 }}
+            variant="primary"
+            size="md"
+            onClick={onReadyHandler}
+          >
             준비완료
           </StButton>
         )}

@@ -34,7 +34,7 @@ const a = (num) => {
 
 const Ranking = () => {
   const [textIndex, setTextIndex] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   function numberWithCommas(x = 0) {
     return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
   }
@@ -48,14 +48,17 @@ const Ranking = () => {
     handleInterval();
   }, [textIndex]);
 
-  const { data } = useQuery(["PERSONAL_RANKING"], () => RoomAPI.showRanking(),{
-    onError:()=>navigate('/error')
+  const { data } = useQuery(["PERSONAL_RANKING"], () => RoomAPI.showRanking(), {
+    onError: () => navigate("/error"),
   });
 
-  const { data: myData } = useQuery(["MY_RANKING"], () =>
-    RoomAPI.showMyRanking(),{
-    onError:()=>navigate('/error')
-  });
+  const { data: myData } = useQuery(
+    ["MY_RANKING"],
+    () => RoomAPI.showMyRanking(),
+    {
+      onError: () => navigate("/error"),
+    }
+  );
 
   return (
     <StRankingWrapper>
@@ -66,7 +69,9 @@ const Ranking = () => {
       <StWrapper color="#efffec">
         <StRank>
           <StPlayerRanking>{myData?.data.ranking}</StPlayerRanking>
-          <StPlayerRankingActive>
+          <StPlayerRankingActive
+            color={(myData?.data.ranking - myData?.data.prevRanking).toString()}
+          >
             <img
               src={a(myData?.data.ranking - myData?.data.prevRanking)}
               alt="순위"
@@ -174,7 +179,6 @@ const StWrapper = styled.div`
 const StRank = styled.div`
   width: 40px;
   height: 34px;
-  /* border: 1px solid green; */
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -241,7 +245,8 @@ const StPlayerRankingActive = styled.div`
   line-height: 1;
   letter-spacing: normal;
   text-align: left;
-  color: #ff601c;
+  color: ${({ color }) =>
+    Number(color) > 0 ? "#ff601c" : Number(color) === 0 ? "#555" : "#00831d"};
 `;
 
 const StText = styled(motion.div)`
