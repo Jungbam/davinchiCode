@@ -14,7 +14,7 @@ const Ready = ({ readyHandler, goSelecetTile }) => {
   const { gameInfo, trigger } = useSelector((state) => state.gameSlice);
   const { roomInfo } = useSelector((state) => state.gameSlice);
   
-  const readyMembers = gameInfo?.users.filter((el) => el.isReady === true);
+  const readyMembers = gameInfo?.users.filter((el) => el?.isReady === true);
   const gameStart = useRef(null);
   const interval = useRef(null);
   const count = useRef(5);

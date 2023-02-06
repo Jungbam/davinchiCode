@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const SystemMessage = () => {
   const { gameInfo, gameStart } = useSelector((state) => state.gameSlice);
-  const turnUser = gameInfo.users.filter((el) => el.userId === gameInfo.turn);
+  const turnUser = gameInfo?.users.filter((el) => el?.userId === gameInfo.turn);
   if (!gameStart) return <></>;
   return (
     turnUser && (
