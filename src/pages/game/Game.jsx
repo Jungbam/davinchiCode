@@ -57,6 +57,7 @@ const Game = () => {
     window.history.pushState(null, "", window.location.href);
     window.addEventListener("popstate", preventGoBack);
     socketRef.current = io.connect(process.env.REACT_APP_SERVER, {
+      transports: ["websocket"],
       withCredentials: true,
     });
     socketRef.current.emit(eventName.JOIN, roomId, (usersInRoom, roomInfo) => {
