@@ -103,4 +103,15 @@ const StSecond = styled.div`
     if (second < 10) return `red`;
     else return "black";
   }};
+  width: 61px;
+  height: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 10px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
 `;

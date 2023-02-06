@@ -88,6 +88,7 @@ const StCardContainer = styled.div`
   align-items: center;
   background: #eee;
   border-radius: 6px;
+  gap: 4px;
 `;
 const StValueContainer = styled.div`
   display: flex;

@@ -9,7 +9,7 @@ export const StButton = styled(motion.button)`
   line-height: 1;
   letter-spacing: normal;
 
-  margin-top: ${({ mgTop }) => mgTop || "0px"};
+  margin-top: ${({ mgtop }) => mgtop || "0px"};
 
   width: ${({ size }) => {
     switch (size) {
