@@ -5,7 +5,7 @@ import IndividualRanking from "./rankingDetail/IndividualRanking";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { ICON } from "../../../helpers/Icons";
-import { RoomAPI } from "../../../api/axios";
+import { RoomAPI, SignAPI } from "../../../api/axios";
 import { useNavigate } from "react-router-dom";
 
 const TextVariants = {
@@ -49,16 +49,18 @@ const Ranking = () => {
   }, [textIndex]);
 
   const { data } = useQuery(["PERSONAL_RANKING"], () => RoomAPI.showRanking(), {
+    staleTime:
+      ((59 - new Date().getMinutes()) * 60 + (60 - new Date().getSeconds())) *
+      1000,
     onError: () => navigate("/error"),
   });
 
-  const { data: myData } = useQuery(
-    ["MY_RANKING"],
-    () => RoomAPI.showMyRanking(),
-    {
-      onError: () => navigate("/error"),
-    }
-  );
+  const { data: myData } = useQuery(["MY_RANKING"], () => SignAPI.myinfo(), {
+    staleTime:
+      ((59 - new Date().getMinutes()) * 60 + (60 - new Date().getSeconds())) *
+      1000,
+    onError: () => navigate("/error"),
+  });
 
   return (
     <StRankingWrapper>

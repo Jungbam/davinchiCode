@@ -5,12 +5,15 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import QuickStart from "./roomListDetail/RoomQuickStart";
 import { useEffect } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import CreateRoom from "../../../components/form/sign/CreateRoom";
 import { ICON } from "../../../helpers/Icons";
+
 import { RoomAPI } from "../../../api/axios";
 
 import Moddal from "../../../components/form/modal/Moddal";
+import { useNavigate } from "react-router-dom";
+import { queryKeys } from "../../../helpers/queryKeys";
 
 const buttonVariants = {
   hover: {
@@ -24,6 +27,7 @@ const buttonVariants = {
 };
 
 const RoomList = () => {
+  const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const [roomsData, setRoomsData] = useState([]);
 
@@ -53,15 +57,17 @@ const RoomList = () => {
     setIsPrivate(isPrivate);
   };
 
-  const { mutate: searchRoom } = useMutation(
-    () => RoomAPI.searchRoom({ searchType, search, currentPage }),
+  const { status, refetch: searchRoom } = useQuery(
+    [queryKeys.ROOM_LIST, currentPage],
+    () => RoomAPI.searchRoom({ currentPage, search, searchType }),
     {
+      keepPreviousData: true,
       onSuccess: ({ data }) => {
+        console.log("나 들어옴");
+        setTotalPage((prev) => data.totalPage);
         setRoomsData(data.rooms);
       },
-      onError: (error) => {
-        console.log(error);
-      },
+      onError: () => navigate("/error"),
     }
   );
 
@@ -146,8 +152,12 @@ const RoomList = () => {
             />
             <img onClick={searchHandler} src={ICON.iconSearch} alt="검색" />
           </StSearchBar>
-          <StRefreshBtn>
-            <img src={ICON.iconRefresh} alt="새로고침" onClick={() => {}} />
+          <StRefreshBtn
+            onClick={() => {
+              searchRoom();
+            }}
+          >
+            <img src={ICON.iconRefresh} alt="새로고침" />
             새로고침
           </StRefreshBtn>
         </StFuncBack>
@@ -155,14 +165,10 @@ const RoomList = () => {
       <StRoomList>
         <RoomContents
           roomsData={roomsData}
-          setRoomsData={setRoomsData}
-          searchType={searchType}
-          search={search}
-          currentPage={currentPage}
+          status={status}
           handleCheckboxChange={handleCheckboxChange}
           isWaiting={isWaiting}
           isPrivate={isPrivate}
-          setTotalPage={setTotalPage}
         ></RoomContents>
       </StRoomList>
 

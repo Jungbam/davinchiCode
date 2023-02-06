@@ -39,5 +39,4 @@ export const RoomAPI = {
     ),
   quickStart: () => gameClient.get(`/rooms/quick-start`),
   showRanking: () => client.get("/users"),
-  showMyRanking: () => client.get("/users/me"),
 };
