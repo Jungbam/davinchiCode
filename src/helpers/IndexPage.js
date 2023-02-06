@@ -4,9 +4,9 @@ import AuthPage from "../pages/intro/AuthPage";
 import Intro from "../pages/intro/Intro";
 import KakaoDel from "../pages/intro/kakao/KakaoDel";
 import KakaoSign from "../pages/intro/kakao/KakaoSign";
-import SetUserInfo from "../pages/intro/kakao/SetUserInfo";
 import Loading from "../pages/loading/Loading";
 import Lobby from "../pages/lobby/Lobby";
+import Profile from "../pages/profile/Profile";
 export const PAGE = {
   Intro: <Intro />,
   ErrorPage: <ErrorPage />,
@@ -15,6 +15,6 @@ export const PAGE = {
   Game: <Game />,
   KakaoSign: <KakaoSign />,
   KakaoDel: <KakaoDel />,
-  SetUserInfo: <SetUserInfo />,
+  SetUserInfo: <Profile />,
   Auth: <AuthPage />,
 };
