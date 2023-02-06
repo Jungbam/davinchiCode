@@ -6,7 +6,7 @@ const IndividualRanking = ({ users }) => {
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
   }
-
+  const usersRanking = users?.filter(el=>el.ranking!==null).filter((el,i)=>i<10)
   const a = (num) => {
     if (num > 0) return ICON.iconScorePlus;
     if (num < 0) return ICON.iconScoreMinus;
@@ -15,7 +15,7 @@ const IndividualRanking = ({ users }) => {
 
   return (
     <>
-      {users?.map((el, i) => (
+      {usersRanking?.map((el, i) => (
         <StWrapper key={`individualRanking${i}`}>
           <StRank>
             <StPlayerRanking>{el.ranking}</StPlayerRanking>
