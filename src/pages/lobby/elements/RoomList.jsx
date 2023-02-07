@@ -108,7 +108,7 @@ const RoomList = () => {
               width={16}
               alt="진행여부"
             />
-            <div>대기방</div>
+            <div>대기</div>
           </StCheckButton>
           <StCheckButton
             color="#00831d"

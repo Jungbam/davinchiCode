@@ -1,37 +1,78 @@
-import React from 'react'
-import { useRef } from 'react';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import styled from 'styled-components';
-import { ICON } from '../../../helpers/Icons';
+import { motion } from "framer-motion";
+import React from "react";
+import { useRef } from "react";
+import { useState } from "react";
+import { useEffect } from "react";
+import styled from "styled-components";
+import { ICON } from "../../../helpers/Icons";
 
-const EndingUser = ({user, one, rank}) => {
-  const [changing, setChanging] = useState(false)
-  const [scoreValue, setScoreValue] = useState(user?.prevScore)
-  const count = useRef(null)
-  const scoreChange = useRef(null)
-  const rankSrc=()=>{
-    switch(rank){
-      case 1: return <Stimg width="19px" height="20px" src={ICON.RankOne} alt="순위" />
-      case 2: return <Stimg width="19px" height="20px" src={ICON.RankSecond} alt="순위" />
-      case 3: return <Stimg width="19px" height="20px" src={ICON.RankThird} alt="순위" />
-      case 4: return <Stimg width="19px" height="20px" src={ICON.RankForth} alt="순위" />
-      default : return
+const scoreVariants = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      delay: 1,
+      duration: 0.3,
+    },
+  },
+};
+
+const changeVariants = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.3,
+    },
+  },
+};
+
+const EndingUser = ({ user, one, rank }) => {
+  const [changing, setChanging] = useState(false);
+  const [scoreValue, setScoreValue] = useState(user?.prevScore);
+  const [trig, setTrig] = useState(false);
+  const count = useRef(null);
+  const scoreChange = useRef(null);
+  const rankSrc = () => {
+    switch (rank) {
+      case 1:
+        return (
+          <Stimg width="19px" height="20px" src={ICON.RankOne} alt="순위" />
+        );
+      case 2:
+        return (
+          <Stimg width="19px" height="20px" src={ICON.RankSecond} alt="순위" />
+        );
+      case 3:
+        return (
+          <Stimg width="19px" height="20px" src={ICON.RankThird} alt="순위" />
+        );
+      case 4:
+        return (
+          <Stimg width="19px" height="20px" src={ICON.RankForth} alt="순위" />
+        );
+      default:
+        return;
     }
-  }
-  useEffect(()=>{
-    count.current = setTimeout(()=>{
-      setChanging(true)
-    },1000)
-    scoreChange.current = setTimeout(()=>{
-      setScoreValue(user?.score)
-    },2000)
-    return ()=>{
-      clearTimeout(count.current)
-      clearTimeout(scoreChange.current)
-      setChanging(false)
-    }
-  },[])
+  };
+  useEffect(() => {
+    count.current = setTimeout(() => {
+      setChanging(true);
+      setTrig(true);
+    }, 1000);
+    scoreChange.current = setTimeout(() => {
+      setScoreValue(user?.score);
+    }, 2000);
+    return () => {
+      clearTimeout(count.current);
+      clearTimeout(scoreChange.current);
+      setChanging(false);
+    };
+  }, []);
   return (
     <StRankBox one={one}>
       <StDescBox>
@@ -39,16 +80,37 @@ const EndingUser = ({user, one, rank}) => {
         <div>{user?.userName}</div>
       </StDescBox>
       <StDescBox>
-        <div>{scoreValue}</div>
-        {changing?<StScoreUp changed={user?.change}>
-          {user?.change}
-        </StScoreUp>:<StScoreUpNull></StScoreUpNull>}
+        {trig ? (
+          <motion.div
+            style={{ fontSize: "14px", fontWeight: "600" }}
+            variants={scoreVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            {scoreValue}
+          </motion.div>
+        ) : (
+          <StDiv>{scoreValue}</StDiv>
+        )}
+
+        {changing ? (
+          <StScoreUp
+            variants={changeVariants}
+            initial="hidden"
+            animate="visible"
+            changed={user?.change}
+          >
+            {user?.change}
+          </StScoreUp>
+        ) : (
+          <StScoreUpNull></StScoreUpNull>
+        )}
       </StDescBox>
     </StRankBox>
-  )
-}
+  );
+};
 
-export default EndingUser
+export default EndingUser;
 
 const StRankBox = styled.div`
   font-size: 14px;
@@ -80,7 +142,7 @@ const Stimg = styled.img`
   height: ${({ height }) => height || "102px"};
   object-fit: contain;
 `;
-const StScoreUp = styled.div`
+const StScoreUp = styled(motion.div)`
   width: 42px;
   height: 20px;
   font-size: 12px;
@@ -89,7 +151,8 @@ const StScoreUp = styled.div`
   text-align: left;
   color: #000;
   border-radius: 999px;
-  background-color: ${({ changed }) => changed.includes('-')? "#aaa":"#ff601c"};
+  background-color: ${({ changed }) =>
+    changed.includes("-") ? "#aaa" : "#ff601c"};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -100,5 +163,10 @@ const StScoreUpNull = styled.div`
   font-size: 12px;
   line-height: 1;
   background-color: none;
-  border:none
+  border: none;
+`;
+
+const StDiv = styled.div`
+  font-size: 14px;
+  font-weight: 600;
 `;
