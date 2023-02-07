@@ -10,25 +10,25 @@ const Ready = ({ readyHandler, goSelecetTile }) => {
   const { StTitle, StBtnList } = BootStrap;
   const [ready, setReady] = useState(false);
   const [second, setSecond] = useState(String(5));
-  const [throttle, setThrottle] = useState(false)
+  const [throttle, setThrottle] = useState(false);
   const { gameInfo, trigger } = useSelector((state) => state.gameSlice);
   const { roomInfo } = useSelector((state) => state.gameSlice);
-  
+
   const readyMembers = gameInfo?.users.filter((el) => el?.isReady === true);
   const gameStart = useRef(null);
   const interval = useRef(null);
   const count = useRef(5);
   const navigate = useNavigate();
-  
+
   const onReadyHandler = () => {
-    if(throttle) return
-    if(!throttle){
-      setThrottle(true)
+    if (throttle) return;
+    if (!throttle) {
+      setThrottle(true);
       setReady((prev) => !prev);
       readyHandler();
-      setTimeout(async()=>{
-        setThrottle(false)
-      },1000)
+      setTimeout(async () => {
+        setThrottle(false);
+      }, 1000);
     }
   };
   const goBackHandler = () => {
@@ -63,6 +63,7 @@ const Ready = ({ readyHandler, goSelecetTile }) => {
           준비완료 ({readyMembers?.length}/{roomInfo?.maxMembers})
         </StReady>
       )}
+
       <StBtnList>
         {trigger ? (
           <StButton
@@ -95,10 +96,16 @@ const Ready = ({ readyHandler, goSelecetTile }) => {
             준비완료
           </StButton>
         )}
+
         <StButton size="md" onClick={goBackHandler}>
           방 나가기
         </StButton>
       </StBtnList>
+      {throttle ? (
+        <StDiv>준비에는 1초의 시간이 필요합니다.</StDiv>
+      ) : (
+        <StDiv></StDiv>
+      )}
     </StWrapper>
   );
 };
@@ -120,4 +127,15 @@ const StReady = styled.div`
   line-height: 17px;
 
   margin-top: 16px;
+`;
+
+const StDiv = styled.div`
+  margin-top: 15px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  height: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #bd1010;
 `;

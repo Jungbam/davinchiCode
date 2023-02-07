@@ -34,7 +34,7 @@ const RoomList = () => {
   const [searchRoomModal, setSearchRoomModal] = useState(null);
   const [searchType, setSearchType] = useState("name");
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPage, setTotalPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(0);
   const [list, setList] = useState([]);
   const [isWaiting, setIsWaiting] = useState(false);
   const [isPrivate, setIsPrivate] = useState(false);
@@ -51,10 +51,17 @@ const RoomList = () => {
     }
     return newArr;
   };
-  
+
   const { status, refetch: searchRoom } = useQuery(
     [queryKeys.ROOM_LIST, currentPage],
-    () => RoomAPI.searchRoom({ currentPage, search, searchType, is_waiting:isWaiting?isWaiting.toString():"", is_public:isPrivate?isPrivate.toString():"" }),
+    () =>
+      RoomAPI.searchRoom({
+        currentPage,
+        search,
+        searchType,
+        is_waiting: isWaiting ? isWaiting.toString() : "",
+        is_public: isPrivate ? isPrivate.toString() : "",
+      }),
     {
       keepPreviousData: true,
       onSuccess: ({ data }) => {
@@ -63,13 +70,13 @@ const RoomList = () => {
       },
       onError: () => navigate("/error"),
     }
-    );
-    
-    const searchHandler = () => {
-      searchRoom();
-    };
-    
-    const searchRoomHandler = (type) => {
+  );
+
+  const searchHandler = () => {
+    searchRoom();
+  };
+
+  const searchRoomHandler = (type) => {
     setSearchType(type);
     setSearchRoomModal((prev) => !prev);
   };
@@ -84,9 +91,9 @@ const RoomList = () => {
     setList(arrLoop(currentPage));
   }, [currentPage, totalPage, search]);
 
-  useEffect(()=>{
-    searchRoom()
-  },[isWaiting,isPrivate])
+  useEffect(() => {
+    searchRoom();
+  }, [isWaiting, isPrivate]);
 
   return (
     <StWrapper>
@@ -101,7 +108,7 @@ const RoomList = () => {
               width={16}
               alt="진행여부"
             />
-            <div>대기방</div>
+            <div>대기</div>
           </StCheckButton>
           <StCheckButton
             color="#00831d"

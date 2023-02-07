@@ -82,7 +82,7 @@ const StTimer = styled.div`
   color: #222;
 `;
 const StTimerBar = styled.div`
-  width: 486px;
+  width: 488px;
   height: 16px;
   border: solid 1px #000;
   background-color: #fff;
@@ -94,7 +94,7 @@ const StTimeLimit = styled.div`
   }};
   height: 100%;
   background-color: #009320;
-  border-radius: 3px 0 0 3px;
+  border-radius: 3px ${({ timer }) => (timer === "30" ? "3px 3px" : "0 0")} 3px;
   transition-duration: 1s;
   transition-timing-function: linear;
 `;
