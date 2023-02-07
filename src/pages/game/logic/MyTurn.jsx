@@ -5,11 +5,17 @@ import { ICON } from "../../../helpers/Icons";
 import { BootStrap } from "../../BootStrap";
 import { StButton } from "../../Button";
 import Timer from "../ele/Timer";
+import Indicate from "./Indicate";
 
-const MyTurn = ({ GameTurn }) => {
+const MyTurn = ({ GameTurn,selectIndicaterCard,userId }) => {
   const { StTitle, StWrapper } = BootStrap;
   const { gameInfo } = useSelector((state) => state.gameSlice);
   const [select, setSelect] = useState(null);
+  const { blackCards, whiteCards } = useSelector(
+    (state) => state.gameSlice.gameInfo
+  );
+  if (blackCards === 0 && whiteCards === 0)
+    return <Indicate selectIndicaterCard={selectIndicaterCard} userId={userId}/>;
   return (
     <StWrapper gap="4px">
       <StTitle mgtop="30px" width="270px">
@@ -39,7 +45,7 @@ const MyTurn = ({ GameTurn }) => {
             <StSelectNull />
           )}{" "}
         </StCardBox>}
-        <StLine></StLine>
+        {gameInfo.blackCards === 0||gameInfo.whiteCards === 0||<StLine></StLine>}
         {gameInfo.whiteCards === 0||<StCardBox>
           <div>흰색 타일</div>
           <StCard
@@ -59,6 +65,7 @@ const MyTurn = ({ GameTurn }) => {
       <StButton
         variant={select ? "primary" : "gray"}
         onClick={() => GameTurn(select)}
+        disabled={!select}
       >
         확인
       </StButton>

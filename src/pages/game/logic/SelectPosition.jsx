@@ -1,20 +1,13 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { BootStrap } from "../../BootStrap";
 import { StButton } from "../../Button";
 import DavinchiCard from "../ele/DavinchiCard";
 import Timer from "../ele/Timer";
-import Indicate from "./Indicate";
 import JokerPosition from "./JokerPosition";
 
-const SelectPosition = ({ card, cardPick, selectIndicaterCard }) => {
-  const { blackCards, whiteCards } = useSelector(
-    (state) => state.gameSlice.gameInfo
-  );
+const SelectPosition = ({ card, cardPick, selectIndicaterCard,userId }) => {
   const { StWrapper, StCardArea } = BootStrap;
-  if (blackCards === 0 && whiteCards === 0)
-    return <Indicate selectIndicaterCard={selectIndicaterCard} />;
   if (card.value === 12)
     return <JokerPosition selectedCard={card} cardPick={cardPick} />;
   return (

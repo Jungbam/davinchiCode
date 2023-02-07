@@ -54,6 +54,7 @@ const CenterBox = ({ socket, userId }) => {
         setGameView(
           <SelectPosition
             card={card}
+            userId={userId}
             cardPick={cardPick}
             selectIndicaterCard={selectIndicaterCard}
           />
@@ -87,7 +88,7 @@ const CenterBox = ({ socket, userId }) => {
         />
       );
     else if (!result && security) {
-      setGameView(<Turn GameTurn={GameTurn} userId={userId} />);
+      setGameView(<Turn GameTurn={GameTurn} userId={userId} selectIndicaterCard={selectIndicaterCard}/>);
     } else {
       setGameView(<ThrowMine userId={userId} openMine={openMine} />);
     }
@@ -100,12 +101,12 @@ const CenterBox = ({ socket, userId }) => {
   }
   function nextTurn() {
     socket.current.emit(eventName.NEXT_TURN);
-    setGameView(<Turn GameTurn={GameTurn} userId={userId} />);
+    setGameView(<Turn GameTurn={GameTurn} userId={userId} selectIndicaterCard={selectIndicaterCard}/>);
   }
   function openMine(userId, select) {
     const openMine = { ...select };
     socket.current.emit(eventName.GUESS, userId, openMine);
-    setGameView(<Turn GameTurn={GameTurn} userId={userId} />);
+    setGameView(<Turn GameTurn={GameTurn} userId={userId} selectIndicaterCard={selectIndicaterCard}/>);
   }
   function endingHandler() {
     setEnding(false);
@@ -124,7 +125,7 @@ const CenterBox = ({ socket, userId }) => {
       dispatch(setRoom(roomInfo))
     });
     socket.current?.on(eventName.DRAW_RESULT, (gameInfo) => {
-      setGameView(<Turn GameTurn={GameTurn} userId={userId} />);
+      setGameView(<Turn GameTurn={GameTurn} userId={userId} selectIndicaterCard={selectIndicaterCard}/>);
       dispatch(setGameStart(true))
       dispatch(setUsers(gameInfo));
     });
@@ -148,7 +149,7 @@ const CenterBox = ({ socket, userId }) => {
     });
     socket.current?.on(eventName.NEXT_GAMEINFO, (nextGameInfo) => {
       dispatch(setUsers(nextGameInfo));
-      setGameView(<Turn GameTurn={GameTurn} userId={userId} />);
+      setGameView(<Turn GameTurn={GameTurn} userId={userId} selectIndicaterCard={selectIndicaterCard} />);
     });
     socket.current?.on(eventName.GAMEOVER, (endingInfo, gameInfo) => {
       SoundEffect.GameOver()
