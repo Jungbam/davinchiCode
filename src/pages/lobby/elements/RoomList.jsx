@@ -63,7 +63,6 @@ const RoomList = () => {
     {
       keepPreviousData: true,
       onSuccess: ({ data }) => {
-        console.log("나 들어옴");
         setTotalPage((prev) => data.totalPage);
         setRoomsData(data.rooms);
       },

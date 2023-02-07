@@ -10,7 +10,6 @@ const MyTurn = ({ GameTurn }) => {
   const { StTitle, StWrapper } = BootStrap;
   const { gameInfo } = useSelector((state) => state.gameSlice);
   const [select, setSelect] = useState(null);
-  console.log(gameInfo.blackCards);
   return (
     <StWrapper gap="4px">
       <StTitle mgtop="30px" width="270px">

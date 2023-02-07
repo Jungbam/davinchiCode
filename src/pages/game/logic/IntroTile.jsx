@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { ICON } from "../../../helpers/Icons";
 import { BootStrap } from "../../BootStrap";
@@ -8,13 +10,22 @@ import Timer from "../ele/Timer";
 const IntroTile = ({ selectTile }) => {
   const [black, setBlack] = useState(0);
   const [select, setSelect] = useState(false);
+  const [num, setNum] = useState(4)
   const countBlackBtn = [
     { value: 0, color: "#f5f6fa" },
     { value: 1, color: "#dcdde1" },
     { value: 2, color: "#535c68" },
     { value: 3, color: "#2f3640" },
+    { value: 4, color: "#1c1e20" },
   ];
   const { StTitle, StText } = BootStrap;
+  const {roomInfo} = useSelector(state=>state.gameSlice)
+  const blackList = countBlackBtn.filter((el,i)=>i<num+1)
+
+  useEffect(()=>{
+    if(roomInfo?.memebers===4) setNum(3)
+    else setNum(4)
+  },[roomInfo])
 
   return (
     <StWrapper>
@@ -26,7 +37,7 @@ const IntroTile = ({ selectTile }) => {
         타일을 획득하세요.
       </StText>
       <StCardArea>
-        {new Array(3 - black).fill("_").map((_, i) => (
+        {new Array(num - black).fill("_").map((_, i) => (
           <img key={`blackCenter${i}`} src={ICON.whiteBack} alt="card" />
         ))}
         {new Array(black).fill("_").map((_, i) => (
@@ -35,14 +46,14 @@ const IntroTile = ({ selectTile }) => {
       </StCardArea>
       <StTileNumber>
         <div>
-          흰색 타일 <span>{3 - black}개</span>
+          흰색 타일 <span>{num - black}개</span>
         </div>
         <div>
           검은색 타일 <span>{black}개</span>
         </div>
       </StTileNumber>
       <StRoundBtns>
-        {countBlackBtn.map((el, i) => (
+        {blackList.map((el, i) => (
           <StRoundBtn
             key={`countBlackBtn ${i}`}
             onClick={() => setBlack(el.value)}
@@ -112,7 +123,6 @@ const StRoundBtn = styled.button`
   background: ${({ color }) => color};
   border: 1px solid #000000;
   border-radius: 999px;
-
   color: #eee;
   font-size: 8px;
   font-weight: 700;
