@@ -37,6 +37,9 @@ const EndingUser = ({ user, one, rank }) => {
   const [trig, setTrig] = useState(false);
   const count = useRef(null);
   const scoreChange = useRef(null);
+  function numberWithCommas(x = 0) {
+    return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  }
   const rankSrc = () => {
     switch (rank) {
       case 1:
@@ -59,6 +62,7 @@ const EndingUser = ({ user, one, rank }) => {
         return;
     }
   };
+
   useEffect(() => {
     count.current = setTimeout(() => {
       setChanging(true);
@@ -87,10 +91,10 @@ const EndingUser = ({ user, one, rank }) => {
             initial="hidden"
             animate="visible"
           >
-            {scoreValue}
+            {numberWithCommas(scoreValue)}
           </motion.div>
         ) : (
-          <StDiv>{scoreValue}</StDiv>
+          <StDiv>{numberWithCommas(scoreValue)}</StDiv>
         )}
 
         {changing ? (
@@ -99,6 +103,7 @@ const EndingUser = ({ user, one, rank }) => {
             initial="hidden"
             animate="visible"
             changed={user?.change}
+            one={one}
           >
             {user?.change}
           </StScoreUp>
@@ -143,19 +148,18 @@ const Stimg = styled.img`
   object-fit: contain;
 `;
 const StScoreUp = styled(motion.div)`
-  width: 42px;
-  height: 20px;
+  border: none;
+  padding: 4px 6px;
   font-size: 12px;
   font-weight: bold;
   line-height: 1;
-  text-align: left;
   color: #000;
   border-radius: 999px;
-  background-color: ${({ changed }) =>
-    changed.includes("-") ? "#aaa" : "#ff601c"};
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: ${({ changed, one }) =>
+    one ? "#ff601c" : changed.includes("-") ? "#aaa" : "#00831d"};
 `;
 const StScoreUpNull = styled.div`
   width: 42px;
