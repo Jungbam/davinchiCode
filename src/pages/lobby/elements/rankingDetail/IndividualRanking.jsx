@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { ICON } from "../../../../helpers/Icons";
+import RankingListSkell from "../roomListDetail/RankingListSkell";
 
-const IndividualRanking = ({ users }) => {
+const IndividualRanking = ({ users, status }) => {
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
   }
@@ -17,24 +18,29 @@ const IndividualRanking = ({ users }) => {
 
   return (
     <>
-      {usersRanking?.map((el, i) => (
-        <StWrapper key={`individualRanking${i}`}>
-          <StRank>
-            <StPlayerRanking>{el.ranking}</StPlayerRanking>
-            <StPlayerRankingActive
-              color={(el.ranking - el.prevRanking).toString()}
-            >
-              <img src={a(el.ranking - el.prevRanking)} alt="순위" />{" "}
-              {Math.abs(el.ranking - el.prevRanking)}
-            </StPlayerRankingActive>
-          </StRank>
-          <StRankDetail>
-            <StUserProfile src={el.profileImageUrl} />
-            <StUserName>{el.username}</StUserName>
-            <StUserScore>{numberWithCommas(el.score)}</StUserScore>
-          </StRankDetail>
-        </StWrapper>
-      ))}
+      {status === "loading" && <RankingListSkell />}
+      {status === "success" && (
+        <>
+          {usersRanking?.map((el, i) => (
+            <StWrapper key={`individualRanking${i}`}>
+              <StRank>
+                <StPlayerRanking>{el.ranking}</StPlayerRanking>
+                <StPlayerRankingActive
+                  color={(el.ranking - el.prevRanking).toString()}
+                >
+                  <img src={a(el.ranking - el.prevRanking)} alt="순위" />{" "}
+                  {Math.abs(el.ranking - el.prevRanking)}
+                </StPlayerRankingActive>
+              </StRank>
+              <StRankDetail>
+                <StUserProfile src={el.profileImageUrl} />
+                <StUserName>{el.username}</StUserName>
+                <StUserScore>{numberWithCommas(el.score)}</StUserScore>
+              </StRankDetail>
+            </StWrapper>
+          ))}
+        </>
+      )}
     </>
   );
 };

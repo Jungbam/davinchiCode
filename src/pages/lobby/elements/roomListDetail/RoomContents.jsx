@@ -8,6 +8,7 @@ import { useState } from "react";
 import { RoomAPI } from "../../../../api/axios";
 import { BootStrap } from "../../../BootStrap";
 import Moddal from "../../../../components/form/modal/Moddal";
+import RoomListSkell from "./RoomListSkell";
 
 const RoomContents = ({ isWaiting, isPrivate, roomsData, status }) => {
   const [modal, setModal] = useState(false);
@@ -62,7 +63,7 @@ const RoomContents = ({ isWaiting, isPrivate, roomsData, status }) => {
   return (
     <>
       <StWrapper jus="flex-start" padding="7px 0">
-        {status === "loading" && <div>Loading...</div>}
+        {status === "loading" && <RoomListSkell />}
         {status === "success" && (
           <>
             {roomsData
