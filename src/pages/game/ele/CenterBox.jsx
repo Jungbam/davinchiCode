@@ -103,7 +103,7 @@ const CenterBox = ({ socket, userId }) => {
     socket.current.emit(eventName.NEXT_TURN);
     setGameView(<Turn GameTurn={GameTurn} userId={userId} selectIndicaterCard={selectIndicaterCard}/>);
   }
-  function openMine(userId, select) {
+  function openMine(select) {
     const openMine = { ...select };
     socket.current.emit(eventName.GUESS, userId, openMine);
     setGameView(<Turn GameTurn={GameTurn} userId={userId} selectIndicaterCard={selectIndicaterCard}/>);

@@ -74,6 +74,7 @@ const IntroTile = ({ selectTile }) => {
         확인
       </StButton>}
       {select && <Timer timeOver={() => selectTile(black)} />}
+      <Timer timeOver={() => selectTile(black)} />
     </StWrapper>
   );
 };
