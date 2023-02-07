@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import useSound from "use-sound";
 import Modal from "../../../components/form/modal/Modal";
@@ -8,6 +9,7 @@ import { Sounds } from "../../../helpers/sounds";
 const Timer = ({ timeOver }) => {
   const [gameOver, setGameOver] = useState(false);
   const [second, setSecond] = useState(String(30));
+  const { trigger } = useSelector((state) => state.gameSlice);
   const count = useRef(30);
   const interval = useRef(null);
   const [Late, { stop }] = useSound(Sounds.Ten);
@@ -24,6 +26,7 @@ const Timer = ({ timeOver }) => {
 
   useEffect(() => {
     if (Number(second) === 9) Late();
+    if (!trigger) stop();
     if (count.current <= 0) {
       clearInterval(interval.current);
       timeOver();
