@@ -51,30 +51,25 @@ const RoomList = () => {
     }
     return newArr;
   };
-
-  const handleCheckboxChange = (isWaiting, isPrivate) => {
-    setIsWaiting(isWaiting);
-    setIsPrivate(isPrivate);
-  };
-
+  
   const { status, refetch: searchRoom } = useQuery(
     [queryKeys.ROOM_LIST, currentPage],
-    () => RoomAPI.searchRoom({ currentPage, search, searchType }),
+    () => RoomAPI.searchRoom({ currentPage, search, searchType, is_waiting:isWaiting?isWaiting.toString():"", is_public:isPrivate?isPrivate.toString():"" }),
     {
       keepPreviousData: true,
       onSuccess: ({ data }) => {
-        setTotalPage((prev) => data.totalPage);
+        setTotalPage(data.totalPage);
         setRoomsData(data.rooms);
       },
       onError: () => navigate("/error"),
     }
-  );
-
-  const searchHandler = () => {
-    searchRoom();
-  };
-
-  const searchRoomHandler = (type) => {
+    );
+    
+    const searchHandler = () => {
+      searchRoom();
+    };
+    
+    const searchRoomHandler = (type) => {
     setSearchType(type);
     setSearchRoomModal((prev) => !prev);
   };
@@ -88,6 +83,10 @@ const RoomList = () => {
   useEffect(() => {
     setList(arrLoop(currentPage));
   }, [currentPage, totalPage, search]);
+
+  useEffect(()=>{
+    searchRoom()
+  },[isWaiting,isPrivate])
 
   return (
     <StWrapper>
@@ -115,7 +114,7 @@ const RoomList = () => {
               width={16}
               alt="체크박스"
             />
-            <div>비공개</div>
+            <div>공개</div>
           </StCheckButton>
         </StBtnList>
         <StFuncBack>
@@ -165,7 +164,6 @@ const RoomList = () => {
         <RoomContents
           roomsData={roomsData}
           status={status}
-          handleCheckboxChange={handleCheckboxChange}
           isWaiting={isWaiting}
           isPrivate={isPrivate}
         ></RoomContents>

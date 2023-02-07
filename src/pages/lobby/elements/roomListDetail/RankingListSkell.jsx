@@ -4,15 +4,15 @@ import styled from "styled-components";
 const RankingListSkell = () => {
   return (
     <>
-      {new Array(10).fill("_").map(() => (
-        <StWrapper>
+      {new Array(10).fill("_").map((el, i) => (
+        <StWrapper key={`rankingskell${i}`}>
           <Sta>
-            <StA></StA>
-            <StB></StB>
+            <StA/>
+            <StB/>
           </Sta>
-          <Stb></Stb>
-          <Stc></Stc>
-          <Std></Std>
+          <Stb/>
+          <Stc/>
+          <Std/>
         </StWrapper>
       ))}
     </>

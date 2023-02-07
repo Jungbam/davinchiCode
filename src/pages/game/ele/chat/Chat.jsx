@@ -74,7 +74,7 @@ const StMsgContainer = styled.div`
   padding: 20px 30px 10px 22px;
   overflow: scroll;
   justify-content: ${({ ref }) =>
-    ref?.current.scrollHeight > 138 ? "row" : "flex-end"};
+    ref?.current.scrollHeight > 138 ? "flex-end" : null};
 `;
 
 const StBtnContainer = styled.div`

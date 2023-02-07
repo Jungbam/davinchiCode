@@ -28,9 +28,7 @@ const GameInfo = ({ closeModal }) => {
     speed: 700,
     slidesToScroll: 1,
     arrows: true,
-    autoplaySpeed: 4000,
     pauseOnHover: true,
-    autoplay: true,
     customPaging: (i) => (
       <div
         style={{

@@ -13,7 +13,7 @@ const SelectPosition = ({ card, cardPick, selectIndicaterCard }) => {
     (state) => state.gameSlice.gameInfo
   );
   const { StWrapper, StCardArea } = BootStrap;
-  if (blackCards === 0 || whiteCards === 0)
+  if (blackCards === 0 && whiteCards === 0)
     return <Indicate selectIndicaterCard={selectIndicaterCard} />;
   if (card.value === 12)
     return <JokerPosition selectedCard={card} cardPick={cardPick} />;

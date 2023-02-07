@@ -67,12 +67,7 @@ const RoomContents = ({ isWaiting, isPrivate, roomsData, status }) => {
         {status === "success" && (
           <>
             {roomsData
-              ?.filter(
-                (room) =>
-                  (!isWaiting || !room.isPlaying) &&
-                  (!isPrivate || room.isPrivate)
-              )
-              .map((room, i) => (
+              ?.map((room, i) => (
                 <StContainer
                   key={`roomList${i}`}
                   iswaiting={(
