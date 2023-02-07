@@ -13,7 +13,7 @@ const MyTurn = ({ GameTurn }) => {
   console.log(gameInfo.blackCards);
   return (
     <StWrapper gap="4px">
-      <StTitle mgTop="30px" width="270px">
+      <StTitle mgtop="30px" width="270px">
         가져올 타일의 색상을 정해주세요!
       </StTitle>
       <StTileNumber>

@@ -12,7 +12,7 @@ const SelectIndicatedUser = ({ indicatedUser, guessCard }) => {
   const [select, setSelect] = useState({ index: null, value: null });
   return (
     <StWrapper>
-      <StTitle width="299px" height="16px" mgTop="45px">
+      <StTitle width="299px" height="16px" mgtop="45px">
         숫자를 맞출 타일을 선택해주세요!
       </StTitle>
       <StCardContainer>
@@ -48,14 +48,14 @@ const SelectIndicatedUser = ({ indicatedUser, guessCard }) => {
       <StRow>
         {select.index !== null && select.value !== null ? (
           <StButton
-            mgTop="10px"
+            mgtop="10px"
             variant="primary"
             onClick={() => guessCard(indicatedUser, select)}
           >
             결정
           </StButton>
         ) : (
-          <StButton mgTop="10px" variant="gray" disabled>
+          <StButton mgtop="10px" variant="gray" disabled>
             결정
           </StButton>
         )}

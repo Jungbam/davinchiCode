@@ -19,11 +19,11 @@ const StTitle = styled.div`
   font-style: normal;
   line-height: 1;
   letter-spacing: normal;
-  margin-top: ${({ mgTop }) => mgTop || "100px"};
+  margin-top: ${({ mgtop }) => mgtop || "100px"};
 `;
 
 const StText = styled.span`
-  margin-top: ${({ mgTop }) => mgTop || "20px"};
+  margin-top: ${({ mgtop }) => mgtop || "20px"};
   width: ${({ width }) => width || "100%"};
   display: flex;
   flex-direction: ${({ dir }) => dir || "row"};
@@ -53,7 +53,7 @@ const StBtn = styled.button`
   font-size: ${({ fontSize }) => fontSize || "18px"};
   line-height: 100%;
   color: #111;
-  margin-top: ${({ mgTop }) => mgTop || "0px"};
+  margin-top: ${({ mgtop }) => mgtop || "0px"};
 `;
 
 const StBtnList = styled.div`
@@ -61,7 +61,7 @@ const StBtnList = styled.div`
   height: ${({ height }) => height || "44px"};
   display: flex;
   justify-content: space-between;
-  margin-top: ${({ mgTop }) => mgTop || "32px"};
+  margin-top: ${({ mgtop }) => mgtop || "32px"};
 `;
 
 const StWrapper = styled.div`
@@ -84,7 +84,7 @@ const StCardArea = styled.div`
   justify-content: center;
   gap: ${({ gap }) => gap || "4px"};
   display: flex;
-  margin-top: ${({ mgTop }) => mgTop || "20px"};
+  margin-top: ${({ mgtop }) => mgtop || "20px"};
   margin-left: ${({ mgLeft }) => mgLeft || "20px"};
   & img {
     width: ${({ childwidth }) => childwidth};

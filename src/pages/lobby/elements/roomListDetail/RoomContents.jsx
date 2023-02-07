@@ -216,7 +216,7 @@ const RoomContents = ({ isWaiting, isPrivate, roomsData, status }) => {
           modal={modal}
         >
           <StWrapper>
-            <StDiv mgTop="45px">게임방에 입장하시겠습니까?</StDiv>
+            <StDiv mgtop="45px">게임방에 입장하시겠습니까?</StDiv>
             <div
               style={{
                 width: "100%",
@@ -229,7 +229,7 @@ const RoomContents = ({ isWaiting, isPrivate, roomsData, status }) => {
             >
               {passwordError}
             </div>
-            <StBtnBox mgTop="6px">
+            <StBtnBox mgtop="6px">
               <StBtn
                 color="#fff"
                 width="100px"
@@ -357,7 +357,7 @@ const StBtnBox = styled.div`
   justify-content: center;
   align-items: center;
   gap: 6px;
-  margin-top: ${({ mgTop }) => mgTop || "10px"};
+  margin-top: ${({ mgtop }) => mgtop || "10px"};
 `;
 
 const StRoomName = styled.div`
@@ -372,7 +372,7 @@ const StDiv = styled.div`
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
-  margin-top: ${({ mgTop }) => mgTop || "25px"};
+  margin-top: ${({ mgtop }) => mgtop || "25px"};
 `;
 
 const StDesc = styled.div`

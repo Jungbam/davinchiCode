@@ -18,10 +18,10 @@ const IntroTile = ({ selectTile }) => {
 
   return (
     <StWrapper>
-      <StTitle mgTop="30px" width="225px">
+      <StTitle mgtop="30px" width="225px">
         가져올 타일을 정해주세요!
       </StTitle>
-      <StText mgTop="16px">
+      <StText mgtop="16px">
         처음 주어지는 타일은 3개입니다. 아래의 버튼을 클릭하여 원하는 색상의
         타일을 획득하세요.
       </StText>
@@ -52,7 +52,7 @@ const IntroTile = ({ selectTile }) => {
       </StRoundBtns>
       <StButton
         variant="primary"
-        mgTop="14px"
+        mgtop="14px"
         onClick={() => {
           setSelect(false);
           selectTile(black);

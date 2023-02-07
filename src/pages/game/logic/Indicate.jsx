@@ -10,7 +10,7 @@ import OtherTurn from "./OtherTurn";
 const Indicate = ({ selectIndicaterCard, userId }) => {
   const { StTitle, StText, StBtn, StBtnList } = BootStrap;
   const { indicated, gameInfo } = useSelector((state) => state.gameSlice);
-  const others = gameInfo?.users.filter((user) => user.userId !== userId);
+  const others = gameInfo?.users.filter((user) => user?.userId !== userId);
   const indicatedUser = gameInfo?.users?.filter(
     (el) => el.userId === indicated
   );
@@ -23,19 +23,19 @@ const Indicate = ({ selectIndicaterCard, userId }) => {
   if (turn === userId)
     return (
       <StWrapper>
-        <StTitle mgTop="70px" width="239px">
+        <StTitle mgtop="70px" width="239px">
           지목할 상대를 선택해주세요!
         </StTitle>
-        <StText mgTop="12px">
+        <StText mgtop="12px">
           다른 참여자의 화면에 있는 ‘지목하기’ 버튼을 클릭하세요.
         </StText>
         {indicated && (
           <>
-            <StText mgTop="30px">
+            <StText mgtop="30px">
               <span>{indicatedUser[0]?.userName}</span>님을 지목상대로
               결정하시겠습니까?
             </StText>
-            <StBtnList width="206px" mgTop="20px" height="32px">
+            <StBtnList width="206px" mgtop="20px" height="32px">
               <StBtn
                 width="100px"
                 color="#fff"

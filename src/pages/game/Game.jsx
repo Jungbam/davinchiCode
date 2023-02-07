@@ -19,8 +19,8 @@ const Game = () => {
 
   const { userId } = useSelector((state) => state.signSlice.userInfo);
   const { users, turn } = useSelector((state) => state.gameSlice.gameInfo);
-  const myInfo = users.filter((user) => user.userId === userId);
-  const others = users.filter((user) => user.userId !== userId);
+  const myInfo = users.filter((user) => user?.userId === userId);
+  const others = users.filter((user) => user?.userId !== userId);
   const navigate = useNavigate();
 
   const initHandler = () => {
@@ -101,9 +101,7 @@ const Game = () => {
         </StPeerWrapper>
         <CenterBox roomId={roomId} socket={socketRef} userId={userId} />
         <StMyBoxWrapper>
-          <StMyBoxContainer>
-            <MyBox user={myInfo[0] ? myInfo[0] : null} />
-          </StMyBoxContainer>
+          <MyBox user={myInfo[0] ? myInfo[0] : null} />
           <Chat
             roomId={roomId}
             socket={socketRef}
@@ -141,21 +139,6 @@ const StMyBoxWrapper = styled.div`
   width: 100%;
   height: 200px;
   margin-top: 9px;
-
   display: flex;
   justify-content: space-between;
-`;
-const StMyBoxContainer = styled.div`
-  position: relative;
-  height: 100%;
-  width: 714px;
-  background-image: url(${IMG.myUserBackground});
-
-  padding: 40px 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border-radius: 6px;
-  border: solid 1px #111;
-  background-color: #eee;
 `;

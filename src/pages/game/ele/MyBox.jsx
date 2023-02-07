@@ -1,11 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { IMG } from "../../../helpers/image";
 import DavinchiCard from "./DavinchiCard";
 
 const MyBox = ({ user }) => {
+  const [gameover, setGameover] = useState(false);
+  const { gameStart } = useSelector(
+    (state) => state.gameSlice
+  );
+
+  useEffect(() => {
+    if (
+      user?.hand.length !== 0 &&
+      user?.hand.filter((el) => el.isOpen === false).length === 0
+    )
+      setGameover(true);
+    else setGameover(false);
+  }, [user]);  
+
   return (
-    <StBox>
+    <StBox url={gameStart && gameover
+              ? IMG.myUserBackgroundgameout
+              : IMG.myUserBackground}>
       <StUserProfile>
         <StImg
           src={user?.userProfileImg || IMG.userProfile}
@@ -30,6 +47,14 @@ export default MyBox;
 
 const StBox = styled.div`
   display: flex;
+  position: relative;
+  width: 714px;
+  height: 100%;
+  border-radius: 6px;
+  background-color: #eee;
+  border: solid 1px #111;
+  background-image: url(${({ url }) => url});
+  padding: 40px 20px;
 `;
 
 const StUserProfile = styled.div`
@@ -73,7 +98,6 @@ const StOpen = styled.span`
   background: #ffdf24;
   font-size: 10px;
   font-weight: bold;
-  font-stretch: normal;
   border: 1px solid #111111;
   margin-top: 5px;
 `;

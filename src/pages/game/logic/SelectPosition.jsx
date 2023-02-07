@@ -19,14 +19,14 @@ const SelectPosition = ({ card, cardPick, selectIndicaterCard }) => {
     return <JokerPosition selectedCard={card} cardPick={cardPick} />;
   return (
     <StWrapper jus="center" gap="10px">
-      <StCardArea height="80px" childwidth="56px" mgTop="0px" mgLeft="0px">
+      <StCardArea height="80px" childwidth="56px" mgtop="0px" mgLeft="0px">
         <DavinchiCard card={card} />
       </StCardArea>
       <Stdiv>
         뽑으신 타일의 숫자는 <span>{card.value}</span>입니다!
       </Stdiv>
       <StDesc>오름차순으로 자동으로 배치됩니다.</StDesc>
-      <StButton mgTop="27px" onClick={() => cardPick()}>
+      <StButton mgtop="27px" onClick={() => cardPick()}>
         확인
       </StButton>
       <Timer timeOver={() => cardPick()} />

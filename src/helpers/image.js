@@ -15,6 +15,7 @@ import otherUserBackgroundgameout from "../assets/images/otherUserBackground_gam
 import otherUserBackgroundNone from "../assets/images/otherUserBackgroundNone.png";
 import background from "../assets/images/background.png";
 import myUserBackground from "../assets/images/myUserBackground.png";
+import myUserBackgroundgameout from "../assets/images/myUserBackground_gameout.png";
 
 export const IMG = {
   GameInfo1,
@@ -33,5 +34,6 @@ export const IMG = {
   gameBackground,
   background,
   myUserBackground,
+  myUserBackgroundgameout,
   gameError,
 };
