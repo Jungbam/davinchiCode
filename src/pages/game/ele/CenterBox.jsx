@@ -28,7 +28,7 @@ import { IMG } from "../../../helpers/image";
 import useSounds from "../../../hooks/useSounds";
 
 const CenterBox = ({ socket, userId }) => {
-  const SoundEffect = useSounds()
+  const SoundEffect = useSounds();
   const [gameView, setGameView] = useState(
     <Ready readyHandler={readyHandler} goSelecetTile={goSelecetTile} />
   );
@@ -47,20 +47,16 @@ const CenterBox = ({ socket, userId }) => {
     });
   }
   function GameTurn(selectedColor) {
-    socket.current.emit(
-      eventName.COLOR_SELECTED,
-      selectedColor,
-      (card) => {
-        setGameView(
-          <SelectPosition
-            card={card}
-            userId={userId}
-            cardPick={cardPick}
-            selectIndicaterCard={selectIndicaterCard}
-          />
-        );
-      }
-    );
+    socket.current.emit(eventName.COLOR_SELECTED, selectedColor, (card) => {
+      setGameView(
+        <SelectPosition
+          card={card}
+          userId={userId}
+          cardPick={cardPick}
+          selectIndicaterCard={selectIndicaterCard}
+        />
+      );
+    });
   }
   function cardPick(resultArray = null) {
     socket.current.emit(eventName.PLACE_JOKER, resultArray);
@@ -88,7 +84,13 @@ const CenterBox = ({ socket, userId }) => {
         />
       );
     else if (!result && security) {
-      setGameView(<Turn GameTurn={GameTurn} userId={userId} selectIndicaterCard={selectIndicaterCard}/>);
+      setGameView(
+        <Turn
+          GameTurn={GameTurn}
+          userId={userId}
+          selectIndicaterCard={selectIndicaterCard}
+        />
+      );
     } else {
       setGameView(<ThrowMine userId={userId} openMine={openMine} />);
     }
@@ -101,32 +103,52 @@ const CenterBox = ({ socket, userId }) => {
   }
   function nextTurn() {
     socket.current.emit(eventName.NEXT_TURN);
-    setGameView(<Turn GameTurn={GameTurn} userId={userId} selectIndicaterCard={selectIndicaterCard}/>);
+    setGameView(
+      <Turn
+        GameTurn={GameTurn}
+        userId={userId}
+        selectIndicaterCard={selectIndicaterCard}
+      />
+    );
   }
   function openMine(select) {
     const openMine = { ...select };
     socket.current.emit(eventName.GUESS, userId, openMine);
-    setGameView(<Turn GameTurn={GameTurn} userId={userId} selectIndicaterCard={selectIndicaterCard}/>);
+    setGameView(
+      <Turn
+        GameTurn={GameTurn}
+        userId={userId}
+        selectIndicaterCard={selectIndicaterCard}
+      />
+    );
   }
   function endingHandler() {
     setEnding(false);
-    setGameView(<Ready readyHandler={readyHandler} goSelecetTile={goSelecetTile} />);
+    setGameView(
+      <Ready readyHandler={readyHandler} goSelecetTile={goSelecetTile} />
+    );
   }
 
   useEffect(() => {
     socket.current?.on(eventName.GAME_START, (roomInfo) => {
       dispatch(setInitReadyBtn());
       dispatch(setTrigger(true));
-      dispatch(setRoom(roomInfo))
+      dispatch(setRoom(roomInfo));
     });
-    socket.current?.on(eventName.ADD_READY, (gameInfo,roomInfo) => {
+    socket.current?.on(eventName.ADD_READY, (gameInfo, roomInfo) => {
       dispatch(setInitReadyBtn(true));
       dispatch(setUsers(gameInfo));
-      dispatch(setRoom(roomInfo))
+      dispatch(setRoom(roomInfo));
     });
     socket.current?.on(eventName.DRAW_RESULT, (gameInfo) => {
-      setGameView(<Turn GameTurn={GameTurn} userId={userId} selectIndicaterCard={selectIndicaterCard}/>);
-      dispatch(setGameStart(true))
+      setGameView(
+        <Turn
+          GameTurn={GameTurn}
+          userId={userId}
+          selectIndicaterCard={selectIndicaterCard}
+        />
+      );
+      dispatch(setGameStart(true));
       dispatch(setUsers(gameInfo));
     });
     socket.current?.on(eventName.ONGOING, (gameInfo) => {
@@ -136,8 +158,8 @@ const CenterBox = ({ socket, userId }) => {
       dispatch(setUsers(gameInfo));
     });
     socket.current?.on(eventName.RESULT_GUESS, (result, security, gameInfo) => {
-      if(result) SoundEffect.success()
-      else SoundEffect.fail()
+      if (result) SoundEffect.success();
+      else SoundEffect.fail();
       setGameView(
         <ResultSelect
           gameResult={gameInfo}
@@ -149,22 +171,27 @@ const CenterBox = ({ socket, userId }) => {
     });
     socket.current?.on(eventName.NEXT_GAMEINFO, (nextGameInfo) => {
       dispatch(setUsers(nextGameInfo));
-      setGameView(<Turn GameTurn={GameTurn} userId={userId} selectIndicaterCard={selectIndicaterCard} />);
+      setGameView(
+        <Turn
+          GameTurn={GameTurn}
+          userId={userId}
+          selectIndicaterCard={selectIndicaterCard}
+        />
+      );
     });
     socket.current?.on(eventName.GAMEOVER, (endingInfo, gameInfo) => {
-      SoundEffect.GameOver()
+      SoundEffect.GameOver();
       dispatch(setInit());
       dispatch(setEndingInfo(endingInfo));
       dispatch(setUsers(gameInfo));
       dispatch(setTrigger(false));
       setEnding(true);
     });
-    socket.current?.on(eventName.LEAVE_USER, (gameInfo,roomInfo)=>{
-      dispatch(setUsers(gameInfo))
-      dispatch(setRoom(roomInfo))
-    })
-    return () => {
-    };
+    socket.current?.on(eventName.LEAVE_USER, (gameInfo, roomInfo) => {
+      dispatch(setUsers(gameInfo));
+      dispatch(setRoom(roomInfo));
+    });
+    return () => {};
   }, [socket.current]);
 
   return (
@@ -173,10 +200,7 @@ const CenterBox = ({ socket, userId }) => {
         <SystemMessage />
         {gameView}
       </StGameField>
-      <EndingModal
-        ending={ending}
-        endingHandler={endingHandler}
-      />
+      <EndingModal ending={ending} endingHandler={endingHandler} />
     </StWrapper>
   );
 };

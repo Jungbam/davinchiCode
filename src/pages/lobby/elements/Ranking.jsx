@@ -93,11 +93,11 @@ const Ranking = () => {
             <StPlayerRanking>{myData?.data.ranking}</StPlayerRanking>
             <StPlayerRankingActive
               color={(
-                myData?.data.prevRanking-myData?.data.ranking
+                myData?.data.prevRanking - myData?.data.ranking
               ).toString()}
             >
               <img
-                src={numImg(myData?.data.prevRanking-myData?.data.ranking)}
+                src={numImg(myData?.data.prevRanking - myData?.data.ranking)}
                 alt="순위"
               />{" "}
               {Math.abs(myData?.data.ranking - myData?.data.prevRanking)}

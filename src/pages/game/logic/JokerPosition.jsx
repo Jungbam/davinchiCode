@@ -86,7 +86,7 @@ const JokerPosition = ({ selectedCard, cardPick }) => {
       >
         확인
       </StBtn>
-      <Timer timeOver={() => cardPick(mine)}/>
+      <Timer timeOver={() => cardPick(mine)} />
     </StWrapper>
   );
 };

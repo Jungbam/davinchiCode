@@ -5,7 +5,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import QuickStart from "./roomListDetail/RoomQuickStart";
 import { useEffect } from "react";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import CreateRoom from "../../../components/form/sign/CreateRoom";
 import { ICON } from "../../../helpers/Icons";
 

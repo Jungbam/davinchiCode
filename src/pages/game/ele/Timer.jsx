@@ -10,7 +10,7 @@ const Timer = ({ timeOver }) => {
   const [second, setSecond] = useState(String(30));
   const count = useRef(30);
   const interval = useRef(null);
-  const [Late] = useSound(Sounds.Ten);
+  const [Late, { stop }] = useSound(Sounds.Ten);
 
   useEffect(() => {
     interval.current = setInterval(() => {
@@ -28,6 +28,7 @@ const Timer = ({ timeOver }) => {
       clearInterval(interval.current);
       timeOver();
     }
+    return () => stop();
   }, [second]);
   return (
     <StTimer>

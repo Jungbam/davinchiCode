@@ -6,7 +6,7 @@ import DavinchiCard from "../ele/DavinchiCard";
 import Timer from "../ele/Timer";
 import JokerPosition from "./JokerPosition";
 
-const SelectPosition = ({ card, cardPick, selectIndicaterCard,userId }) => {
+const SelectPosition = ({ card, cardPick, selectIndicaterCard, userId }) => {
   const { StWrapper, StCardArea } = BootStrap;
   if (card.value === 12)
     return <JokerPosition selectedCard={card} cardPick={cardPick} />;

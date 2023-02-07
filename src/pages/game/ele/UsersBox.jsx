@@ -8,7 +8,7 @@ import { useEffect } from "react";
 
 const UsersBox = ({ user, turn, userId }) => {
   const [gameover, setGameover] = useState(false);
-  const [indicatedMe, setIndicatedMe] = useState(false)
+  const [indicatedMe, setIndicatedMe] = useState(false);
   const { indicated, initBtn, initReady, gameStart } = useSelector(
     (state) => state.gameSlice
   );
@@ -22,10 +22,10 @@ const UsersBox = ({ user, turn, userId }) => {
       setGameover(true);
     else setGameover(false);
   }, [user]);
-  useEffect(()=>{
-    if(indicated===user?.userId) setIndicatedMe(true)
-    else setIndicatedMe(false)
-  },[indicated]) 
+  useEffect(() => {
+    if (indicated === user?.userId) setIndicatedMe(true);
+    else setIndicatedMe(false);
+  }, [indicated]);
 
   return (
     <>
@@ -42,7 +42,7 @@ const UsersBox = ({ user, turn, userId }) => {
           )}
           {turn === userId && initBtn && !gameover && (
             <StAbsoluteBtn
-              background={indicatedMe?"#ffdf24":"#009320"}
+              background={indicatedMe ? "#ffdf24" : "#009320"}
               onClick={() => dispatch(setIndicater(user.userId))}
             >
               지목하기

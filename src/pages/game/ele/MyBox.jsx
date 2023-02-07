@@ -6,9 +6,7 @@ import DavinchiCard from "./DavinchiCard";
 
 const MyBox = ({ user }) => {
   const [gameover, setGameover] = useState(false);
-  const { gameStart } = useSelector(
-    (state) => state.gameSlice
-  );
+  const { gameStart } = useSelector((state) => state.gameSlice);
 
   useEffect(() => {
     if (
@@ -17,12 +15,16 @@ const MyBox = ({ user }) => {
     )
       setGameover(true);
     else setGameover(false);
-  }, [user]);  
+  }, [user]);
 
   return (
-    <StBox url={gameStart && gameover
-              ? IMG.myUserBackgroundgameout
-              : IMG.myUserBackground}>
+    <StBox
+      url={
+        gameStart && gameover
+          ? IMG.myUserBackgroundgameout
+          : IMG.myUserBackground
+      }
+    >
       <StUserProfile>
         <StImg
           src={user?.userProfileImg || IMG.userProfile}

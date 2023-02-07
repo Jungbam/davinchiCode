@@ -66,89 +66,82 @@ const RoomContents = ({ isWaiting, isPrivate, roomsData, status }) => {
         {status === "loading" && <RoomListSkell />}
         {status === "success" && (
           <>
-            {roomsData
-              ?.map((room, i) => (
-                <StContainer
-                  key={`roomList${i}`}
-                  iswaiting={(
-                    room.isPlaying || room.currentMembers === room.maxMembers
-                  ).toString()}
-                >
-                  <StLeft>
-                    <StButton
-                      isplaying={
-                        room.isPlaying ||
-                        room.currentMembers === room.maxMembers
-                      }
-                      color="#111"
-                    >
-                      {room.currentMembers}/{room.maxMembers}
-                    </StButton>
-                    <StButton
-                      isplaying={
-                        room.isPlaying ||
-                        room.currentMembers === room.maxMembers
-                      }
-                      color="#00831D"
-                    >
-                      {room.isPlaying ? "진행" : "대기"}
-                    </StButton>
-                    <div>
-                      <img
-                        src={room.isPrivate ? ICON.iconLock : ICON.iconUnlock}
-                        alt="공개설정"
-                      />
-                    </div>
-                  </StLeft>
-                  <StMiddle
+            {roomsData?.map((room, i) => (
+              <StContainer
+                key={`roomList${i}`}
+                iswaiting={(
+                  room.isPlaying || room.currentMembers === room.maxMembers
+                ).toString()}
+              >
+                <StLeft>
+                  <StButton
                     isplaying={
                       room.isPlaying || room.currentMembers === room.maxMembers
                     }
+                    color="#111"
                   >
-                    <StRoomNum>{room.roomId}</StRoomNum>
-                    <StRoomName> {room.roomName}</StRoomName>
-                  </StMiddle>
-
-                  {!(
+                    {room.currentMembers}/{room.maxMembers}
+                  </StButton>
+                  <StButton
+                    isplaying={
+                      room.isPlaying || room.currentMembers === room.maxMembers
+                    }
+                    color="#00831D"
+                  >
+                    {room.isPlaying ? "진행" : "대기"}
+                  </StButton>
+                  <div>
+                    <img
+                      src={room.isPrivate ? ICON.iconLock : ICON.iconUnlock}
+                      alt="공개설정"
+                    />
+                  </div>
+                </StLeft>
+                <StMiddle
+                  isplaying={
                     room.isPlaying || room.currentMembers === room.maxMembers
-                  ) ? (
-                    <StEnterRoom
-                      onClick={() =>
-                        enterInRoomHandler(room.roomId, room.isPrivate)
-                      }
-                      disabled={
-                        room.isPlaying ||
-                        room.currentMembers === room.maxMembers
-                      }
-                      isplaying={(
-                        room.isPlaying ||
-                        room.currentMembers === room.maxMembers
-                      ).toString()}
-                      whileHover={{
-                        color: "#fff",
-                        backgroundColor: "#000",
-                        scale: 1.1,
-                      }}
-                      transition={{ type: "spring" }}
-                    >
-                      입장
-                    </StEnterRoom>
-                  ) : (
-                    <StEnterRoom
-                      disabled={
-                        room.isPlaying ||
-                        room.currentMembers === room.maxMembers
-                      }
-                      isplaying={(
-                        room.isPlaying ||
-                        room.currentMembers === room.maxMembers
-                      ).toString()}
-                    >
-                      입장
-                    </StEnterRoom>
-                  )}
-                </StContainer>
-              ))}
+                  }
+                >
+                  <StRoomNum>{room.roomId}</StRoomNum>
+                  <StRoomName> {room.roomName}</StRoomName>
+                </StMiddle>
+
+                {!(
+                  room.isPlaying || room.currentMembers === room.maxMembers
+                ) ? (
+                  <StEnterRoom
+                    onClick={() =>
+                      enterInRoomHandler(room.roomId, room.isPrivate)
+                    }
+                    disabled={
+                      room.isPlaying || room.currentMembers === room.maxMembers
+                    }
+                    isplaying={(
+                      room.isPlaying || room.currentMembers === room.maxMembers
+                    ).toString()}
+                    whileHover={{
+                      color: "#fff",
+                      backgroundColor: "#000",
+                      scale: 1.1,
+                    }}
+                    transition={{ type: "spring" }}
+                  >
+                    입장
+                  </StEnterRoom>
+                ) : (
+                  <StEnterRoom
+                    disabled={
+                      room.isPlaying || room.currentMembers === room.maxMembers
+                    }
+                    isplaying={(
+                      room.isPlaying || room.currentMembers === room.maxMembers
+                    ).toString()}
+                  >
+                    입장
+                  </StEnterRoom>
+                )}
+              </StContainer>
+            ))}
           </>
         )}
       </StWrapper>

@@ -4,11 +4,9 @@ import Modal from "../../components/form/modal/Modal";
 import { IMG } from "../../helpers/image";
 import GameInfo from "./kakao/ele/GameInfo";
 
-
 const KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_ID}&redirect_uri=${process.env.REACT_APP_REDIRECT}kakao&response_type=code`;
 const Intro = () => {
   const [modal, setModal] = useState(false);
-
 
   const setModalHandler = () => {
     setModal((prev) => !prev);
@@ -16,11 +14,16 @@ const Intro = () => {
 
   return (
     <StWrapper>
-      <Modal modal={modal.toString()} closeModal={setModalHandler} width="628px" height="600px">
+      <Modal
+        modal={modal.toString()}
+        closeModal={setModalHandler}
+        width="628px"
+        height="600px"
+      >
         <GameInfo closeModal={setModalHandler} />
       </Modal>
       <StContainer>
-        <img src={IMG.GameIntro} width="900" alt='인트로 이미지'/>
+        <img src={IMG.GameIntro} width="900" alt="인트로 이미지" />
         <StBtnBox>
           <StBtn onClick={setModalHandler} color="#fff">
             게임 설명보기
@@ -53,7 +56,6 @@ const StContainer = styled.div`
     margin-bottom: 50px;
   }
 `;
-
 
 const StBtnBox = styled.div`
   display: flex;

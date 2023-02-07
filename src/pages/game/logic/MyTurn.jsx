@@ -7,7 +7,7 @@ import { StButton } from "../../Button";
 import Timer from "../ele/Timer";
 import Indicate from "./Indicate";
 
-const MyTurn = ({ GameTurn,selectIndicaterCard,userId }) => {
+const MyTurn = ({ GameTurn, selectIndicaterCard, userId }) => {
   const { StTitle, StWrapper } = BootStrap;
   const { gameInfo } = useSelector((state) => state.gameSlice);
   const [select, setSelect] = useState(null);
@@ -15,52 +15,64 @@ const MyTurn = ({ GameTurn,selectIndicaterCard,userId }) => {
     (state) => state.gameSlice.gameInfo
   );
   if (blackCards === 0 && whiteCards === 0)
-    return <Indicate selectIndicaterCard={selectIndicaterCard} userId={userId}/>;
+    return (
+      <Indicate selectIndicaterCard={selectIndicaterCard} userId={userId} />
+    );
   return (
     <StWrapper gap="4px">
       <StTitle mgtop="30px" width="270px">
         가져올 타일의 색상을 정해주세요!
       </StTitle>
       <StTileNumber>
-        {gameInfo.blackCards === 0||<div>
-          남은 검은색 타일 <span>{gameInfo.blackCards}개</span>
-        </div>}
-        {gameInfo.whiteCards === 0||<div>
-          남은 흰색 타일 <span>{gameInfo.whiteCards}개</span>
-        </div>}
+        {gameInfo.blackCards === 0 || (
+          <div>
+            남은 검은색 타일 <span>{gameInfo.blackCards}개</span>
+          </div>
+        )}
+        {gameInfo.whiteCards === 0 || (
+          <div>
+            남은 흰색 타일 <span>{gameInfo.whiteCards}개</span>
+          </div>
+        )}
       </StTileNumber>
       <StCardContainer>
-        {gameInfo.blackCards === 0||<StCardBox>
-          <div>검은색 타일</div>
-          <StCard
-            src={ICON.blackBack}
-            alt="검은색"
-            onClick={() => setSelect("black")}
-          />
-          {gameInfo.blackCards === 0 ? (
-            <StDiv>남아있는 타일이 없습니다</StDiv>
-          ) : select === "black" ? (
-            <StSelect>선택</StSelect>
-          ) : (
-            <StSelectNull />
-          )}{" "}
-        </StCardBox>}
-        {gameInfo.blackCards === 0||gameInfo.whiteCards === 0||<StLine></StLine>}
-        {gameInfo.whiteCards === 0||<StCardBox>
-          <div>흰색 타일</div>
-          <StCard
-            src={ICON.whiteBack}
-            alt="흰색"
-            onClick={() => setSelect("white")}
-          />
-          {gameInfo.whiteCards === 0 ? (
-            <StDiv>남아있는 타일이 없습니다</StDiv>
-          ) : select === "white" ? (
-            <StSelect>선택</StSelect>
-          ) : (
-            <StSelectNull />
-          )}
-        </StCardBox>}
+        {gameInfo.blackCards === 0 || (
+          <StCardBox>
+            <div>검은색 타일</div>
+            <StCard
+              src={ICON.blackBack}
+              alt="검은색"
+              onClick={() => setSelect("black")}
+            />
+            {gameInfo.blackCards === 0 ? (
+              <StDiv>남아있는 타일이 없습니다</StDiv>
+            ) : select === "black" ? (
+              <StSelect>선택</StSelect>
+            ) : (
+              <StSelectNull />
+            )}{" "}
+          </StCardBox>
+        )}
+        {gameInfo.blackCards === 0 || gameInfo.whiteCards === 0 || (
+          <StLine></StLine>
+        )}
+        {gameInfo.whiteCards === 0 || (
+          <StCardBox>
+            <div>흰색 타일</div>
+            <StCard
+              src={ICON.whiteBack}
+              alt="흰색"
+              onClick={() => setSelect("white")}
+            />
+            {gameInfo.whiteCards === 0 ? (
+              <StDiv>남아있는 타일이 없습니다</StDiv>
+            ) : select === "white" ? (
+              <StSelect>선택</StSelect>
+            ) : (
+              <StSelectNull />
+            )}
+          </StCardBox>
+        )}
       </StCardContainer>
       <StButton
         variant={select ? "primary" : "gray"}

@@ -10,8 +10,8 @@ import Timer from "../ele/Timer";
 const IntroTile = ({ selectTile }) => {
   const [black, setBlack] = useState(0);
   const [select, setSelect] = useState(false);
-  const [hasClick, setHasClick] = useState(false)
-  const [num, setNum] = useState(4)
+  const [hasClick, setHasClick] = useState(false);
+  const [num, setNum] = useState(4);
   const countBlackBtn = [
     { value: 0, color: "#f5f6fa" },
     { value: 1, color: "#dcdde1" },
@@ -20,13 +20,13 @@ const IntroTile = ({ selectTile }) => {
     { value: 4, color: "#1c1e20" },
   ];
   const { StTitle, StText } = BootStrap;
-  const {roomInfo} = useSelector(state=>state.gameSlice)
-  const blackList = countBlackBtn.filter((el,i)=>i<num+1)
+  const { roomInfo } = useSelector((state) => state.gameSlice);
+  const blackList = countBlackBtn.filter((el, i) => i < num + 1);
 
-  useEffect(()=>{
-    if(roomInfo?.memebers===4) setNum(3)
-    else setNum(4)
-  },[roomInfo])
+  useEffect(() => {
+    if (roomInfo?.memebers === 4) setNum(3);
+    else setNum(4);
+  }, [roomInfo]);
 
   return (
     <StWrapper>
@@ -62,17 +62,19 @@ const IntroTile = ({ selectTile }) => {
           ></StRoundBtn>
         ))}
       </StRoundBtns>
-      {!hasClick&&<StButton
-        variant="primary"
-        mgtop="14px"
-        onClick={() => {
-          setSelect(false);
-          selectTile(black);
-          setHasClick(true);
-        }}
-      >
-        확인
-      </StButton>}
+      {!hasClick && (
+        <StButton
+          variant="primary"
+          mgtop="14px"
+          onClick={() => {
+            setSelect(false);
+            selectTile(black);
+            setHasClick(true);
+          }}
+        >
+          확인
+        </StButton>
+      )}
       {select && <Timer timeOver={() => selectTile(black)} />}
       <Timer timeOver={() => selectTile(black)} />
     </StWrapper>

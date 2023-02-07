@@ -12,23 +12,19 @@ import Ranking from "./elements/Ranking";
 import RoomList from "./elements/RoomList";
 
 const Lobby = () => {
-  const navigate=useNavigate()
-  const dispatch = useDispatch()
-  const { isLoading } = useQuery(
-    [queryKeys.MYINFO],
-    SignAPI.myinfo,
-    {
-      onSuccess: (res) => {
-        dispatch(setUser(res.data))
-      },
-      onError: () => {
-        navigate('/intro')
-      },
-      staleTime: 60 * 60 * 1000,
-      cacheTime: 60 * 60 * 1000,
-    }
-  );
-  if(isLoading) return PAGE.Loading
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { isLoading } = useQuery([queryKeys.MYINFO], SignAPI.myinfo, {
+    onSuccess: (res) => {
+      dispatch(setUser(res.data));
+    },
+    onError: () => {
+      navigate("/intro");
+    },
+    staleTime: 60 * 60 * 1000,
+    cacheTime: 60 * 60 * 1000,
+  });
+  if (isLoading) return PAGE.Loading;
   return (
     <>
       <LobbyHeader />

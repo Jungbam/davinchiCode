@@ -10,7 +10,7 @@ const IndividualRanking = ({ users, status }) => {
   const usersRanking = users
     ?.filter((el) => el.ranking !== null)
     .filter((el, i) => i < 10);
-    
+
   const numImg = (num) => {
     if (num > 0) return ICON.iconScorePlus;
     if (num < 0) return ICON.iconScoreMinus;
@@ -27,9 +27,9 @@ const IndividualRanking = ({ users, status }) => {
               <StRank>
                 <StPlayerRanking>{el.ranking}</StPlayerRanking>
                 <StPlayerRankingActive
-                  color={(el.prevRanking-el.ranking).toString()}
+                  color={(el.prevRanking - el.ranking).toString()}
                 >
-                  <img src={numImg(el.prevRanking- el.ranking)} alt="순위" />{" "}
+                  <img src={numImg(el.prevRanking - el.ranking)} alt="순위" />{" "}
                   {Math.abs(el.ranking - el.prevRanking)}
                 </StPlayerRankingActive>
               </StRank>

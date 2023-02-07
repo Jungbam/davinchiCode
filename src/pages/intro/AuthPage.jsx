@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login, logout } from "../../redux/modules/signSlice";
@@ -21,9 +21,7 @@ const AuthPage = () => {
     },
   });
   if (isLoding) return PAGE.Loading;
-  return (
-    <div></div>
-  )
-}
+  return <div></div>;
+};
 
-export default AuthPage
+export default AuthPage;
