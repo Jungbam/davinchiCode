@@ -147,7 +147,7 @@ const Stimg = styled.img`
   height: ${({ height }) => height || "102px"};
   object-fit: contain;
 `;
-const StScoreUp = styled(motion.div)`
+const StScoreUp = styled(motion.button)`
   border: none;
   padding: 4px 6px;
   font-size: 12px;
