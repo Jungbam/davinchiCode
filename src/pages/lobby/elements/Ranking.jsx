@@ -26,7 +26,7 @@ const TextVariants = {
   },
 };
 
-const a = (num) => {
+const numImg = (num) => {
   if (num > 0) return ICON.iconScorePlus;
   if (num < 0) return ICON.iconScoreMinus;
   if (!num) return ICON.iconScoreStable;
@@ -97,7 +97,7 @@ const Ranking = () => {
               ).toString()}
             >
               <img
-                src={a(myData?.data.ranking - myData?.data.prevRanking)}
+                src={numImg(myData?.data.prevRanking-myData?.data.ranking)}
                 alt="순위"
               />{" "}
               {Math.abs(myData?.data.ranking - myData?.data.prevRanking)}
