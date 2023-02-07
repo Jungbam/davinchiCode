@@ -164,6 +164,7 @@ const RoomContents = ({ isWaiting, isPrivate, roomsData, status }) => {
             <StInputPass
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              maxLength={4}
             />
             <StDesc>비밀번호 숫자 4자리 입력</StDesc>
             <div
