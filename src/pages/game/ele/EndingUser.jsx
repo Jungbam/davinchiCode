@@ -94,18 +94,20 @@ const EndingUser = ({ user, one, rank }) => {
             {numberWithCommas(scoreValue)}
           </motion.div>
         ) : (
-          <StDiv>{numberWithCommas(scoreValue)}</StDiv>
+          <StDiv variants={scoreVariants} initial="hidden" animate="visible">
+            {numberWithCommas(scoreValue)}
+          </StDiv>
         )}
 
         {changing ? (
-          <StScoreUp
-            variants={changeVariants}
-            initial="hidden"
-            animate="visible"
-            changed={user?.change}
-            one={one}
-          >
-            {user?.change}
+          <StScoreUp one={one} changed={user?.change}>
+            <motion.span
+              variants={changeVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              {user?.change}
+            </motion.span>
           </StScoreUp>
         ) : (
           <StScoreUpNull></StScoreUpNull>
@@ -148,6 +150,8 @@ const Stimg = styled.img`
   object-fit: contain;
 `;
 const StScoreUp = styled(motion.button)`
+  min-width: 42px;
+  height: 20px;
   border: none;
   padding: 4px 6px;
   font-size: 12px;
@@ -170,7 +174,7 @@ const StScoreUpNull = styled.div`
   border: none;
 `;
 
-const StDiv = styled.div`
+const StDiv = styled(motion.div)`
   font-size: 14px;
   font-weight: 600;
 `;
