@@ -16,16 +16,15 @@ const MyTurn = ({ GameTurn }) => {
         가져올 타일의 색상을 정해주세요!
       </StTitle>
       <StTileNumber>
-        <div>
+        {gameInfo.blackCards === 0||<div>
           남은 검은색 타일 <span>{gameInfo.blackCards}개</span>
-        </div>
-
-        <div>
+        </div>}
+        {gameInfo.whiteCards === 0||<div>
           남은 흰색 타일 <span>{gameInfo.whiteCards}개</span>
-        </div>
+        </div>}
       </StTileNumber>
       <StCardContainer>
-        <StCardBox>
+        {gameInfo.blackCards === 0||<StCardBox>
           <div>검은색 타일</div>
           <StCard
             src={ICON.blackBack}
@@ -39,17 +38,15 @@ const MyTurn = ({ GameTurn }) => {
           ) : (
             <StSelectNull />
           )}{" "}
-        </StCardBox>
+        </StCardBox>}
         <StLine></StLine>
-        <StCardBox>
+        {gameInfo.whiteCards === 0||<StCardBox>
           <div>흰색 타일</div>
-
           <StCard
             src={ICON.whiteBack}
             alt="흰색"
             onClick={() => setSelect("white")}
           />
-
           {gameInfo.whiteCards === 0 ? (
             <StDiv>남아있는 타일이 없습니다</StDiv>
           ) : select === "white" ? (
@@ -57,7 +54,7 @@ const MyTurn = ({ GameTurn }) => {
           ) : (
             <StSelectNull />
           )}
-        </StCardBox>
+        </StCardBox>}
       </StCardContainer>
       <StButton
         variant={select ? "primary" : "gray"}

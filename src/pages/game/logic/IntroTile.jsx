@@ -10,6 +10,7 @@ import Timer from "../ele/Timer";
 const IntroTile = ({ selectTile }) => {
   const [black, setBlack] = useState(0);
   const [select, setSelect] = useState(false);
+  const [hasClick, setHasClick] = useState(false)
   const [num, setNum] = useState(4)
   const countBlackBtn = [
     { value: 0, color: "#f5f6fa" },
@@ -33,7 +34,7 @@ const IntroTile = ({ selectTile }) => {
         가져올 타일을 정해주세요!
       </StTitle>
       <StText mgtop="16px">
-        처음 주어지는 타일은 3개입니다. 아래의 버튼을 클릭하여 원하는 색상의
+        처음 주어지는 타일은 {num}개입니다. 아래의 버튼을 클릭하여 원하는 색상의
         타일을 획득하세요.
       </StText>
       <StCardArea>
@@ -61,16 +62,17 @@ const IntroTile = ({ selectTile }) => {
           ></StRoundBtn>
         ))}
       </StRoundBtns>
-      <StButton
+      {!hasClick&&<StButton
         variant="primary"
         mgtop="14px"
         onClick={() => {
           setSelect(false);
           selectTile(black);
+          setHasClick(true);
         }}
       >
         확인
-      </StButton>
+      </StButton>}
       {select && <Timer timeOver={() => selectTile(black)} />}
     </StWrapper>
   );
