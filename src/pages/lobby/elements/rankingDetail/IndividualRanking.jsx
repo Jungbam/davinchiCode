@@ -27,7 +27,7 @@ const IndividualRanking = ({ users, status }) => {
               <StRank>
                 <StPlayerRanking>{el.ranking}</StPlayerRanking>
                 <StPlayerRankingActive
-                  color={(el.ranking - el.prevRanking).toString()}
+                  color={(el.prevRanking-el.ranking).toString()}
                 >
                   <img src={numImg(el.prevRanking- el.ranking)} alt="순위" />{" "}
                   {Math.abs(el.ranking - el.prevRanking)}

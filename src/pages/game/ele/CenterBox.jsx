@@ -151,6 +151,7 @@ const CenterBox = ({ socket, userId }) => {
       setGameView(<Turn GameTurn={GameTurn} userId={userId} />);
     });
     socket.current?.on(eventName.GAMEOVER, (endingInfo, gameInfo) => {
+      SoundEffect.GameOver()
       dispatch(setInit());
       dispatch(setEndingInfo(endingInfo));
       dispatch(setUsers(gameInfo));

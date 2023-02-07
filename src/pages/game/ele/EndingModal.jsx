@@ -1,19 +1,20 @@
 import React from "react";
+import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import useSound from "use-sound";
 
 import Moddal from "../../../components/form/modal/Moddal";
 import { ICON } from "../../../helpers/Icons";
-import { Sounds } from "../../../helpers/sounds";
 import { BootStrap } from "../../BootStrap";
 
 const EndingModal = ({ ending, endingHandler }) => {
   const { StWrapper } = BootStrap;
-  const [play] = useSound(Sounds.Test);
+  const [changing, setChanging] = useState({
+    
+  })
   useEffect(() => {
-    play();
+
   }, []);
   const { endingInfo } = useSelector((state) => state.gameSlice);
 

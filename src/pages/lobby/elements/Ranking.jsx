@@ -93,7 +93,7 @@ const Ranking = () => {
             <StPlayerRanking>{myData?.data.ranking}</StPlayerRanking>
             <StPlayerRankingActive
               color={(
-                myData?.data.ranking - myData?.data.prevRanking
+                myData?.data.prevRanking-myData?.data.ranking
               ).toString()}
             >
               <img
