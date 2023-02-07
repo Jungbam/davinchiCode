@@ -55,7 +55,7 @@ const ResultSelect = ({ gameResult, security, result, goStop }) => {
         </span>
         님의 타일이 공개됩니다.
       </StP>
-      <StCardArea childwidth="56px" height="80px">
+      <StCardArea childwidth="56px" height="80px" gap="20px">
         <DavinchiCard card={{ value: "Back", color: "white" }} />
         <DavinchiCard card={{ value: "Back", color: "black" }} />
       </StCardArea>

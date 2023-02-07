@@ -35,9 +35,8 @@ export const RoomAPI = {
     gameClient.post(`/rooms/${roomId}`, { password }),
   searchRoom: ({ currentPage, searchType = "name", search = "" }) =>
     gameClient.get(
-      `/rooms?page=${currentPage}&searchType=${searchType}&search=${search}`
+      `/rooms?page=${currentPage}&search-type=${searchType}&search=${search}`
     ),
   quickStart: () => gameClient.get(`/rooms/quick-start`),
   showRanking: () => client.get("/users"),
-  showMyRanking: () => client.get("/users/me"),
 };

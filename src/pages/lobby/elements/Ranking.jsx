@@ -5,7 +5,7 @@ import IndividualRanking from "./rankingDetail/IndividualRanking";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { ICON } from "../../../helpers/Icons";
-import { RoomAPI } from "../../../api/axios";
+import { RoomAPI, SignAPI } from "../../../api/axios";
 import { useNavigate } from "react-router-dom";
 
 const TextVariants = {
@@ -48,14 +48,24 @@ const Ranking = () => {
     handleInterval();
   }, [textIndex]);
 
-  const { data } = useQuery(["PERSONAL_RANKING"], () => RoomAPI.showRanking(), {
-    onError: () => navigate("/error"),
-  });
-
-  const { data: myData } = useQuery(
-    ["MY_RANKING"],
-    () => RoomAPI.showMyRanking(),
+  const { status, data } = useQuery(
+    ["PERSONAL_RANKING"],
+    () => RoomAPI.showRanking(),
     {
+      staleTime:
+        ((59 - new Date().getMinutes()) * 60 + (60 - new Date().getSeconds())) *
+        1000,
+      onError: () => navigate("/error"),
+    }
+  );
+
+  const { status: myStatus, data: myData } = useQuery(
+    ["MY_RANKING"],
+    () => SignAPI.myinfo(),
+    {
+      staleTime:
+        ((59 - new Date().getMinutes()) * 60 + (60 - new Date().getSeconds())) *
+        1000,
       onError: () => navigate("/error"),
     }
   );
@@ -64,27 +74,42 @@ const Ranking = () => {
     <StRankingWrapper>
       <StRankingHeader>게임순위</StRankingHeader>
       <StIndividualWrapper>
-        <IndividualRanking users={data?.data} />
+        <IndividualRanking users={data?.data} status={status} />
       </StIndividualWrapper>
-      <StWrapper color="#efffec">
-        <StRank>
-          <StPlayerRanking>{myData?.data.ranking}</StPlayerRanking>
-          <StPlayerRankingActive
-            color={(myData?.data.ranking - myData?.data.prevRanking).toString()}
-          >
-            <img
-              src={a(myData?.data.ranking - myData?.data.prevRanking)}
-              alt="순위"
-            />{" "}
-            {Math.abs(myData?.data.ranking - myData?.data.prevRanking)}
-          </StPlayerRankingActive>
-        </StRank>
-        <StRankDetail>
-          <StUserProfile src={myData?.data.profileImageUrl} />
-          <StUserName>{myData?.data.username}</StUserName>
-          <StUserScore>{numberWithCommas(myData?.data.score)}</StUserScore>
-        </StRankDetail>
-      </StWrapper>
+      {myStatus === "loading" && (
+        <StWrapper color="#efffec">
+          <Sta>
+            <StA></StA>
+            <StB></StB>
+          </Sta>
+          <Stb></Stb>
+          <Stc></Stc>
+          <Std></Std>
+        </StWrapper>
+      )}
+      {myStatus === "success" && (
+        <StWrapper color="#efffec">
+          <StRank>
+            <StPlayerRanking>{myData?.data.ranking}</StPlayerRanking>
+            <StPlayerRankingActive
+              color={(
+                myData?.data.ranking - myData?.data.prevRanking
+              ).toString()}
+            >
+              <img
+                src={a(myData?.data.ranking - myData?.data.prevRanking)}
+                alt="순위"
+              />{" "}
+              {Math.abs(myData?.data.ranking - myData?.data.prevRanking)}
+            </StPlayerRankingActive>
+          </StRank>
+          <StRankDetail>
+            <StUserProfile src={myData?.data.profileImageUrl} />
+            <StUserName>{myData?.data.username}</StUserName>
+            <StUserScore>{numberWithCommas(myData?.data.score)}</StUserScore>
+          </StRankDetail>
+        </StWrapper>
+      )}
 
       <StRankingBottom>
         {textIndex ? (
@@ -258,3 +283,72 @@ const StText = styled(motion.div)`
   }
 `;
 export default Ranking;
+
+const Sta = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-right: 41px;
+  width: 26px;
+  height: 33px;
+`;
+
+const StA = styled.div`
+  width: 14px;
+  height: 14px;
+  border-radius: 2px;
+  background-image: linear-gradient(
+    to right,
+    #d6eed1 0%,
+    #e8ffe3 51%,
+    #d6eed1 100%
+  );
+`;
+
+const StB = styled.div`
+  width: 26px;
+  height: 14px;
+  border-radius: 2px;
+  background-image: linear-gradient(
+    to right,
+    #d6eed1 0%,
+    #e8ffe3 51%,
+    #d6eed1 100%
+  );
+`;
+
+const Stb = styled.div`
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  background-image: linear-gradient(
+    to right,
+    #d6eed1 0%,
+    #e8ffe3 51%,
+    #d6eed1 100%
+  );
+`;
+const Stc = styled.div`
+  width: 74px;
+  height: 20px;
+  border-radius: 2px;
+  background-image: linear-gradient(
+    to right,
+    #d6eed1 0%,
+    #e8ffe3 51%,
+    #d6eed1 100%
+  );
+
+  margin-right: 80px;
+`;
+const Std = styled.div`
+  width: 74px;
+  height: 14px;
+  border-radius: 2px;
+  background-image: linear-gradient(
+    to right,
+    #d6eed1 0%,
+    #e8ffe3 51%,
+    #d6eed1 100%
+  );
+`;

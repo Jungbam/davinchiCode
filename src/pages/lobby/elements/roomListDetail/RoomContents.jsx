@@ -1,48 +1,24 @@
 import styled from "styled-components";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { queryKeys } from "../../../../helpers/queryKeys";
 import DisabledImage from "../../../../assets/images/lobby_disabled_room.png";
 import { motion } from "framer-motion";
 import { ICON } from "../../../../helpers/Icons";
 import { useState } from "react";
 import { RoomAPI } from "../../../../api/axios";
 import { BootStrap } from "../../../BootStrap";
-import { useSelector } from "react-redux";
-import { useEffect } from "react";
 import Moddal from "../../../../components/form/modal/Moddal";
+import RoomListSkell from "./RoomListSkell";
 
-const RoomContents = ({
-  isWaiting,
-  isPrivate,
-  currentPage,
-  setTotalPage,
-  search,
-  searchType,
-  roomsData,
-  setRoomsData,
-}) => {
+const RoomContents = ({ isWaiting, isPrivate, roomsData, status }) => {
   const [modal, setModal] = useState(false);
   const [inRoom, setInRoom] = useState(0);
   const [passwordError, setPasswordError] = useState("");
   const [inRoomPrivate, setInRoomPrivate] = useState(false);
   const [password, setPassword] = useState("");
-  const { reFetch } = useSelector((state) => state.signSlice);
   const { StBtn, StWrapper } = BootStrap;
   const navigate = useNavigate();
 
-  const { status } = useQuery(
-    [queryKeys.ROOM_LIST, currentPage],
-    () => RoomAPI.searchRoom({ currentPage, search, searchType }),
-    {
-      keepPreviousData: true,
-      onSuccess: (data) => {
-        setTotalPage((prev) => data.data.totalPage);
-        setRoomsData(data.data.rooms);
-      },
-      onError: () => navigate("/error"),
-    }
-  );
   const enterInRoomHandler = (roomId, isPrivate) => {
     setModal(true);
     setInRoomPrivate(isPrivate);
@@ -84,11 +60,10 @@ const RoomContents = ({
       },
     }
   );
-  useEffect(() => {}, [reFetch]);
   return (
     <>
       <StWrapper jus="flex-start" padding="7px 0">
-        {status === "loading" && <div>Loading...</div>}
+        {status === "loading" && <RoomListSkell />}
         {status === "success" && (
           <>
             {roomsData
