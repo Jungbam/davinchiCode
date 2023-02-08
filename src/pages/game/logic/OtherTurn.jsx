@@ -5,7 +5,7 @@ import { ICON } from "../../../helpers/Icons";
 
 const OtherTurn = ({ text }) => {
   const { gameInfo } = useSelector((state) => state.gameSlice);
-  const turnUser = gameInfo.users.filter((el) => el.userId === gameInfo.turn);
+  const turnUser = gameInfo.users.filter((el) => el?.userId === gameInfo?.turn);
   return (
     <StWrapper>
       <StCardContainer>

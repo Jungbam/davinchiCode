@@ -7,7 +7,7 @@ import DavinchiCard from "../ele/DavinchiCard";
 const ThrowMine = ({ userId, openMine }) => {
   const { users } = useSelector((state) => state.gameSlice.gameInfo);
   const [select, setSelect] = useState({ index: null, value: null });
-  const mine = users.filter((el) => el.userId === userId)[0]?.hand;
+  const mine = users.filter((el) => el?.userId === userId)[0]?.hand;
 
   return (
     <div>

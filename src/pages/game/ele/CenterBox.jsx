@@ -24,7 +24,6 @@ import GoStop from "../logic/GoStop";
 import { useEffect } from "react";
 import EndingModal from "./EndingModal";
 import ThrowMine from "../logic/ThrowMine";
-import { IMG } from "../../../helpers/image";
 import useSounds from "../../../hooks/useSounds";
 
 const CenterBox = ({ socket, userId }) => {
@@ -71,7 +70,7 @@ const CenterBox = ({ socket, userId }) => {
   }
   function guessCard(indicatedUser, select) {
     const guessValue = { ...select };
-    socket.current.emit(eventName.GUESS, indicatedUser[0].userId, guessValue);
+    socket.current.emit(eventName.GUESS, indicatedUser[0]?.userId, guessValue);
   }
   function goStop(result, security) {
     dispatch(setIndicater(null));

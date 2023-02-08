@@ -12,7 +12,7 @@ const Indicate = ({ selectIndicaterCard, userId }) => {
   const { indicated, gameInfo } = useSelector((state) => state.gameSlice);
   const others = gameInfo?.users.filter((user) => user?.userId !== userId);
   const indicatedUser = gameInfo?.users?.filter(
-    (el) => el.userId === indicated
+    (el) => el?.userId === indicated
   );
   const { turn } = useSelector((state) => state.gameSlice.gameInfo);
   const dispatch = useDispatch();

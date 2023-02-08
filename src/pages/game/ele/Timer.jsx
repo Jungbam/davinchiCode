@@ -108,7 +108,7 @@ const StSecond = styled.div`
     if (second < 10) return `red`;
     else return "black";
   }};
-  width: 61px;
+  width: 70px;
   height: 12px;
   display: flex;
   justify-content: center;

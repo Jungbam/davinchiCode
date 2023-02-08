@@ -43,7 +43,7 @@ const UsersBox = ({ user, turn, userId }) => {
           {turn === userId && initBtn && !gameover && (
             <StAbsoluteBtn
               background={indicatedMe ? "#ffdf24" : "#009320"}
-              onClick={() => dispatch(setIndicater(user.userId))}
+              onClick={() => dispatch(setIndicater(user?.userId))}
             >
               지목하기
             </StAbsoluteBtn>
@@ -56,12 +56,12 @@ const UsersBox = ({ user, turn, userId }) => {
             />
             <div>{user.userName}</div>
           </StUserProfile>
-          {initReady && user?.hasOwnProperty("isReady") && user.isReady && (
+          {initReady && user?.hasOwnProperty("isReady") && user?.isReady && (
             <StAbsoluteBtn>준비완료</StAbsoluteBtn>
           )}
           <StCardArea>
             {user?.hand?.map((card, i) => (
-              <DavinchiCard key={`${user.userName}${i}`} card={card} />
+              <DavinchiCard key={`${user?.userName}${i}`} card={card} />
             ))}
           </StCardArea>
         </StOtherUsers>
