@@ -64,7 +64,7 @@ const UsersBox = ({ user, turn, userId }) => {
               <DavinchiCard
                 key={`${user.userName}${i}`}
                 card={card}
-                size="md"
+                size="sm"
               />
             ))}
           </StCardArea>

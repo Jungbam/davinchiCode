@@ -9,8 +9,8 @@ const OtherTurn = ({ text }) => {
   return (
     <StWrapper>
       <StCardContainer>
-        <StImg src={ICON.blackBack} alt="다빈치 코드" />
-        <StImg src={ICON.whiteBack} alt="다빈치 코드" />
+        <StImg src={ICON.xlblackBack} alt="다빈치 코드" />
+        <StImg src={ICON.xlwhiteBack} alt="다빈치 코드" />
       </StCardContainer>
       <StP>
         <StName>{turnUser[0]?.userName}</StName>님이 {text}를 진행중입니다.

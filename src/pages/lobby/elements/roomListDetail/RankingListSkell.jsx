@@ -7,12 +7,12 @@ const RankingListSkell = () => {
       {new Array(10).fill("_").map((el, i) => (
         <StWrapper key={`rankingskell${i}`}>
           <Sta>
-            <StA/>
-            <StB/>
+            <StA />
+            <StB />
           </Sta>
-          <Stb/>
-          <Stc/>
-          <Std/>
+          <Stb />
+          <Stc />
+          <Std />
         </StWrapper>
       ))}
     </>

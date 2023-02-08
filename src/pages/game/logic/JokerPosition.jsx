@@ -61,7 +61,7 @@ const JokerPosition = ({ selectedCard, cardPick }) => {
                             {...provided.dragHandleProps}
                             ref={provided.innerRef}
                           >
-                            <DavinchiCard card={card} size="md" />
+                            <DavinchiCard card={card} size="lg" />
                           </div>
                         );
                       }}

@@ -1,32 +1,32 @@
-import blackBack from "../assets/icons/tiles/back_black.png";
-import black0 from "../assets/icons/tiles/0_black.png";
-import black1 from "../assets/icons/tiles/1_black.png";
-import black2 from "../assets/icons/tiles/2_black.png";
-import black3 from "../assets/icons/tiles/3_black.png";
-import black4 from "../assets/icons/tiles/4_black.png";
-import black5 from "../assets/icons/tiles/5_black.png";
-import black6 from "../assets/icons/tiles/6_black.png";
-import black7 from "../assets/icons/tiles/7_black.png";
-import black8 from "../assets/icons/tiles/8_black.png";
-import black9 from "../assets/icons/tiles/9_black.png";
-import black10 from "../assets/icons/tiles/10_black.png";
-import black11 from "../assets/icons/tiles/11_black.png";
-import black12 from "../assets/icons/tiles/joker_black.png";
+import xlblackBack from "../assets/icons/tiles/xl/back_black.png";
+import xlblack0 from "../assets/icons/tiles/xl/0_black.png";
+import xlblack1 from "../assets/icons/tiles/xl/1_black.png";
+import xlblack2 from "../assets/icons/tiles/xl/2_black.png";
+import xlblack3 from "../assets/icons/tiles/xl/3_black.png";
+import xlblack4 from "../assets/icons/tiles/xl/4_black.png";
+import xlblack5 from "../assets/icons/tiles/xl/5_black.png";
+import xlblack6 from "../assets/icons/tiles/xl/6_black.png";
+import xlblack7 from "../assets/icons/tiles/xl/7_black.png";
+import xlblack8 from "../assets/icons/tiles/xl/8_black.png";
+import xlblack9 from "../assets/icons/tiles/xl/9_black.png";
+import xlblack10 from "../assets/icons/tiles/xl/10_black.png";
+import xlblack11 from "../assets/icons/tiles/xl/11_black.png";
+import xlblack12 from "../assets/icons/tiles/xl/joker_black.png";
 
-import whiteBack from "../assets/icons/tiles/back_white.png";
-import white0 from "../assets/icons/tiles/0_white.png";
-import white1 from "../assets/icons/tiles/1_white.png";
-import white2 from "../assets/icons/tiles/2_white.png";
-import white3 from "../assets/icons/tiles/3_white.png";
-import white4 from "../assets/icons/tiles/4_white.png";
-import white5 from "../assets/icons/tiles/5_white.png";
-import white6 from "../assets/icons/tiles/6_white.png";
-import white7 from "../assets/icons/tiles/7_white.png";
-import white8 from "../assets/icons/tiles/8_white.png";
-import white9 from "../assets/icons/tiles/9_white.png";
-import white10 from "../assets/icons/tiles/10_white.png";
-import white11 from "../assets/icons/tiles/11_white.png";
-import white12 from "../assets/icons/tiles/joker_white.png";
+import xlwhiteBack from "../assets/icons/tiles/xl/back_white.png";
+import xlwhite0 from "../assets/icons/tiles/xl/0_white.png";
+import xlwhite1 from "../assets/icons/tiles/xl/1_white.png";
+import xlwhite2 from "../assets/icons/tiles/xl/2_white.png";
+import xlwhite3 from "../assets/icons/tiles/xl/3_white.png";
+import xlwhite4 from "../assets/icons/tiles/xl/4_white.png";
+import xlwhite5 from "../assets/icons/tiles/xl/5_white.png";
+import xlwhite6 from "../assets/icons/tiles/xl/6_white.png";
+import xlwhite7 from "../assets/icons/tiles/xl/7_white.png";
+import xlwhite8 from "../assets/icons/tiles/xl/8_white.png";
+import xlwhite9 from "../assets/icons/tiles/xl/9_white.png";
+import xlwhite10 from "../assets/icons/tiles/xl/10_white.png";
+import xlwhite11 from "../assets/icons/tiles/xl/11_white.png";
+import xlwhite12 from "../assets/icons/tiles/xl/joker_white.png";
 
 import smblackBack from "../assets/icons/tiles/sm/b_back.png";
 import smblack0 from "../assets/icons/tiles/sm/b_0.png";
@@ -118,36 +118,6 @@ import lgwhite10 from "../assets/icons/tiles/lg/w_10.png";
 import lgwhite11 from "../assets/icons/tiles/lg/w_11.png";
 import lgwhite12 from "../assets/icons/tiles/lg/w_joker.png";
 
-import xlblackBack from "../assets/icons/tiles/xl/b_back.png";
-import xlblack0 from "../assets/icons/tiles/xl/b_0.png";
-import xlblack1 from "../assets/icons/tiles/xl/b_1.png";
-import xlblack2 from "../assets/icons/tiles/xl/b_2.png";
-import xlblack3 from "../assets/icons/tiles/xl/b_3.png";
-import xlblack4 from "../assets/icons/tiles/xl/b_4.png";
-import xlblack5 from "../assets/icons/tiles/xl/b_5.png";
-import xlblack6 from "../assets/icons/tiles/xl/b_6.png";
-import xlblack7 from "../assets/icons/tiles/xl/b_7.png";
-import xlblack8 from "../assets/icons/tiles/xl/b_8.png";
-import xlblack9 from "../assets/icons/tiles/xl/b_9.png";
-import xlblack10 from "../assets/icons/tiles/xl/b_10.png";
-import xlblack11 from "../assets/icons/tiles/xl/b_11.png";
-import xlblack12 from "../assets/icons/tiles/xl/b_joker.png";
-
-import xlwhiteBack from "../assets/icons/tiles/xl/w_back.png";
-import xlwhite0 from "../assets/icons/tiles/xl/w_0.png";
-import xlwhite1 from "../assets/icons/tiles/xl/w_1.png";
-import xlwhite2 from "../assets/icons/tiles/xl/w_2.png";
-import xlwhite3 from "../assets/icons/tiles/xl/w_3.png";
-import xlwhite4 from "../assets/icons/tiles/xl/w_4.png";
-import xlwhite5 from "../assets/icons/tiles/xl/w_5.png";
-import xlwhite6 from "../assets/icons/tiles/xl/w_6.png";
-import xlwhite7 from "../assets/icons/tiles/xl/w_7.png";
-import xlwhite8 from "../assets/icons/tiles/xl/w_8.png";
-import xlwhite9 from "../assets/icons/tiles/xl/w_9.png";
-import xlwhite10 from "../assets/icons/tiles/xl/w_10.png";
-import xlwhite11 from "../assets/icons/tiles/xl/w_11.png";
-import xlwhite12 from "../assets/icons/tiles/xl/w_joker.png";
-
 import iconRefresh from "../assets/icons/ico_refresh.svg";
 import iconSetting from "../assets/icons/ico_setting.svg";
 import iconVideocam from "../assets/icons/ico_videocam.svg";
@@ -183,35 +153,6 @@ import RankForth from "../assets/images/rank/rankfourth.png";
 import RankGameOver from "../assets/images/rank/gameover.png";
 
 export const ICON = {
-  blackBack,
-  black0,
-  black1,
-  black2,
-  black3,
-  black4,
-  black5,
-  black6,
-  black7,
-  black8,
-  black9,
-  black10,
-  black11,
-  black12,
-  whiteBack,
-  white0,
-  white1,
-  white2,
-  white3,
-  white4,
-  white5,
-  white6,
-  white7,
-  white8,
-  white9,
-  white10,
-  white11,
-  white12,
-
   iconSetting,
   iconVideocam,
   iconMic,

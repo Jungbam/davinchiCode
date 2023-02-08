@@ -4,7 +4,7 @@ import styled from "styled-components";
 const RoomListSkell = () => {
   return (
     <>
-      {new Array(12).fill("_").map((el,i) => (
+      {new Array(12).fill("_").map((el, i) => (
         <StContainer key={`roomlistskell${i}`}>
           <Sta></Sta>
           <Stb></Stb>

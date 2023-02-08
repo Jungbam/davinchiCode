@@ -13,7 +13,7 @@ const SelectPosition = ({ card, cardPick, selectIndicaterCard, userId }) => {
   return (
     <StWrapper jus="center" gap="10px">
       <StCardArea height="80px" childwidth="56px" mgtop="0px" mgLeft="0px">
-        <DavinchiCard card={card} size="md" />
+        <DavinchiCard card={card} size="lg" />
       </StCardArea>
       <Stdiv>
         뽑으신 타일의 숫자는 <span>{card.value}</span>입니다!

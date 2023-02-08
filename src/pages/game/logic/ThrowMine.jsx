@@ -16,7 +16,7 @@ const ThrowMine = ({ userId, openMine }) => {
           <div key={`${mine.userName}indicated${i}`}>
             <DavinchiCard
               card={card}
-              size="md"
+              size="lg"
               onClick={() =>
                 setSelect((prev) => {
                   return { ...prev, index: i };

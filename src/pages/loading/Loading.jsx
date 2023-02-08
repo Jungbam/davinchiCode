@@ -5,7 +5,7 @@ import { IMG } from "../../helpers/image";
 const Loading = () => {
   return (
     <StWrapper>
-      <StLoding src={IMG.GameLoading} alt="로딩중"/>
+      <StLoding src={IMG.GameLoading} alt="로딩중" />
     </StWrapper>
   );
 };
@@ -23,4 +23,4 @@ const StWrapper = styled.div`
 const StLoding = styled.img`
   width: 570px;
   height: 436px;
-`
+`;
