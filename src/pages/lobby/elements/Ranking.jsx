@@ -9,12 +9,6 @@ import { RoomAPI, SignAPI } from "../../../api/axios";
 import { useNavigate } from "react-router-dom";
 import { Variants } from "../../../helpers/Variants";
 
-const numImg = (num) => {
-  if (num > 0) return ICON.iconScorePlus;
-  if (num < 0) return ICON.iconScoreMinus;
-  if (!num) return ICON.iconScoreStable;
-};
-
 const Ranking = () => {
   const [textIndex, setTextIndex] = useState(false);
   const navigate = useNavigate();
@@ -72,24 +66,14 @@ const Ranking = () => {
       )}
       {myStatus === "success" && (
         <StWrapper color="#efffec">
-          <StRank>
-            <StPlayerRanking>{myData?.data.ranking}</StPlayerRanking>
-            <StPlayerRankingActive
-              color={(
-                myData?.data.prevRanking - myData?.data.ranking
-              ).toString()}
-            >
-              <img
-                src={numImg(myData?.data.prevRanking - myData?.data.ranking)}
-                alt="순위"
-              />{" "}
-              {Math.abs(myData?.data.ranking - myData?.data.prevRanking)}
-            </StPlayerRankingActive>
-          </StRank>
+          <StMyText>나의 랭킹</StMyText>
+          <StPlayerRanking>{myData?.data.ranking}</StPlayerRanking>
           <StRankDetail>
             <StUserProfile src={myData?.data.profileImageUrl} />
-            <StUserName>{myData?.data.username}</StUserName>
-            <StUserScore>{numberWithCommas(myData?.data.score)}</StUserScore>
+            <StRankDetailBox>
+              <StUserName>{myData?.data.username}</StUserName>
+              <StUserScore>{numberWithCommas(myData?.data.score)}</StUserScore>
+            </StRankDetailBox>
           </StRankDetail>
         </StWrapper>
       )}
@@ -115,7 +99,7 @@ const Ranking = () => {
             exit="exit"
           >
             <img src={ICON.iconAlert} alt="랭킹갱신" />
-            게임 순위는 1시간마다 업데이트됩니다
+            게임 순위는 실시간으로 업데이트됩니다
           </StText>
         )}
       </StRankingBottom>
@@ -153,7 +137,11 @@ const StIndividualWrapper = styled.div`
   height: 640px;
   background-color: #fff;
 `;
-
+const StMyText = styled.span`
+  font-weight: 700;
+  font-size: 14px;
+  color: #00831d;
+`;
 const StRankingBottom = styled.div`
   display: flex;
   justify-content: center;
@@ -162,11 +150,7 @@ const StRankingBottom = styled.div`
   height: 36px;
   border-radius: 0px 0px 5px 5px;
   background-color: #111111;
-
   font-size: 12px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
   line-height: 1;
   letter-spacing: normal;
   text-align: left;
@@ -182,23 +166,22 @@ const StWrapper = styled.div`
   justify-content: space-between;
   padding: 0 30px;
   border-bottom: 1px solid #ddd;
-`;
-
-const StRank = styled.div`
-  width: 40px;
-  height: 34px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+  gap: 15px;
 `;
 
 const StRankDetail = styled.div`
-  width: 292px;
+  width: 250px;
   height: 34px;
-
   margin-right: 10px;
+  padding-left: 15px;
   display: flex;
   align-items: center;
+`;
+
+const StRankDetailBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 `;
 
 const StUserProfile = styled.img`
@@ -212,49 +195,27 @@ const StUserProfile = styled.img`
 const StUserName = styled.div`
   width: 150px;
   font-size: 14px;
-  font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
+  font-weight: 700;
   line-height: 1;
-  letter-spacing: normal;
   text-align: left;
   color: #111;
-  margin-left: 15px;
+  margin-left: 25px;
 `;
 
 const StUserScore = styled.div`
   font-size: 12px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
   line-height: 1;
-  letter-spacing: normal;
   text-align: left;
   color: #333;
-  margin-left: 20px;
+  margin-left: 25px;
 `;
 
 const StPlayerRanking = styled.span`
   font-size: 14px;
   font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
   line-height: 1;
-  letter-spacing: normal;
   text-align: left;
   color: #111;
-`;
-
-const StPlayerRankingActive = styled.div`
-  font-size: 12px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1;
-  letter-spacing: normal;
-  text-align: left;
-  color: ${({ color }) =>
-    Number(color) > 0 ? "#ff601c" : Number(color) === 0 ? "#555" : "#00831d"};
 `;
 
 const StText = styled(motion.div)`
