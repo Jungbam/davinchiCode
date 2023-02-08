@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import emailjs from "@emailjs/browser";
-import exitModal from "../../../../assets/icons/ico_modal_cancle.svg";
+import exitModal from "../../../assets/icons/ico_modal_cancle.svg";
 import { StButton } from "../Button";
 
 const ComplaintBug = ({ closeModal }) => {
