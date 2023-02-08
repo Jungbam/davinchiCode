@@ -3,8 +3,8 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { ICON } from "../../../helpers/Icons";
-import { BootStrap } from "../../BootStrap";
-import { StButton } from "../../Button";
+import { BootStrap } from "../../../styles/BootStrap";
+import { StButton } from "../../../components/common/Button";
 import Timer from "../ele/Timer";
 
 const IntroTile = ({ selectTile }) => {

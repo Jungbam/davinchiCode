@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { AnimatePresence, motion } from "framer-motion";
-import SetUserInfo from "../../../pages/intro/kakao/SetUserInfo";
-import Logout from "../../form/sign/Logout";
-import DelAccount from "../../form/sign/DelAccount";
-import Moddal from "../../form/modal/Moddal";
+import SetUserInfo from "../../intro/kakao/SetUserInfo";
+import Logout from "../../../components/form/sign/Logout";
+import DelAccount from "../../../components/form/sign/DelAccount";
+import Moddal from "../../../components/form/modal/Moddal";
 
 function DropdownMenu({ userInfo }) {
   const [showMenu, setShowMenu] = useState(false);

@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { BootStrap } from "../../BootStrap";
+import { BootStrap } from "../../../styles/BootStrap";
 import Timer from "../ele/Timer";
 import OtherTurn from "./OtherTurn";
 

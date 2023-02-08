@@ -7,7 +7,7 @@ import { SignAPI } from "../../api/axios";
 import { queryKeys } from "../../helpers/queryKeys";
 import { setUser } from "../../redux/modules/signSlice";
 import { PAGE } from "../../helpers/IndexPage";
-import LobbyHeader from "../../components/common/elements/LobbyHeader";
+import LobbyHeader from "./elements/LobbyHeader";
 import Ranking from "./elements/Ranking";
 import RoomList from "./elements/RoomList";
 

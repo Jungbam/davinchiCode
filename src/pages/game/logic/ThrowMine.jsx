@@ -2,8 +2,8 @@ import React from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { BootStrap } from "../../BootStrap";
-import { StButton } from "../../Button";
+import { BootStrap } from "../../../styles/BootStrap";
+import { StButton } from "../../../components/common/Button";
 import DavinchiCard from "../ele/DavinchiCard";
 import Timer from "../ele/Timer";
 

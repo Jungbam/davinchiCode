@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-
-import Modal from "../../../components/form/modal/Modal";
-
-import ComplaintBug from "../../../components/common/elements/complaintbug/ComplaintBug";
+import ComplaintBug from "../../../components/common/complaintbug/ComplaintBug";
 import { useSelector } from "react-redux";
 import { ICON } from "../../../helpers/Icons";
 import Moddal from "../../../components/form/modal/Moddal";
@@ -48,7 +45,9 @@ const Header = () => {
             </RoundStatus>
             <RoundStatus>{roomInfo?.isPlaying ? "진행" : "대기"}</RoundStatus>
             {roomInfo?.secret ? (
-              <div><img src={ICON.iconLockHeader} alt="잠금" /></div>
+              <div>
+                <img src={ICON.iconLockHeader} alt="잠금" />
+              </div>
             ) : (
               <img src={ICON.iconUnlock} alt="공개방" />
             )}

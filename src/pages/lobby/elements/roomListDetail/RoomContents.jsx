@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { ICON } from "../../../../helpers/Icons";
 import { useState } from "react";
 import { RoomAPI } from "../../../../api/axios";
-import { BootStrap } from "../../../BootStrap";
+import { BootStrap } from "../../../../styles/BootStrap";
 import Moddal from "../../../../components/form/modal/Moddal";
 import RoomListSkell from "./RoomListSkell";
 

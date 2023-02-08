@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { setIndicater, setInitBtn } from "../../../redux/modules/gameSlice";
-import { BootStrap } from "../../BootStrap";
+import { BootStrap } from "../../../styles/BootStrap";
 import Timer from "../ele/Timer";
 import OtherTurn from "./OtherTurn";
 

@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { IMG } from "../../helpers/image";
-import { StButton } from "../Button";
+import { StButton } from "../../components/common/Button";
 
 const ErrorPage = () => {
   const navigate = useNavigate();

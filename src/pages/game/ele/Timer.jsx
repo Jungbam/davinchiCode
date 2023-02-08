@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import useSound from "use-sound";
 import Modal from "../../../components/form/modal/Modal";
-import GameOver from "../../../components/form/sign/GameOver";
+import GameOver from "./GameOver";
 import { ICON } from "../../../helpers/Icons";
 import { Sounds } from "../../../helpers/sounds";
 const Timer = ({ timeOver }) => {

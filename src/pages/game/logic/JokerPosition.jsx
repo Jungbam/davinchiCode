@@ -6,7 +6,7 @@ import DavinchiCard from "../ele/DavinchiCard";
 import Timer from "../ele/Timer";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useEffect } from "react";
-import { BootStrap } from "../../BootStrap";
+import { BootStrap } from "../../../styles/BootStrap";
 
 const JokerPosition = ({ selectedCard, cardPick }) => {
   const { StTitle, StBtn, StText, StWrapper } = BootStrap;

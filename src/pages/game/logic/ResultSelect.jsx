@@ -6,7 +6,7 @@ import styled from "styled-components";
 import useSound from "use-sound";
 import { Sounds } from "../../../helpers/sounds";
 import { setUsers } from "../../../redux/modules/gameSlice";
-import { BootStrap } from "../../BootStrap";
+import { BootStrap } from "../../../styles/BootStrap";
 import DavinchiCard from "../ele/DavinchiCard";
 
 const ResultSelect = ({ gameResult, security, result, goStop }) => {

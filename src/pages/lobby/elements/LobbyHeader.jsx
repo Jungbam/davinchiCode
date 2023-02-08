@@ -4,9 +4,9 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { ICON } from "../../../helpers/Icons";
-import GameInfo from "../../../pages/intro/kakao/ele/GameInfo";
-import Moddal from "../../form/modal/Moddal";
-import ComplaintBug from "./complaintbug/ComplaintBug";
+import GameInfo from "../../intro/kakao/ele/GameInfo";
+import Moddal from "../../../components/form/modal/Moddal";
+import ComplaintBug from "../../../components/common/complaintbug/ComplaintBug";
 import DropdownMenu from "./DropdownMenu";
 
 const Header = () => {

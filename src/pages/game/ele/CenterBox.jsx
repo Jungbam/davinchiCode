@@ -73,7 +73,6 @@ const CenterBox = ({ socket, userId }) => {
     socket.current.emit(eventName.GUESS, indicatedUser[0]?.userId, guessValue);
   }
   function goStop(result, security) {
-    console.log(result, security);
     dispatch(setIndicater(null));
     if (result)
       setGameView(

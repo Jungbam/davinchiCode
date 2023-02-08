@@ -3,8 +3,8 @@ import { useRef } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { BootStrap } from "../../BootStrap";
-import { StButton } from "../../Button";
+import { BootStrap } from "../../../styles/BootStrap";
+import { StButton } from "../../../components/common/Button";
 
 const Ready = ({ readyHandler, goSelecetTile }) => {
   const { StTitle, StBtnList } = BootStrap;

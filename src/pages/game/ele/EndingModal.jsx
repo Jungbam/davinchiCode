@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import Moddal from "../../../components/form/modal/Moddal";
 import { ICON } from "../../../helpers/Icons";
-import { BootStrap } from "../../BootStrap";
+import { BootStrap } from "../../../styles/BootStrap";
 import EndingUser from "./EndingUser";
 
 const EndingModal = ({ ending = true, endingHandler = () => {} }) => {
