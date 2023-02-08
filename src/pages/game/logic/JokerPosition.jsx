@@ -11,7 +11,7 @@ import { BootStrap } from "../../BootStrap";
 const JokerPosition = ({ selectedCard, cardPick }) => {
   const { StTitle, StBtn, StText, StWrapper } = BootStrap;
   const { users, turn } = useSelector((state) => state.gameSlice.gameInfo);
-  const myCard = users.filter((el) => el.userId === turn);
+  const myCard = users.filter((el) => el?.userId === turn);
   const [mine, setMine] = useState(myCard[0]?.hand || []);
   const [picked, setPicked] = useState(true);
   const [vali, setVali] = useState(false);

@@ -13,7 +13,7 @@ const Logout = ({ closeModal }) => {
       navigate("/intro");
     },
     onError: (error) => {
-      console.log(error);
+      navigate("/error");
     },
   });
   const dispatch = useDispatch();

@@ -47,8 +47,8 @@ const Header = () => {
               {roomInfo?.members}/{roomInfo?.maxMembers}
             </RoundStatus>
             <RoundStatus>{roomInfo?.isPlaying ? "진행" : "대기"}</RoundStatus>
-            {roomInfo?.sercet ? (
-              <img src={ICON.iconLock} alt="잠금" />
+            {roomInfo?.secret ? (
+              <div><img src={ICON.iconLockHeader} alt="잠금" /></div>
             ) : (
               <img src={ICON.iconUnlock} alt="공개방" />
             )}

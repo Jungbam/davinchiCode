@@ -9,7 +9,7 @@ import Timer from "../ele/Timer";
 
 const IntroTile = ({ selectTile }) => {
   const [black, setBlack] = useState(0);
-  const [select, setSelect] = useState(false);
+  const [select, setSelect] = useState(true);
   const [hasClick, setHasClick] = useState(false);
   const [num, setNum] = useState(4);
   const countBlackBtn = [
@@ -76,7 +76,6 @@ const IntroTile = ({ selectTile }) => {
         </StButton>
       )}
       {select && <Timer timeOver={() => selectTile(black)} />}
-      <Timer timeOver={() => selectTile(black)} />
     </StWrapper>
   );
 };

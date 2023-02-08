@@ -17,9 +17,11 @@ const ResultSelect = ({ gameResult, security, result, goStop }) => {
   const [play] = useSound(Sounds.Success);
   const { indicated, gameInfo } = useSelector((state) => state.gameSlice);
   const indicatedUser = gameInfo?.users?.filter(
-    (el) => el.userId === indicated
+    (el) => el?.userId === indicated
   );
-  const turnUser = gameInfo?.users?.filter((el) => el.userId === gameInfo.turn);
+  const turnUser = gameInfo?.users?.filter(
+    (el) => el?.userId === gameInfo?.turn
+  );
 
   useEffect(() => {
     if (result) play();

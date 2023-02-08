@@ -14,7 +14,7 @@ const QuickStart = () => {
       navigate(`/game/${data}`);
     },
     onError: (error) => {
-      console.log(error);
+      navigate("/error");
     },
   });
 
