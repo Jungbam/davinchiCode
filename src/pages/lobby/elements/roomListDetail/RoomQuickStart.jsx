@@ -4,17 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { RoomAPI } from "../../../../api/axios";
-
-const buttonVariants = {
-  hover: {
-    scale: 1.05,
-    transition: {
-      duration: 0.3,
-      repeat: Infinity,
-      repeatType: "reverse",
-    },
-  },
-};
+import { Variants } from "../../../../helpers/Variants";
 
 const QuickStart = () => {
   const navigate = useNavigate();
@@ -35,7 +25,7 @@ const QuickStart = () => {
   return (
     <>
       <ImmediateStart
-        variants={buttonVariants}
+        variants={Variants.buttonReverse}
         whileHover="hover"
         onClick={quickStartHandler}
       >

@@ -5,31 +5,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import styled from "styled-components";
 import { ICON } from "../../../helpers/Icons";
-
-const scoreVariants = {
-  hidden: {
-    opacity: 0,
-  },
-  visible: {
-    opacity: 1,
-    transition: {
-      delay: 1,
-      duration: 0.3,
-    },
-  },
-};
-
-const changeVariants = {
-  hidden: {
-    opacity: 0,
-  },
-  visible: {
-    opacity: 1,
-    transition: {
-      duration: 0.3,
-    },
-  },
-};
+import { Variants } from "../../../helpers/Variants";
 
 const EndingUser = ({ user, one, rank }) => {
   const [changing, setChanging] = useState(false);
@@ -87,14 +63,14 @@ const EndingUser = ({ user, one, rank }) => {
         {trig ? (
           <motion.div
             style={{ fontSize: "14px", fontWeight: "600" }}
-            variants={scoreVariants}
+            variants={Variants.score}
             initial="hidden"
             animate="visible"
           >
             {numberWithCommas(scoreValue)}
           </motion.div>
         ) : (
-          <StDiv variants={scoreVariants} initial="hidden" animate="visible">
+          <StDiv variants={Variants.score} initial="hidden" animate="visible">
             {numberWithCommas(scoreValue)}
           </StDiv>
         )}
@@ -102,7 +78,7 @@ const EndingUser = ({ user, one, rank }) => {
         {changing ? (
           <StScoreUp one={one} changed={user?.change}>
             <motion.span
-              variants={changeVariants}
+              variants={Variants.change}
               initial="hidden"
               animate="visible"
             >

@@ -14,17 +14,7 @@ import { RoomAPI } from "../../../api/axios";
 import Moddal from "../../../components/form/modal/Moddal";
 import { useNavigate } from "react-router-dom";
 import { queryKeys } from "../../../helpers/queryKeys";
-
-const buttonVariants = {
-  hover: {
-    scale: 1.05,
-    transition: {
-      duration: 0.3,
-      repeat: Infinity,
-      repeatType: "reverse",
-    },
-  },
-};
+import { Variants } from "../../../helpers/Variants";
 
 const RoomList = () => {
   const navigate = useNavigate();
@@ -262,7 +252,7 @@ const RoomList = () => {
         </StPagination>
 
         <StButton
-          variants={buttonVariants}
+          variants={Variants.buttonReverse}
           whileHover="hover"
           color="#fff"
           onClick={() => setShowCreateRoom(true)}

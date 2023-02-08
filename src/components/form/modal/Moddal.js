@@ -4,36 +4,7 @@ import styled from "styled-components";
 import exitModal from "../../../assets/icons/ico_modal_cancle.png";
 import useSound from "use-sound";
 import { Sounds } from "../../../helpers/sounds";
-
-const buttonVariants = {
-  hover: {
-    scale: 1.25,
-    textShadow: "0px 0px 8px rgb(255,255,255)",
-    boxShadow: "0px 0px 8px rgb(255,255,255)",
-    transition: {
-      duration: 0.3,
-    },
-  },
-};
-
-const backdrop = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 0.3 } },
-};
-
-const modalVariants = {
-  hidden: {
-    y: "-100vh",
-    opacity: 0,
-  },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      delay: 0.3,
-    },
-  },
-};
+import { Variants } from "../../../helpers/Variants";
 
 const Moddal = ({ modal, width, height, closeModal, children }) => {
   const styles = { width, height };
@@ -44,7 +15,7 @@ const Moddal = ({ modal, width, height, closeModal, children }) => {
       {modal && (
         <StBackDrop
           xnumber={xNumber}
-          variants={backdrop}
+          variants={Variants.backdrop}
           initial="hidden"
           animate="visible"
           exit="hidden"
@@ -52,7 +23,7 @@ const Moddal = ({ modal, width, height, closeModal, children }) => {
         >
           <StModal
             {...styles}
-            variants={modalVariants}
+            variants={Variants.modal}
             initial="hidden"
             animate="visible"
             onClick={(e) => {
@@ -62,7 +33,7 @@ const Moddal = ({ modal, width, height, closeModal, children }) => {
           >
             <StBtnArea>
               <StExitBtn
-                variants={buttonVariants}
+                variants={Variants.button}
                 whileHover="hover"
                 onClick={closeModal}
                 src={exitModal}
