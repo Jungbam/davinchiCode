@@ -30,7 +30,6 @@ const Timer = ({ timeOver }) => {
       clearInterval(interval.current);
       timeOver();
     }
-    return () => stop();
   }, [second]);
   useEffect(() => {
     if (!trigger) stop();
