@@ -26,13 +26,15 @@ const Timer = ({ timeOver }) => {
 
   useEffect(() => {
     if (Number(second) === 9) Late();
-    if (!trigger) stop();
     if (count.current <= 0) {
       clearInterval(interval.current);
       timeOver();
     }
     return () => stop();
   }, [second]);
+  useEffect(() => {
+    if (!trigger) stop();
+  }, [trigger]);
   return (
     <StTimer>
       {second === 0 ? (

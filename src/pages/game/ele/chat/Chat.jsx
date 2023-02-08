@@ -72,9 +72,20 @@ const StMsgContainer = styled.div`
   flex-direction: column;
   gap: 8px;
   padding: 20px 30px 10px 22px;
-  overflow: scroll;
+  overflow-y: scroll;
   justify-content: ${({ ref }) =>
     ref?.current.scrollHeight > 138 ? "flex-end" : null};
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #333333;
+  }
+  ::-webkit-scrollbar-track {
+    height: 90%;
+    background-color: none;
+    border-radius: 6px;
+  }
 `;
 
 const StBtnContainer = styled.div`

@@ -214,8 +214,7 @@ const StWrapper = styled.div`
   margin-top: 8px;
   border-radius: 6px;
   border: solid 1px #111;
-  background-color: whitesmoke;
-  background-image: url(${IMG.gameBackground});
+  background-color: #f6f6f6;
 `;
 const StGameField = styled.div`
   position: relative;
