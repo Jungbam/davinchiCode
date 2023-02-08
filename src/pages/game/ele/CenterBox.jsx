@@ -23,8 +23,8 @@ import ResultSelect from "../logic/ResultSelect";
 import GoStop from "../logic/GoStop";
 import { useEffect } from "react";
 import EndingModal from "./EndingModal";
-import ThrowMine from "../logic/ThrowMine";
 import useSounds from "../../../hooks/useSounds";
+import NoSecurity from "../logic/NoSecurity";
 
 const CenterBox = ({ socket, userId }) => {
   const SoundEffect = useSounds();
@@ -73,6 +73,7 @@ const CenterBox = ({ socket, userId }) => {
     socket.current.emit(eventName.GUESS, indicatedUser[0]?.userId, guessValue);
   }
   function goStop(result, security) {
+    console.log(result, security);
     dispatch(setIndicater(null));
     if (result)
       setGameView(
@@ -91,7 +92,7 @@ const CenterBox = ({ socket, userId }) => {
         />
       );
     } else {
-      setGameView(<ThrowMine userId={userId} openMine={openMine} />);
+      setGameView(<NoSecurity userId={userId} openMine={openMine} />);
     }
   }
   function goingContinue() {
@@ -110,16 +111,8 @@ const CenterBox = ({ socket, userId }) => {
       />
     );
   }
-  function openMine(select) {
-    const openMine = { ...select };
-    socket.current.emit(eventName.GUESS, userId, openMine);
-    setGameView(
-      <Turn
-        GameTurn={GameTurn}
-        userId={userId}
-        selectIndicaterCard={selectIndicaterCard}
-      />
-    );
+  function openMine(selectIndex) {
+    socket.current.emit(eventName.OPEN_MINE, selectIndex);
   }
   function endingHandler() {
     setEnding(false);

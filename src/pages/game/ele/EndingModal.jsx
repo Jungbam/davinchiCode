@@ -6,7 +6,7 @@ import { ICON } from "../../../helpers/Icons";
 import { BootStrap } from "../../BootStrap";
 import EndingUser from "./EndingUser";
 
-const EndingModal = ({ ending=true, endingHandler=()=>{} }) => {
+const EndingModal = ({ ending = true, endingHandler = () => {} }) => {
   const { StWrapper } = BootStrap;
   const { endingInfo } = useSelector((state) => state.gameSlice);
 
@@ -20,22 +20,22 @@ const EndingModal = ({ ending=true, endingHandler=()=>{} }) => {
       <StWrapper padding="30px" gap="26px">
         <Stimg src={ICON.RankGameOver} alt="게임오버" />
         <StUserContainer>
-          <EndingUser one={true} user={endingInfo[0]} rank={1}/>
+          <EndingUser val={true} user={endingInfo[0]} rank={1} />
           {endingInfo[1] ? (
-            <EndingUser one={false} user={endingInfo[1]} rank={2}/>
+            <EndingUser val={false} user={endingInfo[1]} rank={2} />
           ) : (
             <StRankNullBox></StRankNullBox>
           )}
           {endingInfo[2] ? (
-             <EndingUser one={false} user={endingInfo[2]} rank={3}/>
-           ) : (
-             <StRankNullBox></StRankNullBox>
-           )}
+            <EndingUser val={false} user={endingInfo[2]} rank={3} />
+          ) : (
+            <StRankNullBox></StRankNullBox>
+          )}
           {endingInfo[3] ? (
-             <EndingUser one={false} user={endingInfo[3]} rank={4}/>
-           ) : (
-             <StRankNullBox></StRankNullBox>
-           )}
+            <EndingUser val={false} user={endingInfo[3]} rank={4} />
+          ) : (
+            <StRankNullBox></StRankNullBox>
+          )}
         </StUserContainer>
         <StBtn onClick={endingHandler}>확인</StBtn>
       </StWrapper>

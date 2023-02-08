@@ -18,4 +18,5 @@ export const eventName = {
   PLACE_JOKER: "place-joker",
   ONGOING: "ongoing",
   LEAVE_USER: "leave-user",
+  OPEN_MINE: "open-mine",
 };

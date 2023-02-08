@@ -38,8 +38,6 @@ const ResultSelect = ({ gameResult, security, result, goStop }) => {
     };
   }, []);
 
-  useEffect(() => {}, [result]);
-
   return (
     <StWrapper>
       <StReult>

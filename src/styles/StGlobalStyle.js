@@ -17,9 +17,13 @@ const StGlobalStyle = createGlobalStyle`
 
   body {
     background-image: url('/images/background.png');
-  background-size: cover;
-  height: 100vh;
-  background-color: #2b2b2b;
+    background-size: cover;
+    height: 100vh;
+    background-color: #2b2b2b;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none
   }
 
   button{

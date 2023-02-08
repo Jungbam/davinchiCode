@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { ICON } from "../../../helpers/Icons";
 import { Variants } from "../../../helpers/Variants";
 
-const EndingUser = ({ user, one, rank }) => {
+const EndingUser = ({ user, val, rank }) => {
   const [changing, setChanging] = useState(false);
   const [scoreValue, setScoreValue] = useState(user?.prevScore);
   const [trig, setTrig] = useState(false);
@@ -54,7 +54,7 @@ const EndingUser = ({ user, one, rank }) => {
     };
   }, []);
   return (
-    <StRankBox one={one}>
+    <StRankBox val={val}>
       <StDescBox>
         {rankSrc()}
         <div>{user?.userName}</div>
@@ -76,7 +76,7 @@ const EndingUser = ({ user, one, rank }) => {
         )}
 
         {changing ? (
-          <StScoreUp one={one} changed={user?.change}>
+          <StScoreUp val={val} changed={user?.change}>
             <motion.span
               variants={Variants.change}
               initial="hidden"
@@ -108,11 +108,11 @@ const StRankBox = styled.div`
   height: 40px;
   border-radius: 4px;
   padding: 10px 20px;
-  border: ${({ one }) => {
-    return one ? "1px solid #000" : "1px solid #ddd";
+  border: ${({ val }) => {
+    return val ? "1px solid #000" : "1px solid #ddd";
   }};
-  background-color: ${({ one }) => {
-    return one ? "#ffdf24" : "#f1f1f1";
+  background-color: ${({ val }) => {
+    return val ? "#ffdf24" : "#f1f1f1";
   }};
 `;
 const StDescBox = styled.div`

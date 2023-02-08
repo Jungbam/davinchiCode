@@ -18,7 +18,7 @@ const Router = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/loading" element={PAGE.Loading} />
-        <Route path="/" element={PAGE.ServerUpdate} />
+        <Route path="/" element={PAGE.Auth} />
         <Route path="/Intro" element={PAGE.Intro} />
         <Route path="/kakao" element={PAGE.KakaoSign} />
         <Route path="/kakaodel" element={PAGE.KakaoDel} />
