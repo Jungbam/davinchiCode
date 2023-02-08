@@ -7,6 +7,7 @@ import KakaoSign from "../pages/intro/kakao/KakaoSign";
 import Loading from "../pages/loading/Loading";
 import Lobby from "../pages/lobby/Lobby";
 import Profile from "../pages/profile/Profile";
+import ServerUpdate from "../pages/ServerUpdate/ServerUpdate";
 export const PAGE = {
   Intro: <Intro />,
   ErrorPage: <ErrorPage />,
@@ -17,4 +18,5 @@ export const PAGE = {
   KakaoDel: <KakaoDel />,
   SetUserInfo: <Profile />,
   Auth: <AuthPage />,
+  ServerUpdate: <ServerUpdate />,
 };
