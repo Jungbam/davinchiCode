@@ -32,7 +32,7 @@ const CreateRoom = ({ closeModal, modal }) => {
         navigate(`/game/${data.roomId}`);
       },
       onError: (error) => {
-        console.log(error);
+        navigate("/error");
       },
     }
   );
