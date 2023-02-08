@@ -3,17 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
 import exitModal from "../../../assets/icons/ico_modal_cancle.svg";
-
-const buttonVariants = {
-  hover: {
-    scale: 1.1,
-    textShadow: "0px 0px 8px rgb(255,255,255)",
-    boxShadow: "0px 0px 8px rgb(255,255,255)",
-    transition: {
-      duration: 0.3,
-    },
-  },
-};
+import { Variants } from "../../../helpers/Variants";
 
 const Modal = ({ children, modal = true, closeModal, width, height }) => {
   const styles = { modal, width, height };
@@ -24,7 +14,7 @@ const Modal = ({ children, modal = true, closeModal, width, height }) => {
           <StModal {...styles}>
             <StBtnArea>
               <StExitBtn
-                variants={buttonVariants}
+                variants={Variants.button}
                 whileHover="hover"
                 onClick={closeModal}
                 src={exitModal}

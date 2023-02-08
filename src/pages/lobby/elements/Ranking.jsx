@@ -7,24 +7,7 @@ import { motion } from "framer-motion";
 import { ICON } from "../../../helpers/Icons";
 import { RoomAPI, SignAPI } from "../../../api/axios";
 import { useNavigate } from "react-router-dom";
-
-const TextVariants = {
-  hidden: {
-    y: -30,
-    opacity: 0,
-  },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      duration: 2,
-    },
-  },
-  exit: {
-    y: 30,
-    opacity: 0,
-  },
-};
+import { Variants } from "../../../helpers/Variants";
 
 const numImg = (num) => {
   if (num > 0) return ICON.iconScorePlus;
@@ -115,7 +98,7 @@ const Ranking = () => {
         {textIndex ? (
           <StText
             key="0"
-            variants={TextVariants}
+            variants={Variants.text}
             initial="hidden"
             animate="visible"
             exit="exit"
@@ -126,7 +109,7 @@ const Ranking = () => {
         ) : (
           <StText
             key="1"
-            variants={TextVariants}
+            variants={Variants.text}
             initial="hidden"
             animate="visible"
             exit="exit"

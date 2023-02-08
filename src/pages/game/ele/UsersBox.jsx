@@ -61,7 +61,11 @@ const UsersBox = ({ user, turn, userId }) => {
           )}
           <StCardArea>
             {user?.hand?.map((card, i) => (
-              <DavinchiCard key={`${user?.userName}${i}`} card={card} />
+              <DavinchiCard
+                key={`${user.userName}${i}`}
+                card={card}
+                size="sm"
+              />
             ))}
           </StCardArea>
         </StOtherUsers>

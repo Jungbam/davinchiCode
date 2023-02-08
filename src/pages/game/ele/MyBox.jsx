@@ -36,7 +36,7 @@ const MyBox = ({ user }) => {
       <StCardList>
         {user?.hand?.map((card, i) => (
           <StCardBox key={`${user.userName}${i}`}>
-            <DavinchiCard card={card} />
+            <DavinchiCard card={card} size="md" />
             {card.isOpen ? <StOpen>OUT</StOpen> : <StOpenNull></StOpenNull>}
           </StCardBox>
         ))}

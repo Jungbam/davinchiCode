@@ -40,7 +40,7 @@ const MyTurn = ({ GameTurn, selectIndicaterCard, userId }) => {
           <StCardBox>
             <div>검은색 타일</div>
             <StCard
-              src={ICON.blackBack}
+              src={ICON.xlblackBack}
               alt="검은색"
               onClick={() => setSelect("black")}
             />
@@ -60,7 +60,7 @@ const MyTurn = ({ GameTurn, selectIndicaterCard, userId }) => {
           <StCardBox>
             <div>흰색 타일</div>
             <StCard
-              src={ICON.whiteBack}
+              src={ICON.xlwhiteBack}
               alt="흰색"
               onClick={() => setSelect("white")}
             />

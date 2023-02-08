@@ -8,17 +8,7 @@ import styled from "styled-components";
 import exitModal from "../../../../assets/icons/ico_modal_cancle.svg";
 import { motion } from "framer-motion";
 import { IMG } from "../../../../helpers/image";
-
-const buttonVariants = {
-  hover: {
-    scale: 1.2,
-    textShadow: "0px 0px 8px rgb(255,255,255)",
-    boxShadow: "0px 0px 8px rgb(255,255,255)",
-    transition: {
-      duration: 0.3,
-    },
-  },
-};
+import { Variants } from "../../../../helpers/Variants";
 
 const GameInfo = ({ closeModal }) => {
   const settings = {
@@ -43,33 +33,33 @@ const GameInfo = ({ closeModal }) => {
   };
   return (
     <StWrapper>
-        <StExitBtn
-          variants={buttonVariants}
-          whileHover="hover"
-          onClick={closeModal}
-          src={exitModal}
-        />
+      <StExitBtn
+        variants={Variants.button}
+        whileHover="hover"
+        onClick={closeModal}
+        src={exitModal}
+      />
       <StyledSlider {...settings}>
         <StBox>
-          <DescBox src={IMG.GameInfo1}/>
+          <DescBox src={IMG.GameInfo1} />
         </StBox>
         <StBox>
-          <DescBox src={IMG.GameInfo2}/>
+          <DescBox src={IMG.GameInfo2} />
         </StBox>
         <StBox>
-          <DescBox src={IMG.GameInfo3}/>
+          <DescBox src={IMG.GameInfo3} />
         </StBox>
         <StBox>
-          <DescBox src={IMG.GameInfo4}/>
+          <DescBox src={IMG.GameInfo4} />
         </StBox>
         <StBox>
-          <DescBox src={IMG.GameInfo5}/>
+          <DescBox src={IMG.GameInfo5} />
         </StBox>
         <StBox>
-          <DescBox src={IMG.GameInfo6}/>
+          <DescBox src={IMG.GameInfo6} />
         </StBox>
         <StBox>
-          <DescBox src={IMG.GameInfo7}/>
+          <DescBox src={IMG.GameInfo7} />
         </StBox>
       </StyledSlider>
     </StWrapper>
@@ -80,11 +70,11 @@ export default GameInfo;
 
 const StyledSlider = styled(Slider)`
   height: 100%;
-  .slick-list{
+  .slick-list {
     width: 100%;
     height: 100%;
   }
-  .slick-track{
+  .slick-track {
     height: 100%;
   }
   .slick-prev {
@@ -102,11 +92,11 @@ const StyledSlider = styled(Slider)`
       color: black;
     }
   }
-  .slick-dots{
+  .slick-dots {
     position: absolute;
     bottom: 16px;
   }
-  .slick-dots .slick-active div{
+  .slick-dots .slick-active div {
     scale: 1.5;
   }
 `;
@@ -117,7 +107,7 @@ const StWrapper = styled.div`
   height: 100%;
 `;
 const StExitBtn = styled(motion.img)`
-  position:absolute;
+  position: absolute;
   top: 16px;
   right: 16px;
   z-index: 20;

@@ -39,10 +39,10 @@ const IntroTile = ({ selectTile }) => {
       </StText>
       <StCardArea>
         {new Array(num - black).fill("_").map((_, i) => (
-          <img key={`blackCenter${i}`} src={ICON.whiteBack} alt="card" />
+          <img key={`blackCenter${i}`} src={ICON.xlwhiteBack} alt="card" />
         ))}
         {new Array(black).fill("_").map((_, i) => (
-          <img key={`whiteCenter${i}`} src={ICON.blackBack} alt="card" />
+          <img key={`whiteCenter${i}`} src={ICON.xlblackBack} alt="card" />
         ))}
       </StCardArea>
       <StTileNumber>

@@ -20,6 +20,7 @@ const SelectIndicatedUser = ({ indicatedUser, guessCard }) => {
           <StCardBox key={`${indicatedUser.userName}indicated${i}`}>
             <DavinchiCard
               card={card}
+              size="lg"
               onClick={() =>
                 setSelect((prev) => {
                   return { ...prev, index: i };

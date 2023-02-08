@@ -2,27 +2,44 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import Modal from "../../../components/form/modal/Modal";
+
 import ComplaintBug from "../../../components/common/elements/complaintbug/ComplaintBug";
 import { useSelector } from "react-redux";
 import { ICON } from "../../../helpers/Icons";
+import Moddal from "../../../components/form/modal/Moddal";
+import GameInfo from "../../intro/kakao/ele/GameInfo";
 
 const Header = () => {
   const { roomInfo } = useSelector((state) => state.gameSlice);
   const [modal, setModal] = useState(false);
+  const [infoModal, setInfoModal] = useState(false);
+
+  const setInfoModalHandler = () => {
+    setInfoModal((prev) => !prev);
+  };
   const setModalHandler = () => {
     setModal((prev) => !prev);
   };
 
   return (
     <Navbar>
-      <Modal
-        modal={modal.toString()}
+      <Moddal
+        modal={infoModal}
+        closeModal={setInfoModalHandler}
+        width="628px"
+        height="600px"
+      >
+        <GameInfo closeModal={setInfoModalHandler} />
+      </Moddal>
+      <Moddal
+        modal={modal}
         closeModal={setModalHandler}
         width="440px"
         height="396px"
       >
-        {modal&&<ComplaintBug closeModal={setModalHandler} />}
-      </Modal>
+        {modal && <ComplaintBug closeModal={setModalHandler} />}
+      </Moddal>
+
       <NavbarInside>
         <NavbarStatus>
           <RoomStauts>
@@ -41,11 +58,16 @@ const Header = () => {
           <SideBar>|</SideBar>
           <RoomName>{roomInfo?.roomName}</RoomName>
         </NavbarStatus>
-
-        <ReportButton onClick={setModalHandler}>
-          <img src={ICON.iconSirenHeader} alt="버그 신고" />
-          <div>버그신고</div>
-        </ReportButton>
+        <StHeaderBtns>
+          <StHeaderBtn onClick={setInfoModalHandler}>
+            <img src={ICON.iconAlert} alt="게임 설명" />
+            <div>게임설명</div>
+          </StHeaderBtn>
+          <StHeaderBtn onClick={setModalHandler}>
+            <img src={ICON.iconSirenHeader} alt="버그 신고" />
+            <div>버그신고</div>
+          </StHeaderBtn>
+        </StHeaderBtns>
       </NavbarInside>
     </Navbar>
   );
@@ -89,7 +111,7 @@ const RoomStauts = styled.div`
   gap: 8px;
 `;
 
-const ReportButton = styled.div`
+const StHeaderBtn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -125,4 +147,9 @@ const RoundStatus = styled.div`
 
 const SideBar = styled.div`
   color: #333;
+`;
+
+const StHeaderBtns = styled.div`
+  display: flex;
+  gap: 10px;
 `;
