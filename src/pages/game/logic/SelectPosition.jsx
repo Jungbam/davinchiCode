@@ -6,14 +6,14 @@ import DavinchiCard from "../ele/DavinchiCard";
 import Timer from "../ele/Timer";
 import JokerPosition from "./JokerPosition";
 
-const SelectPosition = ({ card, cardPick, selectIndicaterCard,userId }) => {
+const SelectPosition = ({ card, cardPick, selectIndicaterCard, userId }) => {
   const { StWrapper, StCardArea } = BootStrap;
   if (card.value === 12)
     return <JokerPosition selectedCard={card} cardPick={cardPick} />;
   return (
     <StWrapper jus="center" gap="10px">
       <StCardArea height="80px" childwidth="56px" mgtop="0px" mgLeft="0px">
-        <DavinchiCard card={card} />
+        <DavinchiCard card={card} size="md" />
       </StCardArea>
       <Stdiv>
         뽑으신 타일의 숫자는 <span>{card.value}</span>입니다!

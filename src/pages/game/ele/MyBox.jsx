@@ -6,9 +6,7 @@ import DavinchiCard from "./DavinchiCard";
 
 const MyBox = ({ user }) => {
   const [gameover, setGameover] = useState(false);
-  const { gameStart } = useSelector(
-    (state) => state.gameSlice
-  );
+  const { gameStart } = useSelector((state) => state.gameSlice);
 
   useEffect(() => {
     if (
@@ -17,12 +15,16 @@ const MyBox = ({ user }) => {
     )
       setGameover(true);
     else setGameover(false);
-  }, [user]);  
+  }, [user]);
 
   return (
-    <StBox url={gameStart && gameover
-              ? IMG.myUserBackgroundgameout
-              : IMG.myUserBackground}>
+    <StBox
+      url={
+        gameStart && gameover
+          ? IMG.myUserBackgroundgameout
+          : IMG.myUserBackground
+      }
+    >
       <StUserProfile>
         <StImg
           src={user?.userProfileImg || IMG.userProfile}
@@ -34,7 +36,7 @@ const MyBox = ({ user }) => {
       <StCardList>
         {user?.hand?.map((card, i) => (
           <StCardBox key={`${user.userName}${i}`}>
-            <DavinchiCard card={card} />
+            <DavinchiCard card={card} size="md" />
             {card.isOpen ? <StOpen>OUT</StOpen> : <StOpenNull></StOpenNull>}
           </StCardBox>
         ))}
