@@ -1,3 +1,7 @@
+![davinci_img](https://user-images.githubusercontent.com/108196588/217784549-43ee5ec8-4445-4afb-8d2c-1c2bdf869363.jpeg)
+
+게임 즐기러가기 : https://davinci-code.online/
+
 Front-End 프로젝트 약속
 
 1. 회의 / 진행도 체크
