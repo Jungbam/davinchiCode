@@ -88,6 +88,7 @@ const StImg = styled.img`
   width: 80px;
   height: 80px;
   border-radius: 40px;
+  object-fit: cover;
 `;
 
 const StOpen = styled.span`

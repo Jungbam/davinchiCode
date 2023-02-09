@@ -3,8 +3,9 @@ import React, { useRef, useState } from "react";
 import { SignAPI } from "../../../api/axios";
 import { queryKeys } from "../../../helpers/queryKeys";
 import styled from "styled-components";
+import imageCompression from "browser-image-compression";
 
-const SetUserInfo = ({ closeModal,userInfo }) => {
+const SetUserInfo = ({ closeModal, userInfo }) => {
   const [profileImg, setProfileImg] = useState(userInfo?.profileImageUrl);
   const [newProfileImg, setNewProfileImg] = useState(null);
   const [userName, setNickName] = useState(userInfo?.username);
@@ -34,15 +35,22 @@ const SetUserInfo = ({ closeModal,userInfo }) => {
     closeModal();
   };
 
-  const onChangeImgHandler = (e) => {
+  const onChangeImgHandler = async (e) => {
     const imgSrc = e.target.files[0];
+    const options = {
+      maxSizeMB: 0.5,
+      maxWidthOrHeight: 330,
+      useWebWorker: true,
+    };
+    const compressionImg = await imageCompression(imgSrc, options);
     const file = imgRef.current.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
       setNewProfileImg(reader.result);
     };
-    setProfileImg(imgSrc);
+
+    setProfileImg(compressionImg);
   };
 
   const onSubmitHandler = (e) => {
