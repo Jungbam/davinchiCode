@@ -75,6 +75,13 @@ const RoomContents = ({ isWaiting, isPrivate, roomsData, status }) => {
                 iswaiting={(
                   room.isPlaying || room.currentMembers === room.maxMembers
                 ).toString()}
+                onClick={() => {
+                  if (
+                    !(room.isPlaying || room.currentMembers === room.maxMembers)
+                  ) {
+                    enterInRoomHandler(room.roomId, room.isPrivate);
+                  }
+                }}
               >
                 <StLeft>
                   <StButton
@@ -262,6 +269,7 @@ const StContainer = styled.div`
   padding: 10px 18px;
   display: flex;
   align-items: center;
+  cursor: ${(props) => (props.iswaiting === "true" ? `default` : "pointer")};
 `;
 
 const StLeft = styled.div`
