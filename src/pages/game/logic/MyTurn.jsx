@@ -50,7 +50,7 @@ const MyTurn = ({ GameTurn, selectIndicaterCard, userId }) => {
               <StSelect>선택</StSelect>
             ) : (
               <StSelectNull />
-            )}{" "}
+            )}
           </StCardBox>
         )}
         {gameInfo.blackCards === 0 || gameInfo.whiteCards === 0 || (

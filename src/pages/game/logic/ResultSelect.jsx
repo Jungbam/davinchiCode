@@ -45,7 +45,7 @@ const ResultSelect = ({ gameResult, security, result, goStop }) => {
         <StUnderLine result={result.toString()} />
       </StReult>
       <StP>
-        <span>{turnUser[0]?.userName}</span>님이 타일 맞추기에{" "}
+        <span>{turnUser[0]?.userName}</span>님이 타일 맞추기에
         {result ? "성공!" : "실패!"}
         하셨습니다.
       </StP>
