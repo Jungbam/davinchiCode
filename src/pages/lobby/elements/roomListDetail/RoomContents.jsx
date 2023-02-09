@@ -75,7 +75,13 @@ const RoomContents = ({ isWaiting, isPrivate, roomsData, status }) => {
                 iswaiting={(
                   room.isPlaying || room.currentMembers === room.maxMembers
                 ).toString()}
-                onClick={() => enterInRoomHandler(room.roomId, room.isPrivate)}
+                onClick={() => {
+                  if (
+                    !(room.isPlaying || room.currentMembers === room.maxMembers)
+                  ) {
+                    enterInRoomHandler(room.roomId, room.isPrivate);
+                  }
+                }}
               >
                 <StLeft>
                   <StButton
