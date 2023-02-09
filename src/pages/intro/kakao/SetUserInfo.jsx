@@ -38,9 +38,9 @@ const SetUserInfo = ({ closeModal, userInfo }) => {
   const onChangeImgHandler = async (e) => {
     const imgSrc = e.target.files[0];
     const options = {
-      maxSizeMB: 0.5, // 허용하는 최대 사이즈 지정
-      maxWidthOrHeight: 1920, // 허용하는 최대 width, height 값 지정
-      useWebWorker: true, // webworker 사용 여부
+      maxSizeMB: 0.5,
+      maxWidthOrHeight: 330,
+      useWebWorker: true,
     };
     const compressionImg = await imageCompression(imgSrc, options);
     const file = imgRef.current.files[0];
