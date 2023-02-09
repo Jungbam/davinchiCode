@@ -7,6 +7,7 @@ import { RoomAPI } from "../../../api/axios";
 
 import { useNavigate } from "react-router-dom";
 import { ICON } from "../../../helpers/Icons";
+import { useError } from "../../../hooks/useError";
 
 const CreateRoom = ({ closeModal, modal }) => {
   const ref = useRef("");
@@ -16,6 +17,7 @@ const CreateRoom = ({ closeModal, modal }) => {
   const [isSecret, setIsSecret] = useState(false);
   const [password, setPassword] = useState("");
   const [roomModal, setRoomModal] = useState(false);
+  const errorHandler = useError();
 
   const roomMembersHandler = (num) => {
     setMaxMembers(num);
@@ -32,7 +34,7 @@ const CreateRoom = ({ closeModal, modal }) => {
         navigate(`/game/${data.roomId}`);
       },
       onError: (error) => {
-        navigate("/error");
+        errorHandler(error);
       },
     }
   );

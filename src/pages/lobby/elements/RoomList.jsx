@@ -8,19 +8,16 @@ import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import CreateRoom from "../../../components/form/sign/CreateRoom";
 import { ICON } from "../../../helpers/Icons";
-
 import { RoomAPI } from "../../../api/axios";
-
 import Moddal from "../../../components/form/modal/Moddal";
-import { useNavigate } from "react-router-dom";
 import { queryKeys } from "../../../helpers/queryKeys";
 import { Variants } from "../../../helpers/Variants";
+import { useError } from "../../../hooks/useError";
 
 const RoomList = () => {
-  const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const [roomsData, setRoomsData] = useState([]);
-
+  const errorHandler = useError();
   const [searchRoomModal, setSearchRoomModal] = useState(null);
   const [searchType, setSearchType] = useState("name");
   const [currentPage, setCurrentPage] = useState(1);
@@ -29,7 +26,6 @@ const RoomList = () => {
   const [isWaiting, setIsWaiting] = useState(false);
   const [isPrivate, setIsPrivate] = useState(false);
   const [showCreateRoom, setShowCreateRoom] = useState(false);
-
   const arrLoop = (currentPage) => {
     const newArr = [];
     const pageGroup = Math.ceil(currentPage / 5);
@@ -58,7 +54,9 @@ const RoomList = () => {
         setTotalPage(data.totalPage);
         setRoomsData(data.rooms);
       },
-      onError: () => navigate("/error"),
+      onError: (error) => {
+        errorHandler(error);
+      },
     }
   );
 

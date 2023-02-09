@@ -4,16 +4,18 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { SignAPI } from "../../../api/axios";
+import { useError } from "../../../hooks/useError";
 import { logout } from "../../../redux/modules/signSlice";
 
 const Logout = ({ closeModal }) => {
   const navigate = useNavigate();
+  const errorHandler = useError();
   const { mutate } = useMutation(SignAPI.logout, {
     onSuccess: (data) => {
       navigate("/intro");
     },
     onError: (error) => {
-      navigate("/error");
+      errorHandler(error);
     },
   });
   const dispatch = useDispatch();

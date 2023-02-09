@@ -10,16 +10,18 @@ import { PAGE } from "../../helpers/IndexPage";
 import LobbyHeader from "./elements/LobbyHeader";
 import Ranking from "./elements/Ranking";
 import RoomList from "./elements/RoomList";
+import { useError } from "../../hooks/useError";
 
 const Lobby = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const errorHandler = useError();
   const { isLoading } = useQuery([queryKeys.MYINFO], SignAPI.myinfo, {
     onSuccess: (res) => {
       dispatch(setUser(res.data));
     },
-    onError: () => {
-      navigate("/intro");
+    onError: (error) => {
+      errorHandler(error);
     },
     staleTime: 60 * 60 * 1000,
     cacheTime: 60 * 60 * 1000,

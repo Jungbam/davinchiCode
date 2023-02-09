@@ -9,6 +9,7 @@ import { RoomAPI } from "../../../../api/axios";
 import { BootStrap } from "../../../../styles/BootStrap";
 import Moddal from "../../../../components/form/modal/Moddal";
 import RoomListSkell from "./RoomListSkell";
+import { useError } from "../../../../hooks/useError";
 
 const RoomContents = ({ isWaiting, isPrivate, roomsData, status }) => {
   const [modal, setModal] = useState(false);
@@ -16,6 +17,8 @@ const RoomContents = ({ isWaiting, isPrivate, roomsData, status }) => {
   const [passwordError, setPasswordError] = useState("");
   const [inRoomPrivate, setInRoomPrivate] = useState(false);
   const [password, setPassword] = useState("");
+  const errorHandler = useError();
+
   const { StBtn, StWrapper } = BootStrap;
   const navigate = useNavigate();
 
@@ -56,7 +59,7 @@ const RoomContents = ({ isWaiting, isPrivate, roomsData, status }) => {
       },
       onError: (error) => {
         alert("방 입장 에러");
-        navigate("/lobby");
+        errorHandler(error);
       },
     }
   );

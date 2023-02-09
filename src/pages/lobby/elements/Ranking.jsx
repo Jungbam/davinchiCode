@@ -6,12 +6,12 @@ import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { ICON } from "../../../helpers/Icons";
 import { RoomAPI, SignAPI } from "../../../api/axios";
-import { useNavigate } from "react-router-dom";
 import { Variants } from "../../../helpers/Variants";
+import { useError } from "../../../hooks/useError";
 
 const Ranking = () => {
   const [textIndex, setTextIndex] = useState(false);
-  const navigate = useNavigate();
+  const errorHandler = useError();
   function numberWithCommas(x = 0) {
     return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
   }
@@ -28,23 +28,13 @@ const Ranking = () => {
   const { status, data } = useQuery(
     ["PERSONAL_RANKING"],
     () => RoomAPI.showRanking(),
-    {
-      staleTime:
-        ((59 - new Date().getMinutes()) * 60 + (60 - new Date().getSeconds())) *
-        1000,
-      onError: () => navigate("/error"),
-    }
+    { staleTime: 1000, onError: (error) => errorHandler(error) }
   );
 
   const { status: myStatus, data: myData } = useQuery(
     ["MY_RANKING"],
     () => SignAPI.myinfo(),
-    {
-      staleTime:
-        ((59 - new Date().getMinutes()) * 60 + (60 - new Date().getSeconds())) *
-        1000,
-      onError: () => navigate("/error"),
-    }
+    { staleTime: 1000, onError: (error) => errorHandler(error) }
   );
 
   return (

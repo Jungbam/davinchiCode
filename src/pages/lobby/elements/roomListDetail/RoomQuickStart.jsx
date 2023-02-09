@@ -5,16 +5,17 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { RoomAPI } from "../../../../api/axios";
 import { Variants } from "../../../../helpers/Variants";
+import { useError } from "../../../../hooks/useError";
 
 const QuickStart = () => {
   const navigate = useNavigate();
-
+  const errorHandler = useError();
   const { mutate: searchRoom } = useMutation(() => RoomAPI.quickStart(), {
     onSuccess: ({ data }) => {
       navigate(`/game/${data}`);
     },
     onError: (error) => {
-      navigate("/error");
+      errorHandler(error);
     },
   });
 

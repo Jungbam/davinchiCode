@@ -6,20 +6,20 @@ import styled from "styled-components";
 import { SignAPI } from "../../api/axios";
 import { PAGE } from "../../helpers/IndexPage";
 import { queryKeys } from "../../helpers/queryKeys";
+import { useError } from "../../hooks/useError";
 import { setUser } from "../../redux/modules/signSlice";
 import SetUserInfo from "../intro/kakao/SetUserInfo";
 
 const Profile = () => {
   const dispatch = useDispatch();
+  const errorHandler = useError();
   const navigate = useNavigate();
 
   const { data, isLoading } = useQuery([queryKeys.MYINFO], SignAPI.myinfo, {
     onSuccess: (res) => {
       dispatch(setUser(res.data));
     },
-    onError: () => {
-      navigate("/intro");
-    },
+    onError: (error) => errorHandler(error),
     staleTime: 60 * 60 * 1000,
     cacheTime: 60 * 60 * 1000,
   });
