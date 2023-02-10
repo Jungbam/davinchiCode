@@ -24,7 +24,7 @@ const IntroTile = ({ selectTile }) => {
   const blackList = countBlackBtn.filter((el, i) => i < num + 1);
 
   useEffect(() => {
-    if (roomInfo?.memebers === 4) setNum(3);
+    if (roomInfo?.members === 4) setNum(3);
     else setNum(4);
   }, [roomInfo]);
 
