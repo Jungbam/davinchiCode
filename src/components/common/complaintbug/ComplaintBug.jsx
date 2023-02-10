@@ -14,7 +14,8 @@ const ComplaintBug = ({ closeModal }) => {
     setInput({ ...input, [name]: value });
   };
 
-  const closeModalHandler = () => {
+  const closeModalHandler = (e) => {
+    e.preventDefault();
     closeModal();
     setInput({ name: "", reply_to: "", message: "" });
   };
@@ -84,7 +85,7 @@ const ComplaintBug = ({ closeModal }) => {
             <StVali>입력되지 않은 항목이 존재합니다.(e-mail 형식 준수)</StVali>
           )}
           <StBtnArea>
-            <StButton type="cancel" onClick={closeModal}>
+            <StButton type="cancel" onClick={closeModalHandler}>
               취소
             </StButton>
             {input.name.length &&
