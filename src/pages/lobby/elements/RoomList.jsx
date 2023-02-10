@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import RoomContents from "./roomListDetail/RoomContents";
 import { useState } from "react";
@@ -26,6 +26,7 @@ const RoomList = () => {
   const [isWaiting, setIsWaiting] = useState(false);
   const [isPrivate, setIsPrivate] = useState(false);
   const [showCreateRoom, setShowCreateRoom] = useState(false);
+  const refetchInterval = useRef(null);
   const arrLoop = (currentPage) => {
     const newArr = [];
     const pageGroup = Math.ceil(currentPage / 5);
@@ -82,6 +83,13 @@ const RoomList = () => {
   useEffect(() => {
     searchRoom();
   }, [isWaiting, isPrivate]);
+
+  useEffect(() => {
+    refetchInterval.current = setInterval(() => {
+      searchRoom();
+    }, 1000);
+    return () => clearInterval(refetchInterval.current);
+  }, []);
 
   return (
     <StWrapper>
