@@ -9,6 +9,7 @@
 시연영상 : https://www.youtube.com/watch?v=gvsg2lnp1Ns
 
 ★ 버그신고는 게임 내 버그신고 버튼을 통해서 신고해주시면 감사하겠습니다.
+
 ★ 현재 해결중인 버그는 이슈에서, 해결된 이슈들은 위키에서 확인하실 수 있습니다.
 
 Front-End 코드 컨벤
@@ -101,7 +102,3 @@ Front-End 코드 컨벤
    ⑧ 라이브러리 사용시 미리 회의 후 사용 / 개별 테스트는 feature/페이지\_기능에서 사용(회의 전 feature/페이지로 PR x)
 
    ⑨ 배열함수 사용시 ((el)=>el.map((item)=> ) )
-
-5. 폴더 구조
-
-   ![폴더](https://user-images.githubusercontent.com/108196588/210312994-c2b5cb92-04d9-459e-af38-397103f09436.jpg)
