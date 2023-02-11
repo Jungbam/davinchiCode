@@ -6,7 +6,12 @@
 
 게임 즐기러가기 : https://davinci-code.online/
 
-시연영상 : https://www.youtube.com/watch?v=gvsg2lnp1Ns
+발표영상(최초버전) : https://www.youtube.com/watch?v=gvsg2lnp1Ns
+
+최신버전 시연영상 : https://www.youtube.com/watch?v=0dfn7j7eU3U
+
+=> 개선사항 : WIKI(https://github.com/DaVinciCodeGame/frontend/wiki/%EC%9C%A0%EC%A0%80-%ED%85%8C%EC%8A%A4%ED%8A%B8-%EA%B2%B0%EA%B3%BC)
+
 
 ★ 버그신고는 게임 내 버그신고 버튼을 통해서 신고해주시면 감사하겠습니다.
 
