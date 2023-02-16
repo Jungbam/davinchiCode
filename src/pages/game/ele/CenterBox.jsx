@@ -183,7 +183,7 @@ const CenterBox = ({ socket, userId }) => {
       dispatch(setRoom(roomInfo));
     });
     return () => {};
-  }, []);
+  }, [socket.current]);
 
   return (
     <StWrapper>
