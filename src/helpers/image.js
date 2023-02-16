@@ -10,7 +10,6 @@ import GameIntro from "../assets/images/game_intro.webp";
 import userProfile from "../assets/images/user-profile.png";
 import otherUserBackground from "../assets/images/otherUserBackground.png";
 import gameError from "../assets/images/game_error.png";
-import gameBackground from "../assets/images/game_background.png";
 import otherUserBackgroundgameout from "../assets/images/otherUserBackground_gameout.png";
 import otherUserBackgroundNone from "../assets/images/otherUserBackgroundNone.png";
 import background from "../assets/images/background.png";
@@ -31,7 +30,6 @@ export const IMG = {
   otherUserBackground,
   otherUserBackgroundgameout,
   otherUserBackgroundNone,
-  gameBackground,
   background,
   myUserBackground,
   myUserBackgroundgameout,
