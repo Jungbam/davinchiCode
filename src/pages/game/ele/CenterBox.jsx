@@ -26,17 +26,18 @@ import useSounds from "../../../hooks/useSounds";
 import NoSecurity from "../logic/NoSecurity";
 
 import Turn from "../logic/Turn";
+import { useCallback } from "react";
 const CenterBox = ({ socket, userId }) => {
   const SoundEffect = useSounds();
+  const readyHandler = useCallback(() => {
+    socket.current.emit(eventName.READY);
+  }, [socket]);
   const [gameView, setGameView] = useState(
     <Ready readyHandler={readyHandler} goSelecetTile={goSelecetTile} />
   );
   const [ending, setEnding] = useState(false);
   const dispatch = useDispatch();
 
-  function readyHandler() {
-    socket.current.emit(eventName.READY);
-  }
   function goSelecetTile() {
     setGameView(<IntroTile selectTile={selectTile} />);
   }

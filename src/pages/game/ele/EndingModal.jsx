@@ -20,19 +20,19 @@ const EndingModal = ({ ending = true, endingHandler = () => {} }) => {
       <StWrapper padding="30px" gap="26px">
         <Stimg src={ICON.RankGameOver} alt="게임오버" />
         <StUserContainer>
-          <EndingUser val={true} user={endingInfo[0]} rank={1} />
+          <EndingUser val={"true"} user={endingInfo[0]} rank={1} />
           {endingInfo[1] ? (
-            <EndingUser val={false} user={endingInfo[1]} rank={2} />
+            <EndingUser val={"false"} user={endingInfo[1]} rank={2} />
           ) : (
             <StRankNullBox></StRankNullBox>
           )}
           {endingInfo[2] ? (
-            <EndingUser val={false} user={endingInfo[2]} rank={3} />
+            <EndingUser val={"false"} user={endingInfo[2]} rank={3} />
           ) : (
             <StRankNullBox></StRankNullBox>
           )}
           {endingInfo[3] ? (
-            <EndingUser val={false} user={endingInfo[3]} rank={4} />
+            <EndingUser val={"false"} user={endingInfo[3]} rank={4} />
           ) : (
             <StRankNullBox></StRankNullBox>
           )}

@@ -6,7 +6,7 @@ import Modal from "../../../components/form/modal/Modal";
 import GameOver from "./GameOver";
 import { ICON } from "../../../helpers/Icons";
 import { Sounds } from "../../../helpers/sounds";
-const Timer = ({ timeOver }) => {
+const Timer = React.memo(({ timeOver }) => {
   const [gameOver, setGameOver] = useState(false);
   const [second, setSecond] = useState(String(30));
   const { trigger } = useSelector((state) => state.gameSlice);
@@ -58,7 +58,7 @@ const Timer = ({ timeOver }) => {
       <StSecond second={second}>남은시간 {second}초</StSecond>
     </StTimer>
   );
-};
+});
 Timer.defaultProps = {
   timeOver: () => {
     alert("시간오버");
