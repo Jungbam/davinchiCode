@@ -1,12 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import IntroTile from "../logic/IntroTile";
-import Ready from "../logic/Ready";
 import { eventName } from "../../../helpers/eventName";
 import { useDispatch } from "react-redux";
-import Turn from "../logic/Turn";
-import SystemMessage from "../logic/SystemMessage";
-import SelectPosition from "../logic/SelectPosition";
+import { useEffect } from "react";
 import {
   setEndingInfo,
   setGameStart,
@@ -19,13 +15,17 @@ import {
 } from "../../../redux/modules/gameSlice";
 import Indicate from "../logic/Indicate";
 import SelectIndicatedUser from "../logic/SelectIndicatedUser";
+import SystemMessage from "../logic/SystemMessage";
+import SelectPosition from "../logic/SelectPosition";
 import ResultSelect from "../logic/ResultSelect";
 import GoStop from "../logic/GoStop";
-import { useEffect } from "react";
+import Ready from "../logic/Ready";
+import IntroTile from "../logic/IntroTile";
 import EndingModal from "./EndingModal";
 import useSounds from "../../../hooks/useSounds";
 import NoSecurity from "../logic/NoSecurity";
 
+import Turn from "../logic/Turn";
 const CenterBox = ({ socket, userId }) => {
   const SoundEffect = useSounds();
   const [gameView, setGameView] = useState(
@@ -183,7 +183,7 @@ const CenterBox = ({ socket, userId }) => {
       dispatch(setRoom(roomInfo));
     });
     return () => {};
-  }, [socket.current]);
+  }, []);
 
   return (
     <StWrapper>
