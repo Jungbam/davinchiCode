@@ -37,6 +37,7 @@ const Moddal = ({ modal, width, height, closeModal, children }) => {
                 whileHover="hover"
                 onClick={closeModal}
                 src={exitModal}
+                alt="닫기"
               />
             </StBtnArea>
             {children}

@@ -41,6 +41,7 @@ const Header = () => {
       </Moddal>
       <NavbarInside>
         <StImg
+          alt="로고"
           width={150}
           src={ICON.iconLobbyLogo}
           initial={{ x: -500 }}
