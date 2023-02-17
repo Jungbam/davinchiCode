@@ -41,7 +41,11 @@
 
    ① 배포과정에서 지속적 배포가 되도록 
 
-Front-End 코드 컨벤
+최고의 프로젝트 상
+
+![최고의 프로젝트상](https://user-images.githubusercontent.com/108196588/219666318-da589180-28d6-4058-a34c-1c35acf568b1.jpg)
+
+Front-End 코드 컨벤션
 
 1. 회의 / 진행도 체크
 
