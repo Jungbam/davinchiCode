@@ -8,7 +8,7 @@ import imageCompression from "browser-image-compression";
 const SetUserInfo = ({ closeModal, userInfo }) => {
   const [profileImg, setProfileImg] = useState(userInfo?.profileImageUrl);
   const [newProfileImg, setNewProfileImg] = useState(null);
-  const [userName, setNickName] = useState(userInfo?.username);
+  const [userName] = useState(userInfo?.username);
   const [newNick, setNewNick] = useState(null);
 
   const imgRef = useRef();

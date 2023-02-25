@@ -13,6 +13,9 @@ import {
   setTrigger,
   setUsers,
 } from "../../../redux/modules/gameSlice";
+
+// 메모이제이션 작업
+
 import Indicate from "../logic/Indicate";
 import SelectIndicatedUser from "../logic/SelectIndicatedUser";
 import SystemMessage from "../logic/SystemMessage";

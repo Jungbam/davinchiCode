@@ -16,6 +16,8 @@ import background from "../assets/images/background.png";
 import myUserBackground from "../assets/images/myUserBackground.png";
 import myUserBackgroundgameout from "../assets/images/myUserBackground_gameout.png";
 
+// 코드 스플리팅
+
 export const IMG = {
   GameInfo1,
   GameInfo2,
