@@ -110,7 +110,7 @@ const SetUserInfo = ({ closeModal, userInfo }) => {
         </StBox>
         <StBtnList>
           <StButton color="#FFf" type="cancel" onClick={closeHandler}>
-            취소
+            다음에 변경하기
           </StButton>
           {!newNick && !newProfileImg ? (
             <StButton color="#ddd" type="submit" disabled>
