@@ -1,135 +1,10 @@
-import xlblackBack from "../assets/icons/tiles/xl/back_black.png";
-import xlblack0 from "../assets/icons/tiles/xl/0_black.png";
-import xlblack1 from "../assets/icons/tiles/xl/1_black.png";
-import xlblack2 from "../assets/icons/tiles/xl/2_black.png";
-import xlblack3 from "../assets/icons/tiles/xl/3_black.png";
-import xlblack4 from "../assets/icons/tiles/xl/4_black.png";
-import xlblack5 from "../assets/icons/tiles/xl/5_black.png";
-import xlblack6 from "../assets/icons/tiles/xl/6_black.png";
-import xlblack7 from "../assets/icons/tiles/xl/7_black.png";
-import xlblack8 from "../assets/icons/tiles/xl/8_black.png";
-import xlblack9 from "../assets/icons/tiles/xl/9_black.png";
-import xlblack10 from "../assets/icons/tiles/xl/10_black.png";
-import xlblack11 from "../assets/icons/tiles/xl/11_black.png";
-import xlblack12 from "../assets/icons/tiles/xl/joker_black.png";
-
-import xlwhiteBack from "../assets/icons/tiles/xl/back_white.png";
-import xlwhite0 from "../assets/icons/tiles/xl/0_white.png";
-import xlwhite1 from "../assets/icons/tiles/xl/1_white.png";
-import xlwhite2 from "../assets/icons/tiles/xl/2_white.png";
-import xlwhite3 from "../assets/icons/tiles/xl/3_white.png";
-import xlwhite4 from "../assets/icons/tiles/xl/4_white.png";
-import xlwhite5 from "../assets/icons/tiles/xl/5_white.png";
-import xlwhite6 from "../assets/icons/tiles/xl/6_white.png";
-import xlwhite7 from "../assets/icons/tiles/xl/7_white.png";
-import xlwhite8 from "../assets/icons/tiles/xl/8_white.png";
-import xlwhite9 from "../assets/icons/tiles/xl/9_white.png";
-import xlwhite10 from "../assets/icons/tiles/xl/10_white.png";
-import xlwhite11 from "../assets/icons/tiles/xl/11_white.png";
-import xlwhite12 from "../assets/icons/tiles/xl/joker_white.png";
-
-import smblackBack from "../assets/icons/tiles/sm/b_back.png";
-import smblack0 from "../assets/icons/tiles/sm/b_0.png";
-import smblack1 from "../assets/icons/tiles/sm/b_1.png";
-import smblack2 from "../assets/icons/tiles/sm/b_2.png";
-import smblack3 from "../assets/icons/tiles/sm/b_3.png";
-import smblack4 from "../assets/icons/tiles/sm/b_4.png";
-import smblack5 from "../assets/icons/tiles/sm/b_5.png";
-import smblack6 from "../assets/icons/tiles/sm/b_6.png";
-import smblack7 from "../assets/icons/tiles/sm/b_7.png";
-import smblack8 from "../assets/icons/tiles/sm/b_8.png";
-import smblack9 from "../assets/icons/tiles/sm/b_9.png";
-import smblack10 from "../assets/icons/tiles/sm/b_10.png";
-import smblack11 from "../assets/icons/tiles/sm/b_11.png";
-import smblack12 from "../assets/icons/tiles/sm/b_joker.png";
-
-import smwhiteBack from "../assets/icons/tiles/sm/w_back.png";
-import smwhite0 from "../assets/icons/tiles/sm/w_0.png";
-import smwhite1 from "../assets/icons/tiles/sm/w_1.png";
-import smwhite2 from "../assets/icons/tiles/sm/w_2.png";
-import smwhite3 from "../assets/icons/tiles/sm/w_3.png";
-import smwhite4 from "../assets/icons/tiles/sm/w_4.png";
-import smwhite5 from "../assets/icons/tiles/sm/w_5.png";
-import smwhite6 from "../assets/icons/tiles/sm/w_6.png";
-import smwhite7 from "../assets/icons/tiles/sm/w_7.png";
-import smwhite8 from "../assets/icons/tiles/sm/w_8.png";
-import smwhite9 from "../assets/icons/tiles/sm/w_9.png";
-import smwhite10 from "../assets/icons/tiles/sm/w_10.png";
-import smwhite11 from "../assets/icons/tiles/sm/w_11.png";
-import smwhite12 from "../assets/icons/tiles/sm/w_joker.png";
-
-import mdblackBack from "../assets/icons/tiles/md/b_back.png";
-import mdblack0 from "../assets/icons/tiles/md/b_0.png";
-import mdblack1 from "../assets/icons/tiles/md/b_1.png";
-import mdblack2 from "../assets/icons/tiles/md/b_2.png";
-import mdblack3 from "../assets/icons/tiles/md/b_3.png";
-import mdblack4 from "../assets/icons/tiles/md/b_4.png";
-import mdblack5 from "../assets/icons/tiles/md/b_5.png";
-import mdblack6 from "../assets/icons/tiles/md/b_6.png";
-import mdblack7 from "../assets/icons/tiles/md/b_7.png";
-import mdblack8 from "../assets/icons/tiles/md/b_8.png";
-import mdblack9 from "../assets/icons/tiles/md/b_9.png";
-import mdblack10 from "../assets/icons/tiles/md/b_10.png";
-import mdblack11 from "../assets/icons/tiles/md/b_11.png";
-import mdblack12 from "../assets/icons/tiles/md/b_joker.png";
-
-import mdwhiteBack from "../assets/icons/tiles/md/w_back.png";
-import mdwhite0 from "../assets/icons/tiles/md/w_0.png";
-import mdwhite1 from "../assets/icons/tiles/md/w_1.png";
-import mdwhite2 from "../assets/icons/tiles/md/w_2.png";
-import mdwhite3 from "../assets/icons/tiles/md/w_3.png";
-import mdwhite4 from "../assets/icons/tiles/md/w_4.png";
-import mdwhite5 from "../assets/icons/tiles/md/w_5.png";
-import mdwhite6 from "../assets/icons/tiles/md/w_6.png";
-import mdwhite7 from "../assets/icons/tiles/md/w_7.png";
-import mdwhite8 from "../assets/icons/tiles/md/w_8.png";
-import mdwhite9 from "../assets/icons/tiles/md/w_9.png";
-import mdwhite10 from "../assets/icons/tiles/md/w_10.png";
-import mdwhite11 from "../assets/icons/tiles/md/w_11.png";
-import mdwhite12 from "../assets/icons/tiles/md/w_joker.png";
-
-import lgblackBack from "../assets/icons/tiles/lg/b_back.png";
-import lgblack0 from "../assets/icons/tiles/lg/b_0.png";
-import lgblack1 from "../assets/icons/tiles/lg/b_1.png";
-import lgblack2 from "../assets/icons/tiles/lg/b_2.png";
-import lgblack3 from "../assets/icons/tiles/lg/b_3.png";
-import lgblack4 from "../assets/icons/tiles/lg/b_4.png";
-import lgblack5 from "../assets/icons/tiles/lg/b_5.png";
-import lgblack6 from "../assets/icons/tiles/lg/b_6.png";
-import lgblack7 from "../assets/icons/tiles/lg/b_7.png";
-import lgblack8 from "../assets/icons/tiles/lg/b_8.png";
-import lgblack9 from "../assets/icons/tiles/lg/b_9.png";
-import lgblack10 from "../assets/icons/tiles/lg/b_10.png";
-import lgblack11 from "../assets/icons/tiles/lg/b_11.png";
-import lgblack12 from "../assets/icons/tiles/lg/b_joker.png";
-
-import lgwhiteBack from "../assets/icons/tiles/lg/w_back.png";
-import lgwhite0 from "../assets/icons/tiles/lg/w_0.png";
-import lgwhite1 from "../assets/icons/tiles/lg/w_1.png";
-import lgwhite2 from "../assets/icons/tiles/lg/w_2.png";
-import lgwhite3 from "../assets/icons/tiles/lg/w_3.png";
-import lgwhite4 from "../assets/icons/tiles/lg/w_4.png";
-import lgwhite5 from "../assets/icons/tiles/lg/w_5.png";
-import lgwhite6 from "../assets/icons/tiles/lg/w_6.png";
-import lgwhite7 from "../assets/icons/tiles/lg/w_7.png";
-import lgwhite8 from "../assets/icons/tiles/lg/w_8.png";
-import lgwhite9 from "../assets/icons/tiles/lg/w_9.png";
-import lgwhite10 from "../assets/icons/tiles/lg/w_10.png";
-import lgwhite11 from "../assets/icons/tiles/lg/w_11.png";
-import lgwhite12 from "../assets/icons/tiles/lg/w_joker.png";
-
+import React from "react";
 import iconRefresh from "../assets/icons/ico_refresh.svg";
-import iconSetting from "../assets/icons/ico_setting.svg";
-import iconVideocam from "../assets/icons/ico_videocam.svg";
-import iconMic from "../assets/icons/ico_mic.svg";
 import iconTimer from "../assets/icons/ico_timer.svg";
 import iconSend from "../assets/icons/ico_send.svg";
 import iconAlert from "../assets/icons/info-circle.svg";
 import iconUnlock from "../assets/icons/ico_lobby_unlock.svg";
 import iconLock from "../assets/icons/ico_lobby_lock.svg";
-import iconScoreStable from "../assets/icons/ico_score_stable.svg";
-import iconScoreMinus from "../assets/icons/ico_score_minus.svg";
-import iconScorePlus from "../assets/icons/ico_score_plus.svg";
 import iconDropDown from "../assets/icons/arrow_dropdown.svg";
 import iconSearch from "../assets/icons/ico_search.svg";
 import iconCheckBoxBlank from "../assets/icons/check_box_blank.svg";
@@ -152,10 +27,135 @@ import RankThird from "../assets/images/rank/rankthird.png";
 import RankForth from "../assets/images/rank/rankfourth.png";
 import RankGameOver from "../assets/images/rank/gameover.png";
 
+const xlblackBack = React.lazy(
+  import("../assets/icons/tiles/xl/back_black.png")
+);
+const xlblack0 = React.lazy(import("../assets/icons/tiles/xl/0_black.png"));
+const xlblack1 = React.lazy(import("../assets/icons/tiles/xl/1_black.png"));
+const xlblack2 = React.lazy(import("../assets/icons/tiles/xl/2_black.png"));
+const xlblack3 = React.lazy(import("../assets/icons/tiles/xl/3_black.png"));
+const xlblack4 = React.lazy(import("../assets/icons/tiles/xl/4_black.png"));
+const xlblack5 = React.lazy(import("../assets/icons/tiles/xl/5_black.png"));
+const xlblack6 = React.lazy(import("../assets/icons/tiles/xl/6_black.png"));
+const xlblack7 = React.lazy(import("../assets/icons/tiles/xl/7_black.png"));
+const xlblack8 = React.lazy(import("../assets/icons/tiles/xl/8_black.png"));
+const xlblack9 = React.lazy(import("../assets/icons/tiles/xl/9_black.png"));
+const xlblack10 = React.lazy(import("../assets/icons/tiles/xl/10_black.png"));
+const xlblack11 = React.lazy(import("../assets/icons/tiles/xl/11_black.png"));
+const xlblack12 = React.lazy(
+  import("../assets/icons/tiles/xl/joker_black.png")
+);
+
+const xlwhiteBack = React.lazy(
+  import("../assets/icons/tiles/xl/back_white.png")
+);
+const xlwhite0 = React.lazy(import("../assets/icons/tiles/xl/0_white.png"));
+const xlwhite1 = React.lazy(import("../assets/icons/tiles/xl/1_white.png"));
+const xlwhite2 = React.lazy(import("../assets/icons/tiles/xl/2_white.png"));
+const xlwhite3 = React.lazy(import("../assets/icons/tiles/xl/3_white.png"));
+const xlwhite4 = React.lazy(import("../assets/icons/tiles/xl/4_white.png"));
+const xlwhite5 = React.lazy(import("../assets/icons/tiles/xl/5_white.png"));
+const xlwhite6 = React.lazy(import("../assets/icons/tiles/xl/6_white.png"));
+const xlwhite7 = React.lazy(import("../assets/icons/tiles/xl/7_white.png"));
+const xlwhite8 = React.lazy(import("../assets/icons/tiles/xl/8_white.png"));
+const xlwhite9 = React.lazy(import("../assets/icons/tiles/xl/9_white.png"));
+const xlwhite10 = React.lazy(import("../assets/icons/tiles/xl/10_white.png"));
+const xlwhite11 = React.lazy(import("../assets/icons/tiles/xl/11_white.png"));
+const xlwhite12 = React.lazy(
+  import("../assets/icons/tiles/xl/joker_white.png")
+);
+
+const smblackBack = React.lazy(import("../assets/icons/tiles/sm/b_back.png"));
+const smblack0 = React.lazy(import("../assets/icons/tiles/sm/b_0.png"));
+const smblack1 = React.lazy(import("../assets/icons/tiles/sm/b_1.png"));
+const smblack2 = React.lazy(import("../assets/icons/tiles/sm/b_2.png"));
+const smblack3 = React.lazy(import("../assets/icons/tiles/sm/b_3.png"));
+const smblack4 = React.lazy(import("../assets/icons/tiles/sm/b_4.png"));
+const smblack5 = React.lazy(import("../assets/icons/tiles/sm/b_5.png"));
+const smblack6 = React.lazy(import("../assets/icons/tiles/sm/b_6.png"));
+const smblack7 = React.lazy(import("../assets/icons/tiles/sm/b_7.png"));
+const smblack8 = React.lazy(import("../assets/icons/tiles/sm/b_8.png"));
+const smblack9 = React.lazy(import("../assets/icons/tiles/sm/b_9.png"));
+const smblack10 = React.lazy(import("../assets/icons/tiles/sm/b_10.png"));
+const smblack11 = React.lazy(import("../assets/icons/tiles/sm/b_11.png"));
+const smblack12 = React.lazy(import("../assets/icons/tiles/sm/b_joker.png"));
+
+const smwhiteBack = React.lazy(import("../assets/icons/tiles/sm/w_back.png"));
+const smwhite0 = React.lazy(import("../assets/icons/tiles/sm/w_0.png"));
+const smwhite1 = React.lazy(import("../assets/icons/tiles/sm/w_1.png"));
+const smwhite2 = React.lazy(import("../assets/icons/tiles/sm/w_2.png"));
+const smwhite3 = React.lazy(import("../assets/icons/tiles/sm/w_3.png"));
+const smwhite4 = React.lazy(import("../assets/icons/tiles/sm/w_4.png"));
+const smwhite5 = React.lazy(import("../assets/icons/tiles/sm/w_5.png"));
+const smwhite6 = React.lazy(import("../assets/icons/tiles/sm/w_6.png"));
+const smwhite7 = React.lazy(import("../assets/icons/tiles/sm/w_7.png"));
+const smwhite8 = React.lazy(import("../assets/icons/tiles/sm/w_8.png"));
+const smwhite9 = React.lazy(import("../assets/icons/tiles/sm/w_9.png"));
+const smwhite10 = React.lazy(import("../assets/icons/tiles/sm/w_10.png"));
+const smwhite11 = React.lazy(import("../assets/icons/tiles/sm/w_11.png"));
+const smwhite12 = React.lazy(import("../assets/icons/tiles/sm/w_joker.png"));
+
+const mdblackBack = React.lazy(import("../assets/icons/tiles/md/b_back.png"));
+const mdblack0 = React.lazy(import("../assets/icons/tiles/md/b_0.png"));
+const mdblack1 = React.lazy(import("../assets/icons/tiles/md/b_1.png"));
+const mdblack2 = React.lazy(import("../assets/icons/tiles/md/b_2.png"));
+const mdblack3 = React.lazy(import("../assets/icons/tiles/md/b_3.png"));
+const mdblack4 = React.lazy(import("../assets/icons/tiles/md/b_4.png"));
+const mdblack5 = React.lazy(import("../assets/icons/tiles/md/b_5.png"));
+const mdblack6 = React.lazy(import("../assets/icons/tiles/md/b_6.png"));
+const mdblack7 = React.lazy(import("../assets/icons/tiles/md/b_7.png"));
+const mdblack8 = React.lazy(import("../assets/icons/tiles/md/b_8.png"));
+const mdblack9 = React.lazy(import("../assets/icons/tiles/md/b_9.png"));
+const mdblack10 = React.lazy(import("../assets/icons/tiles/md/b_10.png"));
+const mdblack11 = React.lazy(import("../assets/icons/tiles/md/b_11.png"));
+const mdblack12 = React.lazy(import("../assets/icons/tiles/md/b_joker.png"));
+
+const mdwhiteBack = React.lazy(import("../assets/icons/tiles/md/w_back.png"));
+const mdwhite0 = React.lazy(import("../assets/icons/tiles/md/w_0.png"));
+const mdwhite1 = React.lazy(import("../assets/icons/tiles/md/w_1.png"));
+const mdwhite2 = React.lazy(import("../assets/icons/tiles/md/w_2.png"));
+const mdwhite3 = React.lazy(import("../assets/icons/tiles/md/w_3.png"));
+const mdwhite4 = React.lazy(import("../assets/icons/tiles/md/w_4.png"));
+const mdwhite5 = React.lazy(import("../assets/icons/tiles/md/w_5.png"));
+const mdwhite6 = React.lazy(import("../assets/icons/tiles/md/w_6.png"));
+const mdwhite7 = React.lazy(import("../assets/icons/tiles/md/w_7.png"));
+const mdwhite8 = React.lazy(import("../assets/icons/tiles/md/w_8.png"));
+const mdwhite9 = React.lazy(import("../assets/icons/tiles/md/w_9.png"));
+const mdwhite10 = React.lazy(import("../assets/icons/tiles/md/w_10.png"));
+const mdwhite11 = React.lazy(import("../assets/icons/tiles/md/w_11.png"));
+const mdwhite12 = React.lazy(import("../assets/icons/tiles/md/w_joker.png"));
+
+const lgblackBack = React.lazy(import("../assets/icons/tiles/lg/b_back.png"));
+const lgblack0 = React.lazy(import("../assets/icons/tiles/lg/b_0.png"));
+const lgblack1 = React.lazy(import("../assets/icons/tiles/lg/b_1.png"));
+const lgblack2 = React.lazy(import("../assets/icons/tiles/lg/b_2.png"));
+const lgblack3 = React.lazy(import("../assets/icons/tiles/lg/b_3.png"));
+const lgblack4 = React.lazy(import("../assets/icons/tiles/lg/b_4.png"));
+const lgblack5 = React.lazy(import("../assets/icons/tiles/lg/b_5.png"));
+const lgblack6 = React.lazy(import("../assets/icons/tiles/lg/b_6.png"));
+const lgblack7 = React.lazy(import("../assets/icons/tiles/lg/b_7.png"));
+const lgblack8 = React.lazy(import("../assets/icons/tiles/lg/b_8.png"));
+const lgblack9 = React.lazy(import("../assets/icons/tiles/lg/b_9.png"));
+const lgblack10 = React.lazy(import("../assets/icons/tiles/lg/b_10.png"));
+const lgblack11 = React.lazy(import("../assets/icons/tiles/lg/b_11.png"));
+const lgblack12 = React.lazy(import("../assets/icons/tiles/lg/b_joker.png"));
+
+const lgwhiteBack = React.lazy(import("../assets/icons/tiles/lg/w_back.png"));
+const lgwhite0 = React.lazy(import("../assets/icons/tiles/lg/w_0.png"));
+const lgwhite1 = React.lazy(import("../assets/icons/tiles/lg/w_1.png"));
+const lgwhite2 = React.lazy(import("../assets/icons/tiles/lg/w_2.png"));
+const lgwhite3 = React.lazy(import("../assets/icons/tiles/lg/w_3.png"));
+const lgwhite4 = React.lazy(import("../assets/icons/tiles/lg/w_4.png"));
+const lgwhite5 = React.lazy(import("../assets/icons/tiles/lg/w_5.png"));
+const lgwhite6 = React.lazy(import("../assets/icons/tiles/lg/w_6.png"));
+const lgwhite7 = React.lazy(import("../assets/icons/tiles/lg/w_7.png"));
+const lgwhite8 = React.lazy(import("../assets/icons/tiles/lg/w_8.png"));
+const lgwhite9 = React.lazy(import("../assets/icons/tiles/lg/w_9.png"));
+const lgwhite10 = React.lazy(import("../assets/icons/tiles/lg/w_10.png"));
+const lgwhite11 = React.lazy(import("../assets/icons/tiles/lg/w_11.png"));
+const lgwhite12 = React.lazy(import("../assets/icons/tiles/lg/w_joker.png"));
+
 export const ICON = {
-  iconSetting,
-  iconVideocam,
-  iconMic,
   iconTimer,
   iconSend,
   arrowLeft,
@@ -175,9 +175,6 @@ export const ICON = {
   iconAlert,
   iconUnlock,
   iconLock,
-  iconScoreStable,
-  iconScoreMinus,
-  iconScorePlus,
   iconRefresh,
   iconDropDown,
   iconSearch,

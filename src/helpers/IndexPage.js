@@ -1,22 +1,25 @@
-import ErrorPage from "../pages/error/ErrorPage";
-import Game from "../pages/game/Game";
+import React from "react";
 import AuthPage from "../pages/intro/AuthPage";
 import Intro from "../pages/intro/Intro";
-import KakaoDel from "../pages/intro/kakao/KakaoDel";
 import KakaoSign from "../pages/intro/kakao/KakaoSign";
 import Loading from "../pages/loading/Loading";
 import Lobby from "../pages/lobby/Lobby";
-import Profile from "../pages/profile/Profile";
-import ServerUpdate from "../pages/ServerUpdate/ServerUpdate";
+const Game = React.lazy(() => import("../pages/game/Game"));
+const ErrorPage = React.lazy(() => import("../pages/error/ErrorPage"));
+const Profile = React.lazy(() => import("../pages/profile/Profile"));
+const KakaoDel = React.lazy(() => import("../pages/intro/kakao/KakaoDel"));
+const ServerUpdate = React.lazy(() =>
+  import("../pages/ServerUpdate/ServerUpdate")
+);
 export const PAGE = {
+  Auth: <AuthPage />,
   Intro: <Intro />,
-  ErrorPage: <ErrorPage />,
   Loading: <Loading />,
   Lobby: <Lobby />,
-  Game: <Game />,
   KakaoSign: <KakaoSign />,
+  Game: <Game />,
+  Profile: <Profile />,
+  ErrorPage: <ErrorPage />,
   KakaoDel: <KakaoDel />,
-  SetUserInfo: <Profile />,
-  Auth: <AuthPage />,
   ServerUpdate: <ServerUpdate />,
 };

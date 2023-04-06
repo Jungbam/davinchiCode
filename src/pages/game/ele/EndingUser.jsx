@@ -109,10 +109,10 @@ const StRankBox = styled.div`
   border-radius: 4px;
   padding: 10px 20px;
   border: ${({ val }) => {
-    return val ? "1px solid #000" : "1px solid #ddd";
+    return val === "true" ? "1px solid #000" : "1px solid #ddd";
   }};
   background-color: ${({ val }) => {
-    return val ? "#ffdf24" : "#f1f1f1";
+    return val === "true" ? "#ffdf24" : "#f1f1f1";
   }};
 `;
 const StDescBox = styled.div`

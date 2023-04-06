@@ -6,13 +6,46 @@
 
 게임 즐기러가기 : https://davinci-code.online/
 
-시연영상 : https://www.youtube.com/watch?v=gvsg2lnp1Ns
+발표영상(최초버전) : https://www.youtube.com/watch?v=gvsg2lnp1Ns
+
+최신버전 시연영상 : https://www.youtube.com/watch?v=0dfn7j7eU3U
+
+=> 개선사항 : WIKI(https://github.com/DaVinciCodeGame/frontend/wiki/%EC%9C%A0%EC%A0%80-%ED%85%8C%EC%8A%A4%ED%8A%B8-%EA%B2%B0%EA%B3%BC)
+
 
 ★ 버그신고는 게임 내 버그신고 버튼을 통해서 신고해주시면 감사하겠습니다.
 
 ★ 현재 해결중인 버그는 이슈에서, 해결된 이슈들은 위키에서 확인하실 수 있습니다.
 
-Front-End 코드 컨벤
+기술적 의사결정
+
+1. React-query : 
+
+   ① 서버 상태관리(불필요한 axios 요청 최소화)
+
+   ② refetch, refetchInterval 등 제공하는 옵션을 통한 생산성 향상
+   
+   ③ 직관적이고 간결한 코딩 : onSuccess, onError, isLoading, isError 등을 활용한 직관적이고 간결한 코딩
+   
+2. Redux-toolkit :
+
+   ① 클라이언트 상태관리 툴을 선택하던 중 항해과정을 통해 익숙해져 있는 툴을 사용하기로 선택
+   
+3. SOCKET.IO :
+
+   ① 실시간 게임을 구현하기 위해서 http가 아닌 소켓 통신을 사용하기로 결정
+   
+   ② websocket으로 구현하는 것보다 SOCKET.IO가 제공하는 인스턴스를 활용하여 좀 더 쉽게 코드를 짜기로 결정
+   
+4. vercel :
+
+   ① 배포과정에서 지속적 배포가 되도록 
+
+최고의 프로젝트 상
+
+![최고의 프로젝트상](https://user-images.githubusercontent.com/108196588/219666318-da589180-28d6-4058-a34c-1c35acf568b1.jpg)
+
+Front-End 코드 컨벤션
 
 1. 회의 / 진행도 체크
 

@@ -17,7 +17,7 @@ const IndividualRanking = ({ users, status }) => {
         <StWrapper key={`individualRanking${i}`}>
           <StPlayerRanking>{el.ranking}</StPlayerRanking>
           <StRankDetail>
-            <StUserProfile src={el.profileImageUrl} />
+            <StUserProfile src={el.profileImageUrl} alt="프로필" />
             <StUserName>{el.username}</StUserName>
             <StUserScore>{numberWithCommas(el.score)}</StUserScore>
           </StRankDetail>

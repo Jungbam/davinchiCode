@@ -78,6 +78,8 @@ const Game = () => {
     };
   }, []);
 
+  // 메모이제이션
+
   return (
     <StWrapper>
       <Header />

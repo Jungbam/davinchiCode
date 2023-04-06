@@ -8,7 +8,7 @@ import imageCompression from "browser-image-compression";
 const SetUserInfo = ({ closeModal, userInfo }) => {
   const [profileImg, setProfileImg] = useState(userInfo?.profileImageUrl);
   const [newProfileImg, setNewProfileImg] = useState(null);
-  const [userName, setNickName] = useState(userInfo?.username);
+  const [userName] = useState(userInfo?.username);
   const [newNick, setNewNick] = useState(null);
 
   const imgRef = useRef();
@@ -110,7 +110,7 @@ const SetUserInfo = ({ closeModal, userInfo }) => {
         </StBox>
         <StBtnList>
           <StButton color="#FFf" type="cancel" onClick={closeHandler}>
-            취소
+            다음에 변경하기
           </StButton>
           {!newNick && !newProfileImg ? (
             <StButton color="#ddd" type="submit" disabled>

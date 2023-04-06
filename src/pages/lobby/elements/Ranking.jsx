@@ -59,7 +59,7 @@ const Ranking = () => {
           <StMyText>나의 랭킹</StMyText>
           <StPlayerRanking>{myData?.data.ranking}</StPlayerRanking>
           <StRankDetail>
-            <StUserProfile src={myData?.data.profileImageUrl} />
+            <StUserProfile src={myData?.data.profileImageUrl} alt="프로필" />
             <StRankDetailBox>
               <StUserName>{myData?.data.username}</StUserName>
               <StUserScore>{numberWithCommas(myData?.data.score)}</StUserScore>

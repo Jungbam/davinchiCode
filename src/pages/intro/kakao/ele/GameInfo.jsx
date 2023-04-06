@@ -38,6 +38,7 @@ const GameInfo = ({ closeModal }) => {
         whileHover="hover"
         onClick={closeModal}
         src={exitModal}
+        alt="닫기"
       />
       <StyledSlider {...settings}>
         <StBox>

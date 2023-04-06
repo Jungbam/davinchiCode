@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { SignAPI } from "../../api/axios";
 import { queryKeys } from "../../helpers/queryKeys";
@@ -13,7 +12,6 @@ import RoomList from "./elements/RoomList";
 import { useError } from "../../hooks/useError";
 
 const Lobby = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const errorHandler = useError();
   const { isLoading } = useQuery([queryKeys.MYINFO], SignAPI.myinfo, {
